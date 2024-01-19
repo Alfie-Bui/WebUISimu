@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Log in</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        font-family: "Arial" !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 14px;
+        /* background-image: url(images/wallpaper.jpg); */
+        background-image: url(login-data/wallpaper.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+        height: 100vh;
+      }
+
+      #msg,
+      #timer {
+        height: 52px;
+        background-color: #ff9c8d;
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        margin: 30px 0 20px 0;
+      }
+
+      #msg {
+        padding: 18px 0;
+      }
+
+      #timer {
+        padding: 10px 0;
+      }
+
+      .btn {
+        text-align: center;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin-top: 10px;
+        width: 100%;
+        height: 40px;
+        color: #ffffff;
+        background-color: #63cdf6;
+        border: solid 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn:hover,
+      .btn:focus {
+        text-decoration: none;
+      }
+
+      .btn:focus {
+        border: solid 1.5px #004f83;
+      }
+
+      .btn:active {
+        background-image: none;
+        color: #ffffff;
+        border: solid 1px #004f83;
+        background-color: #004f83;
+      }
+
+      .btn:disabled {
+        opacity: 0.5;
+      }
+
+      .panel {
+        width: 360px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+        border-radius: 4px;
+      }
+
+      .panel-body {
+        border-top: 1px solid #dee5ec;
+        padding-top: 30px;
+      }
+
+      .panel-heading {
+        text-align: center;
+        padding-bottom: 30px;
+      }
+
+      .panel-form {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        font-size: 12px;
+        color: #fff;
+      }
+
+      input {
+        width: 100%;
+        height: 40px;
+        background-color: #fff;
+        border: 1px solid #dee5ec;
+        border-radius: 4px;
+        padding: 13px 10px;
+        font-size: 12px;
+        color: #4b5057;
+        transition: all 0.3s;
+      }
+
+      input:focus {
+        border: solid 1.5px #004f83;
+      }
+
+      input:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      input::placeholder {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div xmlns="http://www.w3.org/1999/xhtml" class="panel">
+      <div class="panel-heading">
+        <!-- <img src="images/logo.svg"> -->
+        <img src="login-data/logo.svg" />
+      </div>
+      <div class="panel-body">
+        <div>
+          <div class="wrapperdiv panel-form">
+            <label>Username</label
+            ><input
+              type="text"
+              id="user"
+              name="user"
+              placeholder="Please enter username"
+            />
+          </div>
+          <div class="wrapperdiv panel-form">
+            <label>Password</label
+            ><input
+              type="password"
+              id="password"
+              name="pass"
+              placeholder="Please enter password"
+            />
+          </div>
+          <div id="timer">
+            <p style="margin: 0">
+              You have exceeded maximum invalid login attempts. Please try
+              loging in after : <span id="time"></span>
+            </p>
+          </div>
+          <div id="msg">
+            <p style="margin: 0; display: block">Invalid Login Credentials !</p>
+          </div>
+          <div class="wrapperdiv">
+            <button
+              class="btn waves-effect waves-light"
+              id="loginBtn"
+              type="submit"
+            >
+              Log In
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const loginBtn = document.getElementById("loginBtn");
+      const username = document.getElementById("user");
+      const password = document.getElementById("password");
+      var e = document.getElementById("timer");
+      e.style.display = "none";
+      var f = document.getElementById("msg");
+      f.style.display = "none";
+
+      function login() {
+        if (username.value === "admin" && password.value === "Gemtek@123") {
+          window.location = "index.html";
+        } else {
+          f.style.display = "block";
+        }
+      }
+
+      loginBtn.addEventListener("click", function () {
+        login();
+      });
+
+      // Event listener for 'Enter' key press
+      username.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+          password.focus(); // move down to password input field
+        }
+      });
+
+      password.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+          login();
+        }
+      });
+    </script>
+  </body>
+</html>

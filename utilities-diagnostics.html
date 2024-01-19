@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)#/custom/diagnose -->
+<html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+      }
+      ng\:form {
+        display: block;
+      }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
+
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
+
+    <script type="text/ng-template" id="firstDialogId">
+      <div class="ngdialog-message">
+      <form class="form-horizontal" role="form">
+      <!-- Modify: In Process Feature -->
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12" style="text-align:center;font-weight: bold;">
+      <!-- <input type="text" ng-model="$root.status" class="form-control" id="Status" placeholder="WPS Session Start" readonly/> -->
+          {{$root.status}}
+      </div>
+      </div>
+
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+      </div>
+      </div>
+      <!-- Modify -->
+      </form>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message">
+      <div>
+      {{$root.notifymessage}}
+      <div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="sessionTimeout">
+      <div class="ngdialog-message">
+      <div>
+      You have been logged out. Do you wish to continue?
+      </div>
+      <div>You will automatically be logged off in {{$root.time}} seconds.</div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      </div>
+    </script>
+
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/template.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/index.js"></script>
+  </head>
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0px, 0px, 0px);
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(-0.24523158371448517,-0.9694645404815674,0.9694645404815674,-0.24523158371448517,69.60111236572266,62.116119384765625)"
+              opacity="0.868296000000056"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M37.380001068115234,-30.100000381469727 C39.374000549316406,-27.62700080871582 41.12799835205078,-24.952999114990234 42.60599899291992,-22.113000869750977"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span>Please wait...</span>
+    </div>
+    <div id="main-wrapper" ng-controller="menuController" class="ng-scope">
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
+          </div>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+                                    <div class="no-padding-vr">
+                                        <ul class="notificationdiv">
+                                            <li class="theme1">Theme-1</li>
+                                            <li class="theme2">Theme-2</li>
+                                        </ul>
+                                    </div>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
+                                    <a style="overflow: hidden;white-space: nowrap;">
+                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                    </a>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="login.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span ng-click="Logout()">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    source="adv_homepage"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    source="pon_status"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    source="stats"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    source="wan_ipv4wanconnections"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    source="lan_ipaddressconfig"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    source="regid"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    source="adv_ssid"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    source="adv5_ssid"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    source="guestaccessview"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    source="NAT_DMZviewform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    source="virtualserver"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    source="porttriggerview"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    source="staticrouteview"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    source="managementserverview"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    source="algview"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    source="upnp"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    source="multicast_mcconfiguration"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    source="ipsecview"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    source="ddnsform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    source="firewall"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    source="parentalcontrol"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope open"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    source="userview"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    source="adminactions"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="diagnose-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    source="diagnose"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    source="speedtest"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    source="voip_config"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
+      </div>
+
+      <div id="content-wrapper" style="min-height: 879px">
+        <!-- ngView: true -->
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
+          <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+          <title class="ng-scope">Diagnostics</title>
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
+
+          <div id="translation" class="hide ng-scope">diagnose</div>
+          <!--Breadscrumbs starts here -->
+          <div class="row ltq_breadcrumbs ng-scope">
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1">
+                <!-- ngSwitchWhen: true -->
+              </ng-switch>
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1">
+                <!-- ngSwitchWhen: true -->
+                <h4 class="ng-binding ng-scope">Diagnostics</h4>
+                <!-- end ngSwitchWhen: -->
+              </ng-switch>
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first">
+                <!-- ngSwitchWhen: true -->
+                <div class="btn-group btn-breadcrumb1 ng-scope">
+                  <div class="ltq_brd_home">
+                    <a class="btn ng-binding" href="index.html">
+                      Home / Utilities
+                    </a>
+                  </div>
+                </div>
+                <!-- end ngSwitchWhen: -->
+
+                <!-- ngSwitchWhen: false -->
+              </ng-switch>
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first">
+                <!-- ngSwitchWhen: true -->
+
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
+                  >
+                    Diagnostics </span
+                  ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                  <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                </div>
+                <!-- end ngSwitchWhen: -->
+              </ng-switch>
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+          </div>
+          <!--Breadscrumbs ends here -->
+          <div class="subheader ng-scope">
+            <p
+              ng-bind="&#39;diagnose.headerdescription&#39; | translate"
+              class="ng-binding"
+            >
+              It provides you to perform diagnosis on sub-systems of your
+              device.
+            </p>
+          </div>
+          <div ng-controller="diagnosticsController" class="ng-scope">
+            <div class="row ng-hide" ng-show="ippingpopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;ippingpopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="traceroutepopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;traceroutepopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="routehopentriespopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;routehopentriespopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="traceroutedatapopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;traceroutedatapopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="ippingformnamepopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;ippingformnamepopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="startformnamepopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;startformnamepopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div>
+              <form
+                role="form"
+                name="diagnoseform"
+                class="ng-pristine ng-valid"
+              >
+                <div class="panel gemtek-diagnostics-panel">
+                  <div
+                    class="pael-heading gemtek-diagnostics-panel-heading no-padding-hr"
+                  >
+                    <span
+                      ng-bind="&#39;diagnose.Diagnose&#39; | translate"
+                      class="ng-binding"
+                      >System Diagnosis</span
+                    >
+                    <button
+                      class="button gemtek-diagnostics-restartBtn"
+                      id="Modify"
+                      value="Apply"
+                      ng-click="startData()"
+                      data-diff="100"
+                      title="Start"
+                    >
+                      <span
+                        ng-bind="&#39;Start&#39; | translate"
+                        class="ng-binding"
+                        >Restart</span
+                      >
+                    </button>
+                  </div>
+                  <div class="gemtek-pt-20 no-padding-hr">
+                    <div class="container-fluid gemtek-diagnose-content">
+                      <div class="row gemtek-mb-20">
+                        <div class="col-md-4 col-sm-12">
+                          <div class="gemtek-font-w900 gemtek-mb-10">
+                            <a
+                              class="diagnosetitle ng-binding"
+                              ng-bind="&#39;diagnose.LAN&#39; | translate"
+                              style="color: #4b5057"
+                              >LAN</a
+                            >
+                          </div>
+                          <ul class="gemtek-diagnostics-item-border">
+                            <li ng-show="$root.message" class="ng-hide">
+                              <div class="gemtek-diagnostics-list-title">
+                                <a
+                                  class="diagnosetitle ng-binding"
+                                  style="color: #4b5057"
+                                  ng-bind="&#39;diagnose.DSL&#39; | translate"
+                                  >DSL</a
+                                >
+                              </div>
+                              <ul>
+                                <li>
+                                  <div ng-show="loading">
+                                    <div class="pargraph">
+                                      <div class="gemtek-p10-align-center">
+                                        <span
+                                          ng-class="DeviceDSLLine1.LinkStatus == &#39;Up&#39; ? &#39;gemtek-diagnostics-up&#39; :&#39;gemtek-diagnostics-down&#39;"
+                                          class="gemtek-diagnostics-down"
+                                        >
+                                        </span>
+                                        <span class="ng-binding"> xDSL - </span>
+                                        <span class="ng-binding"></span>
+                                        <span class="ng-binding">
+                                          Status :
+                                        </span>
+                                        <span
+                                          ng-show="DeviceDSLLine1.LinkStatus == &#39;Up&#39;"
+                                          class="ng-binding ng-hide"
+                                          >, Speed : Kbps</span
+                                        >
+                                        <span
+                                          ng-show="DeviceDSLLine1.LinkStatus == &#39;Up&#39;"
+                                          class="ng-binding ng-hide"
+                                          >and Mode :
+                                        </span>
+                                      </div>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        forname="DeviceDSLLine1_LinkStatus"
+                                        ng-show="DeviceDSLLine1_LinkStatusresponsestatus"
+                                      >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        forname="DeviceDSLLine1_Name"
+                                        ng-show="DeviceDSLLine1_Nameresponsestatus"
+                                      >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        forname="DeviceDSLLine1_LineNumber"
+                                        ng-show="DeviceDSLLine1_LineNumberresponsestatus"
+                                      >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        forname="DeviceDSLLine1_UpstreamMaxBitRate"
+                                        ng-show="DeviceDSLLine1_UpstreamMaxBitRateresponsestatus"
+                                      >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        forname="DeviceDSLChannel1_LinkEncapsulationUsed"
+                                        ng-show="DeviceDSLChannel1_LinkEncapsulationUsedresponsestatus"
+                                      >
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <div
+                                    class="progress progress-striped active ng-hide"
+                                    ng-show="loading1"
+                                    style="min-width: 280px"
+                                  >
+                                    <div
+                                      class="progress-bar progress-bar-success"
+                                      role="progressbar"
+                                      aria-valuenow="100"
+                                      aria-valuemin="0"
+                                      aria-valuemax="100"
+                                      style="width: 100%"
+                                    ></div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </li>
+                            <!-- LAN部分 -->
+                            <li>
+                              <div class="parent_title">
+                                <ul>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        style="color: #4b5057"
+                                        ng-bind="&#39;diagnose.LAN Connectivity&#39; | translate"
+                                        >LAN Connectivity</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceEthernetInterface1.Status == &#39;Up&#39; ? &#39;gemtek-diagnostics-up&#39; :&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-down"
+                                          >
+                                          </span>
+                                          <span class="ng-binding">
+                                            ETHERNET eth1_0:</span
+                                          >
+                                          <span class="ng-binding"
+                                            >LINK DOWN</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface1.Status == &#39;Up&#39;"
+                                            class="ng-binding ng-hide"
+                                            >, Speed : 10 kbps</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface1.Status == &#39;Up&#39;"
+                                            class="ng-binding ng-hide"
+                                            >, Mode : Half</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface1_Status"
+                                          ng-show="DeviceEthernetInterface1_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface1_Name"
+                                          ng-show="DeviceEthernetInterface1_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface1_MaxBitRate"
+                                          ng-show="DeviceEthernetInterface1_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface1_DuplexMode"
+                                          ng-show="DeviceEthernetInterface1_DuplexModeresponsestatus"
+                                        >
+                                        </span>
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceEthernetInterface2.Status == &#39;Up&#39; ? &#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-down"
+                                          ></span>
+                                          <span class="ng-binding">
+                                            ETHERNET eth1_1:</span
+                                          >
+                                          <span class="ng-binding"
+                                            >LINK DOWN</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface2.Status == &#39;Up&#39;"
+                                            class="ng-binding ng-hide"
+                                            >, Speed : 10 kbps</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface2.Status == &#39;Up&#39;"
+                                            class="ng-binding ng-hide"
+                                            >, Mode : Half</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface2_Status"
+                                          ng-show="DeviceEthernetInterface2_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface2_Name"
+                                          ng-show="DeviceEthernetInterface2_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface2_MaxBitRate"
+                                          ng-show="DeviceEthernetInterface2_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface2_DuplexMode"
+                                          ng-show="DeviceEthernetInterface2_DuplexModeresponsestatus"
+                                        >
+                                        </span>
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceEthernetInterface3.Status == &#39;Up&#39; ? &#39;gemtek-diagnostics-up&#39; :&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-down"
+                                          ></span>
+                                          <span class="ng-binding">
+                                            ETHERNET eth1_2:</span
+                                          >
+                                          <span class="ng-binding"
+                                            >LINK DOWN</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface3.Status == &#39;Up&#39;"
+                                            class="ng-binding ng-hide"
+                                            >, Speed : 10 kbps</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface3.Status == &#39;Up&#39;"
+                                            class="ng-binding ng-hide"
+                                            >, Mode : Half</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface3_Status"
+                                          ng-show="DeviceEthernetInterface3_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface3_Name"
+                                          ng-show="DeviceEthernetInterface3_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface3_MaxBitRate"
+                                          ng-show="DeviceEthernetInterface3_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface3_DuplexMode"
+                                          ng-show="DeviceEthernetInterface3_DuplexModeresponsestatus"
+                                        >
+                                        </span>
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceEthernetInterface4.Status == &#39;Up&#39; ? &#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding">
+                                            ETHERNET eth1_3:</span
+                                          >
+                                          <span class="ng-binding"
+                                            >LINK UP</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface4.Status == &#39;Up&#39;"
+                                            class="ng-binding"
+                                            >, Speed : 1000 kbps</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface4.Status == &#39;Up&#39;"
+                                            class="ng-binding"
+                                            >, Mode : Full</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface4_Status"
+                                          ng-show="DeviceEthernetInterface4_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface4_Name"
+                                          ng-show="DeviceEthernetInterface4_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface4_MaxBitRate"
+                                          ng-show="DeviceEthernetInterface4_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface4_DuplexMode"
+                                          ng-show="DeviceEthernetInterface4_DuplexModeresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceEthernetInterface5.Status == &#39;Up&#39; ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >ETHERNET eth0_0:</span
+                                          >
+                                          <span class="ng-binding"
+                                            >LINK UP</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface5.Status == &#39;Up&#39;"
+                                            class="ng-binding"
+                                            >, Speed : 1000 kbps</span
+                                          >
+                                          <span
+                                            ng-show="DeviceEthernetInterface5.Status == &#39;Up&#39;"
+                                            class="ng-binding"
+                                            >, Mode : Full</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface5_Status"
+                                          ng-show="DeviceEthernetInterface5_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface5_Name"
+                                          ng-show="DeviceEthernetInterface5_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface5_MaxBitRate"
+                                          ng-show="DeviceEthernetInterface5_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceEthernetInterface5_DuplexMode"
+                                          ng-show="DeviceEthernetInterface5_DuplexModeresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="iconzone hide">
+                                      <i class="iconhide"></i>
+                                    </div>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.LAN Reachability&#39; | translate"
+                                        style="color: #4b5057"
+                                        >LAN Reachability</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing1.SuccessCount &gt; 0 ?
+                                    &#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >Ping to LAN Host :
+                                            192.168.1.2</span
+                                          >&nbsp;
+                                          <span class="ng-binding">
+                                            SUCCESS</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing1_SuccessCount"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing1_SuccessCountresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing1_Host"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing1_Hostresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                            <!-- WAN -->
+                            <li>
+                              <div class="parent_title">
+                                <ul>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.WAN Connectivity&#39; | translate"
+                                        style="color: #4b5057"
+                                        >WAN Connectivity</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <!-- PON -->
+                                          <span
+                                            ng-class="DeviceOpticalInterface1.Status == &#39;Up&#39; ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >PON VANI0:</span
+                                          >
+                                          <span class="ng-binding"
+                                            >LINK UP</span
+                                          >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                          <!-- WLAN -->
+                          <div class="gemtek-font-w900 gemtek-mb-10">
+                            <a
+                              class="diagnosetitle ng-binding"
+                              ng-bind="&#39;diagnose.WLAN&#39; | translate"
+                              style="color: #4b5057"
+                              >WLAN</a
+                            >
+                          </div>
+                          <ul class="gemtek-diagnostics-item-border">
+                            <li>
+                              <div class="parent_title">
+                                <ul>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.WLAN Connectivity&#39; | translate"
+                                        style="color: #4b5057"
+                                        >WLAN Connectivity</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceWiFiRadio1.Status == &#39;Up&#39;?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >WiFi 2.4GHz:</span
+                                          >
+                                          <span class="ng-binding"> wlan0</span>
+                                          <span class="ng-binding">
+                                            Physical Radio UP</span
+                                          >
+                                          <span
+                                            ng-show="DeviceWiFiRadio1.Status == &#39;Up&#39;"
+                                            class="ng-binding"
+                                            >, Speed : 300</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio1_Status"
+                                          ng-show="DeviceWiFiRadio1_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio1_SupportedFrequencyBands"
+                                          ng-show="DeviceWiFiRadio1_SupportedFrequencyBandsresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio1_Name"
+                                          ng-show="DeviceWiFiRadio1_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio1_MaxBitRate"
+                                          ng-show="DeviceWiFiRadio1_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceWiFiRadio2.Status ==&#39;Up&#39;?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >WiFi 5GHz:</span
+                                          >
+                                          <span class="ng-binding"> wlan2</span>
+                                          <span class="ng-binding">
+                                            Physical Radio UP</span
+                                          >
+                                          <span
+                                            ng-show="DeviceWiFiRadio2.Status == &#39;Up&#39;"
+                                            class="ng-binding"
+                                            >, Speed : 300</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio2_Status"
+                                          ng-show="DeviceWiFiRadio2_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio2_SupportedFrequencyBands"
+                                          ng-show="DeviceWiFiRadio2_SupportedFrequencyBandsresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio2_Name"
+                                          ng-show="DeviceWiFiRadio2_Nameresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiRadio2_MaxBitRate"
+                                          ng-show="DeviceWiFiRadio2_MaxBitRateresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- Internet Connectivity -->
+                        <div class="col-md-4 col-sm-12">
+                          <div class="gemtek-font-w900 gemtek-mb-10">
+                            <a
+                              class="diagnosetitle ng-binding"
+                              ng-bind="&#39;diagnose.Internet Connectivity&#39; | translate"
+                              style="color: #4b5057"
+                              >Internet Connectivity</a
+                            >
+                          </div>
+                          <ul class="gemtek-diagnostics-item-border">
+                            <li>
+                              <div class="parent_title">
+                                <ul>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.DNS  Reachability&#39; | translate"
+                                        style="color: #4b5057"
+                                        >DNS Reachability</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing2.SuccessCount &gt; 0 ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >Ping to DNS1 Host : 8.8.8.8</span
+                                          >&nbsp;
+                                          <span class="ng-binding">
+                                            SUCCESS</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing2_SuccessCount"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing2_SuccessCountresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing2_Host"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing2_Hostresponsestatus"
+                                        >
+                                        </span>
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing3.SuccessCount &gt; 0
+                                    ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-down"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >Ping to DNS2 Host : 2222::250</span
+                                          >&nbsp;
+                                          <span class="ng-binding">
+                                            FAILURE</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing3_SuccessCount"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing3_SuccessCountresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing3_Host"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing3_Hostresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.DNS  Resolve&#39; | translate"
+                                        style="color: #4b5057"
+                                        >DNS Resolve</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1.Status == &#39;Success&#39; ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >Resolve : www.google.com</span
+                                          >
+                                          <span class="ng-binding">
+                                            2404:6800:4005:812::2004</span
+                                          >&nbsp;
+                                          <span class="ng-binding">
+                                            SUCCESS</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1_Status"
+                                          ng-show="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1_Statusresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1_HostNameReturned"
+                                          ng-show="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1_HostNameReturnedresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1_IPAddresses"
+                                          ng-show="DeviceDNSDiagnosticsNSLookupDiagnosticsResult1_IPAddressesresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.Default Gateway Reachability Test&#39; | translate"
+                                        style="color: #4b5057"
+                                        >Default Gateway Reachability Test</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing4.SuccessCount &gt; 0
+                                    ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >Ping to Default Gateway
+                                            (192.168.99.1)</span
+                                          >
+                                          <span class="ng-binding">
+                                            SUCCESS</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing4_SuccessCount"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing4_SuccessCountresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing4_Host"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing4_Hostresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="gemtek-diagnostics-list-title">
+                                      <a
+                                        class="diagnosetitle ng-binding"
+                                        ng-bind="&#39;diagnose.Google  Reachability Test&#39; | translate"
+                                        style="color: #4b5057"
+                                        >Google Reachability Test</a
+                                      >
+                                    </div>
+                                    <div ng-show="loading">
+                                      <div class="pargraph">
+                                        <div class="gemtek-p10-align-center">
+                                          <span
+                                            ng-class="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing5.SuccessCount &gt; 0 ?&#39;gemtek-diagnostics-up&#39;:&#39;gemtek-diagnostics-down&#39;"
+                                            class="gemtek-diagnostics-up"
+                                          ></span>
+                                          <span class="ng-binding"
+                                            >Ping to: www.google.com</span
+                                          >&nbsp;
+                                          <span class="ng-binding">
+                                            SUCCESS</span
+                                          >
+                                        </div>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing5_SuccessCount"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing5_SuccessCountresponsestatus"
+                                        >
+                                        </span>
+                                        <span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing5_Host"
+                                          ng-show="DeviceIPDiagnosticsX_LANTIQ_COM_IPPing5_Hostresponsestatus"
+                                        >
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="progress progress-striped active ng-hide"
+                                      ng-show="loading1"
+                                      style="min-width: 280px"
+                                    >
+                                      <div
+                                        class="progress-bar progress-bar-success"
+                                        role="progressbar"
+                                        aria-valuenow="100"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="width: 100%"
+                                      ></div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 以下是ping test & Traceroute test -->
+                    <ul>
+                      <li class="no-padding">
+                        <div class="diagnose_tblrow">
+                          <div class="diagnose_tblcell">
+                            <div style="display: inline-block">
+                              <label
+                                class="diagnose_titles active gemtek-text-color gemtek-font-family-medium gemtek-text-size-sm ng-binding"
+                                style="font-weight: normal"
+                                ng-bind="&#39;diagnose.IP Ping Test&#39; | translate"
+                                >Ping Test</label
+                              >
+                              <input
+                                id="DeviceIPDiagnostics_IPPing"
+                                type="text"
+                                ng-focus="selectIPPing()"
+                                name="ipping"
+                                style="width: 360px"
+                                value=""
+                                ng-change="textChange(&#39;IPHost&#39;)"
+                                ng-model="IPHost"
+                                placeholder="Please enter IP/Host address"
+                                class="ng-pristine ng-untouched ng-valid"
+                              />
+                            </div>
+                            <!-- <span class="error" forname="DeviceIPDiagnostics_IPPing" ng-show="diagnoseformstatus && diagnoseform.ipping.$error.pattern" ng-bind="'Device.IP.Diagnostics.*.IPPing.$error.pattern' | translate"></span>-->
+                            <div
+                              style="display: inline-block; margin-left: 15px"
+                            >
+                              <button
+                                class="gemtek-btn-primary ng-binding"
+                                id="Modify"
+                                value="Apply"
+                                formstatus="true"
+                                ng-click="startIPPingTest(&#39;Device.IP.Diagnostics.IPPing&#39;,$event)"
+                                ng-bind="&#39;Ping Test&#39; | translate"
+                              >
+                                Ping Test
+                              </button>
+                            </div>
+                            <ul>
+                              <li>
+                                <div ng-show="loadingipping" class="ng-hide">
+                                  <div class="pargraph">
+                                    <!-- ngRepeat: ipping in ippingArray -->
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="ipping_SuccessCount"
+                                      ng-show="ipping_SuccessCountresponsestatus"
+                                    >
+                                    </span>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="ipping_Host"
+                                      ng-show="ipping_Hostresponsestatus"
+                                    >
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="progress progress-striped active ng-hide"
+                                  ng-show="loadingipping1"
+                                >
+                                  <div
+                                    class="progress-bar progress-bar-success"
+                                    role="progressbar"
+                                    aria-valuenow="100"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    style="width: 100%"
+                                  ></div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="no-padding">
+                        <div class="diagnose_tblrow">
+                          <div class="diagnose_tblcell">
+                            <div style="display: inline-block">
+                              <label
+                                class="diagnose_titles active gemtek-text-color gemtek-font-family-medium gemtek-text-size-sm ng-binding"
+                                style="font-weight: normal"
+                                ng-bind="&#39;diagnose.Traceroute Test&#39; | translate"
+                                >Traceroute Test</label
+                              >
+                              <input
+                                id="DeviceIPDiagnostics_TraceRoute"
+                                type="text"
+                                ng-focus="selectTrace()"
+                                name="TraceRoute"
+                                value=""
+                                ng-change="textChangeTracerouteTest(&#39;TraceRouteHost&#39;)"
+                                ng-model="TraceRouteHost"
+                                style="width: 360px"
+                                placeholder="Please enter URL"
+                                class="ng-pristine ng-untouched ng-valid"
+                              />
+                              <span
+                                class="error ng-binding ng-hide"
+                                ng-show="erroronvalidation"
+                                ng-bind=" &#39;ipv4ipv6urlerror&#39; | translate"
+                                >Enter valid url or ipv4 or ipv6 address</span
+                              >
+                            </div>
+                            <div
+                              style="display: inline-block; margin-left: 15px"
+                            >
+                              <button
+                                class="gemtek-btn-primary ng-binding"
+                                id="Modify"
+                                value="Apply"
+                                ng-click="startTracerouteTest(&#39;Device.IP.Diagnostics.TraceRoute&#39;)"
+                                ng-bind="&#39;Trace Route&#39; | translate"
+                              >
+                                Trace Route
+                              </button>
+                            </div>
+                            <ul>
+                              <li>
+                                <div ng-show="loadingtrace" class="ng-hide">
+                                  <div class="pargraph">
+                                    <!-- ngRepeat: values in tracerouteArray -->
+                                    <div
+                                      class="error gemtek-align-center ng-hide"
+                                      ng-show="error_responsestatus"
+                                    >
+                                      <span
+                                        class="gemtek-diagnostics-down"
+                                      ></span>
+                                      <span class="ng-binding"></span>
+                                    </div>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="values_Host"
+                                      ng-show="values_Hostresponsestatus"
+                                    >
+                                    </span>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="values_HostAddress"
+                                      ng-show="values_HostAddressresponsestatus"
+                                    >
+                                    </span>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="values_RTTimes"
+                                      ng-show="values_RTTimesresponsestatus"
+                                    >
+                                    </span>
+                                    <!-- <span class="error" ng-show="error_responsestatus">
+                                <i class="fa fa-times fa-lg custom_times"></i>
+                                {{err_val}}
+                              </span> -->
+                                  </div>
+                                </div>
+                                <div
+                                  class="progress progress-striped active ng-hide"
+                                  ng-show="loadingtrace1"
+                                >
+                                  <div
+                                    class="progress-bar progress-bar-success"
+                                    role="progressbar"
+                                    aria-valuenow="100"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    style="width: 100%"
+                                  ></div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
+					</div> -->
+
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
+                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
+                    </div>                         -->
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
+    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
+    <!--[if !IE]> -->
+    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <div class="hiddendiv common"></div>
+  </body>
+</html>

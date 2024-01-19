@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)#/custom/upnp -->
+<html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+      }
+      ng\:form {
+        display: block;
+      }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
+
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
+
+    <script type="text/ng-template" id="firstDialogId">
+      <div class="ngdialog-message">
+      <form class="form-horizontal" role="form">
+      <!-- Modify: In Process Feature -->
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12" style="text-align:center;font-weight: bold;">
+      <!-- <input type="text" ng-model="$root.status" class="form-control" id="Status" placeholder="WPS Session Start" readonly/> -->
+          {{$root.status}}
+      </div>
+      </div>
+
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+      </div>
+      </div>
+      <!-- Modify -->
+      </form>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message">
+      <div>
+      {{$root.notifymessage}}
+      <div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="sessionTimeout">
+      <div class="ngdialog-message">
+      <div>
+      You have been logged out. Do you wish to continue?
+      </div>
+      <div>You will automatically be logged off in {{$root.time}} seconds.</div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      </div>
+    </script>
+
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/template.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/index.js"></script>
+    <script>
+      function toggleSwitch(id) {
+        const switchID = document.getElementById(id);
+        switchID.classList.toggle("checked");
+      }
+    </script>
+  </head>
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0px, 0px, 0px);
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(-0.18893639743328094,-0.981989324092865,0.981989324092865,-0.18893639743328094,69.4631576538086,62.66608428955078)"
+              opacity="0.8407560000001039"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M37.71799850463867,-29.674999237060547 C39.233001708984375,-27.753999710083008 40.604000091552734,-25.71299934387207 41.814998626708984,-23.570999145507812"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span>Please wait...</span>
+    </div>
+    <div id="main-wrapper" ng-controller="menuController" class="ng-scope">
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
+          </div>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+                                    <div class="no-padding-vr">
+                                        <ul class="notificationdiv">
+                                            <li class="theme1">Theme-1</li>
+                                            <li class="theme2">Theme-2</li>
+                                        </ul>
+                                    </div>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
+                                    <a style="overflow: hidden;white-space: nowrap;">
+                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                    </a>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="login.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span ng-click="Logout()">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    source="adv_homepage"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    source="pon_status"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    source="stats"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    source="wan_ipv4wanconnections"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    source="lan_ipaddressconfig"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    source="regid"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    source="adv_ssid"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    source="adv5_ssid"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    source="guestaccessview"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope open"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    source="NAT_DMZviewform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    source="virtualserver"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    source="porttriggerview"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    source="staticrouteview"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    source="managementserverview"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    source="algview"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="upnp-6"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    source="upnp"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    source="multicast_mcconfiguration"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    source="ipsecview"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    source="ddnsform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    source="firewall"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    source="parentalcontrol"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    source="userview"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    source="adminactions"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    source="diagnose"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    source="speedtest"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    source="voip_config"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
+      </div>
+
+      <div id="content-wrapper" style="min-height: 606px">
+        <!-- ngView: true -->
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
+          <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+          <title class="ng-scope">Intel</title>
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
+          <style type="text/css" class="ng-scope">
+            /* 
+             * To configure other images as icons
+             * Write a css class with the value of icon parameter in json data
+             * EX:-
+             * .jstree-custom-folder{
+             *    background-image: url('images/folder.png') !important;
+             *    background-position: 0 !important;
+             *  }
+             * In json data icon parameter value is "jstree-custom-folder"
+             * 
+             */
+
+            .Upnp-fan {
+              background-image: url("images/icons/Upnp-fan.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-IoT {
+              background-image: url("images/icons/Upnp-IoT.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-multiscreen {
+              background-image: url("images/icons/upnp-multiscreen.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-internet {
+              background-image: url("images/icons/upnp-internet.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-deviceprotection {
+              background-image: url("images/icons/Upnp-deviceprotection.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-remoteaccess {
+              background-image: url("images/icons/Upnp-remoteaccess.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-scanner {
+              background-image: url("images/icons/Upnp-scanner.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-qos {
+              background-image: url("images/icons/Upnp-qos.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-sync {
+              background-image: url("images/icons/Upnp-sync.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-energymanagement {
+              background-image: url("images/icons/Upnp-energymanagement.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-Lowpower {
+              background-image: url("images/icons/Upnp-Lowpower.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-solarblind {
+              background-image: url("images/icons/Upnp-solarblind.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-folder {
+              background-image: url("images/icons/Upnp-folder.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-services {
+              background-image: url("images/icons/Upnp-services.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-devices {
+              background-image: url("images/icons/upnp-devices.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-top {
+              background-image: url("images/icons/upnp-top.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-mediaserver {
+              background-image: url("images/icons/upnp-mediaserver.png") !important;
+              background-position: 0 !important;
+            }
+
+            li {
+              padding: 3px 0 4px 0 !important;
+            }
+          </style>
+
+          <div id="translation" class="hide ng-scope">upnp</div>
+          <div ng-controller="upnpController" class="ng-scope">
+            <!--Breadscrumbs starts here -->
+            <div class="row ltq_breadcrumbs">
+              <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$index === 1">
+                  <!-- ngSwitchWhen: true -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$index === 1">
+                  <!-- ngSwitchWhen: true -->
+                  <h4 class="ng-binding ng-scope">UPnP</h4>
+                  <!-- end ngSwitchWhen: -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$first">
+                  <!-- ngSwitchWhen: true -->
+                  <div class="btn-group btn-breadcrumb1 ng-scope">
+                    <div class="ltq_brd_home">
+                      <a class="btn ng-binding" href="index.html"> Advanced </a>
+                    </div>
+                  </div>
+                  <!-- end ngSwitchWhen: -->
+
+                  <!-- ngSwitchWhen: false -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$first">
+                  <!-- ngSwitchWhen: true -->
+
+                  <!-- ngSwitchWhen: false -->
+                  <div class="btn-group btn-breadcrumb ng-scope">
+                    <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                      class="btn btn-default not-active ng-binding ng-scope"
+                    >
+                      UPnP </span
+                    ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                    <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                  </div>
+                  <!-- end ngSwitchWhen: -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            </div>
+            <!--Breadscrumbs ends here -->
+
+            <div class="subheader">
+              <p
+                ng-bind="&#39;upnp.headerdescription&#39;| translate"
+                class="ng-binding"
+              >
+                It allows you to enable or disable UPnP service.
+              </p>
+            </div>
+            <div class="row ng-hide" ng-show="upnppopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;upnppopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span ng-bind="upnppopupval" class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="upnppostpopup">
+              <div class="alert alert-danger">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click="popupclose(&#39;upnppostpopup&#39;)"
+                  >×</a
+                >
+                <strong class="ng-binding">Warning!</strong
+                ><span ng-bind="upnppostpopupval" class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="panel no-margin-vr">
+              <div class="panel-body" style="padding: 20px">
+                <div class="form-group no-padding-hr-l col-xs-12 col-sm-12">
+                  <div class="row">
+                    <div class="checkbox">
+                      <span class="gemtek-btn-mr ng-binding">Enable UPnP</span>
+                      <span
+                        class="switch hidden-dom-removal ng-valid"
+                        ng-change=""
+                        id="DeviceUPnPDevice_Enable"
+                        name="Enable"
+                        on="ON"
+                        off="OFF"
+                        onclick="toggleSwitch(this.id)"
+                        ><small></small
+                        ><input
+                          type="checkbox"
+                          id="DeviceUPnPDevice_Enable"
+                          name="Enable"
+                          ng-model="DeviceUPnPDevice.Enable"
+                          style="display: none"
+                          class="ng-pristine ng-untouched ng-valid"
+                        /><span class="switch-text"
+                          ><span class="on">ON</span
+                          ><span class="off">OFF</span></span
+                        ></span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="text-center gemtek-button-style-nobg">
+                <div class="btn-align">
+                  <input
+                    type="button"
+                    class="waves-effect waves-light gemtek-btn-normal"
+                    id="Refresh"
+                    value="Cancel"
+                    source=""
+                    ng-click="Refresh($event)"
+                  />
+                </div>
+                <div class="btn-align">
+                  <input
+                    type="button"
+                    id="Modify"
+                    class="waves-effect waves-light gemtek-btn-primary"
+                    value="Apply"
+                    formstatus=""
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- <div class="panel">
+    <div class="panel-heading blu_bg">          
+        <span class="panel_heading_icon">
+            <img alt="panel-icon" src="images/icons/upnp.png">
+        </span>
+        <span class="ng-binding">UPnP Device Details</span>
+    </div> -->
+            <!-- <div class="panel-body">
+      <div class="row" >
+      <div class="col-md-6 no-padding">
+        <div class=" panel" style="min-height: 150px;max-height: 250px;overflow: auto">
+          <div class="panel-heading pilot_bg">
+            <span class="ng-binding">UPnP Devices</span>
+          </div>
+          <div class="panel-body">
+            <div class="tree-browser" style="overflow: auto;">
+              <js-tree tree-data="scope" tree-model="treeModel" tree-events="select_node:nodeSelected;">
+              </js-tree>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 no-padding">
+        <div class=" panel" style="min-height: 150px;" ng-show="!nodata">
+          <div class="panel-heading pilot_bg">
+            <span class="ng-binding">UPnP Devices/Service Details</span>
+            <span style="color:springgreen;"><span id="selectedname"></span></span>
+          </div>
+          <div class="panel-body">
+            <div class="file-viewer">
+              <div style="overflow: auto;">
+                <table class="table table-bordered custom_table theme_intel">
+                  <thead>
+                    <th style=" background-color: #f66555 !important;">Name</th>
+                    <th style=" background-color: #f66555 !important;">Value</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, value) in row">
+                      <td>{{key}}</td>
+                      <td>{{value}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <span class="error" ng-show="nodata">
+                <code>
+                  <i class="fa fa-exclamation" aria-hidden="true"></i>
+                  Please select a device/service to view its details
+                </code>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-right">
+        <div class="btn-align custom_btn_add">
+          <input id="Refresh" class="btn btn-info waves-effect waves-light" type="button" ng-click="Refresh($event)"
+            value="{{'Refresh'|translate}}">
+        </div>
+      </div>
+    </div> -->
+            <!--                </div>
+            </div>-->
+          </div>
+        </div>
+
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
+					</div> -->
+
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
+                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
+                    </div>                         -->
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
+    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
+    <!--[if !IE]> -->
+    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <div class="hiddendiv common"></div>
+  </body>
+</html>

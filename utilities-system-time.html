@@ -1,0 +1,2763 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)#/tableform/ntpviewform -->
+<html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+      }
+      ng\:form {
+        display: block;
+      }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
+
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
+
+    <script type="text/ng-template" id="firstDialogId">
+      <div class="ngdialog-message">
+      <form class="form-horizontal" role="form">
+      <!-- Modify: In Process Feature -->
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12" style="text-align:center;font-weight: bold;">
+      <!-- <input type="text" ng-model="$root.status" class="form-control" id="Status" placeholder="WPS Session Start" readonly/> -->
+          {{$root.status}}
+      </div>
+      </div>
+
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+      </div>
+      </div>
+      <!-- Modify -->
+      </form>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message">
+      <div>
+      {{$root.notifymessage}}
+      <div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="sessionTimeout">
+      <div class="ngdialog-message">
+      <div>
+      You have been logged out. Do you wish to continue?
+      </div>
+      <div>You will automatically be logged off in {{$root.time}} seconds.</div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      </div>
+    </script>
+
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/template.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/index.js"></script>
+  </head>
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0px, 0px, 0px);
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(-0.01788727380335331,0.9998400211334229,-0.9998400211334229,-0.01788727380335331,51.29121780395508,55.43749237060547)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M15.006999969482422,-45.60300064086914 C29.589000701904297,-40.80099868774414 41.09299850463867,-29.194000244140625 45.75199890136719,-14.54800033569336"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span>Please wait...</span>
+    </div>
+    <div id="main-wrapper" ng-controller="menuController" class="ng-scope">
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
+          </div>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+                                    <div class="no-padding-vr">
+                                        <ul class="notificationdiv">
+                                            <li class="theme1">Theme-1</li>
+                                            <li class="theme2">Theme-2</li>
+                                        </ul>
+                                    </div>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
+                                    <a style="overflow: hidden;white-space: nowrap;">
+                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                    </a>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="login.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span ng-click="Logout()">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    source="adv_homepage"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    source="pon_status"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    source="stats"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    source="wan_ipv4wanconnections"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    source="lan_ipaddressconfig"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    source="regid"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    source="adv_ssid"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    source="adv5_ssid"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    source="guestaccessview"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    source="NAT_DMZviewform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    source="virtualserver"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    source="porttriggerview"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    source="staticrouteview"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    source="managementserverview"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    source="algview"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    source="upnp"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    source="multicast_mcconfiguration"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    source="ipsecview"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    source="ddnsform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    source="firewall"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    source="parentalcontrol"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope open"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="userview-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    source="userview"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    source="adminactions"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    source="diagnose"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    source="speedtest"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    source="voip_config"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
+      </div>
+
+      <div id="content-wrapper" style="min-height: 606px">
+        <!-- ngView: true -->
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="row ltq_breadcrumbs ng-scope"
+          >
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true -->
+                <h4 class="ng-binding ng-scope">System</h4>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <div class="btn-group btn-breadcrumb1 ng-scope">
+                  <div class="ltq_brd_home">
+                    <a class="btn ng-binding" href="index.html"> Utilities </a>
+                  </div>
+                </div>
+                <!-- end ngSwitchWhen: -->
+                <!-- ngSwitchWhen: false --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
+                  >
+                    System </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
+                  >
+                    System Time </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="translation"
+            class="ng-hide ng-scope"
+          >
+            ntpviewform
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="headername"
+            class="ng-hide ng-scope"
+          >
+            System Time
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="headerdescription"
+            class="ng-hide ng-scope"
+          >
+            Configuration to enable the device to sychronize the system time
+            with the time servers.
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
+            <p
+              id="headerdescriptiondata"
+              ng-bind="
+                    &#39;ntpviewform.headerdescription&#39; | translate
+                "
+              class="ng-binding"
+            >
+              Configuration to enable the device to sychronize the system time
+              with the time servers.
+            </p>
+          </div>
+          <h4
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="panel_title hide ng-scope"
+          ></h4>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="panel panel-default panel-bg1 ng-scope"
+          >
+            <ul class="nav nav-tabs gemtek-tab">
+              <li ng-class='{&#39;active&#39;: currentTab === "userview"}'>
+                <a href="utilities-system-user_mgnt.html">User Management</a>
+              </li>
+              <li
+                ng-class='{&#39;active&#39;: currentTab === "ntpviewform"}'
+                class="active"
+              >
+                <a href="utilities-system-time.html">System Time</a>
+              </li>
+              <li ng-class='{&#39;active&#39;: currentTab === "logdview"}'>
+                <a href="utilities-system-log_rule.html">System Log Rule</a>
+              </li>
+              <li ng-class='{&#39;active&#39;: currentTab === "backupreset"}'>
+                <a href="utilities-system-backup.html">Backup &amp; Reset</a>
+              </li>
+            </ul>
+            <div class="panel-body no-padding">
+              <div class="alert alert-danger ng-hide" ng-show="DeviceTimepopup">
+                <a
+                  class="close"
+                  aria-label="close"
+                  ng-click='popupclose("DeviceTimepopup");
+                        '
+                  >✖
+                </a>
+                <p
+                  ng-bind-html="DeviceTimepopupval | unsafe"
+                  class="ng-binding"
+                ></p>
+              </div>
+              <form
+                polling=""
+                interval=""
+                loadstatus=""
+                class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid-maxlength ng-valid ng-valid-required"
+                name="DeviceTime_form"
+                name1="Device.Time?CurrentLocalTime,Enable,NTPServer1,NTPServer2,NTPServer3,NTPServer4,NTPServer5,X_GTK_TimeZoneLocation"
+                id="DeviceTime"
+              >
+                <div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body">
+                      <div
+                        class="no-padding-hr no-margin-vr col-xs-12 col-sm-12"
+                      >
+                        <div class="row spanrow">
+                          <div class="no-padding-hr-l col-sm-12">
+                            <h6
+                              class="required row active ng-binding"
+                              ng-bind="
+                            &#39;Device.Time.Current Local Time&#39; | translate
+                        "
+                            >
+                              Current Local Time
+                            </h6>
+                            <p
+                              id="CurrentLocalTime"
+                              class="gemtek-text-color gemtek-text-size-sm hidden-dom-removal ng-binding"
+                              name="DeviceTime_CurrentLocalTime"
+                              ng-bind="DeviceTime.CurrentLocalTime"
+                            >
+                              2023-11-25T23:08:39Z
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr"></div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div>
+                            <div class="checkbox">
+                              <span
+                                ng-bind="
+                                &#39;Device.Time.Enable System Time Settings&#39; | translate
+                            "
+                                class="ng-binding"
+                                >Enable System Time Settings</span
+                              ><input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                id="DeviceTime_Enable"
+                                ng-model="DeviceTime.Enable"
+                                value="1"
+                                name="DeviceTime_Enable"
+                                checked
+                              /><label
+                                class="checkbox_left_align"
+                                for="DeviceTime_Enable"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr"></div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="NTPServer1"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              ng-maxlength="64"
+                              name="DeviceTime_NTPServer1"
+                              ng-model="DeviceTime.NTPServer1"
+                              required="required"
+                              value="0.asia.pool.ntp.org"
+                            /><label
+                              for="NTPServer1"
+                              class="required row active ng-binding"
+                              >Server 1</label
+                            ><span
+                              class="error ng-binding ng-hide"
+                              ng-show="DeviceTime_NTPServer1responsestatus"
+                              ng-bind="DeviceTime_NTPServer1val |translate
+                        "
+                            ></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceTime_NTPServer1"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer1.$error.required&amp;&amp; formsubmitstatus"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceTime_NTPServer1"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer1.$error.maxlength&amp;&amp; formsubmitstatus"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="NTPServer2"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              ng-maxlength="64"
+                              name="DeviceTime_NTPServer2"
+                              ng-model="DeviceTime.NTPServer2"
+                              required="required"
+                              value="1.asia.pool.ntp.org"
+                            /><label
+                              for="NTPServer2"
+                              class="required row active ng-binding"
+                              >Server 2</label
+                            ><span
+                              class="error ng-binding ng-hide"
+                              ng-show="DeviceTime_NTPServer2responsestatus"
+                            ></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceTime_NTPServer2"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer2.$error.required&amp;&amp; formsubmitstatus"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceTime_NTPServer2"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer2.$error.maxlength&amp;&amp; formsubmitstatus"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="NTPServer3"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              ng-maxlength="64"
+                              name="DeviceTime_NTPServer3"
+                              ng-model="DeviceTime.NTPServer3"
+                              required="required"
+                              value="time.windows.com"
+                            /><label
+                              for="NTPServer3"
+                              class="required row active ng-binding"
+                              >Server 3</label
+                            ><span
+                              class="error ng-binding ng-hide"
+                              ng-show="DeviceTime_NTPServer3responsestatus"
+                              ng-bind="DeviceTime_NTPServer3val |translate
+                        "
+                            ></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceTime_NTPServer3"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer3.$error.required&amp;&amp; formsubmitstatus"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceTime_NTPServer3"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer3.$error.maxlength&amp;&amp; formsubmitstatus"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="NTPServer4"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              ng-maxlength="64"
+                              name="DeviceTime_NTPServer4"
+                              ng-model="DeviceTime.NTPServer4"
+                              required="required"
+                              value="time-a.nist.gov"
+                            /><label
+                              for="NTPServer4"
+                              class="required row active ng-binding"
+                              >Server 4</label
+                            ><span
+                              class="error ng-binding ng-hide"
+                              ng-show="DeviceTime_NTPServer4responsestatus"
+                            ></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceTime_NTPServer4"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer4.$error.required&amp;&amp; formsubmitstatus"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceTime_NTPServer4"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer4.$error.maxlength&amp;&amp; formsubmitstatus"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="NTPServer5"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              ng-maxlength="64"
+                              name="DeviceTime_NTPServer5"
+                              ng-model="DeviceTime.NTPServer5"
+                              required="required"
+                              value="time-b.nist.gov"
+                            /><label
+                              for="NTPServer5"
+                              class="required row active ng-binding"
+                              >Server 5</label
+                            ><span
+                              class="error ng-binding ng-hide"
+                              ng-show="DeviceTime_NTPServer5responsestatus"
+                              ng-bind="DeviceTime_NTPServer5val |translate
+                        "
+                            ></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceTime_NTPServer5"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer5.$error.required&amp;&amp; formsubmitstatus"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceTime_NTPServer5"
+                              ng-show="DeviceTime_form.DeviceTime_NTPServer5.$error.maxlength&amp;&amp; formsubmitstatus"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr"></div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="required row">
+                          <label
+                            for="X_GTK_TimeZoneLocation"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Local Timezone</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="X_GTK_TimeZoneLocation"
+                              validation="false"
+                              ng-required="
+                                        true
+                                    "
+                              name="DeviceTime_X_GTK_TimeZoneLocation"
+                              ng-model="DeviceTime.X_GTK_TimeZoneLocation"
+                              required="required"
+                            >
+                              <option value="0" label="Africa/Abidjan">
+                                Africa/Abidjan
+                              </option>
+                              <option value="1" label="Africa/Accra">
+                                Africa/Accra
+                              </option>
+                              <option value="2" label="Africa/Addis Ababa">
+                                Africa/Addis Ababa
+                              </option>
+                              <option value="3" label="Africa/Algiers">
+                                Africa/Algiers
+                              </option>
+                              <option value="4" label="Africa/Asmara">
+                                Africa/Asmara
+                              </option>
+                              <option value="5" label="Africa/Bamako">
+                                Africa/Bamako
+                              </option>
+                              <option value="6" label="Africa/Bangui">
+                                Africa/Bangui
+                              </option>
+                              <option value="7" label="Africa/Banjul">
+                                Africa/Banjul
+                              </option>
+                              <option value="8" label="Africa/Bissau">
+                                Africa/Bissau
+                              </option>
+                              <option value="9" label="Africa/Blantyre">
+                                Africa/Blantyre
+                              </option>
+                              <option value="10" label="Africa/Brazzaville">
+                                Africa/Brazzaville
+                              </option>
+                              <option value="11" label="Africa/Bujumbura">
+                                Africa/Bujumbura
+                              </option>
+                              <option value="12" label="Africa/Casablanca">
+                                Africa/Casablanca
+                              </option>
+                              <option value="13" label="Africa/Ceuta">
+                                Africa/Ceuta
+                              </option>
+                              <option value="14" label="Africa/Conakry">
+                                Africa/Conakry
+                              </option>
+                              <option value="15" label="Africa/Dakar">
+                                Africa/Dakar
+                              </option>
+                              <option value="16" label="Africa/Dares Salaam">
+                                Africa/Dares Salaam
+                              </option>
+                              <option value="17" label="Africa/Djibouti">
+                                Africa/Djibouti
+                              </option>
+                              <option value="18" label="Africa/Douala">
+                                Africa/Douala
+                              </option>
+                              <option value="19" label="Africa/El Aaiun">
+                                Africa/El Aaiun
+                              </option>
+                              <option value="20" label="Africa/Freetown">
+                                Africa/Freetown
+                              </option>
+                              <option value="21" label="Africa/Gaborone">
+                                Africa/Gaborone
+                              </option>
+                              <option value="22" label="Africa/Harare">
+                                Africa/Harare
+                              </option>
+                              <option value="23" label="Africa/Johannesburg">
+                                Africa/Johannesburg
+                              </option>
+                              <option value="24" label="Africa/Kampala">
+                                Africa/Kampala
+                              </option>
+                              <option value="25" label="Africa/Khartoum">
+                                Africa/Khartoum
+                              </option>
+                              <option value="26" label="Africa/Kigali">
+                                Africa/Kigali
+                              </option>
+                              <option value="27" label="Africa/Kinshasa">
+                                Africa/Kinshasa
+                              </option>
+                              <option value="28" label="Africa/Lagos">
+                                Africa/Lagos
+                              </option>
+                              <option value="29" label="Africa/Libreville">
+                                Africa/Libreville
+                              </option>
+                              <option value="30" label="Africa/Lome">
+                                Africa/Lome
+                              </option>
+                              <option value="31" label="Africa/Luanda">
+                                Africa/Luanda
+                              </option>
+                              <option value="32" label="Africa/Lubumbashi">
+                                Africa/Lubumbashi
+                              </option>
+                              <option value="33" label="Africa/Lusaka">
+                                Africa/Lusaka
+                              </option>
+                              <option value="34" label="Africa/Malabo">
+                                Africa/Malabo
+                              </option>
+                              <option value="35" label="Africa/Maputo">
+                                Africa/Maputo
+                              </option>
+                              <option value="36" label="Africa/Maseru">
+                                Africa/Maseru
+                              </option>
+                              <option value="37" label="Africa/Mbabane">
+                                Africa/Mbabane
+                              </option>
+                              <option value="38" label="Africa/Mogadishu">
+                                Africa/Mogadishu
+                              </option>
+                              <option value="39" label="Africa/Monrovia">
+                                Africa/Monrovia
+                              </option>
+                              <option value="40" label="Africa/Nairobi">
+                                Africa/Nairobi
+                              </option>
+                              <option value="41" label="Africa/Ndjamena">
+                                Africa/Ndjamena
+                              </option>
+                              <option value="42" label="Africa/Niamey">
+                                Africa/Niamey
+                              </option>
+                              <option value="43" label="Africa/Nouakchott">
+                                Africa/Nouakchott
+                              </option>
+                              <option value="44" label="Africa/Ouagadougou">
+                                Africa/Ouagadougou
+                              </option>
+                              <option value="45" label="Africa/Porto-Novo">
+                                Africa/Porto-Novo
+                              </option>
+                              <option value="46" label="Africa/Sao Tome">
+                                Africa/Sao Tome
+                              </option>
+                              <option value="47" label="Africa/Tripoli">
+                                Africa/Tripoli
+                              </option>
+                              <option value="48" label="Africa/Tunis">
+                                Africa/Tunis
+                              </option>
+                              <option value="49" label="Africa/Windhoek">
+                                Africa/Windhoek
+                              </option>
+                              <option value="50" label="America/Adak">
+                                America/Adak
+                              </option>
+                              <option value="51" label="America/Anchorage">
+                                America/Anchorage
+                              </option>
+                              <option value="52" label="America/Anguilla">
+                                America/Anguilla
+                              </option>
+                              <option value="53" label="America/Antigua">
+                                America/Antigua
+                              </option>
+                              <option value="54" label="America/Araguaina">
+                                America/Araguaina
+                              </option>
+                              <option
+                                value="55"
+                                label="America/Argentina/Buenos Aires"
+                              >
+                                America/Argentina/Buenos Aires
+                              </option>
+                              <option
+                                value="56"
+                                label="America/Argentina/Catamarca"
+                              >
+                                America/Argentina/Catamarca
+                              </option>
+                              <option
+                                value="57"
+                                label="America/Argentina/Cordoba"
+                              >
+                                America/Argentina/Cordoba
+                              </option>
+                              <option
+                                value="58"
+                                label="America/Argentina/Jujuy"
+                              >
+                                America/Argentina/Jujuy
+                              </option>
+                              <option
+                                value="59"
+                                label="America/Argentina/La Rioja "
+                              >
+                                America/Argentina/La Rioja
+                              </option>
+                              <option
+                                value="60"
+                                label="America/Argentina/Mendoza"
+                              >
+                                America/Argentina/Mendoza
+                              </option>
+                              <option
+                                value="61"
+                                label="America/Argentina/Rio Gallegos"
+                              >
+                                America/Argentina/Rio Gallegos
+                              </option>
+                              <option
+                                value="62"
+                                label="America/Argentina/Salta"
+                              >
+                                America/Argentina/Salta
+                              </option>
+                              <option
+                                value="63"
+                                label="America/Argentina/San Juan"
+                              >
+                                America/Argentina/San Juan
+                              </option>
+                              <option
+                                value="64"
+                                label="America/Argentina/Tucuman"
+                              >
+                                America/Argentina/Tucuman
+                              </option>
+                              <option
+                                value="65"
+                                label="America/Argentina/Ushuaia"
+                              >
+                                America/Argentina/Ushuaia
+                              </option>
+                              <option value="66" label="America/Aruba">
+                                America/Aruba
+                              </option>
+                              <option value="67" label="America/Asuncion">
+                                America/Asuncion
+                              </option>
+                              <option value="68" label="America/Atikokan">
+                                America/Atikokan
+                              </option>
+                              <option value="69" label="America/Bahia">
+                                America/Bahia
+                              </option>
+                              <option value="70" label="America/Barbados">
+                                America/Barbados
+                              </option>
+                              <option value="71" label="America/Belem">
+                                America/Belem
+                              </option>
+                              <option value="72" label="America/Belize">
+                                America/Belize
+                              </option>
+                              <option value="73" label="America/Blanc-Sablon">
+                                America/Blanc-Sablon
+                              </option>
+                              <option value="74" label="America/Boa Vista">
+                                America/Boa Vista
+                              </option>
+                              <option value="75" label="America/Bogota">
+                                America/Bogota
+                              </option>
+                              <option value="76" label="America/Boise">
+                                America/Boise
+                              </option>
+                              <option value="77" label="America/Cambridge Bay">
+                                America/Cambridge Bay
+                              </option>
+                              <option value="78" label="America/Campo Grande">
+                                America/Campo Grande
+                              </option>
+                              <option value="79" label="America/Cancun">
+                                America/Cancun
+                              </option>
+                              <option value="80" label="America/Caracas">
+                                America/Caracas
+                              </option>
+                              <option value="81" label="America/Cayenne">
+                                America/Cayenne
+                              </option>
+                              <option value="82" label="America/Cayman">
+                                America/Cayman
+                              </option>
+                              <option value="83" label="America/Chicago">
+                                America/Chicago
+                              </option>
+                              <option value="84" label="America/Chihuahua">
+                                America/Chihuahua
+                              </option>
+                              <option value="85" label="America/Costa Rica">
+                                America/Costa Rica
+                              </option>
+                              <option value="86" label="America/Cuiaba">
+                                America/Cuiaba
+                              </option>
+                              <option value="87" label="America/Curacao">
+                                America/Curacao
+                              </option>
+                              <option value="88" label="America/Danmarkshavn">
+                                America/Danmarkshavn
+                              </option>
+                              <option value="89" label="America/Dawson">
+                                America/Dawson
+                              </option>
+                              <option value="90" label="America/Dawson Creek">
+                                America/Dawson Creek
+                              </option>
+                              <option value="91" label="America/Denver">
+                                America/Denver
+                              </option>
+                              <option value="92" label="America/Detroit">
+                                America/Detroit
+                              </option>
+                              <option value="93" label="America/Dominica">
+                                America/Dominica
+                              </option>
+                              <option value="94" label="America/Edmonton">
+                                America/Edmonton
+                              </option>
+                              <option value="95" label="America/Eirunepe">
+                                America/Eirunepe
+                              </option>
+                              <option value="96" label="America/El Salvador">
+                                America/El Salvador
+                              </option>
+                              <option value="97" label="America/Fortaleza">
+                                America/Fortaleza
+                              </option>
+                              <option value="98" label="America/Glace Bay">
+                                America/Glace Bay
+                              </option>
+                              <option value="99" label="America/Goose Bay">
+                                America/Goose Bay
+                              </option>
+                              <option value="100" label="America/Grand Turk">
+                                America/Grand Turk
+                              </option>
+                              <option value="101" label="America/Grenada">
+                                America/Grenada
+                              </option>
+                              <option value="102" label="America/Guadeloupe">
+                                America/Guadeloupe
+                              </option>
+                              <option value="103" label="America/Guatemala">
+                                America/Guatemala
+                              </option>
+                              <option value="104" label="America/Guayaquil">
+                                America/Guayaquil
+                              </option>
+                              <option value="105" label="America/Guyana">
+                                America/Guyana
+                              </option>
+                              <option value="106" label="America/Halifax">
+                                America/Halifax
+                              </option>
+                              <option value="107" label="America/Havana">
+                                America/Havana
+                              </option>
+                              <option value="108" label="America/Hermosillo">
+                                America/Hermosillo
+                              </option>
+                              <option
+                                value="109"
+                                label="America/Indiana/Indianapolis"
+                              >
+                                America/Indiana/Indianapolis
+                              </option>
+                              <option value="110" label="America/Indiana/Knox">
+                                America/Indiana/Knox
+                              </option>
+                              <option
+                                value="111"
+                                label="America/Indiana/Marengo"
+                              >
+                                America/Indiana/Marengo
+                              </option>
+                              <option
+                                value="112"
+                                label="America/Indiana/Petersburg"
+                              >
+                                America/Indiana/Petersburg
+                              </option>
+                              <option
+                                value="113"
+                                label="America/Indiana/Tell City"
+                              >
+                                America/Indiana/Tell City
+                              </option>
+                              <option value="114" label="America/Indiana/Vevay">
+                                America/Indiana/Vevay
+                              </option>
+                              <option
+                                value="115"
+                                label="America/Indiana/Vincennes"
+                              >
+                                America/Indiana/Vincennes
+                              </option>
+                              <option
+                                value="116"
+                                label="America/Indiana/Winamac"
+                              >
+                                America/Indiana/Winamac
+                              </option>
+                              <option value="117" label="America/Inuvik">
+                                America/Inuvik
+                              </option>
+                              <option value="118" label="America/Iqaluit">
+                                America/Iqaluit
+                              </option>
+                              <option value="119" label="America/Jamaica">
+                                America/Jamaica
+                              </option>
+                              <option value="120" label="America/Juneau">
+                                America/Juneau
+                              </option>
+                              <option
+                                value="121"
+                                label="America/Kentucky/Louisville"
+                              >
+                                America/Kentucky/Louisville
+                              </option>
+                              <option
+                                value="122"
+                                label="America/Kentucky/Monticello"
+                              >
+                                America/Kentucky/Monticello
+                              </option>
+                              <option value="123" label="America/La Paz">
+                                America/La Paz
+                              </option>
+                              <option value="124" label="America/Lima">
+                                America/Lima
+                              </option>
+                              <option value="125" label="America/Los Angeles">
+                                America/Los Angeles
+                              </option>
+                              <option value="126" label="America/Maceio">
+                                America/Maceio
+                              </option>
+                              <option value="127" label="America/Managua">
+                                America/Managua
+                              </option>
+                              <option value="128" label="America/Manaus">
+                                America/Manaus
+                              </option>
+                              <option value="129" label="America/Marigot">
+                                America/Marigot
+                              </option>
+                              <option value="130" label="America/Martinique">
+                                America/Martinique
+                              </option>
+                              <option value="131" label="America/Matamoros">
+                                America/Matamoros
+                              </option>
+                              <option value="132" label="America/Mazatlan">
+                                America/Mazatlan
+                              </option>
+                              <option value="133" label="America/Menominee">
+                                America/Menominee
+                              </option>
+                              <option value="134" label="America/Merida">
+                                America/Merida
+                              </option>
+                              <option value="135" label="America/Mexico City">
+                                America/Mexico City
+                              </option>
+                              <option value="136" label="America/Miquelon">
+                                America/Miquelon
+                              </option>
+                              <option value="137" label="America/Moncton">
+                                America/Moncton
+                              </option>
+                              <option value="138" label="America/Monterrey">
+                                America/Monterrey
+                              </option>
+                              <option value="139" label="America/Montevideo">
+                                America/Montevideo
+                              </option>
+                              <option value="140" label="America/Montreal">
+                                America/Montreal
+                              </option>
+                              <option value="141" label="America/Montserrat">
+                                America/Montserrat
+                              </option>
+                              <option value="142" label="America/Nassau">
+                                America/Nassau
+                              </option>
+                              <option value="143" label="America/New York">
+                                America/New York
+                              </option>
+                              <option value="144" label="America/Nipigon">
+                                America/Nipigon
+                              </option>
+                              <option value="145" label="America/Nome">
+                                America/Nome
+                              </option>
+                              <option value="146" label="America/Noronha">
+                                America/Noronha
+                              </option>
+                              <option
+                                value="147"
+                                label="America/North Dakota/Center"
+                              >
+                                America/North Dakota/Center
+                              </option>
+                              <option
+                                value="148"
+                                label="America/North Dakota/New Salem"
+                              >
+                                America/North Dakota/New Salem
+                              </option>
+                              <option value="149" label="America/Ojinaga">
+                                America/Ojinaga
+                              </option>
+                              <option value="150" label="America/Panama">
+                                America/Panama
+                              </option>
+                              <option value="151" label="America/Pangnirtung">
+                                America/Pangnirtung
+                              </option>
+                              <option value="152" label="America/Paramaribo">
+                                America/Paramaribo
+                              </option>
+                              <option value="153" label="America/Phoenix ">
+                                America/Phoenix
+                              </option>
+                              <option value="154" label="America/Port of Spain">
+                                America/Port of Spain
+                              </option>
+                              <option
+                                value="155"
+                                label="America/Port-au-Prince"
+                              >
+                                America/Port-au-Prince
+                              </option>
+                              <option value="156" label="America/Porto Velho">
+                                America/Porto Velho
+                              </option>
+                              <option value="157" label="America/Puerto Rico">
+                                America/Puerto Rico
+                              </option>
+                              <option value="158" label="America/Rainy River">
+                                America/Rainy River
+                              </option>
+                              <option value="159" label="America/Rankin Inlet">
+                                America/Rankin Inlet
+                              </option>
+                              <option value="160" label="America/Recife">
+                                America/Recife
+                              </option>
+                              <option value="161" label="America/Regina">
+                                America/Regina
+                              </option>
+                              <option value="162" label="America/Rio Branco">
+                                America/Rio Branco
+                              </option>
+                              <option value="163" label="America/Santa Isabel">
+                                America/Santa Isabel
+                              </option>
+                              <option value="164" label="America/Santarem">
+                                America/Santarem
+                              </option>
+                              <option value="165" label="America/Santo Domingo">
+                                America/Santo Domingo
+                              </option>
+                              <option value="166" label="America/Sao Paulo">
+                                America/Sao Paulo
+                              </option>
+                              <option value="167" label="America/Scoresbysund">
+                                America/Scoresbysund
+                              </option>
+                              <option value="168" label="America/Shiprock">
+                                America/Shiprock
+                              </option>
+                              <option value="169" label="America/St Barthelemy">
+                                America/St Barthelemy
+                              </option>
+                              <option value="170" label="America/St Johns">
+                                America/St Johns
+                              </option>
+                              <option value="171" label="America/St Kitts">
+                                America/St Kitts
+                              </option>
+                              <option value="172" label="America/St Lucia">
+                                America/St Lucia
+                              </option>
+                              <option value="173" label="America/St Thomas">
+                                America/St Thomas
+                              </option>
+                              <option value="174" label="America/St Vincent">
+                                America/St Vincent
+                              </option>
+                              <option value="175" label="America/Swift Current">
+                                America/Swift Current
+                              </option>
+                              <option value="176" label="America/Tegucigalpa">
+                                America/Tegucigalpa
+                              </option>
+                              <option value="177" label="America/Thule">
+                                America/Thule
+                              </option>
+                              <option value="178" label="America/Thunder Bay">
+                                America/Thunder Bay
+                              </option>
+                              <option value="179" label="America/Tijuana">
+                                America/Tijuana
+                              </option>
+                              <option value="180" label="America/Toronto">
+                                America/Toronto
+                              </option>
+                              <option value="181" label="America/Tortola">
+                                America/Tortola
+                              </option>
+                              <option value="182" label="America/Vancouver">
+                                America/Vancouver
+                              </option>
+                              <option value="183" label="America/Whitehorse">
+                                America/Whitehorse
+                              </option>
+                              <option value="184" label="America/Winnipeg">
+                                America/Winnipeg
+                              </option>
+                              <option value="185" label="America/Yakutat">
+                                America/Yakutat
+                              </option>
+                              <option value="186" label="America/Yellowknife">
+                                America/Yellowknife
+                              </option>
+                              <option value="187" label="Antarctica/Casey">
+                                Antarctica/Casey
+                              </option>
+                              <option value="188" label="Antarctica/Davis">
+                                Antarctica/Davis
+                              </option>
+                              <option
+                                value="189"
+                                label="Antarctica/DumontDUrville"
+                              >
+                                Antarctica/DumontDUrville
+                              </option>
+                              <option value="190" label="Antarctica/Macquarie">
+                                Antarctica/Macquarie
+                              </option>
+                              <option value="191" label="Antarctica/Mawson">
+                                Antarctica/Mawson
+                              </option>
+                              <option value="192" label="Antarctica/McMurdo">
+                                Antarctica/McMurdo
+                              </option>
+                              <option value="193" label="Antarctica/Rothera">
+                                Antarctica/Rothera
+                              </option>
+                              <option value="194" label="Antarctica/South Pole">
+                                Antarctica/South Pole
+                              </option>
+                              <option value="195" label="Antarctica/Syowa">
+                                Antarctica/Syowa
+                              </option>
+                              <option value="196" label="Antarctica/Vostok">
+                                Antarctica/Vostok
+                              </option>
+                              <option value="197" label="Arctic/Longyearbyen">
+                                Arctic/Longyearbyen
+                              </option>
+                              <option value="198" label="Asia/Aden">
+                                Asia/Aden
+                              </option>
+                              <option value="199" label="Asia/Almaty">
+                                Asia/Almaty
+                              </option>
+                              <option value="200" label="Asia/Anadyr">
+                                Asia/Anadyr
+                              </option>
+                              <option value="201" label="Asia/Aqtau">
+                                Asia/Aqtau
+                              </option>
+                              <option value="202" label="Asia/Aqtobe">
+                                Asia/Aqtobe
+                              </option>
+                              <option value="203" label="Asia/Ashgabat">
+                                Asia/Ashgabat
+                              </option>
+                              <option value="204" label="Asia/Baghdad">
+                                Asia/Baghdad
+                              </option>
+                              <option value="205" label="Asia/Bahrain">
+                                Asia/Bahrain
+                              </option>
+                              <option value="206" label="Asia/Baku">
+                                Asia/Baku
+                              </option>
+                              <option value="207" label="Asia/Bangkok">
+                                Asia/Bangkok
+                              </option>
+                              <option value="208" label="Asia/Beirut">
+                                Asia/Beirut
+                              </option>
+                              <option value="209" label="Asia/Bishkek">
+                                Asia/Bishkek
+                              </option>
+                              <option value="210" label="Asia/Brunei">
+                                Asia/Brunei
+                              </option>
+                              <option value="211" label="Asia/Choibalsan">
+                                Asia/Choibalsan
+                              </option>
+                              <option value="212" label="Asia/Chongqing">
+                                Asia/Chongqing
+                              </option>
+                              <option value="213" label="Asia/Colombo">
+                                Asia/Colombo
+                              </option>
+                              <option value="214" label="Asia/Damascus">
+                                Asia/Damascus
+                              </option>
+                              <option value="215" label="Asia/Dhaka">
+                                Asia/Dhaka
+                              </option>
+                              <option value="216" label="Asia/Dili">
+                                Asia/Dili
+                              </option>
+                              <option value="217" label="Asia/Dubai">
+                                Asia/Dubai
+                              </option>
+                              <option value="218" label="Asia/Dushanbe">
+                                Asia/Dushanbe
+                              </option>
+                              <option value="219" label="Asia/Gaza">
+                                Asia/Gaza
+                              </option>
+                              <option value="220" label="Asia/Harbin">
+                                Asia/Harbin
+                              </option>
+                              <option value="221" label="Asia/Ho Chi Minh">
+                                Asia/Ho Chi Minh
+                              </option>
+                              <option value="222" label="Asia/Hong Kong">
+                                Asia/Hong Kong
+                              </option>
+                              <option value="223" label="Asia/Hovd">
+                                Asia/Hovd
+                              </option>
+                              <option value="224" label="Asia/Irkutsk">
+                                Asia/Irkutsk
+                              </option>
+                              <option value="225" label="Asia/Jakarta">
+                                Asia/Jakarta
+                              </option>
+                              <option value="226" label="Asia/Jayapura">
+                                Asia/Jayapura
+                              </option>
+                              <option value="227" label="Asia/Kabul">
+                                Asia/Kabul
+                              </option>
+                              <option value="228" label="Asia/Kamchatka">
+                                Asia/Kamchatka
+                              </option>
+                              <option value="229" label="Asia/Karachi">
+                                Asia/Karachi
+                              </option>
+                              <option value="230" label="Asia/Kashgar">
+                                Asia/Kashgar
+                              </option>
+                              <option value="231" label="Asia/Kathmandu">
+                                Asia/Kathmandu
+                              </option>
+                              <option
+                                value="232"
+                                selected="selected"
+                                label="Asia/Kolkata"
+                              >
+                                Asia/Kolkata
+                              </option>
+                              <option value="233" label="Asia/Krasnoyarsk">
+                                Asia/Krasnoyarsk
+                              </option>
+                              <option value="234" label="Asia/Kuala Lumpur">
+                                Asia/Kuala Lumpur
+                              </option>
+                              <option value="235" label="Asia/Kuching">
+                                Asia/Kuching
+                              </option>
+                              <option value="236" label="Asia/Kuwait">
+                                Asia/Kuwait
+                              </option>
+                              <option value="237" label="Asia/Macau">
+                                Asia/Macau
+                              </option>
+                              <option value="238" label="Asia/Magadan">
+                                Asia/Magadan
+                              </option>
+                              <option value="239" label="Asia/Makassar">
+                                Asia/Makassar
+                              </option>
+                              <option value="240" label="Asia/Manila">
+                                Asia/Manila
+                              </option>
+                              <option value="241" label="Asia/Muscat">
+                                Asia/Muscat
+                              </option>
+                              <option value="242" label="Asia/Nicosia">
+                                Asia/Nicosia
+                              </option>
+                              <option value="243" label="Asia/Novokuznetsk">
+                                Asia/Novokuznetsk
+                              </option>
+                              <option value="244" label="Asia/Novosibirsk">
+                                Asia/Novosibirsk
+                              </option>
+                              <option value="245" label="Asia/Omsk">
+                                Asia/Omsk
+                              </option>
+                              <option value="246" label="Asia/Oral">
+                                Asia/Oral
+                              </option>
+                              <option value="247" label="Asia/Phnom Penh">
+                                Asia/Phnom Penh
+                              </option>
+                              <option value="248" label="Asia/Pontianak">
+                                Asia/Pontianak
+                              </option>
+                              <option value="249" label="Asia/Pyongyang">
+                                Asia/Pyongyang
+                              </option>
+                              <option value="250" label="Asia/Qatar">
+                                Asia/Qatar
+                              </option>
+                              <option value="251" label="Asia/Qyzylorda">
+                                Asia/Qyzylorda
+                              </option>
+                              <option value="252" label="Asia/Rangoon">
+                                Asia/Rangoon
+                              </option>
+                              <option value="253" label="Asia/Riyadh">
+                                Asia/Riyadh
+                              </option>
+                              <option value="254" label="Asia/Sakhalin">
+                                Asia/Sakhalin
+                              </option>
+                              <option value="255" label="Asia/Samarkand">
+                                Asia/Samarkand
+                              </option>
+                              <option value="256" label="Asia/Seoul">
+                                Asia/Seoul
+                              </option>
+                              <option value="257" label="Asia/Shanghai">
+                                Asia/Shanghai
+                              </option>
+                              <option value="258" label="Asia/Singapore">
+                                Asia/Singapore
+                              </option>
+                              <option value="259" label="Asia/Taipei">
+                                Asia/Taipei
+                              </option>
+                              <option value="260" label="Asia/Tashkent">
+                                Asia/Tashkent
+                              </option>
+                              <option value="261" label="Asia/Tbilisi">
+                                Asia/Tbilisi
+                              </option>
+                              <option value="262" label="Asia/Tehran">
+                                Asia/Tehran
+                              </option>
+                              <option value="263" label="Asia/Thimphu">
+                                Asia/Thimphu
+                              </option>
+                              <option value="264" label="Asia/Tokyo">
+                                Asia/Tokyo
+                              </option>
+                              <option value="265" label="Asia/Ulaanbaatar">
+                                Asia/Ulaanbaatar
+                              </option>
+                              <option value="266" label="Asia/Urumqi">
+                                Asia/Urumqi
+                              </option>
+                              <option value="267" label="Asia/Vientiane">
+                                Asia/Vientiane
+                              </option>
+                              <option value="268" label="Asia/Vladivostok">
+                                Asia/Vladivostok
+                              </option>
+                              <option value="269" label="Asia/Yakutsk">
+                                Asia/Yakutsk
+                              </option>
+                              <option value="270" label="Asia/Yekaterinburg">
+                                Asia/Yekaterinburg
+                              </option>
+                              <option value="271" label="Asia/Yerevan">
+                                Asia/Yerevan
+                              </option>
+                              <option value="272" label="Atlantic/Azores">
+                                Atlantic/Azores
+                              </option>
+                              <option value="273" label="Atlantic/Bermuda">
+                                Atlantic/Bermuda
+                              </option>
+                              <option value="274" label="Atlantic/Canary">
+                                Atlantic/Canary
+                              </option>
+                              <option value="275" label="Atlantic/Cape Verde">
+                                Atlantic/Cape Verde
+                              </option>
+                              <option value="276" label="Atlantic/Faroe">
+                                Atlantic/Faroe
+                              </option>
+                              <option value="277" label="Atlantic/Madeira">
+                                Atlantic/Madeira
+                              </option>
+                              <option value="278" label="Atlantic/Reykjavik">
+                                Atlantic/Reykjavik
+                              </option>
+                              <option
+                                value="279"
+                                label="Atlantic/South Georgia"
+                              >
+                                Atlantic/South Georgia
+                              </option>
+                              <option value="280" label="Atlantic/St Helena">
+                                Atlantic/St Helena
+                              </option>
+                              <option value="281" label="Atlantic/Stanley">
+                                Atlantic/Stanley
+                              </option>
+                              <option value="282" label="Australia/Adelaide">
+                                Australia/Adelaide
+                              </option>
+                              <option value="283" label="Australia/Brisbane">
+                                Australia/Brisbane
+                              </option>
+                              <option value="284" label="Australia/Broken Hill">
+                                Australia/Broken Hill
+                              </option>
+                              <option value="285" label="Australia/Currie">
+                                Australia/Currie
+                              </option>
+                              <option value="286" label="Australia/Darwin">
+                                Australia/Darwin
+                              </option>
+                              <option value="287" label="Australia/Eucla">
+                                Australia/Eucla
+                              </option>
+                              <option value="288" label="Australia/Hobart">
+                                Australia/Hobart
+                              </option>
+                              <option value="289" label="Australia/Lindeman">
+                                Australia/Lindeman
+                              </option>
+                              <option value="290" label="Australia/Lord Howe">
+                                Australia/Lord Howe
+                              </option>
+                              <option value="291" label="Australia/Melbourne">
+                                Australia/Melbourne
+                              </option>
+                              <option value="292" label="Australia/Perth">
+                                Australia/Perth
+                              </option>
+                              <option value="293" label="Australia/Sydney">
+                                Australia/Sydney
+                              </option>
+                              <option value="294" label="Europe/Amsterdam">
+                                Europe/Amsterdam
+                              </option>
+                              <option value="295" label="Europe/Andorra">
+                                Europe/Andorra
+                              </option>
+                              <option value="296" label="Europe/Athens">
+                                Europe/Athens
+                              </option>
+                              <option value="297" label="Europe/Belgrade">
+                                Europe/Belgrade
+                              </option>
+                              <option value="298" label="Europe/Berlin">
+                                Europe/Berlin
+                              </option>
+                              <option value="299" label="Europe/Bratislava">
+                                Europe/Bratislava
+                              </option>
+                              <option value="300" label="Europe/Brussels">
+                                Europe/Brussels
+                              </option>
+                              <option value="301" label="Europe/Bucharest">
+                                Europe/Bucharest
+                              </option>
+                              <option value="302" label="Europe/Budapest">
+                                Europe/Budapest
+                              </option>
+                              <option value="303" label="Europe/Chisinau">
+                                Europe/Chisinau
+                              </option>
+                              <option value="304" label="Europe/Copenhagen">
+                                Europe/Copenhagen
+                              </option>
+                              <option value="305" label="Europe/Dublin">
+                                Europe/Dublin
+                              </option>
+                              <option value="306" label="Europe/Gibraltar">
+                                Europe/Gibraltar
+                              </option>
+                              <option value="307" label="Europe/Guernsey">
+                                Europe/Guernsey
+                              </option>
+                              <option value="308" label="Europe/Helsinki">
+                                Europe/Helsinki
+                              </option>
+                              <option value="309" label="Europe/Isle of Man">
+                                Europe/Isle of Man
+                              </option>
+                              <option value="310" label="Europe/Istanbul ">
+                                Europe/Istanbul
+                              </option>
+                              <option value="311" label="Europe/Jersey">
+                                Europe/Jersey
+                              </option>
+                              <option value="312" label="Europe/Kaliningrad">
+                                Europe/Kaliningrad
+                              </option>
+                              <option value="313" label="Europe/Kiev">
+                                Europe/Kiev
+                              </option>
+                              <option value="314" label="Europe/Lisbon">
+                                Europe/Lisbon
+                              </option>
+                              <option value="315" label="Europe/Ljubljana">
+                                Europe/Ljubljana
+                              </option>
+                              <option value="316" label="Europe/London">
+                                Europe/London
+                              </option>
+                              <option value="317" label="Europe/Luxembourg">
+                                Europe/Luxembourg
+                              </option>
+                              <option value="318" label="Europe/Madrid">
+                                Europe/Madrid
+                              </option>
+                              <option value="319" label="Europe/Malta">
+                                Europe/Malta
+                              </option>
+                              <option value="320" label="Europe/Mariehamn">
+                                Europe/Mariehamn
+                              </option>
+                              <option value="321" label="Europe/Minsk">
+                                Europe/Minsk
+                              </option>
+                              <option value="322" label="Europe/Monaco">
+                                Europe/Monaco
+                              </option>
+                              <option value="323" label="Europe/Moscow">
+                                Europe/Moscow
+                              </option>
+                              <option value="324" label="Europe/Oslo">
+                                Europe/Oslo
+                              </option>
+                              <option value="325" label="Europe/Paris">
+                                Europe/Paris
+                              </option>
+                              <option value="326" label="Europe/Podgorica">
+                                Europe/Podgorica
+                              </option>
+                              <option value="327" label="Europe/Prague">
+                                Europe/Prague
+                              </option>
+                              <option value="328" label="Europe/Riga">
+                                Europe/Riga
+                              </option>
+                              <option value="329" label="Europe/Rome">
+                                Europe/Rome
+                              </option>
+                              <option value="330" label="Europe/Samara">
+                                Europe/Samara
+                              </option>
+                              <option value="331" label="Europe/San Marino">
+                                Europe/San Marino
+                              </option>
+                              <option value="332" label="Europe/Sarajevo">
+                                Europe/Sarajevo
+                              </option>
+                              <option value="333" label="Europe/Simferopol">
+                                Europe/Simferopol
+                              </option>
+                              <option value="334" label="Europe/Skopje">
+                                Europe/Skopje
+                              </option>
+                              <option value="335" label="Europe/Sofia">
+                                Europe/Sofia
+                              </option>
+                              <option value="336" label="Europe/Stockholm">
+                                Europe/Stockholm
+                              </option>
+                              <option value="337" label="Europe/Tallinn">
+                                Europe/Tallinn
+                              </option>
+                              <option value="338" label="Europe/Tirane">
+                                Europe/Tirane
+                              </option>
+                              <option value="339" label="Europe/Uzhgorod">
+                                Europe/Uzhgorod
+                              </option>
+                              <option value="340" label="Europe/Vaduz">
+                                Europe/Vaduz
+                              </option>
+                              <option value="341" label="Europe/Vatican">
+                                Europe/Vatican
+                              </option>
+                              <option value="342" label="Europe/Vienna">
+                                Europe/Vienna
+                              </option>
+                              <option value="343" label="Europe/Vilnius">
+                                Europe/Vilnius
+                              </option>
+                              <option value="344" label="Europe/Volgograd">
+                                Europe/Volgograd
+                              </option>
+                              <option value="345" label="Europe/Warsaw">
+                                Europe/Warsaw
+                              </option>
+                              <option value="346" label="Europe/Zagreb">
+                                Europe/Zagreb
+                              </option>
+                              <option value="347" label="Europe/Zaporozhye">
+                                Europe/Zaporozhye
+                              </option>
+                              <option value="348" label="Europe/Zurich">
+                                Europe/Zurich
+                              </option>
+                              <option value="349" label="Indian/Antananarivo">
+                                Indian/Antananarivo
+                              </option>
+                              <option value="350" label="Indian/Chagos">
+                                Indian/Chagos
+                              </option>
+                              <option value="351" label="Indian/Christmas">
+                                Indian/Christmas
+                              </option>
+                              <option value="352" label="Indian/Cocos">
+                                Indian/Cocos
+                              </option>
+                              <option value="353" label="Indian/Comoro">
+                                Indian/Comoro
+                              </option>
+                              <option value="354" label="Indian/Kerguelen">
+                                Indian/Kerguelen
+                              </option>
+                              <option value="355" label="Indian/Mahe">
+                                Indian/Mahe
+                              </option>
+                              <option value="356" label="Indian/Maldives">
+                                Indian/Maldives
+                              </option>
+                              <option value="357" label="Indian/Mauritius">
+                                Indian/Mauritius
+                              </option>
+                              <option value="358" label="Indian/Mayotte">
+                                Indian/Mayotte
+                              </option>
+                              <option value="359" label="Indian/Reunion">
+                                Indian/Reunion
+                              </option>
+                              <option value="360" label="Pacific/Apia">
+                                Pacific/Apia
+                              </option>
+                              <option value="361" label="Pacific/Auckland">
+                                Pacific/Auckland
+                              </option>
+                              <option value="362" label="Pacific/Chatham">
+                                Pacific/Chatham
+                              </option>
+                              <option value="363" label="Pacific/Efate">
+                                Pacific/Efate
+                              </option>
+                              <option value="364" label="Pacific/Enderbury">
+                                Pacific/Enderbury
+                              </option>
+                              <option value="365" label="Pacific/Fakaofo">
+                                Pacific/Fakaofo
+                              </option>
+                              <option value="366" label="Pacific/Fiji">
+                                Pacific/Fiji
+                              </option>
+                              <option value="367" label="Pacific/Funafuti">
+                                Pacific/Funafuti
+                              </option>
+                              <option value="368" label="Pacific/Galapagos">
+                                Pacific/Galapagos
+                              </option>
+                              <option value="369" label="Pacific/Gambier">
+                                Pacific/Gambier
+                              </option>
+                              <option value="370" label="Pacific/Guadalcanal">
+                                Pacific/Guadalcanal
+                              </option>
+                              <option value="371" label="Pacific/Guam">
+                                Pacific/Guam
+                              </option>
+                              <option value="372" label="Pacific/Honolulu">
+                                Pacific/Honolulu
+                              </option>
+                              <option value="373" label="Pacific/Johnston">
+                                Pacific/Johnston
+                              </option>
+                              <option value="374" label="Pacific/Kiritimati">
+                                Pacific/Kiritimati
+                              </option>
+                              <option value="375" label="Pacific/Kosrae">
+                                Pacific/Kosrae
+                              </option>
+                              <option value="376" label="Pacific/Kwajalein">
+                                Pacific/Kwajalein
+                              </option>
+                              <option value="377" label="Pacific/Majuro">
+                                Pacific/Majuro
+                              </option>
+                              <option value="378" label="Pacific/Marquesas">
+                                Pacific/Marquesas
+                              </option>
+                              <option value="379" label="Pacific/Midway">
+                                Pacific/Midway
+                              </option>
+                              <option value="380" label="Pacific/Nauru ">
+                                Pacific/Nauru
+                              </option>
+                              <option value="381" label="Pacific/Niue">
+                                Pacific/Niue
+                              </option>
+                              <option value="382" label="Pacific/Norfolk">
+                                Pacific/Norfolk
+                              </option>
+                              <option value="383" label="Pacific/Noumea">
+                                Pacific/Noumea
+                              </option>
+                              <option value="384" label="Pacific/Pago Pago">
+                                Pacific/Pago Pago
+                              </option>
+                              <option value="385" label="Pacific/Palau">
+                                Pacific/Palau
+                              </option>
+                              <option value="386" label="Pacific/Pitcairn">
+                                Pacific/Pitcairn
+                              </option>
+                              <option value="387" label="Pacific/Ponape">
+                                Pacific/Ponape
+                              </option>
+                              <option value="388" label="Pacific/Port Moresby">
+                                Pacific/Port Moresby
+                              </option>
+                              <option value="389" label="Pacific/Rarotonga">
+                                Pacific/Rarotonga
+                              </option>
+                              <option value="390" label="Pacific/Saipan">
+                                Pacific/Saipan
+                              </option>
+                              <option value="391" label="Pacific/Tahiti">
+                                Pacific/Tahiti
+                              </option>
+                              <option value="392" label="Pacific/Tarawa">
+                                Pacific/Tarawa
+                              </option>
+                              <option value="393" label="Pacific/Tongatapu">
+                                Pacific/Tongatapu
+                              </option>
+                              <option value="394" label="Pacific/Truk">
+                                Pacific/Truk
+                              </option>
+                              <option value="395" label="Pacific/Wake">
+                                Pacific/Wake
+                              </option>
+                              <option value="396" label="Pacific/Wallis">
+                                Pacific/Wallis
+                              </option></select
+                            ><span
+                              class="error ng-binding ng-hide"
+                              ng-show="DeviceTime_X_GTK_TimeZoneLocationresponsestatus"
+                              ng-bind="DeviceTime_X_GTK_TimeZoneLocationval |translate
+                        "
+                            ></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceTime_X_GTK_TimeZoneLocation"
+                              ng-show="DeviceTime_form.DeviceTime_X_GTK_TimeZoneLocation.$error.required&amp;&amp; formsubmitstatus"
+                              ng-bind="
+                &#39;Device.Time.Local Timezone.$error.required&#39;|translate
+            "
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr"></div>
+                    </div>
+                  </div>
+                  <div class="text-center gemtek-button-inside-panel">
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Cancel"
+                        class="gemtek-btn-normal"
+                        value="Cancel"
+                        source=""
+                      />
+                    </div>
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Modify"
+                        class="gemtek-btn-primary"
+                        value="Apply"
+                        source="Device.Time?CurrentLocalTime,Enable,NTPServer1,NTPServer2,NTPServer3,NTPServer4,NTPServer5,X_GTK_TimeZoneLocation"
+                        hiddenparams="Device.Time?Enable__1,"
+                        formname="DeviceTime"
+                        relationformname="DeviceTime,"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
+					</div> -->
+
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
+                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
+                    </div>                         -->
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
+    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
+    <!--[if !IE]> -->
+    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <div class="hiddendiv common"></div>
+  </body>
+</html>

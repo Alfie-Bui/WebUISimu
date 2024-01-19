@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)#/custom/virtualport -->
+<html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+      }
+      ng\:form {
+        display: block;
+      }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
+
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
+
+    <script type="text/ng-template" id="firstDialogId">
+      <div class="ngdialog-message">
+      <form class="form-horizontal" role="form">
+      <!-- Modify: In Process Feature -->
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12" style="text-align:center;font-weight: bold;">
+      <!-- <input type="text" ng-model="$root.status" class="form-control" id="Status" placeholder="WPS Session Start" readonly/> -->
+          {{$root.status}}
+      </div>
+      </div>
+
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+      </div>
+      </div>
+      <!-- Modify -->
+      </form>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message">
+      <div>
+      {{$root.notifymessage}}
+      <div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="sessionTimeout">
+      <div class="ngdialog-message">
+      <div>
+      You have been logged out. Do you wish to continue?
+      </div>
+      <div>You will automatically be logged off in {{$root.time}} seconds.</div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      </div>
+    </script>
+
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/template.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/index.js"></script>
+    <script>
+      function back_to_previous() {
+        window.location.href = "advanced-port_mapping.html";
+      }
+    </script>
+  </head>
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0px, 0px, 0px);
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(0.9873837828636169,0.158345565199852,-0.158345565199852,0.9873837828636169,54.25788879394531,67.9804458618164)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M1.5379999876022339,-47.97600173950195 C12.571000099182129,-47.62799835205078 22.670000076293945,-43.54899978637695 30.61400032043457,-36.959999084472656"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span>Please wait...</span>
+    </div>
+    <div id="main-wrapper" ng-controller="menuController" class="ng-scope">
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
+          </div>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+                                    <div class="no-padding-vr">
+                                        <ul class="notificationdiv">
+                                            <li class="theme1">Theme-1</li>
+                                            <li class="theme2">Theme-2</li>
+                                        </ul>
+                                    </div>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
+                                    <a style="overflow: hidden;white-space: nowrap;">
+                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                    </a>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="login.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span ng-click="Logout()">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    source="adv_homepage"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    source="pon_status"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    source="stats"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    source="wan_ipv4wanconnections"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    source="lan_ipaddressconfig"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    source="regid"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    source="adv_ssid"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    source="adv5_ssid"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    source="guestaccessview"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope open"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    source="NAT_DMZviewform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    source="virtualserver"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    source="porttriggerview"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    source="staticrouteview"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    source="managementserverview"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    source="algview"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    source="upnp"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    source="multicast_mcconfiguration"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    source="ipsecview"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    source="ddnsform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    source="firewall"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    source="parentalcontrol"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    source="userview"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    source="adminactions"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    source="diagnose"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    source="speedtest"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    source="voip_config"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
+      </div>
+
+      <div id="content-wrapper" style="min-height: 606px">
+        <!-- ngView: true -->
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
+          <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+          <title class="ng-scope">Port Mapping</title>
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
+          <style type="text/css" class="ng-scope">
+            /* .boxcontainer_appname {
+      width: 700px;
+      height: auto;
+    }
+
+    .boxcontainer {
+      width: 700px;
+      height: 280px;
+      margin: 10px auto;
+      position: relative;
+    }
+
+    .boxcontainer .box_even {
+      width: 148px;
+      height: 270px;
+      display: table;
+      padding: 10px;
+      float: left;
+      text-align: center;
+    }
+
+    .boxcontainer .box_even .icongroup {
+      width: 148px;
+      display: table-cell;
+      vertical-align: top;
+      position: relative;
+    }
+
+    .boxcontainer .box_even span.title {
+      display: block;
+      margin: 5px auto;
+      color: #454545;
+      font-weight: normal;
+    }
+
+    .boxcontainer .box_even .coludtxt1 {
+      color: #ffffff !important;
+      font-weight: 400 !important
+    }
+
+    .boxcontainer .box_divison {
+      width: 35px;
+      height: 160px;
+      float: left;
+    }
+
+    .boxcontainer .box_divison .directions {
+      width: 25px;
+      height: 80px;
+      margin-top: 30px;
+    }
+
+    .boxcontainer .box_divison .directions i {
+      font-size: 35px;
+      color: #e74c3c;
+      margin-top: 75px;
+    }
+
+    .boxcontainer .box_divison .directions img {
+      font-size: 35px;
+      color: #e74c3c;
+      margin-top: 80px;
+    }
+
+    Box1 .cloud>i.cloudicon {
+      font-size: 136px;
+      color: #0096d6 !important;
+      line-height: 124px;
+      position: absolute;
+      top: 70px;
+      left: 0px;
+      margin: 0px !important;
+    }
+
+    .icongroup input.form-control {
+      position: absolute;
+      top: 134px;
+      width: 106px;
+      left: 5px;
+      z-index: 2;
+      color: #ffffff;
+      border: 1px solid #0084bd;
+    }
+
+    .cloud_editbtn {
+      font-size: 24px;
+      color: #ffffff;
+      position: absolute;
+      top: 134px;
+      right: 6px;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .cloud>span.coludtxt {
+      position: absolute;
+      top: 100px;
+      left: 45px;
+      z-index: 1;
+      color: #ffffff !important
+    }
+
+    .cloud>.int_textfield {
+      width: 124px;
+      height: 24px !important;
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      border-radius: 2px;
+      padding: 2px 5px;
+      background: transparent;
+      border: 1px solid #0072a3;
+    }
+
+    .int_textfield::-webkit-input-placeholder {
+      color: #ffffff;
+    }
+
+    .int_textfield:-moz-placeholder {
+      color: #ffffff;
+    }
+
+    .int_textfield::-moz-placeholder {
+      color: #ffffff;
+    }
+
+    .int_textfield:-ms-input-placeholder {
+      color: #ffffff;
+    }
+
+    Box2 .port_bg1 {
+      background: #8bc34a !important;
+    }
+
+    .port_bg2 {
+      background: #ff9800 !important;
+    }
+
+    .port_bg3 {
+      background: #008080 !important;
+    }
+
+    .interface label {
+      margin: 10px 0px;
+      color: #454545;
+      font-weight: 400;
+    }
+
+    .interface input[type="text"] {
+      width: 50px;
+      margin: 0 2px;
+    }
+
+    .interface input[type="number"] {
+      margin: 0 2px;
+    }
+
+    .interface .divider {
+      margin: 5px 3px
+    }
+
+    .portrangebox {
+      width: 100%;
+      display: inline-block;
+      margin: 8px 0;
+      padding: 0 0 15px;
+    }
+
+    Box3 .routersection textarea {
+      border: 1px solid #dedede;
+      resize: none;
+      padding: 2px;
+      margin-bottom: 10px;
+    }
+
+    .routersection .form-group .form-control {
+      width: 94%;
+      height: 25px !important;
+      text-align: center;
+      background: transparent;
+      border: 1px solid #dedede;
+      border-radius: 0px;
+      position: relative;
+      margin: 0 auto;
+      top: 5px;
+      color: #000000;
+    }
+
+    Box4 .inputtxt {
+      padding: 10px 0px;
+    }
+
+    .pcsection .inputtxt input[type="text"] {
+      width: 110px;
+      margin: 0 auto;
+    }
+
+    .interface select.form-control,
+    .routersection select.form-control {
+      display: block;
+      width: 90%;
+      height: 24px;
+      padding: 2px 12px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: transparent;
+      background-image: none;
+      border: 1px solid #7db043;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+      -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      margin: 0px auto 8px;
+    }
+
+    .port_bg1 .form-group .form-control {
+      border: 1px solid #7db043;
+    }
+
+    .port_bg2 .form-group .form-control {
+      border: 1px solid #e68900;
+    }
+
+    .port_bg1 select.form-control {
+      border: 1px solid #7db043;
+    }
+
+    .port_bg2 select.form-control {
+      border: 1px solid #e68900;
+    }
+
+    .form-group span.required:after {
+      content: " *";
+      color: red;
+    }
+
+    .custom_btn1 {
+      margin-top: 40px;
+    } */
+          </style>
+
+          <div id="translation" class="hide ng-scope">virtualport</div>
+          <div ng-controller="virtualServerController" class="ng-scope">
+            <div class="subheader">
+              <div>
+                <h4>Port Mapping</h4>
+              </div>
+              <!--Breadscrumbs starts here -->
+              <div class="row ltq_breadcrumbs">
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+                    <div class="btn-group btn-breadcrumb1 ng-scope">
+                      <div class="ltq_brd_home">
+                        <a class="btn ng-binding" href="index.html">
+                          Advanced
+                        </a>
+                      </div>
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+
+                    <!-- ngSwitchWhen: false -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' &&$last == false --><span
+                        class="ng-scope"
+                      >
+                        <a
+                          class="btn ng-binding"
+                          href="advanced-port_mapping.html"
+                        >
+                          <i></i>
+                          Port Mapping
+                        </a> </span
+                      ><!-- end ngIf: breadcrumb.path != 'nothing' &&$last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                        class="btn btn-default not-active ng-binding ng-scope"
+                      >
+                        Add </span
+                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' &&$last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              </div>
+              <p>
+                You can configure a rule to allow remote computers (for example,
+                computers on the Internet) to connect to a specific computer or
+                service within a LAN.
+              </p>
+            </div>
+            <!--Breadscrumbs ends here -->
+
+            <!-- <div class="boxcontainer_appname">
+      <div class="form-group">
+        <label>App Name:</label>
+        <select class="form-control" ng-model="testAccounts" ng-options="c.name for c in testAccounts">
+        </select>
+      </div>
+    </div> -->
+            <div class="row ng-hide" ng-show="getformnamepopup">
+              <div class="alert alert-danger">
+                <a class="close" aria-label="close">×</a>
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="postformnamepopup">
+              <div class="alert alert-danger">
+                <a class="close" aria-label="close">×</a>
+                <strong class="ng-binding">Warning!</strong
+                ><span ng-bind="postformnamepopupval" class="ng-binding"></span>
+              </div>
+            </div>
+
+            <div class="virtualport_mbl_scroll">
+              <div class="boxcontainer">
+                <form
+                  role="form"
+                  name="virtualform"
+                  style="width: 100%"
+                  class="ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength ng-valid-min ng-valid-max ng-dirty ng-valid-parse"
+                >
+                  <div
+                    class="required row gemtek-input-mt20 gemtek-display-flex-vc gemtek-tr-bottom-line"
+                  >
+                    <div class="col-xs-12 col-sm-12 col-lg-5 col-md-5">
+                      <label
+                        for="portAddRuleName"
+                        class="control-label ng-binding"
+                        >Name of the Rule</label
+                      >
+                      <input
+                        id="portAddRuleName"
+                        name="description"
+                        type="text"
+                        ng-required="true"
+                        placeholder="Please enter name of the rule"
+                        ng-pattern='/^[^"]{0,}$/'
+                        class="ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
+                        required="required"
+                      />
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_Description"
+                        ng-show="DeviceNATPortMapping_Descriptionresponsestatus"
+                      ></span>
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_Description"
+                        ng-show="virtualformstatus &amp;&amp; virtualform.description.$error.required"
+                        >* This Field is Required</span
+                      >
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_Description"
+                        ng-show="virtualformstatus &amp;&amp; virtualform.description.$error.pattern"
+                        ng-bind='&#39;Please avoid " symbol&#39; | translate'
+                        >Please avoid " symbol</span
+                      >
+                    </div>
+                    <div
+                      class="col-xs-12 col-sm-12 col-lg-4 col-md-4 gemtek-display-flex-vc"
+                    >
+                      <div class="checkbox1 gemtek-display-flex-vc">
+                        <span class="ng-binding">Enable Rule</span>
+                        <input
+                          type="checkbox"
+                          id="DeviceNATPortMapping_Enableresponsestatus"
+                          name="Enable"
+                          style="padding-top: 5px"
+                          class="ng-untouched ng-valid ng-dirty ng-valid-parse"
+                          checked
+                        />
+                        <label
+                          class="checkbox_left_align gemtek-portMapping-chk"
+                          for="DeviceNATPortMapping_Enableresponsestatus"
+                        ></label>
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_Enable"
+                          ng-show="DeviceNATPortMapping_Enableresponsestatus"
+                          ng-bind="DeviceNATPortMapping_Enableval"
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="box_even">
+                    <div class="icongroup cloud">
+                      <div class="gemtek-add-portMapping-iconHeight">
+                        <img
+                          src="images/icons/icon-1/ico-internet.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="gemtek-add-portMapping-input">
+                        <span>IPv4 Address</span>
+                      </div>
+                      <input
+                        type="text"
+                        id="host"
+                        ng-pattern="/^()(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+                        name="remotehost"
+                        placeholder="IPv4 Address"
+                        maxlength="15"
+                        value="8.8.8.8"
+                        class="ng-pristine ng-valid ng-valid-pattern ng-valid-maxlength ng-touched"
+                      />
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_RemoteHost"
+                        ng-show="DeviceNATPortMapping_RemoteHostresponsestatus"
+                        ng-bind="DeviceNATPortMapping_RemoteHostval"
+                      ></span>
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_RemoteHost"
+                        ng-show="virtualformstatus &amp;&amp; virtualform.remotehost.$error.pattern"
+                        ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
+                        >Invalid pattern , Example IPv4 address :
+                        192.168.1.232</span
+                      >
+                      <span
+                        class="error ng-binding ng-hide"
+                        id="invalidRemoteIP"
+                        forname="DeviceNATPortMapping_RemoteHost"
+                        ng-show="invalidRemoteIP"
+                        ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
+                        >Invalid pattern , Example IPv4 address :
+                        192.168.1.232</span
+                      >
+                    </div>
+                  </div>
+                  <div class="box_divison">
+                    <div class="directions">
+                      <img src="images/icons/icon-1/ico-flash.svg" alt="" />
+                    </div>
+                  </div>
+                  <div class="box_even">
+                    <div class="gemtek-add-portMapping-iconHeight">
+                      <img src="images/icons/icon-1/ico-interface.svg" alt="" />
+                    </div>
+                    <!-- <div class="btn_group"> -->
+                    <!-- <div class="portrangebox port_bg2"> -->
+                    <!-- ngIf: DeviceNATPortMapping.AllInterfaces == '0' -->
+                    <div class="ng-scope">
+                      <!-- <div class="form-group inputtxt"> -->
+                      <div class="gemtek-add-portMapping-input">
+                        <span class="required ng-binding">Interface</span>
+                      </div>
+                      <!-- <span class="title coludtxt required ng-binding"
+                      ng-bind="'Device.NAT.PortMapping.*.Interface' | translate"></span> -->
+                      <select
+                        ng-required="true"
+                        name="virtualinreface"
+                        class="ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
+                        required="required"
+                      >
+                        <option value="? string: ?"></option>
+                        <option value="0" label="Select">Select</option>
+                        <option value="1" selected="selected" label="ANI0_wan8">
+                          ANI0_wan8
+                        </option>
+                        <option value="2" label="ANI0_wan9">ANI0_wan9</option>
+                      </select>
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_X_GTK_INTERFACE"
+                        ng-show="virtualformstatus &amp;&amp; virtualform.virtualinreface.$error.required"
+                        ng-bind="&#39;Device.NAT.PortMapping.*.X_GTK_INTERFACE.$error.required&#39; | translate"
+                        >* This Field is Required</span
+                      >
+                      <span
+                        class="error ng-binding ng-hide"
+                        forname="DeviceNATPortMapping_X_GTK_INTERFACE"
+                        ng-show="DeviceNATPortMapping_X_GTK_INTERFACEresponsestatus"
+                        ng-bind="DeviceNATPortMapping_X_GTK_INTERFACEval"
+                      ></span>
+                      <!-- </div> -->
+                    </div>
+                    <!-- end ngIf: DeviceNATPortMapping.AllInterfaces == '0' -->
+                    <input
+                      type="checkbox"
+                      id="DeviceNATPortMapping_AllInterfaces"
+                      name="AllInterfaces"
+                      class="ng-pristine ng-untouched ng-valid"
+                    />
+                    <label
+                      for="DeviceNATPortMapping_AllInterfaces"
+                      ng-bind="&#39;Device.NAT.PortMapping.*.All Interfaces&#39; | translate"
+                      class="ng-binding"
+                      >All Interfaces</label
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_AllInterfaces"
+                      ng-show="DeviceNATPortMapping_AllInterfacesresponsestatus"
+                      ng-bind="DeviceNATPortMapping_AllInterfacesval"
+                    ></span>
+                    <!-- </div> -->
+                    <!-- <div class="portrangebox port_bg2"> -->
+                    <!-- <h5 class="active required" ng-bind="'Device.NAT.PortMapping.*.Port Range' | translate"></h5> -->
+                    <div class="gemtek-add-portMapping-input gemtek-input-mt20">
+                      <span class="active required ng-binding">Port Range</span>
+                    </div>
+                    <div class="row">
+                      <div
+                        class="col-xs-12 col-sm-12 col-lg-5 col-md-5 no-padding"
+                      >
+                        <input
+                          type="number"
+                          id="startport"
+                          name="externalport"
+                          class="form-control1 string-to-number ng-pristine ng-valid ng-valid-min ng-valid-max ng-valid-required ng-valid-maxlength ng-touched"
+                          placeholder="Start Port"
+                          min="0"
+                          max="65535"
+                          maxlength="5"
+                          value="3000"
+                          required="required"
+                        />
+                      </div>
+                      <div
+                        class="col-xs-12 col-sm-12 col-lg-2 col-md-2 no-padding"
+                        style="line-height: 3"
+                      >
+                        -
+                      </div>
+                      <div
+                        class="col-xs-12 col-sm-12 col-lg-5 col-md-5 no-padding"
+                      >
+                        <input
+                          type="number"
+                          id="endportrange"
+                          name="externalendport"
+                          class="form-control1 string-to-number ng-pristine ng-valid ng-valid-min ng-valid-max ng-valid-maxlength ng-touched"
+                          placeholder="End Port"
+                          min="0"
+                          max="65535"
+                          maxlength="5"
+                          value="4000"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPort"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.max"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPort.$error.max&#39; | translate"
+                          >Port Max value should be 65535</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPort"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.min"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPort.$error.min&#39; | translate"
+                          >Port Min value should be 0</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPort"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.number"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPort.$error.number&#39; | translate"
+                          >Not a valid number</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPort"
+                          ng-show="DeviceNATPortMapping_ExternalPortresponsestatus"
+                          ng-bind="DeviceNATPortMapping_ExternalPortval"
+                        ></span>
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPort"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.required"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.RemoteHost.$error.required&#39; | translate"
+                          >* This Field is Required</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPortEndRange"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalendport.$error.max"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPortEndRange.$error.max&#39; | translate"
+                          >Port Max value should be 65535</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPortEndRange"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalendport.$error.min"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPortEndRange.$error.min&#39; | translate"
+                          >Port Min value should be 0</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPortEndRange"
+                          ng-show="virtualformstatus &amp;&amp; virtualform.externalendport.$error.number"
+                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPortEndRange.$error.number&#39; | translate"
+                          >Not a valid number</span
+                        >
+                        <span
+                          class="error ng-binding ng-hide"
+                          id="portRangeInvalid"
+                          forname="DeviceNATPortMapping_ExternalPortEndRange"
+                          ng-show="portRangeInvalid"
+                          ng-bind=""
+                        ></span>
+                        <span
+                          class="error ng-binding ng-hide"
+                          forname="DeviceNATPortMapping_ExternalPortEndRange"
+                          ng-show="DeviceNATPortMapping_ExternalPortEndRangeresponsestatus"
+                          ng-bind="DeviceNATPortMapping_ExternalPortEndRangeval"
+                        ></span>
+                      </div>
+                    </div>
+                    <!-- </div> -->
+                    <!-- </div> -->
+                  </div>
+                  <div class="box_divison">
+                    <div class="directions">
+                      <img
+                        src="images/icons/icon-1/ico-arrow-right.svg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div class="box_even">
+                    <div class="gemtek-add-portMapping-iconHeight">
+                      <img src="images/icons/icon-1/ico-router.svg" alt="" />
+                    </div>
+                    <div class="gemtek-add-portMapping-input">
+                      <span class="required ng-binding">Protocol</span>
+                    </div>
+                    <select
+                      ng-required="true"
+                      name="virtualprotocol"
+                      class="ng-pristine ng-valid ng-valid-required ng-touched"
+                      required="required"
+                    >
+                      <option value="0" selected="selected" label="TCP">
+                        TCP
+                      </option>
+                      <option value="1" label="UDP">UDP</option>
+                    </select>
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_Protocol"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.virtualprotocol.$error.required"
+                      >Protocol is required</span
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_Protocol"
+                      ng-show="DeviceNATPortMapping_Protocolresponsestatus"
+                      ng-bind="DeviceNATPortMapping_Protocolval"
+                    ></span>
+                  </div>
+                  <div class="box_divison">
+                    <div class="directions">
+                      <img
+                        src="images/icons/icon-1/ico-arrow-right.svg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div class="box_even">
+                    <div class="gemtek-add-portMapping-iconHeight">
+                      <img
+                        src="images/icons/icon-1/ico-client-device.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="gemtek-add-portMapping-input">
+                      <span class="required ng-binding">IP Address</span>
+                    </div>
+                    <input
+                      type="text"
+                      id="client"
+                      ng-required="true"
+                      ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+                      name="internalclient"
+                      class="form-control1 ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength ng-touched"
+                      placeholder="IPv4 Address"
+                      maxlength="15"
+                      value="192.168.1.13"
+                      required="required"
+                    />
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalClient"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.internalclient.$error.required"
+                      >IP Address is required</span
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalClient"
+                      ng-show="DeviceNATPortMapping_InternalClientresponsestatus"
+                      ng-bind="DeviceNATPortMapping_InternalClientval"
+                    ></span>
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalClient"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.internalclient.$error.pattern"
+                      ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
+                      >Invalid pattern , Example IPv4 address :
+                      192.168.1.232</span
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      id="invalidInternalIP"
+                      forname="DeviceNATPortMapping_InternalClient"
+                      ng-show="invalidInternalIP"
+                      ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
+                      >Invalid pattern , Example IPv4 address :
+                      192.168.1.232</span
+                    >
+                    <div class="gemtek-add-portMapping-input">
+                      <span class="required ng-binding">Port</span>
+                    </div>
+                    <input
+                      type="number"
+                      id="internalport"
+                      class="form-control1 string-to-number ng-pristine ng-valid ng-valid-min ng-valid-max ng-valid-maxlength ng-touched"
+                      placeholder="Port Number"
+                      min="0"
+                      max="65535"
+                      maxlength="5"
+                      value="3000"
+                      name="internalport"
+                    />
+                    <i
+                      class="fa fa-edit editbtn hide active"
+                      ng-click="onfocus(&#39;internalport&#39;)"
+                    ></i>
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalPort"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.max"
+                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.max&#39; | translate"
+                      >Port Max value should be 65535</span
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalPort"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.required"
+                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.required&#39; | translate"
+                      >port number is required</span
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalPort"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.min"
+                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.min&#39; | translate"
+                      >Port Min value should be 0</span
+                    >
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalPort"
+                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.number"
+                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.number&#39; | translate"
+                      >Not a valid number</span
+                    >
+                    <span
+                      class="error ng-hide"
+                      id="internalPortInvalid"
+                      forname="DeviceNATPortMapping_InternalPort"
+                      ng-show="internalPortInvalid"
+                    >
+                    </span>
+                    <span
+                      class="error ng-binding ng-hide"
+                      forname="DeviceNATPortMapping_InternalPort"
+                      ng-show="DeviceNATPortMapping_InternalPortresponsestatus"
+                      ng-bind="DeviceNATPortMapping_InternalPortval"
+                    ></span>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div
+              class="text-center gemtek-input-mt30"
+              style="max-width: 1000px"
+            >
+              <div class="btn-align">
+                <button
+                  class="waves-effect waves-light gemtek-btn-normal"
+                  id="Close"
+                  value="Close"
+                  title="Cancel"
+                  onclick="back_to_previous()"
+                >
+                  <span class="ng-binding">Cancel</span>
+                </button>
+              </div>
+              <div class="btn-align">
+                <button
+                  class="waves-effect waves-light gemtek-btn-primary"
+                  id="Apply"
+                  value="Apply"
+                  title="Apply"
+                  onclick="back_to_previous()"
+                >
+                  <span class="ng-binding">Apply</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- <div class="custom_btn1 text-right ">
+      <div class="btn-group text-center">
+        <button class="btn btn-info" id="Close" value="Close" ng-click="Cancel('virtualserver')" title="Cancel"><span
+            class="" ng-bind="'Cancel' | translate"></span></button>
+      </div>
+      <div class="btn-align">
+        <input id="Add" class="btn btn-info" type="button" formstatus="{{virtualform.$valid}}" ng-click="Modify($event)"
+          value="{{'Apply'|translate}}">
+        <input id="Modify" class="btn btn-info" type="button" formstatus="{{virtualform.$valid}}"
+          ng-click="Modify($event)" value="{{'Apply'|translate}}">
+      </div>
+    </div> -->
+          </div>
+        </div>
+
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
+					</div> -->
+
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
+                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
+                    </div>                         -->
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
+    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
+    <!--[if !IE]> -->
+    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <div class="hiddendiv common"></div>
+  </body>
+</html>

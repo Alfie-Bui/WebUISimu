@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)#/tableform/adv5_ssid -->
+<html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+      }
+      ng\:form {
+        display: block;
+      }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
+
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
+
+    <script type="text/ng-template" id="firstDialogId">
+      <div class="ngdialog-message">
+      <form class="form-horizontal" role="form">
+      <!-- Modify: In Process Feature -->
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12" style="text-align:center;font-weight: bold;">
+      <!-- <input type="text" ng-model="$root.status" class="form-control" id="Status" placeholder="WPS Session Start" readonly/> -->
+          {{$root.status}}
+      </div>
+      </div>
+
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+      </div>
+      </div>
+      <!-- Modify -->
+      </form>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message">
+      <div>
+      {{$root.notifymessage}}
+      <div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="sessionTimeout">
+      <div class="ngdialog-message">
+      <div>
+      You have been logged out. Do you wish to continue?
+      </div>
+      <div>You will automatically be logged off in {{$root.time}} seconds.</div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      </div>
+    </script>
+
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/template.js"></script>
+    <script src="./js/navigate.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/index.js"></script>
+    <script>
+      function show_add_SSID_pannel() {
+        const panel_add_SSID = document.getElementById("add_SSID_Btn");
+        panel_add_SSID.classList.remove("ng-hide");
+      }
+
+      function hide_add_SSID_pannel() {
+        const panel_add_SSID = document.getElementById("add_SSID_Btn");
+        panel_add_SSID.classList.add("ng-hide");
+      }
+
+      function show_alert_dialog() {
+        const alert_dialog = document.getElementById("alertDialog");
+        alert_dialog.classList.remove("hide");
+      }
+
+      function hide_alert_dialog() {
+        const alert_dialog = document.getElementById("alertDialog");
+        alert_dialog.classList.add("hide");
+      }
+
+      function show_more_btn_block() {
+        const more_btn_block = document.getElementById("more_btn_show");
+        more_btn_block.classList.remove("ng-hide");
+      }
+
+      function hide_more_btn_block() {
+        const more_btn_block = document.getElementById("more_btn_show");
+        more_btn_block.classList.add("ng-hide");
+      }
+
+      function toggleSwitch(id) {
+        const switchID = document.getElementById(id);
+        switchID.classList.toggle("checked");
+
+        const wmm_ps = document.getElementById("wmm-ps-show");
+        if (
+          document.getElementById("WMMCapability").classList.contains("checked")
+        ) {
+          wmm_ps.classList.remove("ng-hide");
+        } else {
+          wmm_ps.classList.add("ng-hide");
+        }
+      }
+
+      function hide_show_pw(icon_pw_id, pw_field_id) {
+        const pwEye = document.getElementById(icon_pw_id);
+        const inputField = document.getElementById(pw_field_id);
+
+        if (pwEye.classList.contains("showpw")) {
+          // gonna hide
+          inputField.type = "text";
+
+          pwEye.classList.remove("showpw");
+          pwEye.classList.add("hidepw");
+        } else {
+          // gonna show
+          inputField.type = "password";
+
+          pwEye.classList.remove("hidepw");
+          pwEye.classList.add("showpw");
+        }
+      }
+    </script>
+  </head>
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0px, 0px, 0px);
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(0.9764320850372314,-0.21582478284835815,0.21582478284835815,0.9764320850372314,57.594722747802734,69.53278350830078)"
+              opacity="0.10386599999987993"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M6.25600004196167,-47.595001220703125 C24.089000701904297,-45.27000045776367 38.85900115966797,-33.13999938964844 44.972999572753906,-16.798999786376953"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span>Please wait...</span>
+    </div>
+    <div id="main-wrapper" ng-controller="menuController" class="ng-scope">
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
+          </div>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+                                    <div class="no-padding-vr">
+                                        <ul class="notificationdiv">
+                                            <li class="theme1">Theme-1</li>
+                                            <li class="theme2">Theme-2</li>
+                                        </ul>
+                                    </div>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
+                                    <a style="overflow: hidden;white-space: nowrap;">
+                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                    </a>
+                                </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="login.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span ng-click="Logout()">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    source="adv_homepage"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    source="pon_status"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    source="stats"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    source="wan_ipv4wanconnections"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    source="lan_ipaddressconfig"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    source="regid"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope open"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    source="adv_ssid"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    source="adv5_ssid"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    source="guestaccessview"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    source="NAT_DMZviewform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    source="virtualserver"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    source="porttriggerview"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    source="staticrouteview"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    source="managementserverview"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    source="algview"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    source="upnp"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    source="multicast_mcconfiguration"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    source="ipsecview"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    source="ddnsform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    source="firewall"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    source="parentalcontrol"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    source="userview"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    source="adminactions"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    source="diagnose"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    source="speedtest"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    source="voip_config"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
+      </div>
+
+      <div id="content-wrapper" style="min-height: 606px">
+        <!-- ngView: true -->
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="row ltq_breadcrumbs ng-scope"
+          >
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true -->
+                <h4 class="ng-binding ng-scope">5G</h4>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <div class="btn-group btn-breadcrumb1 ng-scope">
+                  <div class="ltq_brd_home">
+                    <a class="btn ng-binding" href="index.html"> Wi-Fi </a>
+                  </div>
+                </div>
+                <!-- end ngSwitchWhen: -->
+                <!-- ngSwitchWhen: false --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
+                  >
+                    5G </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
+                  >
+                    SSIDs </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="translation"
+            class="ng-hide ng-scope"
+          ></div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="headername"
+            class="ng-hide ng-scope"
+          >
+            SSIDs
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="headerdescription"
+            class="ng-hide ng-scope"
+          >
+            Configure multiple virtual access points. Typical use case is to
+            allow guest access to the internet while preventing guests from
+            connecting to your main network.
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
+            <p
+              id="headerdescriptiondata"
+              ng-bind="
+                    &#39;.headerdescription&#39; | translate
+                "
+              class="ng-binding"
+            >
+              Configure multiple virtual access points. Typical use case is to
+              allow guest access to the internet while preventing guests from
+              connecting to your main network.
+            </p>
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="panel panel-default panel-bg1 ng-scope"
+          >
+            <ul class="nav nav-tabs gemtek-tab">
+              <li
+                ng-class='{&#39;active&#39;: currentTab === "adv5_ssid"}'
+                class="active"
+              >
+                <a href="wifi-5G-ssids.html">SSIDs</a>
+              </li>
+              <li
+                ng-class='{&#39;active&#39;: currentTab === "wifi5_advanced"}'
+              >
+                <a href="wifi-5G-config.html">Configuration</a>
+              </li>
+              <li ng-class='{&#39;active&#39;: currentTab === "adv5_wps"}'>
+                <a href="wifi-5G-wps.html">WPS</a>
+              </li>
+              <li ng-class='{&#39;active&#39;: currentTab === "wds5page"}'>
+                <a href="wifi-5G-wds.html">WDS</a>
+              </li>
+              <li
+                ng-class='{&#39;active&#39;: currentTab === "adv5_macFiltering"}'
+              >
+                <a href="wifi-5G-mac_filter.html">MAC Filtering</a>
+              </li>
+              <li
+                ng-class='{&#39;active&#39;: currentTab === "adv5_statistics"}'
+              >
+                <a href="wifi-5G-statistics.html">Statistics</a>
+              </li>
+            </ul>
+            <div
+              class="alert alert-danger ng-hide"
+              ng-show="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPSpopup"
+              ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPSpopup=false"
+            >
+              <a
+                class="close"
+                aria-label="close"
+                ng-click='popupclose("DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPSpopup");
+                    '
+                >✖
+              </a>
+              <p
+                ng-bind-html="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPSpopupval | unsafe"
+                class="ng-binding"
+              ></p>
+            </div>
+            <div class="panel-body panel-body-vr-20">
+              <div class="text-right gemtek-pb-20 gemtek-mb-20 gemtek-bb-1">
+                <button
+                  id="AddBtn"
+                  class="gemtek-btn-normal"
+                  onclick="show_add_SSID_pannel()"
+                >
+                  <i class="fa fa-plus table_plusicon"></i
+                  ><span
+                    ng-bind="
+                                        &#39; Add&#39; | translate
+                                    "
+                    class="ng-binding"
+                    >Add</span
+                  >
+                </button>
+              </div>
+              <table
+                class="table theme_intel table-column-4"
+                loadstatus=""
+                name="Device.WiFi.SSID.*?SSID,X_LANTIQ_COM_Vendor_SsidType,LowerLayers,Alias&amp;Device.WiFi.AccessPoint.*?Alias,SSIDReference&amp;Device.WiFi.AccessPoint.*.Security?ModeEnabled&amp;Device.WiFi.AccessPoint.*.WPS?Enable"
+                objparamrelation="DeviceWiFiSSID__SSID__stringA,DeviceWiFiSSID__X_LANTIQ_COM_Vendor_SsidType__dropdown2,DeviceWiFiSSID__LowerLayers__stringA,DeviceWiFiSSID__Alias__stringA,DeviceWiFiAccessPoint__Alias__stringA,DeviceWiFiAccessPoint__SSIDReference__stringA,DeviceWiFiAccessPointSecurity__ModeEnabled__dropdown1,DeviceWiFiAccessPointWPS__Enable__checkboxwithoutlabel,________"
+                id="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS"
+                urlobjs="Device.WiFi.SSID.*:cgi_get_filterbyparamval?Object=Device.WiFi.SSID&amp;X_LANTIQ_COM_Vendor_IsEndPoint=false,Device.WiFi.AccessPoint.*:cgi_get_nosubobj?Object=Device.WiFi.AccessPoint,Device.WiFi.AccessPoint.*.Security:cgi_get_subobjvals?Object=Device.WiFi.AccessPoint.*.Security,Device.WiFi.AccessPoint.*.WPS:cgi_get_subobjvals?Object=Device.WiFi.AccessPoint.*.WPS"
+                modifyobjects=""
+                filterdata="Device.WiFi.SSID.*?LowerLayers__Device.WiFi.Radio.2.__equalsto&amp;"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS1=true"
+                      ng-bind="
+                                                    &#39;Device.WiFi.SSID.*.SSID&#39; | translate
+                                                "
+                      class="ng-binding"
+                    >
+                      SSID
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS2=true"
+                      ng-bind="
+                                                    &#39;Device.WiFi.SSID.*.AP Type&#39; | translate
+                                                "
+                      class="ng-binding"
+                    >
+                      AP Type
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS3=false"
+                      ng-hide="
+                                                    true
+                                                "
+                      ng-bind="
+                                                    &#39;Device.WiFi.SSID.*.SSID&#39; | translate
+                                                "
+                      class="ng-binding ng-hide"
+                    >
+                      SSID
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS4=false"
+                      ng-hide="
+                                                    true
+                                                "
+                      ng-bind="
+                                                    &#39;Device.WiFi.SSID.*.Alias&#39; | translate
+                                                "
+                      class="ng-binding ng-hide"
+                    >
+                      Alias
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS5=false"
+                      ng-hide="
+                                                    true
+                                                "
+                      ng-bind="
+                                                    &#39;Device.WiFi.AccessPoint.*.Alias&#39; | translate
+                                                "
+                      class="ng-binding ng-hide"
+                    >
+                      Alias
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS6=false"
+                      ng-hide="
+                                                    true
+                                                "
+                      ng-bind="
+                                                    &#39;Device.WiFi.AccessPoint.*.SSID Reference&#39; | translate
+                                                "
+                      class="ng-binding ng-hide"
+                    >
+                      SSID Reference
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS7=true"
+                      ng-bind="
+                                                    &#39;Device.WiFi.AccessPoint.*.Security.Security Type&#39; | translate
+                                                "
+                      class="ng-binding"
+                    >
+                      Security Type
+                    </th>
+                    <th
+                      ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS8=true"
+                      ng-bind="
+                                                    &#39;Device.WiFi.AccessPoint.*.WPS.WPS Enabled&#39; | translate
+                                                "
+                      class="ng-binding"
+                    >
+                      WPS Enabled
+                    </th>
+                    <th><span>Action</span></th>
+                    <th></th>
+                  </tr>
+                  <tr id="add_SSID_Btn" class="ng-pristine ng-valid ng-hide">
+                    <td class="no-padding-hr-l gemtek-table-padding">
+                      <div class="input-field">
+                        <div>
+                          <input
+                            type="text"
+                            class="form-control ng-pristine ng-untouched ng-valid"
+                            id="SSID"
+                            ng-model="DeviceWiFiSSID.SSID"
+                            name="DeviceWiFiSSID.SSID"
+                            ng-blur='textChange("DeviceWiFiSSID__SSID",DeviceWiFiSSID.SSID)'
+                          /><span
+                            class="error ng-binding ng-hide"
+                            ng-show="myForm.$error.DeviceWiFiSSID__SSID"
+                            ng-bind="
+                        &#39;This is required&#39;| translate
+                    "
+                            >* This Field is Required</span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td class="no-padding-hr-l gemtek-table-padding">
+                      <div
+                        class="col-sm-12 col-md-12 col-lg-12 col-xs-12 input-field no-padding-hr"
+                      >
+                        <select
+                          class="dropdown-toggle1 form-control1 ng-pristine ng-untouched ng-valid"
+                          id="X_LANTIQ_COM_Vendor_SsidType"
+                          ng-model="DeviceWiFiSSID.X_LANTIQ_COM_Vendor_SsidType"
+                          name="DeviceWiFiSSID.X_LANTIQ_COM_Vendor_SsidType"
+                          ng-change='ddChange("DeviceWiFiSSID__X_LANTIQ_COM_Vendor_SsidType",DeviceWiFiSSID.X_LANTIQ_COM_Vendor_SsidType)'
+                          ng-init='commaremoval("Radio","X_LANTIQ_COM_Vendor_SsidType")'
+                          ng-options="obj.id as obj.name for obj in X_LANTIQ_COM_Vendor_SsidType"
+                        >
+                          <option
+                            value="?"
+                            selected="selected"
+                            label=""
+                          ></option>
+                          <option value="0" label="Radio">Radio</option></select
+                        ><span
+                          class="error ng-binding ng-hide"
+                          ng-show="myForm.$error.DeviceWiFiSSID__X_LANTIQ_COM_Vendor_SsidType"
+                          ng-bind="
+                    &#39;This is required&#39;| translate
+                "
+                          >* This Field is Required</span
+                        >
+                      </div>
+                    </td>
+                    <td class="no-padding-hr-l gemtek-table-padding">
+                      <div
+                        class="col-sm-12 col-md-12 col-lg-12 col-xs-12 input-field no-padding-hr"
+                      >
+                        <select
+                          class="dropdown-toggle1 form-control1 ng-pristine ng-untouched ng-valid"
+                          id="ModeEnabled"
+                          ng-model="DeviceWiFiAccessPointSecurity.ModeEnabled"
+                          name="DeviceWiFiAccessPointSecurity.ModeEnabled"
+                          ng-change='ddChange("DeviceWiFiAccessPointSecurity__ModeEnabled",DeviceWiFiAccessPointSecurity.ModeEnabled)'
+                          ng-init='commaremoval("None,WPA2-Personal,WPA-Personal,WPA-WPA2-Personal,WEP-64,WEP-128,WPA3-Personal,WPA2-WPA3-Personal","ModeEnabled")'
+                          ng-options="obj.id as obj.name for obj in ModeEnabled"
+                        >
+                          <option
+                            value="?"
+                            selected="selected"
+                            label=""
+                          ></option>
+                          <option value="0" label="None">None</option>
+                          <option value="1" label="WPA2-Personal">
+                            WPA2-Personal
+                          </option>
+                          <option value="2" label="WPA-Personal">
+                            WPA-Personal
+                          </option>
+                          <option value="3" label="WPA-WPA2-Personal">
+                            WPA-WPA2-Personal
+                          </option>
+                          <option value="4" label="WEP-64">WEP-64</option>
+                          <option value="5" label="WEP-128">WEP-128</option>
+                          <option value="6" label="WPA3-Personal">
+                            WPA3-Personal
+                          </option>
+                          <option value="7" label="WPA2-WPA3-Personal">
+                            WPA2-WPA3-Personal
+                          </option></select
+                        ><span
+                          class="error ng-binding ng-hide"
+                          ng-show="myForm.$error.DeviceWiFiAccessPointSecurity__ModeEnabled"
+                          ng-bind="
+                    &#39;This is required&#39;| translate
+                "
+                          >* This Field is Required</span
+                        >
+                      </div>
+                    </td>
+                    <td class="no-padding-hr-l gemtek-table-padding">
+                      <div class="form-group no-padding-hr col-lg-12 col-xs-12">
+                        <div class="row checkbox-top-align">
+                          <div
+                            class="col-sm-12 col-md-12 col-lg-12 col-xs-12 no-padding-hr"
+                          >
+                            <div class="checkbox1">
+                              <input
+                                type="checkbox"
+                                ng-true-value="&#39;true&#39;"
+                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                ng-false-value="&#39;false&#39;"
+                                id="DeviceWiFiAccessPointWPS_Enable"
+                                ng-model="DeviceWiFiAccessPointWPS.Enable"
+                                name="DeviceWiFiAccessPointWPS_Enable"
+                                ng-disabled='DeviceWiFiAccessPointSecurity.ModeEnabled=="None"||DeviceWiFiAccessPointSecurity.ModeEnabled=="WEP-64"||DeviceWiFiAccessPointSecurity.ModeEnabled=="WEP-128"||DeviceWiFiAccessPointSecurity.ModeEnabled=="WPA3-Personal"||DeviceWiFiAccessPointSecurity.ModeEnabled=="WPA2-WPA3-Personal"'
+                              /><label
+                                class="checkboxwithoutlabel"
+                                for="DeviceWiFiAccessPointWPS_Enable"
+                              ></label
+                              ><label
+                                for="DeviceWiFiAccessPointWPS_Enable"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="gemtek-table-padding">
+                      <a source="accordion"
+                        ><button
+                          class="gemtek-btn-init no-padding-hr-l"
+                          showstatus="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPSshowstatus"
+                          onclick="hide_add_SSID_pannel()"
+                          ng-disabled="myForm.$invalid "
+                          hiddenparams="Device.WiFi.SSID.*?LowerLayers__Device.WiFi.Radio.2.&amp;Device.WiFi.SSID.*?Alias__&amp;Device.WiFi.AccessPoint.*?Alias__&amp;Device.WiFi.AccessPoint.*?SSIDReference__&amp;"
+                          id="Add"
+                          source="Device.WiFi.SSID.*?SSID,X_LANTIQ_COM_Vendor_SsidType,LowerLayers,Alias&amp;Device.WiFi.AccessPoint.*?Alias,SSIDReference&amp;Device.WiFi.AccessPoint.*.Security?ModeEnabled&amp;Device.WiFi.AccessPoint.*.WPS?Enable"
+                          childparentrelation=""
+                        >
+                          <img
+                            src="images/icons/icon-1/gemtek-enabled.svg"
+                          /></button></a
+                      ><a
+                        ><button
+                          class="gemtek-btn-init no-padding-hr-l"
+                          onclick="hide_add_SSID_pannel()"
+                        >
+                          <img
+                            src="images/icons/icon-1/gemtek-disabled.svg"
+                          /></button
+                      ></a>
+                    </td>
+                  </tr>
+                </thead>
+                <!-- ngRepeat: user in DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStable -->
+                <tbody
+                  ng-init="sectionIndex = $index"
+                  class="gemtek-no-border ng-scope"
+                  ng-repeat="
+                            user in DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStable"
+                >
+                  <tr class="main-row">
+                    <!-- ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' --><!-- ngIf: false==$last -->
+                    <td
+                      class="no-padding-hr-l gemtek-table-padding ng-scope"
+                      ng-show="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS1"
+                    >
+                      <!-- ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><span
+                        e-form="rowform"
+                        editable-text="user.DeviceWiFiSSID__SSID"
+                        e-name="DeviceWiFiSSID__SSID"
+                        e-ng-blur='textchangeEditable(key,$data,user.z,"DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS",sectionIndex, &#39;DeviceWiFiSSID__SSID&#39;, $event)'
+                        class="ng-scope ng-binding editable editable-hide"
+                      >
+                      </span
+                      ><span class="editable-wrap editable-text ng-scope"
+                        ><span class="editable-controls"
+                          ><input
+                            type="text"
+                            name="DeviceWiFiSSID__SSID"
+                            value="GEMTEK_5G"
+                            style="margin: auto"
+                            class="editable-input ng-pristine ng-untouched ng-valid" />
+                          <div
+                            class="editable-error ng-binding ng-hide"
+                            ng-show="$error"
+                            ng-bind="$error"
+                          ></div></span></span
+                      ><!-- end ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><!-- ngIf: 'string' == elementtype(key) --><!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: 'checkboxwithoutlabel' == elementtype(key) -->
+                    </td>
+                    <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' --><!-- ngIf: false==$last -->
+                    <td class="no-padding-hr-l gemtek-table-padding ng-scope">
+                      <!-- ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><!-- ngIf: 'string' == elementtype(key) --><!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><span
+                        e-form="rowform"
+                        editable-select="user.DeviceWiFiSSID__X_LANTIQ_COM_Vendor_SsidType"
+                        e-name="DeviceWiFiSSID__X_LANTIQ_COM_Vendor_SsidType"
+                        e-
+                        e-ng-disabled="
+                                        true
+                                    "
+                        e-ng-change='
+                                        dropdownchangeEditable(key,$data,user.z,"DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS",sectionIndex)
+                                    '
+                        class="ng-scope ng-binding editable editable-hide"
+                      >
+                      </span
+                      ><span class="editable-wrap editable-select ng-scope"
+                        ><span class="editable-controls"
+                          ><select
+                            name="DeviceWiFiSSID__X_LANTIQ_COM_Vendor_SsidType"
+                            class="editable-input ng-pristine ng-untouched ng-valid"
+                            disabled="disabled"
+                          >
+                            <option value="0" selected="selected" label="Radio">
+                              Radio
+                            </option>
+                          </select>
+                          <div
+                            class="editable-error ng-binding ng-hide"
+                            ng-show="$error"
+                            ng-bind="$error"
+                          ></div></span></span
+                      ><!-- end ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: 'checkboxwithoutlabel' == elementtype(key) -->
+                    </td>
+                    <td
+                      class="no-padding-hr-l gemtek-table-padding ng-scope ng-hide"
+                      ng-show="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS4"
+                    >
+                      <!-- ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><span
+                        e-form="rowform"
+                        editable-text="user.DeviceWiFiSSID__Alias"
+                        e-name="DeviceWiFiSSID__Alias"
+                        e-ng-blur='textchangeEditable(key,$data,user.z,"DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS",sectionIndex, &#39;DeviceWiFiSSID__Alias&#39;, $event)'
+                        class="ng-scope ng-binding editable editable-hide editable-empty"
+                      >
+                      </span
+                      ><span class="editable-wrap editable-text ng-scope"
+                        ><span class="editable-controls"
+                          ><input
+                            type="text"
+                            name="DeviceWiFiSSID__Alias"
+                            ng-blur='textchangeEditable(key,$data,user.z,"DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS",sectionIndex, &#39;DeviceWiFiSSID__Alias&#39;, $event)'
+                            class="editable-input ng-pristine ng-untouched ng-valid" />
+                          <div
+                            class="editable-error ng-binding ng-hide"
+                            ng-show="$error"
+                            ng-bind="$error"
+                          ></div></span></span
+                      ><!-- end ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><!-- ngIf: 'string' == elementtype(key) --><!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: 'checkboxwithoutlabel' == elementtype(key) -->
+                    </td>
+
+                    <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' --><!-- ngIf: false==$last -->
+                    <td class="no-padding-hr-l gemtek-table-padding ng-scope">
+                      <!-- ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><!-- ngIf: 'string' == elementtype(key) --><!-- ngIf: 'dropdown1' == elementtype(key) --><span
+                        e-form="rowform"
+                        editable-select="user.DeviceWiFiAccessPointSecurity__ModeEnabled"
+                        e-name="DeviceWiFiAccessPointSecurity__ModeEnabled"
+                        e-ng-options="obj.name as obj.name for obj in ModeEnabled"
+                        e-ng-change='
+                                        dropdownchangeEditable(key,$data,user.z,"DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS",sectionIndex)
+                                    '
+                        class="ng-scope ng-binding editable editable-hide"
+                      >
+                      </span
+                      ><span class="editable-wrap editable-select ng-scope"
+                        ><span class="editable-controls"
+                          ><select
+                            name="DeviceWiFiAccessPointSecurity__ModeEnabled"
+                            class="editable-input ng-pristine ng-untouched ng-valid"
+                          >
+                            <option value="0" label="None">None</option>
+                            <option
+                              value="1"
+                              selected="selected"
+                              label="WPA2-Personal"
+                            >
+                              WPA2-Personal
+                            </option>
+                            <option value="2" label="WPA-Personal">
+                              WPA-Personal
+                            </option>
+                            <option value="3" label="WPA-WPA2-Personal">
+                              WPA-WPA2-Personal
+                            </option>
+                            <option value="4" label="WEP-64">WEP-64</option>
+                            <option value="5" label="WEP-128">WEP-128</option>
+                            <option value="6" label="WPA3-Personal">
+                              WPA3-Personal
+                            </option>
+                            <option value="7" label="WPA2-WPA3-Personal">
+                              WPA2-WPA3-Personal
+                            </option>
+                          </select>
+                          <div
+                            class="editable-error ng-binding ng-hide"
+                            ng-show="$error"
+                            ng-bind="$error"
+                          ></div></span></span
+                      ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: 'checkboxwithoutlabel' == elementtype(key) -->
+                    </td>
+                    <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' --><!-- ngIf: false==$last -->
+                    <td
+                      class="no-padding-hr-l gemtek-table-padding ng-scope"
+                      ng-show="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS8"
+                    >
+                      <!-- ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><!-- ngIf: 'string' == elementtype(key) --><!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: 'checkboxwithoutlabel' == elementtype(key) --><span
+                        e-form="rowform"
+                        editable-checkbox="user.DeviceWiFiAccessPointWPS__Enable"
+                        e-ng-true-value="
+                                        &#39;true&#39;
+                                    "
+                        e-for="user.DeviceWiFiAccessPointWPS__Enable0"
+                        e-id="user.DeviceWiFiAccessPointWPS__Enable0"
+                        e-name="DeviceWiFiAccessPointWPS__Enable"
+                        class="ng-scope ng-binding editable editable-hide"
+                      >
+                      </span
+                      ><span class="editable-wrap editable-checkbox ng-scope"
+                        ><span class="editable-controls"
+                          ><input
+                            type="checkbox"
+                            for="user.DeviceWiFiAccessPointWPS__Enable0"
+                            id="user.DeviceWiFiAccessPointWPS__Enable0"
+                            name="DeviceWiFiAccessPointWPS__Enable"
+                            ng-change='checkboxchangeEditable(key,$data,user.z,"DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS",sectionIndex)'
+                            class="editable-input ng-pristine ng-untouched ng-valid" /><label
+                            class="checkboxwithoutlabel"
+                            for="user.DeviceWiFiAccessPointWPS__Enable0"
+                          ></label>
+                          <div
+                            class="editable-error ng-binding ng-hide"
+                            ng-show="$error"
+                            ng-bind="$error"
+                          ></div></span></span
+                      ><!-- end ngIf: 'checkboxwithoutlabel' == elementtype(key) -->
+                    </td>
+                    <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' --><!-- ngIf: false==$last -->
+                    <td
+                      class="no-padding-hr-l gemtek-table-padding ng-scope ng-hide"
+                      ng-show="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS9"
+                    >
+                      <!-- ngIf: 'stringA' == elementtype(key)||'passwordA' == elementtype(key) --><!-- ngIf: 'string' == elementtype(key) --><!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: 'checkboxwithoutlabel' == elementtype(key) -->
+                    </td>
+                    <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPS' -->
+                    <!-- ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last --><!-- end ngRepeat: (key, value) in user --><!-- ngIf: true==$last -->
+                    <td
+                      ng-repeat="(key, value) in user"
+                      style="display: none"
+                      class="ng-scope"
+                    >
+                      <span
+                        e-form="rowform"
+                        editable-text="user.z"
+                        e-name="z"
+                        class="ng-scope ng-binding editable editable-hide"
+                      >
+                        Device.WiFi.SSID.2,Device.WiFi.AccessPoint.2,Device.WiFi.AccessPoint.2.Security,Device.WiFi.AccessPoint.2.WPS </span
+                      ><span class="editable-wrap editable-text ng-scope"
+                        ><span class="editable-controls"
+                          ><input
+                            type="text"
+                            name="z"
+                            class="editable-input ng-pristine ng-untouched ng-valid" />
+                          <div
+                            class="editable-error ng-binding ng-hide"
+                            ng-show="$error"
+                            ng-bind="$error"
+                          ></div></span
+                      ></span>
+                    </td>
+                    <!-- end ngIf: true==$last --><!-- end ngRepeat: (key, value) in user -->
+                    <td
+                      style="vertical-align: middle"
+                      class="gemtek-table-padding"
+                    >
+                      <button
+                        ng-init="rowform.$show()"
+                        class="gemtek-btn-init no-padding-hr-l no-margin-hr"
+                        id="Device.WiFi.SSID.2,Device.WiFi.AccessPoint.2,Device.WiFi.AccessPoint.2.Security,Device.WiFi.AccessPoint.2.WPS"
+                        onclick="show_alert_dialog()"
+                      >
+                        <img src="images/icons/icon-1/delete.svg" /></button
+                      ><button
+                        class="gemtek-more-btn no-padding-hr-l"
+                        onclick="show_more_btn_block()"
+                        ng-init="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStoggle[$index]=&#39;More&#39;
+                                    "
+                        source="adv_ssid_form"
+                        targetid="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStable0"
+                        tabletoggletext="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStoggle"
+                        childparentrelation=""
+                        objectindex="2"
+                        objectname="Device.WiFi.SSID.2,Device.WiFi.AccessPoint.2,Device.WiFi.AccessPoint.2.Security,Device.WiFi.AccessPoint.2.WPS"
+                        ng-class="{&#39;gemtek-less-btn&#39;: accordion.activePosition==$index}"
+                      ></button>
+                    </td>
+                  </tr>
+                  <tr
+                    class="extra-row ng-hide"
+                    ng-show="accordion.activePosition==$index"
+                    id="more_btn_show"
+                  >
+                    <td
+                      colspan="5"
+                      class="no-padding-hr"
+                      id="DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStable0"
+                    >
+                      <div
+                        xmlns="http://www.w3.org/1999/xhtml"
+                        class="panel-grey"
+                      >
+                        <div class="panel-body">
+                          <div
+                            class="alert alert-danger ng-hide"
+                            ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2popup"
+                          >
+                            <a
+                              class="close"
+                              aria-label="close"
+                              ng-click='popupclose("DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2popup");
+                    '
+                              >✖
+                            </a>
+                            <p
+                              ng-bind-html="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2popupval | unsafe"
+                              class="ng-binding"
+                            ></p>
+                          </div>
+                          <form
+                            polling=""
+                            interval=""
+                            loadstatus=""
+                            class="form-horizontal formCount lantiq-form-text ng-valid ng-valid-min ng-valid-max ng-valid-required ng-valid-minlength ng-valid-maxlength ng-dirty ng-valid-parse"
+                            name="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form"
+                            name1="Device.WiFi.AccessPoint.2.Security?ModeEnabled,KeyPassphrase,RekeyingInterval,RadiusServerIPAddr,RadiusServerPort,RadiusSecret,WEPKey,WEPKey&amp;Device.WiFi.AccessPoint.2?WMMCapability,UAPSDEnable,IsolationEnable,MaxAssociatedDevices&amp;Device.WiFi.SSID.2?X_LANTIQ_COM_Vendor_BridgeName"
+                            id="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2"
+                            urlobjs="Device.WiFi.AccessPoint.2:cgi_get_nosubobj?Object=Device.WiFi.AccessPoint,Device.WiFi.SSID.2:cgi_get_nosubobj?Object=Device.WiFi.SSID"
+                          >
+                            <div>
+                              <div class="wrapperdiv">
+                                <div class="panel-body"></div>
+                              </div>
+                              <div class="wrapperdiv">
+                                <div class="panel-body">
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5 ng-hide"
+                                    ng-hide="true"
+                                  >
+                                    <div class="row">
+                                      <label
+                                        for="ModeEnabled"
+                                        class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                                        ng-bind="
+                    &#39;Device.WiFi.AccessPoint.*.Security.Security type&#39; | translate
+                "
+                                        >Security type</label
+                                      >
+                                      <div
+                                        style="margin-top: 20px"
+                                        class="no-padding-hr-l col-xs-12 col-sm-12"
+                                      >
+                                        <select
+                                          class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                          id="ModeEnabled"
+                                          validation="false"
+                                          name="DeviceWiFiAccessPoint2Security_ModeEnabled"
+                                          ng-model="DeviceWiFiAccessPoint2Security.ModeEnabled"
+                                          ng-change='ddChange("DeviceWiFiAccessPoint2Security__ModeEnabled",DeviceWiFiAccessPoint2Security.ModeEnabled)'
+                                        >
+                                          <option
+                                            value=""
+                                            class="form-control1"
+                                          >
+                                            Select
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WPA-Personal"
+                                          >
+                                            WPA-Personal
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WPA2-Personal"
+                                          >
+                                            WPA2-Personal
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WPA-WPA2-Personal"
+                                          >
+                                            WPA-WPA2-Personal
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WPA2-Enterprise"
+                                          >
+                                            WPA2-Enterprise
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WPA-Enterprise"
+                                          >
+                                            WPA-Enterprise
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WPA-WPA2-Enterprise"
+                                          >
+                                            WPA-WPA2-Enterprise
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WEP-64"
+                                          >
+                                            WEP-64
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="WEP-128"
+                                          >
+                                            WEP-128
+                                          </option>
+                                          <option
+                                            class="form-control1"
+                                            value="None"
+                                          >
+                                            None
+                                          </option></select
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          ng-show="DeviceWiFiAccessPoint2Security_ModeEnabledresponsestatus"
+                                          ng-bind="DeviceWiFiAccessPoint2Security_ModeEnabledval |translate
+                    "
+                                        ></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-WPA3-Personal' -->
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                  >
+                                    <div class="row">
+                                      <div
+                                        class="no-padding-hr pwdblock col-xs-10 col-sm-11"
+                                      >
+                                        <div
+                                          class="input-field no-padding-hr-l col-sm-12"
+                                        >
+                                          <input
+                                            type="password"
+                                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-minlength ng-valid-maxlength"
+                                            id="DeviceWiFiAccessPoint2SecurityKeyPassphrase"
+                                            placeholder="Enter Password"
+                                            ng-minlength="8"
+                                            ng-maxlength="63"
+                                            maxlength="63"
+                                            name="DeviceWiFiAccessPoint2Security_KeyPassphrase"
+                                            ng-model="DeviceWiFiAccessPoint2Security.KeyPassphrase"
+                                            required="required"
+                                            value="wifi_password"
+                                          /><label
+                                            for="KeyPassphrase"
+                                            class="active required ng-binding"
+                                            >Passphrase</label
+                                          ><span
+                                            class="error ng-binding"
+                                            ng-show='KeyPassphrase.validate !== ""'
+                                            ng-bind="KeyPassphrase.validate"
+                                          ></span
+                                          ><span
+                                            class="error ng-binding ng-hide"
+                                            forname="DeviceWiFiAccessPoint2Security_KeyPassphrase"
+                                            ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2Security_KeyPassphrase.$error.required&amp;&amp; formsubmitstatus"
+                                            >* This Field is Required</span
+                                          ><span
+                                            class="error ng-hide"
+                                            forname="DeviceWiFiAccessPoint2Security_KeyPassphrase"
+                                            ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2Security_KeyPassphrase.$error.minlength&amp;&amp; formsubmitstatus"
+                                            ><span class="ng-binding"
+                                              >String length is below the limit: </span
+                                            ><span>8</span></span
+                                          ><span
+                                            class="error ng-hide"
+                                            forname="DeviceWiFiAccessPoint2Security_KeyPassphrase"
+                                            ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2Security_KeyPassphrase.$error.maxlength&amp;&amp; formsubmitstatus"
+                                            ><span class="ng-binding"
+                                              >String length Exceeded the limit: </span
+                                            ><span>63</span></span
+                                          >
+                                        </div>
+                                        <div class="pwdtoggle">
+                                          <input
+                                            type="checkbox"
+                                            id="DeviceWiFiAccessPoint2SecurityKeyPassphrasecheckbox"
+                                            ng-model="DeviceWiFiAccessPoint2SecurityKeyPassphrasefieldstatus"
+                                            class="ng-untouched ng-valid ng-dirty ng-valid-parse"
+                                            onclick="hide_show_pw('icon_pw_2', 'DeviceWiFiAccessPoint2SecurityKeyPassphrase')"
+                                          /><label
+                                            id="icon_pw_2"
+                                            for="DeviceWiFiAccessPoint2SecurityKeyPassphrasecheckbox"
+                                            class="checkbox_right_align showpw"
+                                          ></label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-WPA3-Personal' -->
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                  >
+                                    <div class="row">
+                                      <div
+                                        class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                                      >
+                                        <input
+                                          type="number"
+                                          class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min"
+                                          id="RekeyingInterval"
+                                          placeholder="Please Enter the value"
+                                          min="0"
+                                          ng-model="DeviceWiFiAccessPoint2Security.RekeyingInterval"
+                                          name="DeviceWiFiAccessPoint2Security_RekeyingInterval"
+                                          value="3600"
+                                        /><label
+                                          for="RekeyingInterval"
+                                          class="active ng-binding"
+                                          >Rekey Interval</label
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          ng-show="DeviceWiFiAccessPoint2Security_RekeyingIntervalresponsestatus"
+                                        ></span
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiAccessPoint2Security_RekeyingInterval"
+                                          ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2Security_RekeyingInterval.$error.number"
+                                        >
+                                          Please enter a valid number </span
+                                        ><span
+                                          class="error ng-hide"
+                                          forname="DeviceWiFiAccessPoint2Security_RekeyingInterval"
+                                          ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2Security_RekeyingInterval.$error.min&amp;&amp; formsubmitstatus"
+                                          ><span class="ng-binding"
+                                            >Value must be greater than or equal
+                                            to </span
+                                          ><span>0</span></span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WEP-64' -->
+                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WEP-128' -->
+                                </div>
+                              </div>
+                              <div class="wrapperdiv">
+                                <div class="panel-body">
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5"
+                                  >
+                                    <div
+                                      class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
+                                    >
+                                      <label
+                                        for="WMMCapability"
+                                        class="control-label ng-binding"
+                                        ng-bind="&#39;Device.WiFi.AccessPoint.*.WMM&#39; | translate"
+                                        >WMM</label
+                                      >
+                                      <div class="text-left">
+                                        <span
+                                          class="switch hidden-dom-removal checked ng-valid"
+                                          ng-class="{ checked:DeviceWiFiAccessPoint2.WMMCapability }"
+                                          id="WMMCapability"
+                                          on=""
+                                          off="OFF"
+                                          ng-model="DeviceWiFiAccessPoint2.WMMCapability"
+                                          name="DeviceWiFiAccessPoint2.WMMCapability"
+                                          onclick="toggleSwitch(this.id)"
+                                          ><small></small
+                                          ><input
+                                            type="checkbox"
+                                            id="WMMCapability"
+                                            name="DeviceWiFiAccessPoint2.WMMCapability"
+                                            ng-model="DeviceWiFiAccessPoint2.WMMCapability"
+                                            style="display: none"
+                                            class="ng-pristine ng-untouched ng-valid"
+                                          /><span class="switch-text"
+                                            ><span class="off">OFF</span></span
+                                          ></span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- ngIf: DeviceWiFiAccessPoint2.WMMCapability==true -->
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                    id="wmm-ps-show"
+                                  >
+                                    <div
+                                      class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
+                                    >
+                                      <label
+                                        for="UAPSDEnable"
+                                        class="control-label ng-binding"
+                                        >WMM-PS</label
+                                      >
+                                      <div class="text-left">
+                                        <span
+                                          class="switch hidden-dom-removal ng-valid checked"
+                                          ng-class="{ checked:DeviceWiFiAccessPoint2.UAPSDEnable }"
+                                          id="UAPSDEnable"
+                                          on=""
+                                          off="OFF"
+                                          ng-model="DeviceWiFiAccessPoint2.UAPSDEnable"
+                                          name="DeviceWiFiAccessPoint2.UAPSDEnable"
+                                          onclick="toggleSwitch(this.id)"
+                                          ><small></small
+                                          ><input
+                                            type="checkbox"
+                                            id="UAPSDEnable"
+                                            name="DeviceWiFiAccessPoint2.UAPSDEnable"
+                                            ng-model="DeviceWiFiAccessPoint2.UAPSDEnable"
+                                            style="display: none"
+                                            class="ng-pristine ng-untouched ng-valid"
+                                          /><span class="switch-text"
+                                            ><span class="off">OFF</span></span
+                                          ></span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceWiFiAccessPoint2.WMMCapability==true -->
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5"
+                                  >
+                                    <div
+                                      class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
+                                    >
+                                      <label
+                                        for="IsolationEnable"
+                                        class="control-label ng-binding"
+                                        ng-bind="&#39;Device.WiFi.AccessPoint.*.AP Isolation&#39; | translate"
+                                        >AP Isolation</label
+                                      >
+                                      <div class="text-left">
+                                        <span
+                                          class="switch hidden-dom-removal ng-valid"
+                                          ng-class="{ checked:DeviceWiFiAccessPoint2.IsolationEnable }"
+                                          id="IsolationEnable"
+                                          on=""
+                                          off="OFF"
+                                          ng-model="DeviceWiFiAccessPoint2.IsolationEnable"
+                                          name="DeviceWiFiAccessPoint2.IsolationEnable"
+                                          onclick="toggleSwitch(this.id)"
+                                          ><small></small
+                                          ><input
+                                            type="checkbox"
+                                            id="IsolationEnable"
+                                            name="DeviceWiFiAccessPoint2.IsolationEnable"
+                                            ng-model="DeviceWiFiAccessPoint2.IsolationEnable"
+                                            style="display: none"
+                                            class="ng-pristine ng-untouched ng-valid"
+                                          /><span class="switch-text"
+                                            ><span class="off">OFF</span></span
+                                          ></span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5"
+                                  >
+                                    <div class="row">
+                                      <div
+                                        class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                                      >
+                                        <input
+                                          type="number"
+                                          class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                                          id="MaxAssociatedDevices"
+                                          placeholder="Please Enter the value"
+                                          min="0"
+                                          max="255"
+                                          ng-model="DeviceWiFiAccessPoint2.MaxAssociatedDevices"
+                                          name="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          value="255"
+                                        /><label
+                                          for="MaxAssociatedDevices"
+                                          class="active ng-binding"
+                                          >Max connected STAs</label
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          ng-show="DeviceWiFiAccessPoint2_MaxAssociatedDevicesresponsestatus"
+                                        ></span
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2_MaxAssociatedDevices.$error.number"
+                                        >
+                                          Please enter a valid number </span
+                                        ><span
+                                          class="error ng-hide"
+                                          forname="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2_MaxAssociatedDevices.$error.min&amp;&amp; formsubmitstatus"
+                                          ><span class="ng-binding"
+                                            >Value must be greater than or equal
+                                            to </span
+                                          ><span>0</span></span
+                                        ><span
+                                          class="error ng-hide"
+                                          forname="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiAccessPoint2_MaxAssociatedDevices.$error.max&amp;&amp; formsubmitstatus"
+                                          ><span class="ng-binding"
+                                            >Value must be less than or equal to </span
+                                          ><span>255</span></span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="wrapperdiv">
+                                <div class="panel-body">
+                                  <div
+                                    class="form-group no-padding-hr col-xs-12 col-sm-5"
+                                  >
+                                    <div class="row">
+                                      <div
+                                        class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                                      >
+                                        <input
+                                          type="text"
+                                          id="X_LANTIQ_COM_Vendor_BridgeName"
+                                          class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                                          placeholder="Please Enter the value"
+                                          name="DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeName"
+                                          ng-model="DeviceWiFiSSID2.X_LANTIQ_COM_Vendor_BridgeName"
+                                          required="required"
+                                          value="br-lan"
+                                        /><label
+                                          for="X_LANTIQ_COM_Vendor_BridgeName"
+                                          class="required row active ng-binding"
+                                          >Bridge Name</label
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          ng-show="DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeNameresponsestatus"
+                                          ng-bind="DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeNameval |translate
+                  "
+                                        ></span
+                                        ><span
+                                          class="error ng-binding ng-hide"
+                                          forname="DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeName"
+                                          ng-show="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form.DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeName.$error.required&amp;&amp; formsubmitstatus"
+                                          ng-bind="
+          &#39;Device.WiFi.SSID.*.Bridge Name.$error.required&#39;|translate
+      "
+                                          >* This Field is Required</span
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group no-padding-hr"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <!-- end ngRepeat: user in DeviceWiFiSSIDDeviceWiFiAccessPointDeviceWiFiAccessPointSecurityDeviceWiFiAccessPointWPStable -->
+              </table>
+              <form
+                name="rowform"
+                onaftersave="bulkapply()"
+                class="form-buttons form-inline editable-form ng-pristine ng-valid"
+              >
+                <div
+                  class="btn-form text-center"
+                  ng-show="rowform.$visible"
+                  ng-init="rowform.$visible = &#39;true&#39;"
+                >
+                  <button
+                    class="gemtek-btn-normal gemtek-btn-mr ng-binding"
+                    onclick="hide_more_btn_block()"
+                  >
+                    Cancel</button
+                  ><button
+                    class="gemtek-btn-primary ng-binding"
+                    onclick="hide_more_btn_block()"
+                    ng-bind="&#39;Apply&#39; | translate"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" class="ng-scope">
+            <div
+              id="alertDialog"
+              class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+            >
+              <div class="ngdialog-overlay"></div>
+              <div class="ngdialog-content">
+                <div class="ngdialog-message">
+                  <img src="images/icons/icon-1/ico-notice.svg" />
+                  <h3>Notice</h3>
+                  <p id="alertDialog_msg">Default SSID cannot be removed</p>
+                </div>
+                <div class="ngdialog-buttons">
+                  <button
+                    type="button"
+                    class="gemtek-btn-primary ng-binding"
+                    onclick="hide_alert_dialog()"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
+					</div> -->
+
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
+                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
+                    </div>                         -->
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal End-->
+    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
+    <!--[if !IE]> -->
+    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <div class="hiddendiv common"></div>
+  </body>
+</html>
