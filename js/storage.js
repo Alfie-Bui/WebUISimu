@@ -81,7 +81,7 @@ function applyElemLS(item, option, change_entity) {
     case "basic-wan-ipv6.html":
       Basic = change_entity;
       break;
-    case "index.html":
+    case "main.html":
       break;
     case "login.html":
       break;
@@ -130,6 +130,7 @@ function applyElemLS(item, option, change_entity) {
     case "wifi-2_4G-mac_filtering.html":
       break;
     case "wifi-2_4G-ssids.html":
+      Wifi = change_entity;
       break;
     case "wifi-2_4G-statistics.html":
       break;

@@ -9,7 +9,7 @@ function toggleOpenClass(element) {
 }
 
 function home() {
-  window.location.href = "index.html";
+  window.location.href = "main.html";
 }
 
 function main_menu_toggle() {
@@ -17,6 +17,18 @@ function main_menu_toggle() {
   document.body.classList.toggle("mme");
   const collapse = document.getElementById("main-navbar-collapse");
   collapse.classList.toggle("in");
+}
+
+/** Alert dialog near footer or HTML file, not at template */
+function show_alert_dialog(content) {
+  const alert_dialog = document.getElementById("alertDialog");
+  document.getElementById("alertDialog_msg").textContent = content;
+  alert_dialog.classList.remove("hide");
+}
+
+function hide_alert_dialog() {
+  const alert_dialog = document.getElementById("alertDialog");
+  alert_dialog.classList.add("hide");
 }
 
 /**
@@ -111,7 +123,7 @@ function alertDialogHandle(p_content) {
  *          true: field is value, no error
  */
 function checkError_inputField(input, empty_error, exceed_error) {
-  if (input.value.length === 0) {
+  if (input.value === "") {
     empty_error.classList.remove("ng-hide");
     exceed_error.classList.add("ng-hide");
     return false;
@@ -148,7 +160,7 @@ function checkEmpty_inputField(input, empty_error) {
  *
  * @param {*} input
  * @param {*} range_error
- * @param {*} emptty_error
+ * @param {*} empty_error
  * @returns: false: error
  *          true: field is valid, no error
  */
@@ -214,6 +226,58 @@ function checkPattern_inputField(input, pattern, pattern_error, empty_error) {
   }
 }
 
+/**
+ *
+ *
+ */
+function checkPasswordError_inputField(
+  input,
+  pattern,
+  pattern_error,
+  empty_error,
+  lowLimit_error,
+  upLimit_error
+) {
+  if (input.value == "") {
+    empty_error.classList.remove("ng-hide");
+  } else {
+    empty_error.classList.add("ng-hide");
+    if (!pattern.test(input.value)) {
+      pattern_error.classList.remove("ng-hide");
+    } else {
+      pattern_error.classList.add("ng-hide");
+    }
+    if (input.value.length < input.getAttribute("min")) {
+      lowLimit_error.classList.remove("ng-hide");
+    } else {
+      lowLimit_error.classList.add("ng-hide");
+    }
+    if (input.value.length > input.getAttribute("max")) {
+      upLimit_error.classList.remove("ng-hide");
+    } else {
+      upLimit_error.classList.add("ng-hide");
+    }
+  }
+}
+
+function checkMinMaxError_inputField(input, min_error, max_error, empty_error) {
+  if (input.value === "") {
+    empty_error.classList.remove("ng-hide");
+  } else {
+    empty_error.classList.add("ng-hide");
+    if (input.value.length < input.getAttribute("min")) {
+      min_error.classList.remove("ng-hide");
+    } else {
+      min_error.classList.add("ng-hide");
+    }
+    if (input.value.length > input.getAttribute("max")) {
+      max_error.classList.remove("ng-hide");
+    } else {
+      max_error.classList.add("ng-hide");
+    }
+  }
+}
+
 /** Check local Storage function */
 var localStorageSpace = function () {
   var data = "";
@@ -276,13 +340,13 @@ function checkError_show() {
     if (elem instanceof NodeList) {
       for (const e of elem) {
         if (!e.classList.contains("ng-hide")) {
-          console.log(`Error make fail Apply: ${e}`);
+          console.log(`Error make fail Apply: ${e.outerHTML}`);
           return false;
         }
       }
     } else {
       if (!elem.classList.contains("ng-hide")) {
-        console.log(`Error make fail Apply: ${elem}`);
+        console.log(`Error make fail Apply: ${elem.outerHTML}`);
         return false;
       }
     }

@@ -939,7 +939,7 @@
                 ><!-- ngSwitchWhen: true -->
                 <div class="btn-group btn-breadcrumb1 ng-scope">
                   <div class="ltq_brd_home">
-                    <a class="btn ng-binding" href="index.html"> Wi-Fi </a>
+                    <a class="btn ng-binding" href="main.html"> Wi-Fi </a>
                   </div>
                 </div>
                 <!-- end ngSwitchWhen: -->
@@ -1074,7 +1074,7 @@
                         <div>
                           <input
                             type="text"
-                            class="form-control ng-pristine ng-untouched ng-valid ssid"
+                            class="form-control ng-pristine ng-untouched ng-valid add_ssid"
                             name="DeviceWiFiSSID.SSID"
                           /><span
                             class="error ng-binding ng-hide add_wifi_error empty_ssid_error"
@@ -1272,13 +1272,8 @@
                           ><input
                             type="checkbox"
                             class="editable-input ng-pristine ng-untouched ng-valid wps_enable" />
-                          <label
-                            class="checkboxwithoutlabel"
-                            for=""
-                          ></label>
-                          <label
-                            for=""
-                          ></label>
+                          <label class="checkboxwithoutlabel" for=""></label>
+                          <label for=""></label>
                           <div
                             class="editable-error ng-binding ng-hide"
                           ></div></span></span
@@ -1298,21 +1293,18 @@
                     >
                       <button
                         class="gemtek-btn-init no-padding-hr-l no-margin-hr delete_wifi"
-                  
                       >
                         <img src="images/icons/icon-1/delete.svg" /></button
-                      ><button class="gemtek-more-btn no-padding-hr-l detailBtn"></button>
+                      ><button
+                        class="gemtek-more-btn no-padding-hr-l detailBtn"
+                      ></button>
                     </td>
                   </tr>
-                  
                 </template>
 
                 <template id="wifi_detail">
                   <tr class="extra-row" id="detail_panel">
-                    <td
-                      colspan="5"
-                      class="no-padding-hr"
-                    >
+                    <td colspan="5" class="no-padding-hr">
                       <div
                         xmlns="http://www.w3.org/1999/xhtml"
                         class="panel-grey"
@@ -1324,8 +1316,6 @@
                           </div>
                           <form
                             class="form-horizontal formCount lantiq-form-text ng-valid ng-valid-min ng-valid-max ng-valid-required ng-valid-minlength ng-valid-maxlength ng-dirty ng-valid-parse"
-                            name="DeviceWiFiAccessPoint2SecurityDeviceWiFiAccessPoint2DeviceWiFiSSID2_form"
-                            name1="Device.WiFi.AccessPoint.2.Security?ModeEnabled,KeyPassphrase,RekeyingInterval,RadiusServerIPAddr,RadiusServerPort,RadiusSecret,WEPKey,WEPKey&amp;Device.WiFi.AccessPoint.2?WMMCapability,UAPSDEnable,IsolationEnable,MaxAssociatedDevices&amp;Device.WiFi.SSID.2?X_LANTIQ_COM_Vendor_BridgeName"
                           >
                             <div>
                               <div class="wrapperdiv">
@@ -1346,65 +1336,45 @@
                                         >
                                           <input
                                             type="password"
-                                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-minlength ng-valid-maxlength"
                                             id="Password_field"
                                             placeholder="Enter Password"
                                             min="8"
                                             max="63"
-                                            name="DeviceWiFiAccessPoint2Security_KeyPassphrase"
+                                            pattern=""
                                             required="required"
                                           /><label
-                                            for="KeyPassphrase"
                                             class="active required ng-binding"
+                                            id="title_pass"
                                             >Passphrase</label
-                                          ><span class="error ng-binding"></span
                                           ><span
-                                            class="error ng-binding ng-hide"
-                                            forname="DeviceWiFiAccessPoint2Security_KeyPassphrase"
-                                            >* This Field is Required</span
-                                          ><span
-                                            class="error ng-hide"
-                                            forname="DeviceWiFiAccessPoint2Security_KeyPassphrase"
-                                            ><span class="ng-binding"
-                                              >String length is below the limit: </span
-                                            ><span>8</span></span
-                                          ><span
-                                            class="error ng-hide"
-                                            forname="DeviceWiFiAccessPoint2Security_KeyPassphrase"
-                                            ><span class="ng-binding"
-                                              >String length Exceeded the limit: </span
-                                            ><span>63</span>
-                                          </span>
+                                            class="error ng-binding"
+                                          ></span>
                                           <span
-                                            class="error ng-binding ng-hide"
-                                            forname="DeviceWiFiAccessPoint7Security_WEPKey"
+                                            class="error ng-binding ng-hide wifi_error detail_error"
+                                            id="invalid_pass_error"
                                             >Invalid WEP Key</span
                                           ><span
-                                            class="error ng-binding ng-hide"
-                                            forname="DeviceWiFiAccessPoint7Security_WEPKey"
+                                            class="error ng-binding ng-hide wifi_error detail_error"
+                                            id="empty_pass_error"
                                             >* This Field is Required</span
                                           ><span
-                                            class="error ng-hide"
-                                            forname="DeviceWiFiAccessPoint7Security_WEPKey"
-                                            ><span class="ng-binding"
-                                              >String length is below the limit: </span
-                                            ><span>10</span></span
+                                            class="error ng-binding ng-hide wifi_error detail_error"
+                                            id="lowLimit_pass_error"
+                                            >String length is below the limit: </span
                                           ><span
-                                            class="error ng-hide"
-                                            forname="DeviceWiFiAccessPoint7Security_WEPKey"
-                                            ><span class="ng-binding"
-                                              >String length Exceeded the limit: </span
-                                            ><span>10</span></span
-                                          >
+                                            class="error ng-binding ng-hide wifi_error detail_error"
+                                            id="upLimit_pass_error"
+                                            >String length Exceeded the limit:
+                                          </span>
                                         </div>
                                         <div class="pwdtoggle">
                                           <input
                                             type="checkbox"
-                                            id="pwd_Eye"
                                             class="ng-untouched ng-valid ng-dirty ng-valid-parse"
                                           /><label
+                                            id="pwd_Eye"
                                             for="pwd_Eye"
-                                            class="checkbox_right_align showpw"
+                                            class="checkbox_right_align hidepw"
                                           ></label>
                                         </div>
                                       </div>
@@ -1413,6 +1383,7 @@
                                   <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-WPA3-Personal' -->
                                   <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
                                   <div
+                                    id="rekeyInterval"
                                     class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
                                   >
                                     <div class="row">
@@ -1433,11 +1404,13 @@
                                           class="error ng-binding ng-hide"
                                         ></span
                                         ><span
-                                          class="error ng-binding ng-hide"
+                                          class="error ng-binding ng-hide wifi_error detail_error"
+                                          id="empty_rekey_error"
                                         >
                                           Please enter a valid number </span
                                         ><span
-                                          class="error ng-hide"
+                                          class="error ng-hide wifi_error detail_error"
+                                          id="range_rekey_error"
                                           ><span class="ng-binding"
                                             >Value must be greater than or equal
                                             to </span
@@ -1464,20 +1437,18 @@
                                     >
                                       <label
                                         for="WMMCapability"
-                                        class="control-label ng-binding"
+                                        class="control-label ng-binding checked"
                                         >WMM</label
                                       >
                                       <div class="text-left">
                                         <span
                                           class="switch hidden-dom-removal ng-valid checked"
+                                          name="WMMCapability"
                                           id="WMMCapability"
-                                          name="DeviceWiFiAccessPoint2.WMMCapability"
-                                          checked
                                           ><small></small
                                           ><input
                                             type="checkbox"
-                                            id="WMMCapability"
-                                            name="DeviceWiFiAccessPoint2.WMMCapability"
+                                            name="WMMCapability"
                                             style="display: none"
                                             class="ng-pristine ng-untouched ng-valid"
                                           /><span class="switch-text"
@@ -1504,10 +1475,10 @@
                                         <span
                                           class="switch hidden-dom-removal ng-valid checked"
                                           name="DeviceWiFiAccessPoint2.UAPSDEnable"
+                                          id="UAPSDEnable"
                                           ><small></small
                                           ><input
                                             type="checkbox"
-                                            id="UAPSDEnable"
                                             name="DeviceWiFiAccessPoint2.UAPSDEnable"
                                             style="display: none"
                                             class="ng-pristine ng-untouched ng-valid"
@@ -1534,10 +1505,10 @@
                                         <span
                                           class="switch hidden-dom-removal ng-valid"
                                           name="DeviceWiFiAccessPoint2.IsolationEnable"
+                                          id="IsolationEnable"
                                           ><small></small
                                           ><input
                                             type="checkbox"
-                                            id="IsolationEnable"
                                             name="DeviceWiFiAccessPoint2.IsolationEnable"
                                             style="display: none"
                                             class="ng-pristine ng-untouched ng-valid"
@@ -1562,30 +1533,26 @@
                                           placeholder="Please Enter the value"
                                           min="0"
                                           max="255"
-                                          name="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
-                                          value="255"
-                                        /><label
-                                          for="MaxAssociatedDevices"
-                                          class="active ng-binding"
+                                        /><label class="active ng-binding"
                                           >Max connected STAs</label
                                         ><span
                                           class="error ng-binding ng-hide"
                                         ></span
                                         ><span
-                                          class="error ng-binding ng-hide"
-                                          forname="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          class="error ng-binding ng-hide wifi_error detail_error"
+                                          id="empty_sta_error"
                                         >
                                           Please enter a valid number </span
                                         ><span
-                                          class="error ng-hide"
-                                          forname="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          class="error ng-hide wifi_error detail_error"
+                                          id="min_sta_error"
                                           ><span class="ng-binding"
                                             >Value must be greater than or equal
                                             to </span
                                           ><span>0</span></span
                                         ><span
-                                          class="error ng-hide"
-                                          forname="DeviceWiFiAccessPoint2_MaxAssociatedDevices"
+                                          class="error ng-hide wifi_error detail_error"
+                                          id="max_sta_error"
                                           ><span class="ng-binding"
                                             >Value must be less than or equal to </span
                                           ><span>255</span></span
@@ -1611,17 +1578,15 @@
                                           placeholder="Please Enter the value"
                                           name="DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeName"
                                           required="required"
-                                          value="br-lan"
                                         /><label
-                                          for="X_LANTIQ_COM_Vendor_BridgeName"
                                           class="required row active ng-binding"
                                           >Bridge Name</label
                                         ><span
                                           class="error ng-binding ng-hide"
                                         ></span
                                         ><span
-                                          class="error ng-binding ng-hide"
-                                          forname="DeviceWiFiSSID2_X_LANTIQ_COM_Vendor_BridgeName"
+                                          class="error ng-binding ng-hide wifi_error detail_error"
+                                          id="empty_bridge_error"
                                           >* This Field is Required</span
                                         >
                                       </div>
@@ -1638,16 +1603,16 @@
                   </tr>
                 </template>
               </table>
-              <form
-                name="rowform"
-                class="form-buttons form-inline editable-form ng-pristine ng-valid"
-              >
-                <div class="btn-form text-center">
-                  <button class="gemtek-btn-normal gemtek-btn-mr ng-binding">
-                    Cancel</button
-                  ><button class="gemtek-btn-primary ng-binding">Apply</button>
-                </div>
-              </form>
+              <div class="btn-form text-center">
+                <button
+                  class="gemtek-btn-normal gemtek-btn-mr ng-binding"
+                  id="Cancel"
+                >
+                  Cancel</button
+                ><button class="gemtek-btn-primary ng-binding" id="Apply___">
+                  Apply
+                </button>
+              </div>
             </div>
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="ng-scope">
@@ -1660,10 +1625,14 @@
                 <div class="ngdialog-message">
                   <img src="images/icons/icon-1/ico-notice.svg" />
                   <h3>Notice</h3>
-                  <p id="alertDialog_msg">Default SSID cannot be removed</p>
+                  <p id="alertDialog_msg"></p>
                 </div>
                 <div class="ngdialog-buttons">
-                  <button type="button" class="gemtek-btn-primary ng-binding">
+                  <button
+                    type="button"
+                    onclick="hide_alert_dialog()"
+                    class="gemtek-btn-primary ng-binding"
+                  >
                     Close
                   </button>
                 </div>

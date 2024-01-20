@@ -143,19 +143,9 @@ function loadPage(item, options) {
         hide_show_pw(pwdEye, password);
       });
 
-      var ddns_error = document.querySelectorAll(".error");
-      var ddns_error_clear = true;
       // event on Apply and CancelConnectionType
       ddnsApplyBtn.addEventListener("click", () => {
-        // check if any error tag is showing --> if show --> still error
-        for (const elem of ddns_error) {
-          if (!elem.classList.contains("ng-hide")) {
-            console.log(`Element error make fail: ${elem.outerHTML}`);
-            ddns_error_clear = false;
-            break;
-          }
-        }
-        if (ddns_error_clear) {
+        if (checkError_show(document.querySelectorAll(".error"))) {
           Advanced.DDNS.EnableDDNS = enableDDNS.checked;
           Advanced.DDNS.ServiceProvider = serviceProvider.value;
           Advanced.DDNS.LocalWanInterface = localWAN.value;
@@ -364,7 +354,7 @@ function loadPage(item, options) {
       var pppoe_mtu_size = document.getElementById("pppoe_mtu_size");
 
       /* init event con common field */
-      function setup() {
+      var setup = function () {
         enableVLAN.addEventListener("click", () => {
           enableVLAN.checked != enableVLAN.checked;
           if (enableVLAN.checked == true) {
@@ -409,9 +399,9 @@ function loadPage(item, options) {
             document.getElementById("empty_error_mac")
           );
         });
-      }
+      };
 
-      function setupv6() {
+      var setupv6 = function () {
         enablev6.addEventListener("click", () => {
           enablev6.checked != enablev6.checked;
           if (enablev6.checked === true) {
@@ -504,10 +494,10 @@ function loadPage(item, options) {
             document.getElementById("empty_error_validTime")
           );
         });
-      }
+      };
 
       /** Connection Type */
-      function addDNSServer(ipversion, elem) {
+      var addDNSServer = function (ipversion, elem) {
         if (ipversion === "IPv4") {
           const tr = v4dnsElem.content.cloneNode(true);
           const dnsServer = tr.querySelector(".DNSServer");
@@ -580,9 +570,9 @@ function loadPage(item, options) {
 
           v6DNSlist.appendChild(tr);
         }
-      }
+      };
 
-      function handleConnectionType(
+      var handleConnectionType = function (
         connection_type,
         loadData_from_LocalStorage
       ) {
@@ -791,9 +781,9 @@ function loadPage(item, options) {
         } else {
           console.log("Error, Connection Type select is not available");
         }
-      }
+      };
 
-      function setupConnectionType() {
+      var setupConnectionType = function () {
         /* Init event for each Connection type */
         // Static option setup
         ipaddressStatic.addEventListener("input", () => {
@@ -1021,10 +1011,10 @@ function loadPage(item, options) {
         connectionType.addEventListener("change", () => {
           handleConnectionType(connectionType.value);
         });
-      }
+      };
 
       /** Fill data into FE */
-      function fillData() {
+      var fillData = function () {
         selectionMode.value = filledData.SelectionMode;
 
         connectionType.value = filledData.ConnectionType;
@@ -1109,7 +1099,7 @@ function loadPage(item, options) {
           document.getElementById("v6PrefixSetting").classList.add("ng-hide");
         }
         handleConnectionType(connectionType.value, true);
-      }
+      };
 
       /** declare variable of tag and add event listerner for them */
       setup();
@@ -1121,10 +1111,6 @@ function loadPage(item, options) {
       /** Button Cancel and Apply */
       var cancelBtn = document.getElementById("Cancel");
       var applyBtn = document.getElementById("Apply");
-      var static_apply_flag = true;
-      var dhcp_apply_flag = true;
-      var pppoe_apply_flag = true;
-      var common_apply_flag = true;
 
       /** At Cancel and Apply */
       cancelBtn.addEventListener("click", () => {
@@ -1132,6 +1118,11 @@ function loadPage(item, options) {
       });
 
       applyBtn.addEventListener("click", () => {
+        var static_apply_flag = true;
+        var dhcp_apply_flag = true;
+        var pppoe_apply_flag = true;
+        var common_apply_flag = true;
+
         var elemAfterChange;
         if (!addNew_flag) {
           // if edit
@@ -1586,7 +1577,7 @@ function loadPage(item, options) {
         }
       });
       break;
-    case "index.html":
+    case "main.html":
       break;
     case "login.html":
       break;
@@ -1642,13 +1633,42 @@ function loadPage(item, options) {
       var add_wifi_form_template = document.getElementById(
         "addWifiFormTemplate"
       );
+
+      var applyBtn = document.getElementById("Apply___");
+      var cancelBtn = document.getElementById("Cancel");
       var wifi_detail_template = document.getElementById("wifi_detail");
       var wifi_infor_template = document.getElementById("rowElementTemplate");
 
-      var add_lock = false; // if lock --> cannot create more add_wifi_form
+      let add_lock = false; // if lock --> cannot create more add_wifi_form
       let detail_on_show = false;
 
-      function check_security_type(current_parent, currentRow, alert_on) {
+      // buffer to store new but not yet apply of Wifi
+      let wifiInfoBuffer = Wifi["2.4G"].SSIDs;
+
+      // adapt security type
+      var check_security_type = function (
+        current_parent,
+        currentRow,
+        alert_on
+      ) {
+        var password_field = current_parent.getElementById("Password_field");
+        var rekeyInterval = current_parent.getElementById("rekeyInterval");
+        var title_pass = current_parent.getElementById("title_pass");
+        var lowLimit_error = current_parent.getElementById(
+          "lowLimit_pass_error"
+        );
+        var upLimit_error = current_parent.getElementById("upLimit_pass_error");
+
+        var adapt_type = function (title, placeholder, pattern, min, max) {
+          title_pass.textContent = title;
+          password_field.placeholder = placeholder;
+          password_field.pattern = pattern;
+          password_field.min = min;
+          password_field.max = max;
+          lowLimit_error.textContent = `String length is below the limit: ${min}`;
+          upLimit_error.textContent = `String length Exceeded the limit: ${max}`;
+        };
+
         switch (currentRow.querySelector(".security_type_select").value) {
           case "None":
             current_parent
@@ -1667,6 +1687,15 @@ function loadPage(item, options) {
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
+            rekeyInterval.classList.add("ng-hide");
+            adapt_type(
+              "Key(Exactly 10 Hex digits)",
+              "Enter Password web",
+              WEP64_KEY_PATTERN,
+              10,
+              10
+            );
+            // fill data into password
             break;
           case "5": // WEP-128
             current_parent
@@ -1676,6 +1705,14 @@ function loadPage(item, options) {
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
+            rekeyInterval.classList.add("ng-hide");
+            adapt_type(
+              "Key(Exactly 26 Hex digits)",
+              "Enter Password web",
+              WEP128_KEY_PATTERN,
+              26,
+              26
+            );
             break;
           case "6": // WPA3-Personal
             current_parent
@@ -1685,6 +1722,8 @@ function loadPage(item, options) {
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
+            rekeyInterval.classList.add("ng-hide");
+            adapt_type("Passphrase", "Enter Password", "", 8, 63);
             break;
           case "7": // WPA2-WPA3-Personal
             current_parent
@@ -1694,6 +1733,8 @@ function loadPage(item, options) {
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
+            rekeyInterval.classList.add("ng-hide");
+            adapt_type("Passphrase", "Enter Password", "", 8, 63);
             break;
           default:
             current_parent
@@ -1701,52 +1742,210 @@ function loadPage(item, options) {
               .classList.remove("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = false;
 
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
             break;
         }
-      }
+      };
 
-      function destroy_detail_row() {
+      var destroy_detail_row = function () {
         for (const elem of document.querySelectorAll(".detailBtn"))
           elem.classList.remove("gemtek-less-btn");
+        console.log(document.getElementById("detail_panel"));
         tbody.removeChild(document.getElementById("detail_panel"));
-      }
+      };
 
-      function make_detail_row(currentRow) {
-        console.log(
-          `Load detail of Wifi-SSID: ${currentRow.querySelector(".ssid")}`
-        );
-
+      var make_detail_row = function (currentRow) {
         const tr_detail = wifi_detail_template.content.cloneNode(true);
 
         // extra row
-        const password_field = tr_detail.getElementById("Password_field");
-        const pwd_Eye = tr_detail.getElementById("pwd_Eye");
-        const rekeyInterval = tr_detail.getElementById("RekeyingInterval");
-        const wmmBtn = tr_detail.getElementById("WMMCapability");
-        const uAPSDEnable = tr_detail.getElementById("UAPSDEnable");
-        const apIso = tr_detail.getElementById("IsolationEnable");
-        const maxAssociatedDevices = tr_detail.getElementById(
+        var password_field = tr_detail.getElementById("Password_field");
+        var pwd_Eye = tr_detail.getElementById("pwd_Eye");
+        var rekeyInterval = tr_detail.getElementById("RekeyingInterval");
+        var wmmBtn = tr_detail.getElementById("WMMCapability");
+        var wmmpsBtn = tr_detail.getElementById("UAPSDEnable");
+        var apIso = tr_detail.getElementById("IsolationEnable");
+        var maxAssociatedDevices = tr_detail.getElementById(
           "MaxAssociatedDevices"
         );
-        const bridgeName = tr_detail.getElementById(
+        var bridgeName = tr_detail.getElementById(
           "X_LANTIQ_COM_Vendor_BridgeName"
         );
 
         check_security_type(tr_detail, currentRow, false);
-        return tr_detail;
-      }
 
-      function append_detail_function_right_below(currentRow) {
+        // @TODO fill data and check Error
+        var currentRowIndex = Array.from(
+          currentRow.parentElement.children
+        ).indexOf(currentRow);
+        var filledData = wifiInfoBuffer[currentRowIndex];
+
+        console.log(`Click on row (exclude detail): ${currentRowIndex}`);
+
+        password_field.value = filledData.Configuration.Passphrase;
+        rekeyInterval.value = filledData.RekeyInterval;
+        wmmBtn.checked = filledData.Configuration.Passphrase.WMM;
+        wmmpsBtn.checked = filledData.Configuration.Passphrase.WMMPS;
+        apIso.checked = filledData.Configuration.APIsolation;
+        maxAssociatedDevices.value = filledData.Maxconnected;
+        bridgeName.value = filledData.BridgeName;
+
+        var invalid_pass_error = tr_detail.getElementById("invalid_pass_error");
+        var empty_pass_error = tr_detail.getElementById("empty_pass_error");
+        var lowLimit_pass_error = tr_detail.getElementById(
+          "lowLimit_pass_error"
+        );
+        var upLimit_pass_error = tr_detail.getElementById("upLimit_pass_error");
+        var range_rekey_error = tr_detail.getElementById("range_rekey_error");
+        var empty_rekey_error = tr_detail.getElementById("empty_rekey_error");
+        var min_sta_error = tr_detail.getElementById("min_sta_error");
+        var max_sta_error = tr_detail.getElementById("max_sta_error");
+        var empty_sta_error = tr_detail.getElementById("empty_sta_error");
+        var empty_bridge_error = tr_detail.getElementById("empty_bridge_error");
+
+        var wmmpsShow = tr_detail.getElementById("wmm-ps-show");
+
+        checkPasswordError_inputField(
+          password_field,
+          new RegExp(password_field.getAttribute("pattern")),
+          invalid_pass_error,
+          empty_pass_error,
+          lowLimit_pass_error,
+          upLimit_pass_error
+        );
+        checkRange_inputField(
+          rekeyInterval,
+          range_rekey_error,
+          empty_rekey_error
+        );
+        checkMinMaxError_inputField(
+          maxAssociatedDevices,
+          min_sta_error,
+          max_sta_error,
+          empty_sta_error
+        );
+        checkEmpty_inputField(bridgeName, empty_bridge_error);
+
+        // @TODO event init on input field
+        password_field.addEventListener("input", () => {
+          console.log(password_field.getAttribute("pattern"));
+          checkPasswordError_inputField(
+            password_field,
+            new RegExp(password_field.getAttribute("pattern")),
+            invalid_pass_error,
+            empty_pass_error,
+            lowLimit_pass_error,
+            upLimit_pass_error
+          );
+        });
+
+        pwd_Eye.addEventListener("click", () => {
+          hide_show_pw(pwd_Eye, password_field);
+        });
+
+        rekeyInterval.addEventListener("input", () => {
+          checkRange_inputField(
+            rekeyInterval,
+            range_rekey_error,
+            empty_rekey_error
+          );
+        });
+
+        wmmBtn.addEventListener("click", () => {
+          wmmBtn.classList.toggle("checked");
+          if (wmmBtn.classList.contains("checked")) {
+            wmmpsShow.classList.remove("ng-hide");
+          } else {
+            wmmpsShow.classList.add("ng-hide");
+          }
+        });
+
+        wmmpsBtn.addEventListener("click", () => {
+          wmmpsBtn.classList.toggle("checked");
+        });
+
+        apIso.addEventListener("click", () => {
+          apIso.classList.toggle("checked");
+        });
+
+        maxAssociatedDevices.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            maxAssociatedDevices,
+            min_sta_error,
+            max_sta_error,
+            empty_sta_error
+          );
+        });
+
+        bridgeName.addEventListener("input", () => {
+          checkEmpty_inputField(bridgeName, empty_bridge_error);
+        });
+
+        return tr_detail;
+      };
+
+      var append_detail_function_right_below = function (
+        currentRow,
+        saveChangeWifi
+      ) {
+        if (saveChangeWifi === true) {
+          // check detail_error and store the change at Wifi
+          var currentRowIndex = Array.from(
+            currentRow.parentElement.children
+          ).indexOf(
+            document.getElementById("detail_panel").previousElementSibling
+          );
+
+          if (checkError_show(document.querySelectorAll("detail_error"))) {
+            console.log(
+              `On-going store changed element, index: ${currentRowIndex}, state now: ${wifiInfoBuffer[currentRowIndex]}`
+            );
+            wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
+              document.getElementById("Password_field");
+            wifiInfoBuffer[currentRowIndex].RekeyInterval =
+              document.getElementById("RekeyingInterval");
+            wifiInfoBuffer[currentRowIndex].Configuration.WMM = document
+              .getElementById("WMMCapability")
+              .classList.contains("checked")
+              ? true
+              : false;
+            wifiInfoBuffer[currentRowIndex].Configuration.WMMPS = document
+              .getElementById("UAPSDEnable")
+              .classList.contains("checked")
+              ? true
+              : false;
+            wifiInfoBuffer[currentRowIndex].Configuration.APIsolation = document
+              .getElementById("IsolationEnable")
+              .classList.contains("checked")
+              ? true
+              : false;
+            wifiInfoBuffer[currentRowIndex].Maxconnected =
+              document.getElementById("MaxAssociatedDevices").value;
+            wifiInfoBuffer[currentRowIndex].BridgeName =
+              document.getElementById("X_LANTIQ_COM_Vendor_BridgeName").value;
+            console.log(
+              `Store the change before jump to other detail Wifi: ${JSON.stringify(
+                wifiInfoBuffer[currentRowIndex]
+              )}`
+            );
+          } else {
+            console.log(
+              "Do not store the change Wifi because error still remain"
+            );
+          }
+          // destroy after save change
+          destroy_detail_row();
+        }
+        // destroy must be act after store change
         currentRow.querySelector(".detailBtn").classList.add("gemtek-less-btn");
 
         currentRow.parentNode.insertBefore(
           make_detail_row(currentRow),
           currentRow.nextSibling
         );
-      }
+      };
 
       // after add button is accepted --> add more row on tbody wifi
-      function append_wifi_table(ssid_info) {
+      var append_wifi_table = function (ssid_info) {
         const tr = wifi_infor_template.content.cloneNode(true);
 
         //
@@ -1756,6 +1955,8 @@ function loadPage(item, options) {
         const deleteBtn = tr.querySelector(".delete_wifi");
         const detailBtn = tr.querySelector(".detailBtn");
 
+        // error
+        const ssid_empty_error = tr.querySelector(".wifi_error");
         // Generate a unique ID for the checkbox
         var uniqueId = "checkbox_" + Math.floor(Math.random() * 999999999); // generating unique IDs
 
@@ -1769,18 +1970,18 @@ function loadPage(item, options) {
         wps_enable.checked = ssid_info.WPSEnabled;
 
         // checkError at init
-        checkEmpty_inputField(ssid, tr.querySelector(".wifi_error"));
+        checkEmpty_inputField(ssid, ssid_empty_error);
 
         // make event
         ssid.addEventListener("input", () => {
-          checkEmpty_inputField(ssid, tr.querySelector(".wifi_error"));
+          checkEmpty_inputField(ssid, ssid_empty_error);
         });
 
         security_type_select.addEventListener("change", () => {
           var currentRow = security_type_select.closest("tr");
           if (detail_on_show === false) {
             detail_on_show = true;
-            append_detail_function_right_below(currentRow);
+            append_detail_function_right_below(currentRow, false);
             check_security_type(document, currentRow, true);
           } else {
             if (
@@ -1791,14 +1992,32 @@ function loadPage(item, options) {
               check_security_type(document, currentRow, true);
             } else {
               // if other is click --> destroy current and make new one below
-              destroy_detail_row(currentRow);
-              append_detail_function_right_below(currentRow);
+              append_detail_function_right_below(currentRow, true);
               check_security_type(document, currentRow, true);
             }
           }
         });
 
-        deleteBtn.addEventListener("click", () => {});
+        deleteBtn.addEventListener("click", () => {
+          if (tbody.querySelectorAll("tr").length === 1) {
+            // @TODO alert if only remain 1
+            show_alert_dialog("Default SSID cannot be removed");
+          } else {
+            var currentRow = deleteBtn.closest("tr");
+
+            // remove at Wifi variable
+            var currentRowIndex = Array.from(
+              currentRow.parentElement.children
+            ).indexOf(currentRow);
+            wifiInfoBuffer.splice(currentRowIndex, 1);
+            console.log(
+              `Remove Wifi --> Wifi now: ${JSON.stringify(wifiInfoBuffer)}`
+            );
+
+            // FE remove
+            currentRow.remove();
+          }
+        });
 
         detailBtn.addEventListener("click", () => {
           var currentRow = detailBtn.closest("tr");
@@ -1806,7 +2025,7 @@ function loadPage(item, options) {
           // if no detail is showing
           if (detail_on_show === false) {
             detail_on_show = true;
-            append_detail_function_right_below(currentRow);
+            append_detail_function_right_below(currentRow, false);
           } else {
             // check if detail is currentRow's
             // if --> destroy
@@ -1815,25 +2034,24 @@ function loadPage(item, options) {
               document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
-              destroy_detail_row(currentRow);
+              destroy_detail_row();
             } else {
               // esle --> destroy + make one below
-              destroy_detail_row(currentRow);
-              append_detail_function_right_below(currentRow);
+              append_detail_function_right_below(currentRow, true);
             }
           }
         });
 
         tbody.appendChild(tr);
-      }
+      };
 
-      function make_add_wifi_form() {
+      var make_add_wifi_form = function () {
         const formAddWifi = add_wifi_form_template.content.cloneNode(true);
 
         var newWifiInfo = {
           WPSEnabled: false,
-          RekeyInterval: 3600,
-          Maxconnected: 255,
+          RekeyInterval: "",
+          Maxconnected: "",
           BridgeName: "",
           Configuration: {
             EnableRadio: false,
@@ -1863,7 +2081,7 @@ function loadPage(item, options) {
           },
         };
 
-        const ssid_field = formAddWifi.querySelector(".ssid");
+        const ssid_field = formAddWifi.querySelector(".add_ssid");
         const ap_type = formAddWifi.querySelector(".ap_type");
         const security_type = formAddWifi.querySelector(".security_type");
         const wps = formAddWifi.querySelector(".wps");
@@ -1894,7 +2112,6 @@ function loadPage(item, options) {
 
         security_type.addEventListener("change", () => {
           checkError_selectField(security_type, security_type_error);
-          console.log(wps.checked);
           if (
             security_type.value == "None" ||
             security_type.value == 4 ||
@@ -1910,16 +2127,22 @@ function loadPage(item, options) {
           }
         });
 
+        //
+        tableHeader.appendChild(formAddWifi);
+
         confirm_add_btn.addEventListener("click", () => {
           add_lock = false;
-
           if (
-            checkError_show(formAddWifi.querySelectorAll(".add_wifi_error")) ===
+            checkError_show(document.querySelectorAll(".add_wifi_error")) ===
             true
           ) {
             newWifiInfo.Configuration.SSID = ssid_field.value;
             newWifiInfo.Configuration.SecurityType = security_type.value;
+            newWifiInfo.WPSEnabled = wps.checked;
+            // remove form
             tableHeader.removeChild(tableHeader.lastElementChild);
+            // append table Wifi
+            wifiInfoBuffer.push(newWifiInfo);
             append_wifi_table(newWifiInfo);
           }
         });
@@ -1928,26 +2151,35 @@ function loadPage(item, options) {
           add_lock = false;
           tableHeader.removeChild(tableHeader.lastElementChild);
         });
-
-        //
-        tableHeader.appendChild(formAddWifi);
-      }
+      };
 
       // fill data at load page
-      function fillData() {
+      var fillData = function () {
         for (const elem of Wifi["2.4G"].SSIDs) {
           append_wifi_table(elem);
         }
-      }
+      };
 
       fillData();
 
+      // event init on total Page
       addWifiBtn.addEventListener("click", () => {
         if (!add_lock) {
           add_lock = true;
           make_add_wifi_form();
         }
       });
+
+      // applyBtn.addEventListener("click", () => {
+      //   if (checkError_show(document.querySelectorAll(".wifi_error"))) {
+      //     var allSSIDs = document.querySelectorAll(".ssid");
+      //     console.log(allSSIDs);
+      //   }
+      // });
+
+      // cancelBtn.addEventListener("click", () => {
+      //   applyElemLS("wifi-2_4G-ssids.html", "Cancel");
+      // });
       break;
     case "wifi-2_4G-statistics.html":
       break;
