@@ -132,7 +132,7 @@ const template = {
       RegistrationID: "",
     },
   },
-  WiFi: {
+  Wifi: {
     "2.4G": {
       SSIDs: [
         {
@@ -209,35 +209,34 @@ const template = {
           RekeyInterval: "3600",
           Maxconnected: "255",
           BridgeName: "br-lan",
+          Configuration: {
+            EnableRadio: true,
+            AutoChannel: true,
+            OperationMode: 4,
+            Channel: 0,
+            ChannelBandwidth: 2,
+            AdvertiseSSID: true,
+            WMM: true,
+            WMMPS: true,
+            APIsolation: false,
+            SSID: "GEMTEK5_1",
+            SecurityType: 3,
+            Passphrase: "wifi_password2",
+            DTIM: 2,
+            BeaconInterval: 100,
+            PowerScale: 12,
+            EnableCoExistence: true,
+          },
+          WDS: {
+            WDSMode: 0,
+            MACAddress: [],
+          },
+          MACFiltering: {
+            ACLMode: 1,
+            MACAddressFilter: [],
+          },
         },
       ],
-      Configuration: {
-        EnableRadio: true,
-        AutoChannel: true,
-        UseDFSChannels: true,
-        OperationMode: 4,
-        Channel: 0,
-        ChannelBandwidth: 2,
-        AdvertiseSSID: true,
-        WMM: true,
-        WMMPS: true,
-        APIsolation: false,
-        SSID: "GEMTEK",
-        SecurityType: 5,
-        Passphrase: "wifi_password",
-        DTIM: "2",
-        BeaconInterval: "100",
-        PowerScale: 12,
-        EnableCoExistence: true,
-      },
-      WDS: {
-        WDSMode: 0,
-        MACAddress: [],
-      },
-      MACFiltering: {
-        ACLMode: 1,
-        MACAddress: [],
-      },
     },
     GuestAccess: {
       WirewlessBand: 0,
@@ -282,7 +281,7 @@ const template = {
 // for (let key in template)
 // {
 //   console.log(key.toString());
-//   console.log(template["WiFi"]["2.4G"]);
+//   console.log(template["Wifi"]["2.4G"]);
 // }
 
 /**

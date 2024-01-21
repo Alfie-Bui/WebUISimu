@@ -161,7 +161,7 @@ function applyElemLS(item, option, change_entity) {
   }
 
   // Load all change on Local Storage
-  if (option != "Cancel") {
+  if (option !== "Cancel") {
     localStorage.setItem("Status", JSON.stringify(Status));
     localStorage.setItem("Basic", JSON.stringify(Basic));
     localStorage.setItem("Wifi", JSON.stringify(Wifi));

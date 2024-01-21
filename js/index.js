@@ -123,7 +123,7 @@ function alertDialogHandle(p_content) {
  *          true: field is value, no error
  */
 function checkError_inputField(input, empty_error, exceed_error) {
-  if (input.value === "") {
+  if (input.value.length === 0) {
     empty_error.classList.remove("ng-hide");
     exceed_error.classList.add("ng-hide");
     return false;
@@ -147,7 +147,7 @@ function checkError_inputField(input, empty_error, exceed_error) {
  *           true: field is valid, no error
  */
 function checkEmpty_inputField(input, empty_error) {
-  if (input.value === "") {
+  if (input.value.length === 0) {
     empty_error.classList.remove("ng-hide");
     return false;
   } else {
@@ -165,7 +165,7 @@ function checkEmpty_inputField(input, empty_error) {
  *          true: field is valid, no error
  */
 function checkRange_inputField(input, range_error, empty_error) {
-  if (input.value === "") {
+  if (input.value.length === 0) {
     // empty
     empty_error.classList.remove("ng-hide");
     range_error.classList.add("ng-hide");
@@ -192,7 +192,7 @@ function checkRange_inputField(input, range_error, empty_error) {
  * @returns
  */
 function checkError_selectField(select, error) {
-  if (select.value == 0 || select.value == "") {
+  if (select.value === "?") {
     error.classList.remove("ng-hide");
     return false;
   } else {
@@ -238,8 +238,11 @@ function checkPasswordError_inputField(
   lowLimit_error,
   upLimit_error
 ) {
-  if (input.value == "") {
+  if (input.value.length === 0) {
     empty_error.classList.remove("ng-hide");
+    pattern_error.classList.add("ng-hide");
+    lowLimit_error.classList.add("ng-hide");
+    upLimit_error.classList.add("ng-hide");
   } else {
     empty_error.classList.add("ng-hide");
     if (!pattern.test(input.value)) {
@@ -263,14 +266,16 @@ function checkPasswordError_inputField(
 function checkMinMaxError_inputField(input, min_error, max_error, empty_error) {
   if (input.value === "") {
     empty_error.classList.remove("ng-hide");
+    min_error.classList.add("ng-hide");
+    max_error.classList.add("ng-hide");
   } else {
     empty_error.classList.add("ng-hide");
-    if (input.value.length < input.getAttribute("min")) {
+    if (parseInt(input.value) < parseInt(input.getAttribute("min"))) {
       min_error.classList.remove("ng-hide");
     } else {
       min_error.classList.add("ng-hide");
     }
-    if (input.value.length > input.getAttribute("max")) {
+    if (parseInt(input.value) > parseInt(input.getAttribute("max"))) {
       max_error.classList.remove("ng-hide");
     } else {
       max_error.classList.add("ng-hide");

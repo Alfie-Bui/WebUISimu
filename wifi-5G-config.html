@@ -1053,13 +1053,7 @@
             Wi-Fi 5G offers greater coverage and supports legacy devices.
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               You can make wireless LAN settings that operate in the 5GHz range.
               Wi-Fi 5G offers greater coverage and supports legacy devices.
             </p>
@@ -1073,59 +1067,33 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <ul class="nav nav-tabs gemtek-tab">
-              <li ng-class='{&#39;active&#39;: currentTab === "adv5_ssid"}'>
+              <li>
                 <a href="wifi-5G-ssids.html">SSIDs</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "wifi5_advanced"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="wifi-5G-config.html">Configuration</a>
               </li>
-              <li ng-class='{&#39;active&#39;: currentTab === "adv5_wps"}'>
+              <li>
                 <a href="wifi-5G-wps.html">WPS</a>
               </li>
-              <li ng-class='{&#39;active&#39;: currentTab === "wds5page"}'>
+              <li>
                 <a href="wifi-5G-wds.html">WDS</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "adv5_macFiltering"}'
-              >
+              <li>
                 <a href="wifi-5G-mac_filter.html">MAC Filtering</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "adv5_statistics"}'
-              >
+              <li>
                 <a href="wifi-5G-statistics.html">Statistics</a>
               </li>
             </ul>
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceWiFiRadio2DeviceWiFiAccessPoint2DeviceWiFiSSID2DeviceWiFiAccessPoint2SecurityDeviceWiFiRadio2popup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceWiFiRadio2DeviceWiFiAccessPoint2DeviceWiFiSSID2DeviceWiFiAccessPoint2SecurityDeviceWiFiRadio2popup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceWiFiRadio2DeviceWiFiAccessPoint2DeviceWiFiSSID2DeviceWiFiAccessPoint2SecurityDeviceWiFiRadio2popupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
               <form
-                polling=""
-                interval=""
-                loadstatus=""
                 class="form-horizontal formCount lantiq-form-text ng-pristine ng-invalid ng-invalid-required ng-valid-min ng-valid-max"
-                ng-init='dropdownUrlReq("DeviceWiFiAccessPoint2Security","ModeEnabled","cgi_get_fillparams?Object=Device.WiFi.AccessPoint.2.Security&amp;ModesSupported=&amp;X_LANTIQ_COM_Vendor_ModesSupported=","false","","");'
-                name="DeviceWiFiRadio2DeviceWiFiAccessPoint2DeviceWiFiSSID2DeviceWiFiAccessPoint2SecurityDeviceWiFiRadio2_form"
-                name1="Device.WiFi.Radio.2?Enable,AutoChannelEnable,OperatingFrequencyBand,RegulatoryDomain,IEEE80211hEnabled,OperatingStandards,Channel,ExtensionChannel,OperatingChannelBandwidth&amp;Device.WiFi.AccessPoint.2?SSIDAdvertisementEnabled,WMMCapability,UAPSDEnable,IsolationEnable&amp;Device.WiFi.SSID.2?SSID,SSID,SSID&amp;Device.WiFi.AccessPoint.2.Security?ModeEnabled,KeyPassphrase,X_LANTIQ_COM_Vendor_SaePassword,RekeyingInterval,RadiusServerIPAddr,RadiusServerPort,RadiusSecret,WEPKey,WEPKey&amp;Device.WiFi.Radio.2?DTIMPeriod,BeaconPeriod,TransmitPower,IEEE80211hEnabled"
                 id="DeviceWiFiRadio2DeviceWiFiAccessPoint2DeviceWiFiSSID2DeviceWiFiAccessPoint2SecurityDeviceWiFiRadio2"
-                urlobjs="Device.WiFi.Radio.2:cgi_get_nosubobj?Object=Device.WiFi.Radio.2,Device.WiFi.AccessPoint.2:cgi_get_nosubobj?Object=Device.WiFi.AccessPoint.2,Device.WiFi.SSID.2:cgi_get_nosubobj?Object=Device.WiFi.SSID.2,Device.WiFi.AccessPoint.2.Security:cgi_get_nosubobj?Object=Device.WiFi.AccessPoint.2.Security,Device.WiFi.Radio.2:cgi_get_nosubobj?Object=Device.WiFi.Radio.2"
               >
                 <div>
                   <div class="wrapperdiv">
@@ -1144,9 +1112,6 @@
                             <span
                               class="switch hidden-dom-removal ng-valid checked"
                               id="Enable"
-                              on=""
-                              off="OFF"
-                              ng-model="DeviceWiFiRadio2.Enable"
                               name="DeviceWiFiRadio2.Enable"
                               onclick="toggleSwitch(this.id)"
                               ><small></small
@@ -1154,7 +1119,6 @@
                                 type="checkbox"
                                 id="Enable"
                                 name="DeviceWiFiRadio2.Enable"
-                                ng-model="DeviceWiFiRadio2.Enable"
                                 style="display: none"
                                 class="ng-pristine ng-untouched ng-valid"
                               /><span class="switch-text"
@@ -1177,9 +1141,6 @@
                             <span
                               class="switch hidden-dom-removal ng-valid checked"
                               id="AutoChannelEnable"
-                              on=""
-                              off="OFF"
-                              ng-model="DeviceWiFiRadio2.AutoChannelEnable"
                               name="DeviceWiFiRadio2.AutoChannelEnable"
                               onclick="toggleSwitch(this.id)"
                               ><small></small
@@ -1187,7 +1148,6 @@
                                 type="checkbox"
                                 id="AutoChannelEnable"
                                 name="DeviceWiFiRadio2.AutoChannelEnable"
-                                ng-model="DeviceWiFiRadio2.AutoChannelEnable"
                                 style="display: none"
                                 class="ng-pristine ng-untouched ng-valid"
                               /><span class="switch-text"
@@ -1199,7 +1159,6 @@
                       </div>
                       <div
                         class="form-group no-padding-hr col-xs-12 col-sm-12 ng-hide"
-                        ng-hide="true"
                       >
                         <div class="row">
                           <div
@@ -1211,31 +1170,19 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
                               placeholder="Please Enter the value"
                               name="DeviceWiFiRadio2_OperatingFrequencyBand"
-                              ng-model="DeviceWiFiRadio2.OperatingFrequencyBand"
                             /><label
                               for="OperatingFrequencyBand"
                               class="active ng-binding"
                               >Operating Frequency</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceWiFiRadio2_OperatingFrequencyBandresponsestatus"
-                              ng-bind="DeviceWiFiRadio2_OperatingFrequencyBandval |translate
-                        "
-                            ></span>
+                            ><span class="error ng-binding ng-hide"></span>
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-hide"
-                        ng-hide="true"
-                      >
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
                         <div class="row">
                           <label
                             for="RegulatoryDomain"
                             class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            ng-bind="
-                        &#39;Device.WiFi.Radio.2.Country&#39; | translate
-                    "
                             >Country</label
                           >
                           <div
@@ -1246,15 +1193,7 @@
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid"
                               id="RegulatoryDomain"
                               validation="true"
-                              dependentparams="Device.WiFi.Radio.2?Channel&amp;OperatingChannelBandwidth"
-                              dependsonparams="Device.WiFi.Radio.2?OperatingFrequencyBand"
                               name="DeviceWiFiRadio2_RegulatoryDomain"
-                              ng-model="DeviceWiFiRadio2.RegulatoryDomain"
-                              ng-change='dependencychange("DeviceWiFiRadio2","Device.WiFi.Radio.2","RegulatoryDomain","Device.WiFi.Radio.2?Channel&amp;OperatingChannelBandwidth")'
-                              ng-init='depenencyUrl("DeviceWiFiRadio2","RegulatoryDomain","Device.WiFi.Radio.2?Channel&amp;OperatingChannelBandwidth","DeviceWiFiRadio2DeviceWiFiAccessPoint2DeviceWiFiSSID2DeviceWiFiAccessPoint2SecurityDeviceWiFiRadio2","countrieslist")'
-                              ng-options="obj.id as obj.name for obj in RegulatoryDomain
-                                       |orderBy:&#39;name&#39;
-                                    "
                             >
                               <option value="? string: ?"></option>
                               <option
@@ -1756,7 +1695,7 @@
                               required="required"
                             >
                               <option
-                                value="0"
+                                value="?"
                                 selected="selected"
                                 label="Select"
                               >
@@ -1810,7 +1749,7 @@
                               required="required"
                               disabled="disabled"
                             >
-                              <option value="0" label="Select">Select</option>
+                              <option value="?" label="Select">Select</option>
                               <option value="36" label="36">36</option>
                               <option value="40" label="40"></option>
                               <option value="44" label="44">44</option>
@@ -2160,7 +2099,7 @@
                             >
                               <option value="? string: ?"></option>
                               <option
-                                value="0"
+                                value="?"
                                 selected="selected"
                                 label="Select"
                               >
@@ -2432,7 +2371,7 @@
                               ng-change='ddChange("DeviceWiFiRadio2__TransmitPower",DeviceWiFiRadio2.TransmitPower)'
                               required="required"
                             >
-                              <option value="" class="form-control1">
+                              <option value="?" class="form-control1">
                                 Select
                               </option>
                               <option class="form-control1" value="12">
