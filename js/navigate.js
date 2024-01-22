@@ -1639,10 +1639,12 @@ function loadPage(item, options) {
       var channelBWSelect = document.getElementById(
         "OperatingChannelBandwidth"
       );
+
       var advertiseSSID = document.getElementById("SSIDAdvertisementEnabled");
       var wmm = document.getElementById("WMMCapability");
       var wmmps = document.getElementById("UAPSDEnable");
       var apIso = document.getElementById("IsolationEnable");
+
       var ssid = document.getElementById("SSID");
       var securityTypeSelect = document.getElementById("ModeEnabled");
       var password = document.getElementById("Password_field");
@@ -1804,7 +1806,7 @@ function loadPage(item, options) {
           autoChannel.classList.toggle("checked");
           if (autoChannel.classList.contains("checked")) {
             channelSelect.disabled = true;
-            channelBWSelect.value = "Auto";
+            channelBWSelect.value = "2";
             document
               .getElementById("select_channel_error")
               .classList.add("ng-hide"); // hide error if auto channel
@@ -1912,9 +1914,12 @@ function loadPage(item, options) {
         });
       };
 
+      var filledData;
       var fillData = () => {
-        var filledData = Wifi["2.4G"].SSIDs[0];
-        console.log(`Fill data into Configuration: ${filledData}`);
+        filledData = Wifi["2.4G"].SSIDs[0];
+        console.log(
+          `Fill data into Configuration: ${JSON.stringify(filledData)}`
+        );
 
         filledData.Configuration.EnableRadio
           ? enable2_4G.classList.add("checked")
@@ -1968,7 +1973,7 @@ function loadPage(item, options) {
       fillData();
 
       // apply and cancel event
-      document.getElementById("Apply", () => {
+      document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
           filledData.Configuration.EnableRadio =
             enable2_4G.classList.contains("checked");
@@ -2658,7 +2663,7 @@ function loadPage(item, options) {
             WMMPS: true,
             APIsolation: false,
             SSID: "",
-            SecurityType: 0,
+            SecurityType: 1,
             Passphrase: "password",
             DTIM: "",
             BeaconInterval: "",
@@ -2670,7 +2675,7 @@ function loadPage(item, options) {
             MACAddress: [],
           },
           MACFiltering: {
-            ACLMode: 1,
+            ACLMode: 0,
             MACAddressFilter: [],
           },
         };
@@ -2692,7 +2697,7 @@ function loadPage(item, options) {
 
         // check Error at init
         checkEmpty_inputField(ssid_field, empty_ssid_error);
-        checkEmpty_inputField(ap_type, empty_ap_type_error);
+        checkError_selectField(ap_type, empty_ap_type_error);
         checkError_selectField(security_type, security_type_error);
 
         // make event on input or click
@@ -3292,7 +3297,7 @@ function loadPage(item, options) {
           autoChannel.classList.toggle("checked");
           if (autoChannel.classList.contains("checked")) {
             channelSelect.disabled = true;
-            channelBWSelect.value = "Auto";
+            channelBWSelect.value = "2";
             document
               .getElementById("select_channel_error")
               .classList.add("ng-hide"); // hide error if auto channel
@@ -3401,9 +3406,12 @@ function loadPage(item, options) {
         });
       };
 
+      var filledData;
       var fillData = () => {
-        var filledData = Wifi["5G"].SSIDs[0];
-        console.log(`Fill data into Configuration: ${filledData}`);
+        filledData = Wifi["5G"].SSIDs[0];
+        console.log(
+          `Fill data into Configuration: ${JSON.stringify(filledData)}`
+        );
 
         filledData.Configuration.EnableRadio
           ? enable5G.classList.add("checked")
@@ -3463,7 +3471,7 @@ function loadPage(item, options) {
       fillData();
 
       // apply and cancel event
-      document.getElementById("Apply", () => {
+      document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
           filledData.Configuration.EnableRadio =
             enable5G.classList.contains("checked");
@@ -4148,13 +4156,13 @@ function loadPage(item, options) {
             AutoChannel: true,
             OperationMode: 4,
             Channel: 0,
-            ChannelBandwidth: 2,
+            ChannelBandwidth: 2, // Auto
             AdvertiseSSID: true,
             WMM: true,
             WMMPS: true,
             APIsolation: false,
             SSID: "",
-            SecurityType: 0,
+            SecurityType: 1,
             Passphrase: "password",
             DTIM: "",
             BeaconInterval: "",
@@ -4166,7 +4174,7 @@ function loadPage(item, options) {
             MACAddress: [],
           },
           MACFiltering: {
-            ACLMode: 1,
+            ACLMode: 0,
             MACAddressFilter: [],
           },
         };
@@ -4188,7 +4196,7 @@ function loadPage(item, options) {
 
         // check Error at init
         checkEmpty_inputField(ssid_field, empty_ssid_error);
-        checkEmpty_inputField(ap_type, empty_ap_type_error);
+        checkError_selectField(ap_type, empty_ap_type_error);
         checkError_selectField(security_type, security_type_error);
 
         // make event on input or click
