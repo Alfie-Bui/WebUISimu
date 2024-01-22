@@ -135,78 +135,9 @@
     <script src="./js/storage.js"></script>
     <script src="./js/index.js"></script>
     <script>
-      function add_mac_addr() {
-        // load template
-        const template = document.getElementById("input_field_mac_template");
-
-        // clone content
-        const newRow = template.content.cloneNode(true);
-
-        // get tbody
-        const tbody = document.getElementById("bodyData");
-        // add child
-        tbody.appendChild(newRow);
-      }
-
-      function delete_click_handle() {
-        const tbody = document.getElementById("bodyData");
-
-        const acl_mode_select = document.getElementById("acl_mode_select");
-
-        if (
-          tbody.childElementCount == 1 &&
-          acl_mode_select.value != "Disabled"
-        ) {
-          show_alert_dialog("keep at least one MAC address");
-        } else {
-          const delete_dialog = document.getElementById("deletedialog");
-
-          delete_dialog.classList.remove("hide");
-        }
-      }
-      function hide_delete_dialog() {
-        const delete_dialog = document.getElementById("deletedialog");
-
-        delete_dialog.classList.add("hide");
-      }
-
-      function confirm_delete_mac() {
-        const tbody = document.getElementById("bodyData");
-
-        const delete_dialog = document.getElementById("deletedialog");
-
-        delete_dialog.classList.add("hide");
-        tbody.removeChild(tbody.lastElementChild);
-      }
-
-      function acl_mode_handle() {
-        const acl_mode_select = document.getElementById("acl_mode_select");
-
-        if (
-          acl_mode_select.value == "Allow" ||
-          acl_mode_select.value == "Deny"
-        ) {
-          const tbody = document.getElementById("bodyData");
-          if (tbody.childElementCount == 0) {
-            show_alert_dialog("Please add MAC Address");
-
-            // set Disable
-            acl_mode_select.options[0].selected = true;
-          }
-        }
-      }
-
-      function hide_alert_dialog() {
-        const alert = document.getElementById("alertDialog");
-        alert.classList.add("hide");
-      }
-
-      function show_alert_dialog(content) {
-        const alert = document.getElementById("alertDialog");
-        const alert_content = document.getElementById("alert_content");
-        alert.classList.remove("hide");
-        alert_content.textContent = content;
-      }
+      window.onload = () => {
+        loadPage("wifi-5G-mac_filter.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -1123,22 +1054,11 @@
                         >
                           <label for="SSID">SSID</label>
                           <select
-                            id="macFilteringSsid"
+                            id="SSID"
                             name="SSID"
-                            ng-model="ssidSelected"
-                            ng-options="idx as ssid for (idx,ssid) in ssidList"
-                            ng-change="textChange(macFiltering.objName)"
                             required=""
-                            class="ng-pristine ng-untouched ng-valid ng-valid-required"
-                          >
-                            <option
-                              value="0"
-                              selected="selected"
-                              label="GEMTEK_5G"
-                            >
-                              GEMTEK_5G
-                            </option>
-                          </select>
+                            class="ng-pristine ng-valid ng-valid-required ng-touched"
+                          ></select>
                         </div>
                       </div>
 
@@ -1150,14 +1070,12 @@
                           <select
                             id="acl_mode_select"
                             name="MACAddressControlMode"
-                            ng-model="macFiltering.MACAddressControlMode"
-                            onclick="acl_mode_handle()"
                             required=""
-                            class="ng-pristine ng-untouched ng-valid ng-valid-required"
+                            class="ng-pristine ng-valid ng-valid-required ng-touched"
                           >
-                            <option value="Disabled">Disabled</option>
-                            <option value="Allow">Allow</option>
-                            <option value="Deny">Deny</option>
+                            <option value="0">Disabled</option>
+                            <option value="1">Allow</option>
+                            <option value="2">Deny</option>
                           </select>
                         </div>
                       </div>
@@ -1169,7 +1087,6 @@
                         <a
                           id="MACAddressControlList"
                           class="gemtek-btn-normal gemtek-btn-addplus"
-                          onclick="add_mac_addr()"
                         >
                           <i class="fa fa-plus icontxtgap"></i>
                           <span>Add</span>
@@ -1177,10 +1094,7 @@
                       </div>
 
                       <!-- Template for add button, input field to enter MAC address -->
-                      <template
-                        id="input_field_mac_template"
-                        style="display: none"
-                      >
+                      <template id="input_field_mac_template">
                         <tr class="ng-scope">
                           <td style="padding-right: 10px">
                             <ng-form
@@ -1190,19 +1104,13 @@
                               <input
                                 type="text"
                                 name="MACAddressControlList"
-                                class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
-                                ng-model="$parent.macFiltering.MACAddressControlList[$index]"
-                                ng-pattern="/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$|^([0-9A-Fa-f]{2}[\-]){5}([0-9A-Fa-f]{2})$/"
+                                class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern macAddrValue"
                                 required=""
                               />
-                              <span
-                                class="error"
-                                ng-show="macListForm0.MACAddressControlList.$error.required"
+                              <span class="error ng-hide empty_error"
                                 >* This Field is Required</span
                               >
-                              <span
-                                class="error ng-hide"
-                                ng-show="macListForm0.MACAddressControlList.$error.pattern"
+                              <span class="error ng-hide invalid_error"
                                 >* Invalid MAC address</span
                               >
                             </ng-form>
@@ -1210,9 +1118,8 @@
                           <td>
                             <button
                               type="button"
-                              class="btn btn-xs table-btn no-margin"
+                              class="btn btn-xs table-btn no-margin deleteBtn"
                               name="delete"
-                              onclick="delete_click_handle()"
                             >
                               <span class="gemtek-delete-icon"></span>
                             </button>
@@ -1227,18 +1134,8 @@
                           >
                             <thead>
                               <tr>
-                                <th
-                                  ng-bind="&#39;macFiltering.MAC Address&#39; | translate"
-                                  class="ng-binding"
-                                >
-                                  MAC Address
-                                </th>
-                                <th
-                                  ng-bind="&#39;macFiltering.Actions&#39; | translate"
-                                  class="ng-binding"
-                                >
-                                  Actions
-                                </th>
+                                <th class="ng-binding">MAC Address</th>
+                                <th class="ng-binding">Actions</th>
                               </tr>
                             </thead>
                             <tbody id="bodyData">
@@ -1254,6 +1151,7 @@
                       <button
                         type="button"
                         class="gemtek-btn-normal ng-binding"
+                        id="Cancel"
                       >
                         Cancel
                       </button>
@@ -1262,9 +1160,7 @@
                       <button
                         type="button"
                         class="gemtek-btn-primary ng-binding"
-                        ng-click="apply(event)"
-                        ng-disabled="macFilteringForm.$invalid"
-                        ng-bind="&#39;Apply&#39; | translate"
+                        id="Apply"
                       >
                         Apply
                       </button>
@@ -1276,69 +1172,11 @@
 
             <!-- ngInclude: 'templates/deletedialog.html' -->
             <div class="ng-scope">
-              <div class="ng-scope">
-                <div
-                  id="deletedialog"
-                  class="ngdialog ngdialog-theme-default dialogwidth800 hide"
-                >
-                  <div class="ngdialog-overlay"></div>
-                  <div class="ngdialog-content">
-                    <div class="ngdialog-message">
-                      <img src="images/icons/icon-1/deletedialog.svg" />
-                      <h3 class="ng-binding">Delete MAC Address</h3>
-                      <p class="ng-binding">
-                        Are you sure you want to Delete ?
-                      </p>
-                    </div>
-                    <div class="ngdialog-buttons">
-                      <button
-                        type="button"
-                        class="ngdialog-button gemtek-btn-normal ng-binding"
-                        onclick="hide_delete_dialog()"
-                        id="Cancel"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="button"
-                        class="ngdialog-button gemtek-btn-danger ng-binding"
-                        onclick="confirm_delete_mac()"
-                        ng-bind="&#39;Ok&#39; | translate"
-                        id="OK"
-                      >
-                        Ok
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="ng-scope" id="deleteDialogMark"></div>
             </div>
             <!-- ngInclude: 'templates/alertdialog.html' -->
             <div class="ng-scope">
-              <div class="ng-scope">
-                <div
-                  id="alertDialog"
-                  class="ngdialog ngdialog-theme-default dialogwidth800 hide"
-                >
-                  <div class="ngdialog-overlay"></div>
-                  <div class="ngdialog-content">
-                    <div class="ngdialog-message">
-                      <img src="images/icons/icon-1/ico-notice.svg" />
-                      <h3>Notice</h3>
-                      <p class="ng-binding" id="alert_content"></p>
-                    </div>
-                    <div class="ngdialog-buttons">
-                      <button
-                        type="button"
-                        class="gemtek-btn-primary ng-binding"
-                        onclick="hide_alert_dialog()"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="ng-scope" id="alertDialogMark"></div>
             </div>
           </div>
         </div>

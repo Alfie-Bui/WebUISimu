@@ -135,33 +135,9 @@
     <script src="./js/storage.js"></script>
     <script src="./js/index.js"></script>
     <script>
-      function select_wds_mode_handle(id) {
-        const wds_mode_select = document.getElementById(
-          "DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSMode"
-        );
-        const hybrid_mode_panel = document.getElementById("wds_mode_hybrid");
-        const add_btn = document.getElementById("Add");
-
-        if (wds_mode_select.value == "Hybrid") {
-          hybrid_mode_panel.classList.remove("ng-hide");
-          add_btn.classList.remove("ng-hide");
-        } else {
-          hybrid_mode_panel.classList.add("ng-hide");
-          add_btn.classList.add("ng-hide");
-        }
-      }
-
-      function add_btn_click() {
-        const add_btn_panel = document.getElementById("Add_Btn_Panel");
-
-        add_btn_panel.classList.remove("ng-hide");
-      }
-
-      function delete_btn_click() {
-        const add_btn_panel = document.getElementById("Add_Btn_Panel");
-
-        add_btn_panel.classList.add("ng-hide");
-      }
+      window.onload = () => {
+        loadPage("wifi-5G-wds.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -1049,35 +1025,22 @@ and open the template in the editor.
                 <div class="col-lg-12 col-md-12 gemtek-input-p-left">
                   <div class="panel">
                     <ul class="nav nav-tabs gemtek-tab">
-                      <li
-                        ng-class='{&#39;active&#39;: currentTab === "adv5_ssid"}'
-                      >
+                      <li>
                         <a href="wifi-5G-ssids.html">SSIDs</a>
                       </li>
-                      <li
-                        ng-class='{&#39;active&#39;: currentTab === "wifi5_advanced"}'
-                      >
+                      <li>
                         <a href="wifi-5G-config.html">Configuration</a>
                       </li>
-                      <li
-                        ng-class='{&#39;active&#39;: currentTab === "adv5_wps"}'
-                      >
+                      <li>
                         <a href="wifi-5G-wps.html">WPS</a>
                       </li>
-                      <li
-                        ng-class='{&#39;active&#39;: currentTab === "wds5page"}'
-                        class="active"
-                      >
+                      <li class="active">
                         <a href="wifi-5G-wds.html">WDS</a>
                       </li>
-                      <li
-                        ng-class='{&#39;active&#39;: currentTab === "adv5_macFiltering"}'
-                      >
+                      <li>
                         <a href="wifi-5G-mac_filter.html">MAC Filtering</a>
                       </li>
-                      <li
-                        ng-class='{&#39;active&#39;: currentTab === "adv5_statistics"}'
-                      >
+                      <li>
                         <a href="wifi-5G-statistics.html">Statistics</a>
                       </li>
                     </ul>
@@ -1088,20 +1051,13 @@ and open the template in the editor.
                         <div class="required col-sm-5 gemtek-input-p-left">
                           <label
                             class="control-label col-lg-12 col-md-12 col-sm-12 gemtek-input-p-left ng-binding"
-                            ng-bind="&#39;Device.WiFi.Radio.2.SSID&#39; | translate"
                             >SSID</label
                           >
                           <div class="col-sm-12 gemtek-input-p-left">
                             <select
-                              id="temp_SSID"
+                              id="SSID"
                               class="form-control gemtek-input-lh ng-pristine ng-valid ng-valid-required ng-touched"
-                              ng-required="true"
                               name="ssid"
-                              ng-model="temp.SSID"
-                              ng-change="ssidChange(temp.SSID)"
-                              ng-options="obj.id as obj.name for obj in SSID"
-                              ng-init="dropdownUrlRequest(&#39;temp&#39;, &#39;SSID&#39;,
-                      &#39;cgi_get_filterbyfirstparamval?Object=Device.WiFi.SSID&amp;LowerLayers=Device.WiFi.Radio.2.&amp;SSID=&#39;)"
                               required="required"
                             >
                               <option
@@ -1111,27 +1067,13 @@ and open the template in the editor.
                               >
                                 Select
                               </option>
-                              <option
-                                value="1"
-                                selected="selected"
-                                label="GEMTEK_5G"
-                              >
-                                GEMTEK_5G
-                              </option>
                             </select>
                             <span
                               class="error ng-binding ng-hide"
-                              forname="temp_SSID"
-                              ng-show="wdsstatus &amp;&amp; wdsform.ssid.$error.required"
-                              ng-bind="&#39;Device.WiFi.Radio.2.SSID.$error.required&#39; | translate"
+                              id="empty_ssid_error"
                               >SSID is Required</span
                             >
-                            <span
-                              class="error ng-binding ng-hide"
-                              forname="temp_SSID"
-                              ng-show="temp_SSIDresponsestatus"
-                              ng-bind="temp_SSIDval"
-                            ></span>
+                            <span class="error ng-binding ng-hide"></span>
                           </div>
                         </div>
                       </div>
@@ -1142,47 +1084,36 @@ and open the template in the editor.
                           <label
                             class="control-label col-lg-12 col-md-12 col-sm-12 gemtek-input-p-left ng-binding"
                             style="font-weight: 100"
-                            ng-bind="&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor.WDS Mode&#39; | translate"
                             >WDS Mode</label
                           >
                           <div class="col-sm-12 gemtek-input-p-left">
                             <select
                               id="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSMode"
-                              class="form-control gemtek-input-lh ng-pristine ng-valid ng-valid-required ng-touched"
-                              ng-required="true"
+                              class="form-control gemtek-input-lh ng-pristine ng-untouched ng-valid ng-valid-required"
                               name="wdsmode"
-                              ng-model="DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSMode"
-                              onchange="select_wds_mode_handle(this.id)"
                               required="required"
                             >
                               <!-- <option value="">Select</option> -->
-                              <option value="Disabled">Disabled</option>
+                              <option value="0" selected>Disabled</option>
                               <!-- <option value="Legacy">Legacy</option> -->
-                              <option value="Hybrid">Hybrid</option>
+                              <option value="1">Hybrid</option>
                             </select>
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="row gemtek-input-mt30 ng-hide"
-                        ng-show="DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSMode == &#39;Legacy&#39;"
-                      >
+                      <div class="row gemtek-input-mt30 ng-hide">
                         <div
                           class="form-group required col-sm-5 gemtek-input-p-left"
                         >
                           <label
                             class="control-label col-lg-12 col-md-12 col-sm-12 gemtek-input-p-left ng-binding"
-                            ng-bind="&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor.WDS Security Mode&#39; | translate"
                             >WDS Security Mode</label
                           >
                           <div class="col-sm-12 gemtek-input-p-left">
                             <select
                               id="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSSecurityMode"
                               class="form-control gemtek-input-lh ng-pristine ng-untouched ng-invalid ng-invalid-required"
-                              ng-required="true"
                               name="wdssecuritymode"
-                              ng-model="DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSSecurityMode"
-                              ng-change="textChange(&#39;DeviceWiFiAccessPointX_GTK_VendorWaveWDSSecurityMode&#39;)"
                               required="required"
                             >
                               <option value="?">Select</option>
@@ -1190,25 +1121,15 @@ and open the template in the editor.
                               <option value="WEP-64">WEP-64</option>
                               <option value="WEP-128">WEP-128</option>
                             </select>
-                            <span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSSecurityMode"
-                              ng-show="wdsstatus &amp;&amp; wdsform.wdssecuritymode.$error.required"
-                              ng-bind="&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor.WaveWDSSecurityMode.$error.required&#39; | translate"
+                            <span class="error ng-binding ng-hide"
                               >* This Field is Required</span
                             >
-                            <span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSSecurityMode"
-                              ng-show="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSSecurityModeresponsestatus"
-                              ng-bind="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSSecurityModeval"
-                            ></span>
+                            <span class="error ng-binding ng-hide"></span>
                           </div>
                         </div>
                         <!-- ngIf: DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSSecurityMode == 'WEP-64' -->
                         <!-- ngIf: DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSSecurityMode == 'WEP-128' -->
                       </div>
-
                       <div class="row gemtek-input-mt30">
                         <div class="col-lg-12 col-md-12 text-right">
                           <a
@@ -1216,12 +1137,9 @@ and open the template in the editor.
                             id="Add"
                             name="Add"
                             value="Add"
-                            ng-show="DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSMode == &#39;Legacy&#39; || DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSMode == &#39;Hybrid&#39;"
-                            onclick="add_btn_click()"
                           >
                             <img src="images/icons/btn-add-n.png" /><span
                               class="gemtek-btn-add-txt ng-binding"
-                              ng-bind="&#39;Add&#39; | translate"
                               >Add</span
                             >
                           </a>
@@ -1235,16 +1153,10 @@ and open the template in the editor.
                           >
                             <thead>
                               <tr>
-                                <th
-                                  class="gemtek-table-txt ng-binding"
-                                  ng-bind="&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor.MAC Address&#39; | translate"
-                                >
+                                <th class="gemtek-table-txt ng-binding">
                                   MAC Address
                                 </th>
-                                <th
-                                  class="gemtek-table-txt ng-binding"
-                                  ng-bind="&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor.Action&#39; | translate"
-                                >
+                                <th class="gemtek-table-txt ng-binding">
                                   Action
                                 </th>
                                 <!-- <th>
@@ -1255,10 +1167,10 @@ and open the template in the editor.
                           </th> -->
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="mac_addr_list">
                               <tr
                                 ng-show="status"
-                                id="Add_Btn_Panel"
+                                id="mac_input_panel"
                                 class="ng-hide"
                               >
                                 <td>
@@ -1266,36 +1178,26 @@ and open the template in the editor.
                                     id="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeers"
                                     type="text"
                                     name="macaddress"
-                                    ng-model="DeviceWiFiAccessPointX_GTK_Vendor.WaveWDSPeers"
-                                    ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$/"
                                     style="margin: 0"
                                     placeholder="Enter MAC Address Here"
                                     class="ng-pristine ng-untouched ng-valid ng-valid-pattern"
                                   />
                                   <div
                                     class="error ng-binding ng-hide"
-                                    forname="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeers"
-                                    ng-show="macregexpression"
-                                    ng-bind="&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor.WaveWDSPeers.$error.pattern&#39; | translate"
+                                    id="pattern_mac_error"
                                   >
-                                    pattern
+                                    Invalid MAC Address
                                   </div>
                                   <div
                                     class="error ng-binding ng-hide"
-                                    forname="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeers"
-                                    ng-show="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeersresponsestatus"
-                                    ng-bind="DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeersval"
-                                  ></div>
+                                    id="empty_mac_error"
+                                  >
+                                    This field is required
+                                  </div>
+                                  <div class="error ng-binding ng-hide"></div>
                                 </td>
                                 <td style="vertical-align: middle">
-                                  <a
-                                    id="Add"
-                                    value="Add"
-                                    name="Add"
-                                    class="btn btn-xs table-btn"
-                                    onclick="delete_btn_click()"
-                                    source="Device.WiFi.AccessPoint.*.X_GTK_Vendor?WaveWDSPeers,"
-                                  >
+                                  <a id="AddMac" class="btn btn-xs table-btn">
                                     <!-- <span class="fa fa-check btn_color_grn"></span> -->
                                     <img
                                       src="images/icons/ico-checked-2.png"
@@ -1307,7 +1209,6 @@ and open the template in the editor.
                                     value="Close"
                                     name="Close"
                                     class="btn btn-xs table-btn"
-                                    onclick="delete_btn_click()"
                                   >
                                     <img
                                       src="images/icons/btn-delete-n.png"
@@ -1318,44 +1219,63 @@ and open the template in the editor.
                                 </td>
                               </tr>
                               <!-- ngRepeat: row in WaveWDSPeers -->
+                              <template id="rowElement">
+                                <tr class="ng-scope">
+                                  <!-- ngRepeat: key in row| keys --><!-- ngIf: false == $last -->
+                                  <td
+                                    style="padding-left: 10px"
+                                    class="ng-binding ng-scope macAddrValue"
+                                  ></td>
+                                  <!-- end ngIf: false == $last --><!-- end ngRepeat: key in row| keys --><!-- ngIf: false == $last --><!-- end ngRepeat: key in row| keys -->
+                                  <td
+                                    style="
+                                      white-space: nowrap;
+                                      vertical-align: middle;
+                                    "
+                                  >
+                                    <div class="buttons">
+                                      <button
+                                        class="btn table-btn deleteBtn"
+                                        name="delete"
+                                        value="delete"
+                                      >
+                                        <img
+                                          src="images/icons/btn-delete-n.png"
+                                          alt="delete"
+                                        />
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </template>
                             </tbody>
                           </table>
                         </div>
                       </div>
-                      <script>
-                        select_wds_mode_handle();
-                      </script>
-                    </div>
-                    <div class="gemtek-hr" style="margin-left: 20px"></div>
-                    <div class="text-center">
-                      <div class="btn-align" style="margin-bottom: 30px">
-                        <input
-                          type="button"
-                          class="waves-effect waves-light gemtek-btn-normal"
-                          id="Cancel"
-                          value="Cancel"
-                          source=""
-                        />
-                      </div>
-                      <div class="btn-align">
-                        <input
-                          type="button"
-                          id="Modify"
-                          class="waves-effect waves-light gemtek-btn-primary"
-                          value="Apply"
-                          formstatus="false"
-                          ng-click="Modify(&#39;Device.WiFi.AccessPoint.*.X_GTK_Vendor&#39;,
-                  $event)"
-                        />
-                      </div>
-                      <!-- <div class="col-lg-12 col-md-12 pull-right">
-                  <div class="btn-group custom_btn">
-                    <button class="btn btn-info waves-effect waves-light " id="Modify" name="Save" value="Save"
+                      <div class="gemtek-hr"></div>
+                      <div class="text-center">
+                        <div class="btn-align">
+                          <input
+                            type="button"
+                            class="waves-effect waves-light gemtek-btn-normal"
+                            id="Cancel"
+                            value="Cancel"
+                            source=""
+                          />
+                        </div>
+                        <div class="btn-align">
+                          <input
+                            type="button"
+                            id="Modify"
+                            class="waves-effect waves-light gemtek-btn-primary"
+                            value="Apply"
+                          />
+                        </div>
+                        <!-- <button class="btn btn-info waves-effect waves-light " id="Modify" name="Save" value="Save"
                       formstatus="{{wdsform.$valid}}"
                       ng-click="Modify('Device.WiFi.AccessPoint.*.X_GTK_Vendor', $event)" title="Save"><span
-                        class="" ng-bind="'Save' | translate"></span></button>
-                  </div>
-                </div> -->
+                        class="hidden-xs" ng-bind="'Save' | translate"></span></button> -->
+                      </div>
                     </div>
                   </div>
                 </div>

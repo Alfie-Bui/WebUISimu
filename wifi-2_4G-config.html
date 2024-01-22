@@ -1852,13 +1852,11 @@
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="form-group no-padding-hr"
-                      id="panel_passphrase"
-                    ></div>
+                    <div class="form-group no-padding-hr"></div>
                     <!-- ngIf: DeviceWiFiAccessPoint1Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint1Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint1Security.ModeEnabled=='WPA-WPA2-Personal' -->
                     <div
                       class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      id="panel_passphrase"
                     >
                       <div class="row">
                         <div class="no-padding-hr pwdblock col-xs-10 col-sm-11">
@@ -1875,7 +1873,7 @@
                               class="active required ng-binding"
                               id="title_pass"
                               >Passphrase</label
-                            ><span class="error ng-binding"></span>
+                            >
                             <span
                               class="error ng-binding ng-hide wifi_error"
                               id="invalid_pass_error"
@@ -1997,9 +1995,7 @@
                             ><span class="ng-binding"
                               >Value must be greater than or equal to </span
                             ><span>20</span></span
-                          ><span
-                            class="error ng-hide"
-                            id="upLimit_beacon_error"
+                          ><span class="error ng-hide" id="upLimit_beacon_error"
                             ><span class="ng-binding"
                               >Value must be less than or equal to </span
                             ><span>1000</span></span

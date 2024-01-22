@@ -1687,7 +1687,15 @@ function loadPage(item, options) {
               10,
               10
             );
-            // fill data into password
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
             break;
           case "5": // WEP-128
             document
@@ -1701,20 +1709,47 @@ function loadPage(item, options) {
               26,
               26
             );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
             break;
           case "6": // WPA3-Personal
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
 
-            adapt_type("Passphrase", "Enter Password", "", 8, 63);
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
             break;
           case "7": // WPA2-WPA3-Personal
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
 
-            adapt_type("Passphrase", "Enter Password", "", 8, 63);
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
             break;
           default:
             document
@@ -1722,7 +1757,41 @@ function loadPage(item, options) {
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
             break;
+        }
+      };
+
+      var checkOperationMode = () => {
+        checkError_selectField(
+          operationModeSelect,
+          document.getElementById("select_operation_error")
+        );
+
+        // adapt with others
+        if (
+          operationModeSelect.value == "3" ||
+          operationModeSelect.value == "4"
+        ) {
+          // 3: bgn, 4: bgnax
+          document
+            .getElementById("channel_bw_select")
+            .classList.remove("ng-hide");
+          checkError_selectField(
+            channelBWSelect,
+            document.getElementById("select_bw_error")
+          );
+        } else {
+          document.getElementById("channel_bw_select").classList.add("ng-hide");
+          document.getElementById("select_bw_error").classList.add("ng-hide");
         }
       };
 
@@ -1749,30 +1818,7 @@ function loadPage(item, options) {
         });
 
         operationModeSelect.addEventListener("change", () => {
-          checkError_selectField(
-            operationModeSelect,
-            document.getElementById("select_operation_error")
-          );
-
-          // adapt with others
-          if (
-            operationModeSelect.value == "3" ||
-            operationModeSelect.value == "4"
-          ) {
-            // 3: bgn, 4: bgnax
-            document
-              .getElementById("channel_bw_select")
-              .classList.remove("ng-hide");
-            checkError_selectField(
-              channelBWSelect,
-              document.getElementById("select_bw_error")
-            );
-          } else {
-            document
-              .getElementById("channel_bw_select")
-              .classList.add("ng-hide");
-            document.getElementById("select_bw_error").classList.add("ng-hide");
-          }
+          checkOperationMode();
         });
 
         channelSelect.addEventListener("change", () => {
@@ -1796,9 +1842,9 @@ function loadPage(item, options) {
         wmm.addEventListener("click", () => {
           wmm.classList.toggle("checked");
           if (wmm.classList.contains("checked")) {
-            document.getElementById("wmm-ps-show").remove("ng-hide");
+            document.getElementById("wmm-ps-show").classList.remove("ng-hide");
           } else {
-            document.getElementById("wmm-ps-show").add("ng-hide");
+            document.getElementById("wmm-ps-show").classList.add("ng-hide");
           }
         });
 
@@ -1860,6 +1906,10 @@ function loadPage(item, options) {
             document.getElementById("select_power_error")
           );
         });
+
+        coEx.addEventListener("click", () => {
+          coEx.classList.toggle("checked");
+        });
       };
 
       var fillData = () => {
@@ -1888,19 +1938,18 @@ function loadPage(item, options) {
           ? wmm.classList.add("checked")
           : wmm.classList.remove("checked");
         if (wmm.classList.contains("checked")) {
-          document.getElementById("wmm-ps-show").remove("ng-hide");
+          document.getElementById("wmm-ps-show").classList.remove("ng-hide");
           filledData.Configuration.WMMPS
             ? wmmps.classList.add("checked")
             : wmmps.classList.remove("checked");
         } else {
-          document.getElementById("wmm-ps-show").add("ng-hide");
+          document.getElementById("wmm-ps-show").classList.add("ng-hide");
         }
         filledData.Configuration.APIsolation
           ? apIso.classList.add("checked")
           : apIso.classList.remove("checked");
         ssid.value = filledData.Configuration.SSID;
         securityTypeSelect.value = filledData.Configuration.SecurityType;
-        check_security_type();
         password.value = filledData.Configuration.Passphrase;
         dtim.value = filledData.Configuration.DTIM;
         beaconInterval.value = filledData.Configuration.BeaconInterval;
@@ -1908,6 +1957,9 @@ function loadPage(item, options) {
         filledData.Configuration.EnableCoExistence
           ? coEx.classList.add("checked")
           : coEx.classList.remove("checked");
+
+        checkOperationMode();
+        check_security_type();
       };
 
       // init event on input and switch and so forth entity
@@ -1999,7 +2051,11 @@ function loadPage(item, options) {
           if (acl_mode_select.value != "0" && tbody.children.length <= 1) {
             alertDialogHandle("Keep at least one MAC address");
           } else {
-            deleteBtn.closest("tr").remove();
+            deleteDialogHandle(
+              deleteBtn.closest("tr"),
+              "Delete MAC Address",
+              "Are you sure you want to Delete ?"
+            );
           }
         });
 
@@ -2158,7 +2214,15 @@ function loadPage(item, options) {
               10,
               10
             );
-            // fill data into password
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           case "5": // WEP-128
             current_parent
@@ -2176,6 +2240,15 @@ function loadPage(item, options) {
               26,
               26
             );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           case "6": // WPA3-Personal
             current_parent
@@ -2186,7 +2259,16 @@ function loadPage(item, options) {
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
             rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", "", 8, 63);
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           case "7": // WPA2-WPA3-Personal
             current_parent
@@ -2197,7 +2279,16 @@ function loadPage(item, options) {
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
             rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", "", 8, 63);
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           default:
             current_parent
@@ -2206,6 +2297,15 @@ function loadPage(item, options) {
             currentRow.querySelector(".wps_enable").disabled = false;
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
         }
       };
@@ -2954,12 +3054,591 @@ function loadPage(item, options) {
       });
 
       document.getElementById("ConnectDevice").addEventListener("click", () => {
+        if (
+          !checkEmpty_inputField(
+            endPoint,
+            document.getElementById("invalid_endpoint_error")
+          )
+        ) {
+          return;
+        }
+
+        if (!new RegExp(WIFI_MAC_PATTERN).test(macAddr.value)) {
+          document
+            .getElementById("invalid_mac_error")
+            .classList.remove("ng-hide");
+          return;
+        } else {
+          document.getElementById("invalid_mac_error").classList.add("ng-hide");
+        }
+
         applyElemLS("wifi-2_4G-wps.html", "Cancel");
       });
       break;
     case "wifi-5G-config.html":
+      console.log(`Load ${item}\n${JSON.stringify(Wifi["5G"])}`);
+
+      var enable5G = document.getElementById("Enable");
+      var autoChannel = document.getElementById("AutoChannelEnable");
+      var useDFSChannel = document.getElementById("IEEE80211hEnabled");
+      var operationModeSelect = document.getElementById("OperatingStandards");
+      var channelSelect = document.getElementById("Channel");
+      var channelBWSelect = document.getElementById(
+        "OperatingChannelBandwidth"
+      );
+
+      var advertiseSSID = document.getElementById("SSIDAdvertisementEnabled");
+      var wmm = document.getElementById("WMMCapability");
+      var wmmps = document.getElementById("UAPSDEnable");
+      var apIso = document.getElementById("IsolationEnable");
+
+      var ssid = document.getElementById("SSID");
+      var securityTypeSelect = document.getElementById("ModeEnabled");
+      var password = document.getElementById("Password_field");
+      var pwdEye = document.getElementById("pwd_Eye");
+
+      var dtim = document.getElementById("DTIMPeriod");
+      var beaconInterval = document.getElementById("BeaconPeriod");
+      var powerScale = document.getElementById("TransmitPower");
+      var dfsEna = document.getElementById("DFS");
+
+      // adapt security type
+      var check_security_type = function () {
+        var password_field = document.getElementById("Password_field");
+        var title_pass = document.getElementById("title_pass");
+        var lowLimit_error = document.getElementById("lowLimit_pass_error");
+        var upLimit_error = document.getElementById("upLimit_pass_error");
+
+        var adapt_type = function (title, placeholder, pattern, min, max) {
+          title_pass.textContent = title;
+          password_field.placeholder = placeholder;
+          password_field.pattern = pattern;
+          password_field.min = min;
+          password_field.max = max;
+          lowLimit_error.textContent = `String length is below the limit: ${min}`;
+          upLimit_error.textContent = `String length Exceeded the limit: ${max}`;
+        };
+
+        switch (securityTypeSelect.value) {
+          case "None":
+            document
+              .getElementById("panel_passphrase")
+              .classList.add("ng-hide");
+            break;
+          case "4": // WEP-64
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type(
+              "Key(Exactly 10 Hex digits)",
+              "Enter Password web",
+              WEP64_KEY_PATTERN,
+              10,
+              10
+            );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          case "5": // WEP-128
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type(
+              "Key(Exactly 26 Hex digits)",
+              "Enter Password web",
+              WEP128_KEY_PATTERN,
+              26,
+              26
+            );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          case "6": // WPA3-Personal
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          case "7": // WPA2-WPA3-Personal
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          default:
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+        }
+      };
+
+      const avaiBW = ["20MHz", "40MHz", "80MHz", "160MHz", "Auto"];
+      var adaptOperationMode = () => {
+        checkError_selectField(
+          operationModeSelect,
+          document.getElementById("select_operation_error")
+        );
+
+        // remove option exclude selected
+        while (channelBWSelect.options.length > 1) {
+          channelBWSelect.remove(1);
+        }
+
+        // adapt with others
+
+        if (operationModeSelect.value == "1") {
+          // 1: a
+          document.getElementById("channel_bw_select").classList.add("ng-hide");
+          document.getElementById("select_bw_error").classList.add("ng-hide");
+        } else if (operationModeSelect.value == "2") {
+          // 2: an, 3: anac, 4: anacax
+          for (var i = 0; i < 2; i++) {
+            // in an mode, just have 20MHz and 40MHz & Auto
+            var optionElement = document.createElement("option");
+            optionElement.value = i; // as value, corresponds to index of itself in SSIDs array
+            optionElement.label = avaiBW[i];
+            optionElement.textContent = avaiBW[i];
+            channelBWSelect.appendChild(optionElement);
+          }
+          var optionElement = document.createElement("option");
+          optionElement.value = avaiBW.length - 1; // as value, corresponds to index of itself in SSIDs array
+          optionElement.label = avaiBW[avaiBW.length - 1];
+          optionElement.textContent = avaiBW[avaiBW.length - 1];
+          channelBWSelect.appendChild(optionElement);
+
+          document
+            .getElementById("channel_bw_select")
+            .classList.remove("ng-hide");
+          checkError_selectField(
+            channelBWSelect,
+            document.getElementById("select_bw_error")
+          );
+        } else {
+          for (var i = 0; i < avaiBW.length; i++) {
+            var optionElement = document.createElement("option");
+            optionElement.value = i; // as value, corresponds to index of itself in SSIDs array
+            optionElement.label = avaiBW[i];
+            optionElement.textContent = avaiBW[i];
+            channelBWSelect.appendChild(optionElement);
+          }
+          document
+            .getElementById("channel_bw_select")
+            .classList.remove("ng-hide");
+          checkError_selectField(
+            channelBWSelect,
+            document.getElementById("select_bw_error")
+          );
+        }
+      };
+
+      var initEvent = () => {
+        useDFSChannel.addEventListener("click", () => {
+          useDFSChannel.classList.toggle("checked");
+        });
+
+        enable5G.addEventListener("click", () => {
+          enable5G.classList.toggle("checked");
+        });
+
+        autoChannel.addEventListener("click", () => {
+          autoChannel.classList.toggle("checked");
+          if (autoChannel.classList.contains("checked")) {
+            channelSelect.disabled = true;
+            channelBWSelect.value = "Auto";
+            document
+              .getElementById("select_channel_error")
+              .classList.add("ng-hide"); // hide error if auto channel
+          } else {
+            channelSelect.disabled = false;
+            checkError_selectField(
+              channelSelect,
+              document.getElementById("select_channel_error")
+            );
+          }
+        });
+
+        operationModeSelect.addEventListener("change", () => {
+          adaptOperationMode();
+        });
+
+        channelSelect.addEventListener("change", () => {
+          checkError_selectField(
+            channelSelect,
+            document.getElementById("select_channel_error")
+          );
+        });
+
+        channelBWSelect.addEventListener("change", () => {
+          checkError_selectField(
+            channelBWSelect,
+            document.getElementById("select_bw_error")
+          );
+        });
+
+        advertiseSSID.addEventListener("click", () => {
+          advertiseSSID.classList.toggle("checked");
+        });
+
+        console.log();
+        wmm.addEventListener("click", () => {
+          wmm.classList.toggle("checked");
+          if (wmm.classList.contains("checked")) {
+            document.getElementById("wmm-ps-show").classList.remove("ng-hide");
+          } else {
+            document.getElementById("wmm-ps-show").classList.add("ng-hide");
+          }
+        });
+
+        wmmps.addEventListener("click", () => {
+          wmmps.classList.toggle("checked");
+        });
+
+        apIso.addEventListener("click", () => {
+          apIso.classList.toggle("checked");
+        });
+
+        ssid.addEventListener("input", () => {
+          checkEmpty_inputField(
+            ssid,
+            document.getElementById("empty_ssid_error")
+          );
+        });
+
+        securityTypeSelect.addEventListener("change", () => {
+          check_security_type();
+        });
+
+        password.addEventListener("input", () => {
+          checkPasswordError_inputField(
+            password,
+            new RegExp(password.getAttribute("pattern")),
+            document.getElementById("invalid_pass_error"),
+            document.getElementById("empty_pass_error"),
+            document.getElementById("lowLimit_pass_error"),
+            document.getElementById("upLimit_pass_error")
+          );
+        });
+
+        pwdEye.addEventListener("click", () => {
+          hide_show_pw(pwdEye, password);
+        });
+
+        dtim.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            dtim,
+            document.getElementById("lowLimit_dtim_error"),
+            document.getElementById("upLimit_dtim_error"),
+            document.getElementById("invalid_dtim_error")
+          );
+        });
+
+        beaconInterval.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            beaconInterval,
+            document.getElementById("lowLimit_beacon_error"),
+            document.getElementById("upLimit_beacon_error"),
+            document.getElementById("invalid_beacon_error")
+          );
+        });
+
+        powerScale.addEventListener("change", () => {
+          checkError_selectField(
+            powerScale,
+            document.getElementById("select_power_error")
+          );
+        });
+
+        dfsEna.addEventListener("click", () => {
+          dfsEna.classList.toggle("checked");
+        });
+      };
+
+      var fillData = () => {
+        var filledData = Wifi["5G"].SSIDs[0];
+        console.log(`Fill data into Configuration: ${filledData}`);
+
+        filledData.Configuration.EnableRadio
+          ? enable5G.classList.add("checked")
+          : enable5G.classList.remove("checked");
+        filledData.Configuration.AutoChannel
+          ? autoChannel.classList.add("checked")
+          : autoChannel.classList.remove("checked");
+        filledData.Configuration.UseDFSChannels
+          ? useDFSChannel.classList.add("checked")
+          : useDFSChannel.classList.remove("checked");
+
+        operationModeSelect.value = filledData.Configuration.OperationMode;
+
+        if (autoChannel.classList.contains("checked")) {
+          channelSelect.disabled = true;
+          channelSelect.value = "?";
+        } else {
+          channelSelect.value = filledData.Configuration.Channel;
+          channelSelect.disabled = false;
+        }
+
+        channelBWSelect.value = filledData.Configuration.ChannelBandwidth;
+        filledData.Configuration.AdvertiseSSID
+          ? advertiseSSID.classList.add("checked")
+          : advertiseSSID.classList.remove("checked");
+        filledData.Configuration.WMM
+          ? wmm.classList.add("checked")
+          : wmm.classList.remove("checked");
+        if (wmm.classList.contains("checked")) {
+          document.getElementById("wmm-ps-show").classList.remove("ng-hide");
+          filledData.Configuration.WMMPS
+            ? wmmps.classList.add("checked")
+            : wmmps.classList.remove("checked");
+        } else {
+          document.getElementById("wmm-ps-show").classList.add("ng-hide");
+        }
+        filledData.Configuration.APIsolation
+          ? apIso.classList.add("checked")
+          : apIso.classList.remove("checked");
+        ssid.value = filledData.Configuration.SSID;
+        securityTypeSelect.value = filledData.Configuration.SecurityType;
+        password.value = filledData.Configuration.Passphrase;
+        dtim.value = filledData.Configuration.DTIM;
+        beaconInterval.value = filledData.Configuration.BeaconInterval;
+        powerScale.value = filledData.Configuration.PowerScale;
+        filledData.Configuration.DFS
+          ? dfsEna.classList.add("checked")
+          : dfsEna.classList.remove("checked");
+
+        adaptOperationMode();
+        check_security_type();
+      };
+
+      // init event on input and switch and so forth entity
+      initEvent();
+      // fill data into FE
+      fillData();
+
+      // apply and cancel event
+      document.getElementById("Apply", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData.Configuration.EnableRadio =
+            enable5G.classList.contains("checked");
+          filledData.Configuration.AutoChannel =
+            autoChannel.classList.contains("checked");
+          filledData.Configuration.UseDFSChannels =
+            useDFSChannel.classList.contains("checked");
+          filledData.Configuration.OperationMode = operationModeSelect.value;
+          filledData.Configuration.Channel = channelSelect.value;
+          filledData.Configuration.ChannelBandwidth = channelBWSelect.value;
+          filledData.Configuration.AdvertiseSSID =
+            advertiseSSID.classList.contains("checked");
+          filledData.Configuration.WMM = wmm.classList.contains("checked");
+          filledData.Configuration.WMMPS = wmmps.classList.contains("checked");
+          filledData.Configuration.APIsolation =
+            apIso.classList.contains("checked");
+          filledData.Configuration.SSID = ssid.value;
+          filledData.Configuration.SecurityType = securityTypeSelect.value;
+          filledData.Configuration.Passphrase = password.value;
+          filledData.Configuration.DTIM = dtim.value;
+          filledData.Configuration.BeaconInterval = beaconInterval.value;
+          filledData.Configuration.PowerScale = powerScale.value;
+          filledData.Configuration.DFS = dfsEna.classList.contains("checked");
+
+          console.log(`Store data: ${Wifi["5G"].SSIDs[0]}`);
+          applyElemLS("wifi-5G-config.html", "Apply", Wifi);
+        } else {
+          console.log(`Apply fail`);
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyElemLS("wifi-5G-config.html", "Cancel");
+      });
       break;
     case "wifi-5G-mac_filter.html":
+      var numberOfSSIDs = Wifi["5G"].SSIDs.length;
+      filledData = Wifi["5G"].SSIDs;
+      console.log(`Load number of SSID: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+      var acl_mode_select = document.getElementById("acl_mode_select");
+      var tbody = document.getElementById("bodyData");
+      var addBtn = document.getElementById("MACAddressControlList");
+      var rowElementTemplate = document.getElementById(
+        "input_field_mac_template"
+      );
+
+      //
+      var applyBtn = document.getElementById("Apply");
+
+      var addNewMAC = function (macValue) {
+        const tr = rowElementTemplate.content.cloneNode(true);
+
+        //
+        const macField = tr.querySelector(".macAddrValue");
+        const deleteBtn = tr.querySelector(".deleteBtn");
+
+        const empty_error = tr.querySelector(".empty_error");
+        const invalid_error = tr.querySelector(".invalid_error");
+
+        macField.value = macValue;
+        checkPattern_inputField(
+          macField,
+          new RegExp(WIFI_MAC_PATTERN),
+          invalid_error,
+          empty_error
+        );
+
+        // init event
+        macField.addEventListener("input", () => {
+          checkPattern_inputField(
+            macField,
+            new RegExp(WIFI_MAC_PATTERN),
+            invalid_error,
+            empty_error
+          );
+        });
+
+        deleteBtn.addEventListener("click", () => {
+          if (acl_mode_select.value != "0" && tbody.children.length <= 1) {
+            alertDialogHandle("Keep at least one MAC address");
+          } else {
+            deleteDialogHandle(
+              deleteBtn.closest("tr"),
+              "Delete MAC Address",
+              "Are you sure you want to Delete ?"
+            );
+          }
+        });
+
+        tbody.appendChild(tr);
+      };
+
+      var fillMacList = function () {
+        // clear MAC List current
+        tbody.innerHTML = "";
+        for (const elem of filledData[parseInt(ssid_select.value)].MACFiltering
+          .MACAddressFilter) {
+          addNewMAC(elem);
+        }
+      };
+
+      var fillData = function () {
+        // Load SSID & WDS mode
+        numberOfSSIDs = 0;
+        for (const elem of Wifi["5G"].SSIDs) {
+          var optionElement = document.createElement("option");
+          optionElement.value = numberOfSSIDs; // as value, corresponds to index of itself in SSIDs array
+          numberOfSSIDs += 1;
+          optionElement.label = elem.Configuration.SSID;
+          optionElement.textContent = elem.Configuration.SSID;
+          ssid_select.appendChild(optionElement);
+        }
+
+        ssid_select.value = 0; // default SSID cannot remove so we fill data and show the first element
+
+        // ACL mode
+        acl_mode_select.value = filledData[0].MACFiltering.ACLMode;
+        fillMacList();
+      };
+
+      var initEvent = () => {
+        ssid_select.addEventListener("change", () => {
+          acl_mode_select.value =
+            filledData[parseInt(ssid_select.value)].MACFiltering.ACLMode;
+          fillMacList();
+        });
+
+        acl_mode_select.addEventListener("change", () => {
+          if (acl_mode_select.value != "0") {
+            if (tbody.children.length === 0) {
+              alertDialogHandle("Please add MAC Address");
+            }
+          }
+        });
+
+        addBtn.addEventListener("click", () => {
+          addNewMAC("");
+        });
+      };
+
+      initEvent();
+      fillData();
+
+      // Apply and Cancel
+      applyBtn.addEventListener("click", () => {
+        if (acl_mode_select.value != "0" && tbody.children.length === 0) {
+          alertDialogHandle("Please add MAC Address");
+          // escape event
+          return;
+        }
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData[parseInt(ssid_select.value)].MACFiltering.ACLMode =
+            acl_mode_select.value;
+
+          // clear MAC list after update new one
+          filledData[
+            parseInt(ssid_select.value)
+          ].MACFiltering.MACAddressFilter.length = 0;
+          for (const elem of document.querySelectorAll(".macAddrValue")) {
+            filledData[
+              parseInt(ssid_select.value)
+            ].MACFiltering.MACAddressFilter.push(elem.value);
+          }
+
+          applyElemLS("wifi-5G-mac_filter.html", "Apply", Wifi);
+        } else {
+          console.log(`Apply fail`);
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyElemLS("wifi-5G-mac_filter.html", "Cancel");
+      });
       break;
     case "wifi-5G-ssids.html":
       console.log(`Load ${item}\n${JSON.stringify(Wifi["5G"])}`);
@@ -3031,7 +3710,15 @@ function loadPage(item, options) {
               10,
               10
             );
-            // fill data into password
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           case "5": // WEP-128
             current_parent
@@ -3049,6 +3736,15 @@ function loadPage(item, options) {
               26,
               26
             );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           case "6": // WPA3-Personal
             current_parent
@@ -3059,7 +3755,16 @@ function loadPage(item, options) {
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
             rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", "", 8, 63);
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           case "7": // WPA2-WPA3-Personal
             current_parent
@@ -3070,7 +3775,16 @@ function loadPage(item, options) {
               window.alert("WPS function only supports WPA and WPA2 mode.");
 
             rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", "", 8, 63);
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
           default:
             current_parent
@@ -3079,6 +3793,15 @@ function loadPage(item, options) {
             currentRow.querySelector(".wps_enable").disabled = false;
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              current_parent.getElementById("invalid_pass_error"),
+              current_parent.getElementById("empty_pass_error"),
+              current_parent.getElementById("lowLimit_pass_error"),
+              current_parent.getElementById("upLimit_pass_error")
+            );
             break;
         }
       };
@@ -3592,10 +4315,263 @@ function loadPage(item, options) {
       });
       break;
     case "wifi-5G-statistics.html":
+      var numberOfSSIDs = Wifi["5G"].SSIDs.length;
+      filledData = Wifi["5G"].SSIDs;
+      console.log(`Load number of SSID: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+
+      // Load SSID & WDS mode
+      numberOfSSIDs = 0;
+      for (const elem of Wifi["5G"].SSIDs) {
+        var optionElement = document.createElement("option");
+        optionElement.value = numberOfSSIDs; // as value, corresponds to index of itself in SSIDs array
+        numberOfSSIDs += 1;
+        optionElement.label = elem.Configuration.SSID;
+        optionElement.textContent = elem.Configuration.SSID;
+        ssid_select.appendChild(optionElement);
+      }
+
+      checkError_selectField(
+        ssid_select,
+        document.getElementById("select_error")
+      );
+      ssid_select.addEventListener("change", () => {
+        checkError_selectField(
+          ssid_select,
+          document.getElementById("select_error")
+        );
+      });
       break;
     case "wifi-5G-wds.html":
+      var numberOfSSIDs = Wifi["5G"].SSIDs.length;
+      filledData = Wifi["5G"].SSIDs;
+      console.log(`Load number of SSID: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+      var wds_select_mode = document.getElementById(
+        "DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSMode"
+      );
+
+      // option Hybrid
+      var add_btn = document.getElementById("Add");
+
+      // panel
+      var hybrid_mode_panel = document.getElementById("wds_mode_hybrid");
+      var mac_input_panel = document.getElementById("mac_input_panel");
+      var tbody = document.getElementById("mac_addr_list");
+      var rowElementTemplate = document.getElementById("rowElement");
+
+      // button & input field inside panel
+      var closeBtn = document.getElementById("Close");
+      var addMacBtn = document.getElementById("AddMac");
+      var mac_input_field = document.getElementById(
+        "DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeers"
+      );
+
+      var addNewMAC = function (macValue) {
+        const tr = rowElementTemplate.content.cloneNode(true);
+
+        //
+        const macField = tr.querySelector(".macAddrValue");
+        const deleteBtn = tr.querySelector(".deleteBtn");
+
+        macField.textContent = macValue;
+        deleteBtn.addEventListener("click", () => {
+          if (window.confirm("Are you sure you want to Delete?")) {
+            deleteBtn.closest("tr").remove();
+          }
+        });
+
+        tbody.appendChild(tr);
+      };
+
+      var adaptWdsMode = () => {
+        if (wds_select_mode.value == "1") {
+          // Hybrid --> load MAC Address too
+          hybrid_mode_panel.classList.remove("ng-hide");
+          add_btn.classList.remove("ng-hide");
+          // remove tbody but the add-MAC panel
+          while (tbody.children.length > 1) {
+            tbody.removeChild(tbody.children[1]);
+          }
+          // load current
+          if (ssid_select.value !== "?") {
+            for (const elem of filledData[parseInt(ssid_select.value)].WDS
+              .MACAddress) {
+              addNewMAC(elem);
+            }
+          }
+        } else {
+          hybrid_mode_panel.classList.add("ng-hide");
+          add_btn.classList.add("ng-hide");
+        }
+      };
+
+      var fillData = function () {
+        // Load SSID & WDS mode
+        numberOfSSIDs = 0;
+        for (const elem of Wifi["5G"].SSIDs) {
+          var optionElement = document.createElement("option");
+          optionElement.value = numberOfSSIDs; // as value, corresponds to index of itself in SSIDs array
+          numberOfSSIDs += 1;
+          optionElement.label = elem.Configuration.SSID;
+          optionElement.textContent = elem.Configuration.SSID;
+          document.getElementById("SSID").appendChild(optionElement);
+        }
+
+        ssid_select.value = 0; // default SSID cannot remove so we fill data and show the first element
+        checkError_selectField(
+          document.getElementById("SSID"),
+          document.getElementById("empty_ssid_error")
+        );
+
+        // WDS
+        wds_select_mode.value = filledData[0].WDS.WDSMode;
+        adaptWdsMode();
+      };
+
+      var initEvent = function () {
+        ssid_select.addEventListener("change", () => {
+          if (
+            checkError_selectField(
+              document.getElementById("SSID"),
+              document.getElementById("empty_ssid_error")
+            )
+          ) {
+            wds_select_mode.value =
+              filledData[parseInt(ssid_select.value)].WDS.WDSMode;
+            adaptWdsMode();
+          }
+        });
+
+        wds_select_mode.addEventListener("change", () => {
+          adaptWdsMode();
+        });
+
+        add_btn.addEventListener("click", () => {
+          mac_input_panel.classList.remove("ng-hide");
+          mac_input_field.value = "";
+          checkEmpty_inputField(
+            mac_input_field,
+            document.getElementById("empty_mac_error")
+          );
+        });
+
+        // add Btn panel show
+        mac_input_field.addEventListener("input", () => {
+          checkPattern_inputField(
+            mac_input_field,
+            new RegExp(WIFI_MAC_PATTERN),
+            document.getElementById("pattern_mac_error"),
+            document.getElementById("empty_mac_error")
+          );
+        });
+
+        addMacBtn.addEventListener("click", () => {
+          if (
+            checkPattern_inputField(
+              mac_input_field,
+              new RegExp(WIFI_MAC_PATTERN),
+              document.getElementById("pattern_mac_error"),
+              document.getElementById("empty_mac_error")
+            )
+          ) {
+            addNewMAC(mac_input_field.value);
+            mac_input_panel.classList.add("ng-hide");
+          }
+        });
+
+        closeBtn.addEventListener("click", () => {
+          mac_input_panel.classList.add("ng-hide");
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.getElementById("empty_ssid_error"))) {
+          filledData[parseInt(ssid_select.value)].WDS.WDSMode =
+            wds_select_mode.value;
+
+          filledData[parseInt(ssid_select.value)].WDS.MACAddress.length = 0;
+
+          // if (wds_select_mode.value === "1"){
+          for (const elem of document.querySelectorAll(".macAddrValue")) {
+            filledData[parseInt(ssid_select.value)].WDS.MACAddress.push(
+              elem.textContent
+            );
+          }
+          // }
+
+          applyElemLS("wifi-5G-wds.html", "Apply", Wifi);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyElemLS("wifi-5G-wds.html", "Cancel");
+      });
       break;
     case "wifi-5G-wps.html":
+      var numberOfSSIDs = Wifi["5G"].SSIDs.length;
+      console.log(`Load number of SSID data: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+
+      for (const elem of Wifi["5G"].SSIDs) {
+        var optionElement = document.createElement("option");
+        optionElement.value = numberOfSSIDs;
+        optionElement.label = elem.Configuration.SSID;
+        optionElement.textContent = elem.Configuration.SSID;
+        ssid_select.appendChild(optionElement);
+      }
+
+      var endPoint = document.getElementById("EndpointPIN");
+      endPoint.addEventListener("input", () => {
+        checkEmpty_inputField(
+          endPoint,
+          document.getElementById("invalid_endpoint_error")
+        );
+      });
+
+      var macAddr = document.getElementById("AuthorizedMac");
+      macAddr.addEventListener("input", () => {
+        if (!new RegExp(WIFI_MAC_PATTERN).test(macAddr.value)) {
+          document
+            .getElementById("invalid_mac_error")
+            .classList.remove("ng-hide");
+        } else {
+          document.getElementById("invalid_mac_error").classList.add("ng-hide");
+        }
+      });
+
+      document.getElementById("ResetWPS").addEventListener("click", () => {
+        applyElemLS("wifi-5G-wps.html", "Cancel");
+      });
+
+      document.getElementById("ConnectDevice").addEventListener("click", () => {
+        if (
+          !checkEmpty_inputField(
+            endPoint,
+            document.getElementById("invalid_endpoint_error")
+          )
+        ) {
+          return;
+        }
+
+        if (!new RegExp(WIFI_MAC_PATTERN).test(macAddr.value)) {
+          document
+            .getElementById("invalid_mac_error")
+            .classList.remove("ng-hide");
+          return;
+        } else {
+          document.getElementById("invalid_mac_error").classList.add("ng-hide");
+        }
+        applyElemLS("wifi-5G-wps.html", "Cancel");
+      });
       break;
     case "wifi-guest_access-add.html":
       break;

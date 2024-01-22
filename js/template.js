@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  * 
  */
-const SIMULATOR_VERSION = "0.2.2_D22/M02/Y2024";
+const SIMULATOR_VERSION = "0.2.5_D22/M02/Y2024";
 
 
 /**
@@ -152,7 +152,7 @@ const template = {
             EnableRadio: true,
             AutoChannel: true,
             OperationMode: 4,
-            Channel: 0,
+            Channel: 1,
             ChannelBandwidth: 2,
             AdvertiseSSID: true,
             WMM: true,
@@ -185,7 +185,7 @@ const template = {
             EnableRadio: true,
             AutoChannel: true,
             OperationMode: 4,
-            Channel: 0,
+            Channel: 1,
             ChannelBandwidth: 2,
             AdvertiseSSID: true,
             WMM: true,
@@ -220,8 +220,9 @@ const template = {
           Configuration: {
             EnableRadio: true,
             AutoChannel: true,
-            OperationMode: 4,
-            Channel: 0,
+            UseDFSChannels: true,
+            OperationMode: 1,
+            Channel: 36,
             ChannelBandwidth: 2,
             AdvertiseSSID: true,
             WMM: true,
@@ -233,7 +234,7 @@ const template = {
             DTIM: 2,
             BeaconInterval: 100,
             PowerScale: 12,
-            EnableCoExistence: true,
+            DFS: true,
           },
           WDS: {
             WDSMode: 0,

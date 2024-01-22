@@ -134,6 +134,11 @@
     <script src="./js/navigate.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/index.js"></script>
+    <script>
+      window.onload = () => {
+        loadPage("wifi-5G-wps.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -1049,12 +1054,8 @@
                   ></p>
                 </div>
                 <form
-                  polling=""
-                  interval=""
-                  loadstatus=""
                   class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid"
                   name="temp_form"
-                  name1="temp?SSID,"
                   id="temp"
                 >
                   <div>
@@ -1068,9 +1069,6 @@
                             <label
                               for="SSID"
                               class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                              ng-bind="
-                        &#39;temp.VAP to trigger WPS on this band&#39; | translate
-                    "
                               >VAP to trigger WPS on this band</label
                             >
                             <div
@@ -1080,13 +1078,8 @@
                               <select
                                 class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid"
                                 id="SSID"
-                                filterdata="SSID?X_LANTIQ_COM_Vendor_IsEndPoint__false__equalsto"
                                 validation="false"
                                 name="temp_SSID"
-                                ng-model="temp.SSID"
-                                ng-change='wizardDropdown("temp","SSID","","")'
-                                ng-init='dropdownUrlReq("temp","SSID","cgi_get_filterbyfirstparamval?Object=Device.WiFi.SSID&amp;LowerLayers=Device.WiFi.Radio.2.&amp;SSID=&amp;X_LANTIQ_COM_Vendor_IsEndPoint=","true","true","","","")'
-                                ng-options="obj.id as obj.name for obj in SSID"
                               >
                                 <option
                                   value="?"
@@ -1094,20 +1087,8 @@
                                   label="Select"
                                 >
                                   Select
-                                </option>
-                                <option
-                                  value="1"
-                                  selected="selected"
-                                  label="GEMTEK_5G"
-                                >
-                                  GEMTEK_5G
                                 </option></select
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="temp_SSIDresponsestatus"
-                                ng-bind="temp_SSIDval |translate
-                        "
-                              ></span>
+                              ><span class="error ng-binding ng-hide"></span>
                             </div>
                           </div>
                         </div>
@@ -1117,8 +1098,6 @@
                             id="ResetWPS"
                             class="gemtek-btn-primary gemtek-mt-22"
                             value="Reset WPS"
-                            source="temp?SSID,"
-                            ng-click="makePost(&#39;cgi_set&#39;,&#39;Object=Device.WiFi.Radio.2.X_GTK_Vendor.WPS&amp;Operation=Modify&amp;Action=ResetWPS&amp;IfName=selectedVAPInterface()&#39;,$event)"
                             formname="temp"
                           />
                         </div>
@@ -1131,9 +1110,9 @@
 
             <form
               class="gemtek-card-panel ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
-              name="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS_form"
-              name1="Device.WiFi.Radio.2.X_GTK_Vendor.WPS?&amp;Device.WiFi.Radio.2.X_GTK_Vendor.WPS?EndpointPIN,AuthorizedMac,&amp;Device.WiFi.Radio.2.X_GTK_Vendor.WPS?PIN,"
-              id="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS"
+              name="DeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPS_form"
+              name1="Device.WiFi.Radio.1.X_GTK_Vendor.WPS?&amp;Device.WiFi.Radio.1.X_GTK_Vendor.WPS?EndpointPIN,AuthorizedMac,&amp;Device.WiFi.Radio.1.X_GTK_Vendor.WPS?PIN,"
+              id="DeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPS"
             >
               <div>
                 <h6>WPS Push Button</h6>
@@ -1151,9 +1130,9 @@
                       id="WPSPushbutton"
                       class="gemtek-btn-primary"
                       value="WPS Pushbutton"
-                      source="Device.WiFi.Radio.2.X_GTK_Vendor.WPS?"
-                      ng-click="pushbtnclick(&#39;cgi_set&#39;,&#39;Object=Device.WiFi.Radio.2.X_GTK_Vendor.WPS&amp;Operation=Modify&amp;Action=PBC&amp;IfName=selectedVAPInterface()&amp;type=false&#39;,$event)"
-                      formname="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS"
+                      source="Device.WiFi.Radio.1.X_GTK_Vendor.WPS?"
+                      ng-click="pushbtnclick(&#39;cgi_set&#39;,&#39;Object=Device.WiFi.Radio.1.X_GTK_Vendor.WPS&amp;Operation=Modify&amp;Action=PBC&amp;IfName=selectedVAPInterface()&amp;type=false&#39;,$event)"
+                      formname="DeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPS"
                       ng-disabled="wpsDropdownDisabled"
                     />
                   </div>
@@ -1174,39 +1153,19 @@
                           type="number"
                           class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                           id="EndpointPIN"
-                          placeholder="Please Enter the value"
-                          ng-required="
-                                        true
-                                    "
-                          ng-model="DeviceWiFiRadio2X_GTK_VendorWPS.EndpointPIN"
-                          name="DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPIN"
-                          ng-blur='textChange("DeviceWiFiRadio2X_GTK_VendorWPS__EndpointPIN",DeviceWiFiRadio2X_GTK_VendorWPS.EndpointPIN)'
+                          placeholder="Please enter PIN Code"
+                          name="DeviceWiFiRadio1X_GTK_VendorWPS_EndpointPIN"
                           required="required"
                         /><label
                           for="EndpointPIN"
                           class="required row active ng-binding"
-                          ng-bind="
-                            &#39;Device.WiFi.Radio.2.X_GTK_Vendor.WPS.Client device PIN&#39; | translate
-                        "
-                          >Client device PIN</label
-                        ><span
-                          class="error ng-binding ng-hide"
-                          ng-show="DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPINresponsestatus"
-                          ng-bind="DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPINval |translate
-                        "
-                        ></span
-                        ><span
-                          class="error ng-binding ng-hide"
-                          forname="DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPIN"
-                          ng-show="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS_form.DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPIN.$error.required&amp;&amp; formsubmitstatus"
-                          ng-bind="
-                &#39;Device.WiFi.Radio.2.X_GTK_Vendor.WPS.Client device PIN.$error.required&#39;|translate
-            "
+                          >PIN Code of Client Device</label
+                        ><span class="error ng-binding ng-hide"></span
+                        ><span class="error ng-binding ng-hide"
                           >* This Field is Required</span
                         ><span
                           class="error ng-binding ng-hide"
-                          forname="DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPIN"
-                          ng-show="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS_form.DeviceWiFiRadio2X_GTK_VendorWPS_EndpointPIN.$error.number"
+                          id="invalid_endpoint_error"
                         >
                           Please enter a valid number
                         </span>
@@ -1221,30 +1180,15 @@
                           class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-pattern"
                           id="AuthorizedMac"
                           placeholder="Please enter MAC address"
-                          ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$/"
-                          name="DeviceWiFiRadio2X_GTK_VendorWPS_AuthorizedMac"
-                          ng-model="DeviceWiFiRadio2X_GTK_VendorWPS.AuthorizedMac"
-                          ng-blur='textChange("DeviceWiFiRadio2X_GTK_VendorWPS__AuthorizedMac",DeviceWiFiRadio2X_GTK_VendorWPS.AuthorizedMac)'
-                        /><label
-                          for="AuthorizedMac"
-                          class="active ng-binding"
-                          ng-bind="
-                            &#39;Device.WiFi.Radio.2.X_GTK_Vendor.WPS.Client device MAC address&#39; | translate
-                        "
-                          >Client device MAC address</label
-                        ><span
-                          class="error ng-hide"
-                          forname="DeviceWiFiRadio2X_GTK_VendorWPS_AuthorizedMac"
-                          ng-show="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS_form.DeviceWiFiRadio2X_GTK_VendorWPS_AuthorizedMac.$error.pattern"
-                        >
+                          name="DeviceWiFiRadio1X_GTK_VendorWPS_AuthorizedMac"
+                        /><label for="AuthorizedMac" class="active ng-binding"
+                          >MAC Address of Client Device</label
+                        ><span class="error ng-hide" id="invalid_mac_error">
                           Invalid pattern , Example mac address :
                           00:15:E9:2B:99:3C </span
                         ><span
                           class="error ng-binding ng-hide"
-                          forname="DeviceWiFiRadio2X_GTK_VendorWPS_AuthorizedMac"
-                          ng-show="DeviceWiFiRadio2X_GTK_VendorWPS_AuthorizedMacresponsestatus"
-                          ng-bind="DeviceWiFiRadio2X_GTK_VendorWPS_AuthorizedMacval |translate
-                        "
+                          forname="DeviceWiFiRadio1X_GTK_VendorWPS_AuthorizedMac"
                         ></span>
                       </div>
                     </div>
@@ -1255,10 +1199,6 @@
                       id="ConnectDevice"
                       class="gemtek-btn-primary"
                       value="Connect Device"
-                      source="Device.WiFi.Radio.2.X_GTK_Vendor.WPS?EndpointPIN,AuthorizedMac,"
-                      ng-click="makePost(&#39;cgi_set&#39;,&#39;Object=Device.WiFi.Radio.2.X_GTK_Vendor.WPS&amp;Operation=Modify&amp;Action=PIN&amp;IfName=selectedVAPInterface()&amp;EndpointPIN=&amp;AuthorizedMac=&#39;,$event)"
-                      formname="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS"
-                      ng-disabled="wpsDropdownDisabled"
                     />
                   </div>
                 </div>
@@ -1286,21 +1226,21 @@
                           ng-disabled="
                                     true
                                 "
-                          name="DeviceWiFiRadio2X_GTK_VendorWPS_PIN"
-                          ng-model="DeviceWiFiRadio2X_GTK_VendorWPS.PIN"
-                          ng-blur='textChange("DeviceWiFiRadio2X_GTK_VendorWPS__PIN",DeviceWiFiRadio2X_GTK_VendorWPS.PIN)'
+                          name="DeviceWiFiRadio1X_GTK_VendorWPS_PIN"
+                          ng-model="DeviceWiFiRadio1X_GTK_VendorWPS.PIN"
+                          ng-blur='textChange("DeviceWiFiRadio1X_GTK_VendorWPS__PIN",DeviceWiFiRadio1X_GTK_VendorWPS.PIN)'
                           disabled="disabled"
                         /><label
                           for="PIN"
                           class="active ng-binding"
                           ng-bind="
-                            &#39;Device.WiFi.Radio.2.X_GTK_Vendor.WPS.Enter this PIN on the managing device&#39; | translate
+                            &#39;Device.WiFi.Radio.1.X_GTK_Vendor.WPS.PIN Code&#39; | translate
                         "
-                          >Enter this PIN on the managing device</label
+                          >PIN Code</label
                         ><span
                           class="error ng-binding ng-hide"
-                          ng-show="DeviceWiFiRadio2X_GTK_VendorWPS_PINresponsestatus"
-                          ng-bind="DeviceWiFiRadio2X_GTK_VendorWPS_PINval |translate
+                          ng-show="DeviceWiFiRadio1X_GTK_VendorWPS_PINresponsestatus"
+                          ng-bind="DeviceWiFiRadio1X_GTK_VendorWPS_PINval |translate
                         "
                         ></span>
                       </div>
@@ -1312,9 +1252,9 @@
                       id=""
                       class="gemtek-btn-primary"
                       value="Generate new PIN"
-                      source="Device.WiFi.Radio.2.X_GTK_Vendor.WPS?PIN,"
-                      ng-click="makePost(&#39;cgi_set&#39;,&#39;Object=Device.WiFi.Radio.2.X_GTK_Vendor.WPS&amp;Operation=Modify&amp;Action=GeneratePIN&amp;IfName=selectedVAPInterface()&#39;,$event)"
-                      formname="DeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPSDeviceWiFiRadio2X_GTK_VendorWPS"
+                      source="Device.WiFi.Radio.1.X_GTK_Vendor.WPS?PIN,"
+                      ng-click="makePost(&#39;cgi_set&#39;,&#39;Object=Device.WiFi.Radio.1.X_GTK_Vendor.WPS&amp;Operation=Modify&amp;Action=GeneratePIN&amp;IfName=selectedVAPInterface()&#39;,$event)"
+                      formname="DeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPSDeviceWiFiRadio1X_GTK_VendorWPS"
                     />
                   </div>
                 </div>
