@@ -6,7 +6,20 @@
  */
 function loadPage(item, options) {
   // options take edit or add button page
-  if (localStorage.length === 0) initLS();
+  console.log(
+    `On run version: ${localStorage.getItem(
+      "VERSION"
+    )} ... Newest version: ${SIMULATOR_VERSION}`
+  );
+  if (
+    localStorage.length === 0 ||
+    localStorage.getItem("VERSION") === null ||
+    localStorage.getItem("VERSION") !== SIMULATOR_VERSION
+  ) {
+    console.log(`Update DB to newest version: ${SIMULATOR_VERSION}`);
+    initLS();
+    localStorage.setItem("VERSION", SIMULATOR_VERSION);
+  }
 
   // load data from local storage
   let Status = JSON.parse(localStorage.getItem("Status"));
@@ -1939,6 +1952,141 @@ function loadPage(item, options) {
       });
       break;
     case "wifi-2_4G-mac_filtering.html":
+      var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
+      filledData = Wifi["2.4G"].SSIDs;
+      console.log(`Load number of SSID: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+      var acl_mode_select = document.getElementById("acl_mode_select");
+      var tbody = document.getElementById("bodyData");
+      var addBtn = document.getElementById("MACAddressControlList");
+      var rowElementTemplate = document.getElementById(
+        "input_field_mac_template"
+      );
+
+      //
+      var applyBtn = document.getElementById("Apply");
+
+      var addNewMAC = function (macValue) {
+        const tr = rowElementTemplate.content.cloneNode(true);
+
+        //
+        const macField = tr.querySelector(".macAddrValue");
+        const deleteBtn = tr.querySelector(".deleteBtn");
+
+        const empty_error = tr.querySelector(".empty_error");
+        const invalid_error = tr.querySelector(".invalid_error");
+
+        macField.value = macValue;
+        checkPattern_inputField(
+          macField,
+          new RegExp(WIFI_MAC_PATTERN),
+          invalid_error,
+          empty_error
+        );
+
+        // init event
+        macField.addEventListener("input", () => {
+          checkPattern_inputField(
+            macField,
+            new RegExp(WIFI_MAC_PATTERN),
+            invalid_error,
+            empty_error
+          );
+        });
+
+        deleteBtn.addEventListener("click", () => {
+          if (acl_mode_select.value != "0" && tbody.children.length <= 1) {
+            alertDialogHandle("Keep at least one MAC address");
+          } else {
+            deleteBtn.closest("tr").remove();
+          }
+        });
+
+        tbody.appendChild(tr);
+      };
+
+      var fillMacList = function () {
+        // clear MAC List current
+        tbody.innerHTML = "";
+        for (const elem of filledData[parseInt(ssid_select.value)].MACFiltering
+          .MACAddressFilter) {
+          addNewMAC(elem);
+        }
+      };
+
+      var fillData = function () {
+        // Load SSID & WDS mode
+        numberOfSSIDs = 0;
+        for (const elem of Wifi["2.4G"].SSIDs) {
+          var optionElement = document.createElement("option");
+          optionElement.value = numberOfSSIDs; // as value, corresponds to index of itself in SSIDs array
+          numberOfSSIDs += 1;
+          optionElement.label = elem.Configuration.SSID;
+          optionElement.textContent = elem.Configuration.SSID;
+          ssid_select.appendChild(optionElement);
+        }
+
+        ssid_select.value = 0; // default SSID cannot remove so we fill data and show the first element
+
+        // ACL mode
+        acl_mode_select.value = filledData[0].MACFiltering.ACLMode;
+        fillMacList();
+      };
+
+      var initEvent = () => {
+        ssid_select.addEventListener("change", () => {
+          acl_mode_select.value =
+            filledData[parseInt(ssid_select.value)].MACFiltering.ACLMode;
+          fillMacList();
+        });
+
+        acl_mode_select.addEventListener("change", () => {
+          if (acl_mode_select.value != "0") {
+            if (tbody.children.length === 0) {
+              alertDialogHandle("Please add MAC Address");
+            }
+          }
+        });
+
+        addBtn.addEventListener("click", () => {
+          addNewMAC("");
+        });
+      };
+
+      initEvent();
+      fillData();
+
+      // Apply and Cancel
+      applyBtn.addEventListener("click", () => {
+        if (acl_mode_select.value != "0" && tbody.children.length === 0) {
+          alertDialogHandle("Please add MAC Address");
+          // escape event
+          return;
+        }
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData[parseInt(ssid_select.value)].MACFiltering.ACLMode =
+            acl_mode_select.value;
+
+          // clear MAC list after update new one
+          filledData[
+            parseInt(ssid_select.value)
+          ].MACFiltering.MACAddressFilter.length = 0;
+          for (const elem of document.querySelectorAll(".macAddrValue")) {
+            filledData[
+              parseInt(ssid_select.value)
+            ].MACFiltering.MACAddressFilter.push(elem.value);
+          }
+
+          applyElemLS("wifi-2_4G-mac_filtering.html", "Apply", Wifi);
+        } else {
+          console.log(`Apply fail`);
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyElemLS("wifi-2_4G-mac_filtering.html", "Cancel");
+      });
       break;
     case "wifi-2_4G-ssids.html":
       console.log(`Load ${item}\n${JSON.stringify(Wifi["2.4G"])}`);
@@ -2571,8 +2719,205 @@ function loadPage(item, options) {
       });
       break;
     case "wifi-2_4G-statistics.html":
+      var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
+      filledData = Wifi["2.4G"].SSIDs;
+      console.log(`Load number of SSID: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+
+      // Load SSID & WDS mode
+      numberOfSSIDs = 0;
+      for (const elem of Wifi["2.4G"].SSIDs) {
+        var optionElement = document.createElement("option");
+        optionElement.value = numberOfSSIDs; // as value, corresponds to index of itself in SSIDs array
+        numberOfSSIDs += 1;
+        optionElement.label = elem.Configuration.SSID;
+        optionElement.textContent = elem.Configuration.SSID;
+        ssid_select.appendChild(optionElement);
+      }
+
+      checkError_selectField(
+        ssid_select,
+        document.getElementById("select_error")
+      );
+      ssid_select.addEventListener("change", () => {
+        checkError_selectField(
+          ssid_select,
+          document.getElementById("select_error")
+        );
+      });
       break;
     case "wifi-2_4G-wds.html":
+      var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
+      filledData = Wifi["2.4G"].SSIDs;
+      console.log(`Load number of SSID: ${numberOfSSIDs}`);
+
+      var ssid_select = document.getElementById("SSID");
+      var wds_select_mode = document.getElementById(
+        "DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSMode"
+      );
+
+      // option Hybrid
+      var add_btn = document.getElementById("Add");
+
+      // panel
+      var hybrid_mode_panel = document.getElementById("wds_mode_hybrid");
+      var mac_input_panel = document.getElementById("mac_input_panel");
+      var tbody = document.getElementById("mac_addr_list");
+      var rowElementTemplate = document.getElementById("rowElement");
+
+      // button & input field inside panel
+      var closeBtn = document.getElementById("Close");
+      var addMacBtn = document.getElementById("AddMac");
+      var mac_input_field = document.getElementById(
+        "DeviceWiFiAccessPointX_GTK_Vendor_WaveWDSPeers"
+      );
+
+      var addNewMAC = function (macValue) {
+        const tr = rowElementTemplate.content.cloneNode(true);
+
+        //
+        const macField = tr.querySelector(".macAddrValue");
+        const deleteBtn = tr.querySelector(".deleteBtn");
+
+        macField.textContent = macValue;
+        deleteBtn.addEventListener("click", () => {
+          if (window.confirm("Are you sure you want to Delete?")) {
+            deleteBtn.closest("tr").remove();
+          }
+        });
+
+        tbody.appendChild(tr);
+      };
+
+      var adaptWdsMode = () => {
+        if (wds_select_mode.value == "1") {
+          // Hybrid --> load MAC Address too
+          hybrid_mode_panel.classList.remove("ng-hide");
+          add_btn.classList.remove("ng-hide");
+          // remove tbody but the add-MAC panel
+          while (tbody.children.length > 1) {
+            tbody.removeChild(tbody.children[1]);
+          }
+          // load current
+          if (ssid_select.value !== "?") {
+            for (const elem of filledData[parseInt(ssid_select.value)].WDS
+              .MACAddress) {
+              addNewMAC(elem);
+            }
+          }
+        } else {
+          hybrid_mode_panel.classList.add("ng-hide");
+          add_btn.classList.add("ng-hide");
+        }
+      };
+
+      var fillData = function () {
+        // Load SSID & WDS mode
+        numberOfSSIDs = 0;
+        for (const elem of Wifi["2.4G"].SSIDs) {
+          var optionElement = document.createElement("option");
+          optionElement.value = numberOfSSIDs; // as value, corresponds to index of itself in SSIDs array
+          numberOfSSIDs += 1;
+          optionElement.label = elem.Configuration.SSID;
+          optionElement.textContent = elem.Configuration.SSID;
+          document.getElementById("SSID").appendChild(optionElement);
+        }
+
+        ssid_select.value = 0; // default SSID cannot remove so we fill data and show the first element
+        checkError_selectField(
+          document.getElementById("SSID"),
+          document.getElementById("empty_ssid_error")
+        );
+
+        // WDS
+        wds_select_mode.value = filledData[0].WDS.WDSMode;
+        adaptWdsMode();
+      };
+
+      var initEvent = function () {
+        ssid_select.addEventListener("change", () => {
+          if (
+            checkError_selectField(
+              document.getElementById("SSID"),
+              document.getElementById("empty_ssid_error")
+            )
+          ) {
+            wds_select_mode.value =
+              filledData[parseInt(ssid_select.value)].WDS.WDSMode;
+            adaptWdsMode();
+          }
+        });
+
+        wds_select_mode.addEventListener("change", () => {
+          adaptWdsMode();
+        });
+
+        add_btn.addEventListener("click", () => {
+          mac_input_panel.classList.remove("ng-hide");
+          mac_input_field.value = "";
+          checkEmpty_inputField(
+            mac_input_field,
+            document.getElementById("empty_mac_error")
+          );
+        });
+
+        // add Btn panel show
+        mac_input_field.addEventListener("input", () => {
+          checkPattern_inputField(
+            mac_input_field,
+            new RegExp(WIFI_MAC_PATTERN),
+            document.getElementById("pattern_mac_error"),
+            document.getElementById("empty_mac_error")
+          );
+        });
+
+        addMacBtn.addEventListener("click", () => {
+          if (
+            checkPattern_inputField(
+              mac_input_field,
+              new RegExp(WIFI_MAC_PATTERN),
+              document.getElementById("pattern_mac_error"),
+              document.getElementById("empty_mac_error")
+            )
+          ) {
+            addNewMAC(mac_input_field.value);
+            mac_input_panel.classList.add("ng-hide");
+          }
+        });
+
+        closeBtn.addEventListener("click", () => {
+          mac_input_panel.classList.add("ng-hide");
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.getElementById("empty_ssid_error"))) {
+          filledData[parseInt(ssid_select.value)].WDS.WDSMode =
+            wds_select_mode.value;
+
+          filledData[parseInt(ssid_select.value)].WDS.MACAddress.length = 0;
+
+          // if (wds_select_mode.value === "1"){
+          for (const elem of document.querySelectorAll(".macAddrValue")) {
+            filledData[parseInt(ssid_select.value)].WDS.MACAddress.push(
+              elem.textContent
+            );
+          }
+          // }
+
+          applyElemLS("wifi-2_4G-wds.html", "Apply", Wifi);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyElemLS("wifi-2_4G-wds.html", "Cancel");
+      });
       break;
     case "wifi-2_4G-wps.html":
       var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
@@ -2594,9 +2939,8 @@ function loadPage(item, options) {
       });
 
       var macAddr = document.getElementById("AuthorizedMac");
-      const PATTERN = new RegExp("^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$");
       macAddr.addEventListener("input", () => {
-        if (!PATTERN.test(macAddr.value)) {
+        if (!new RegExp(WIFI_MAC_PATTERN).test(macAddr.value)) {
           document
             .getElementById("invalid_mac_error")
             .classList.remove("ng-hide");

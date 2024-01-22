@@ -134,6 +134,11 @@
     <script src="./js/navigate.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/index.js"></script>
+    <script>
+      window.onload = () => {
+        loadPage("wifi-2_4G-statistics.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -1041,19 +1046,12 @@
                 <a
                   class="close"
                   aria-label="close"
-                  ng-click='popupclose("temppopup");
-                        '
                   >✖
                 </a>
                 <p ng-bind-html="temppopupval | unsafe" class="ng-binding"></p>
               </div>
               <form
-                polling=""
-                interval=""
-                loadstatus=""
                 class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid ng-valid-required"
-                name="temp_form"
-                name1="temp?SSID"
                 id="temp"
               >
                 <div>
@@ -1067,9 +1065,6 @@
                           <label
                             for="SSID"
                             class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            ng-bind="
-                        &#39;temp.SSID Statistics&#39; | translate
-                    "
                             >SSID Statistics</label
                           >
                           <div
@@ -1079,16 +1074,7 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               id="SSID"
-                              filterdata="SSID?X_LANTIQ_COM_Vendor_IsEndPoint__false__equalsto"
                               validation="false"
-                              ng-required="
-                                        true
-                                    "
-                              name="temp_SSID"
-                              ng-model="temp.SSID"
-                              ng-change='wizardDropdown("temp","SSID","Device.WiFi.AccessPoint.*.AssociatedDevice.*,Device.WiFi.SSID.*.Stats","")'
-                              ng-init='dropdownUrlReq("temp","SSID","cgi_get_filterbyfirstparamval?Object=Device.WiFi.SSID&amp;LowerLayers=Device.WiFi.Radio.1.&amp;SSID=&amp;X_LANTIQ_COM_Vendor_IsEndPoint=","true","true","","Device.WiFi.AccessPoint.*.AssociatedDevice.*,Device.WiFi.SSID.*.Stats","")'
-                              ng-options="obj.id as obj.name for obj in SSID"
                               required="required"
                             >
                               <option
@@ -1098,26 +1084,13 @@
                               >
                                 Select
                               </option>
-                              <option
-                                value="1"
-                                selected="selected"
-                                label="GEMTEK"
-                              >
-                                GEMTEK
-                              </option></select
+                              </select
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="temp_SSIDresponsestatus"
-                              ng-bind="temp_SSIDval |translate
-                        "
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
-                              forname="temp_SSID"
-                              ng-show="temp_form.temp_SSID.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;temp.SSID Statistics.$error.required&#39;|translate
-            "
+                              id="select_error"
                               >* This Field is Required</span
                             >
                           </div>

@@ -1,4 +1,12 @@
 /**
+ * 
+ * @NOTE Change Version to refresh database in case you have any update at database
+ * 
+ */
+const SIMULATOR_VERSION = "0.2.2_D22/M02/Y2024";
+
+
+/**
  *
  * ===== Template data (at init it will load template data to local store then fill in HTML file)
  *
@@ -163,7 +171,7 @@ const template = {
             MACAddress: [],
           },
           MACFiltering: {
-            ACLMode: 1,
+            ACLMode: 0,
             MACAddressFilter: [],
           },
         },
@@ -196,7 +204,7 @@ const template = {
             MACAddress: [],
           },
           MACFiltering: {
-            ACLMode: 1,
+            ACLMode: 0,
             MACAddressFilter: [],
           },
         },
@@ -232,7 +240,7 @@ const template = {
             MACAddress: [],
           },
           MACFiltering: {
-            ACLMode: 1,
+            ACLMode: 0,
             MACAddressFilter: [],
           },
         },
@@ -327,6 +335,9 @@ const SUBNET_PATTERN =
   "^(((255\\.){3}(255|254|252|248|240|224|192|128|0+))|((255\\.){2}(255|254|252|248|240|224|192|128|0+)\\.0)|((255.)(255|254|252|248|240|224|192|128|0+)(\\.0+){2})|((255|254|252|248|240|224|192|128)(\\.0+){3}))$";
 const MAC_PATTERN =
   "^[\\da-fA-F](?:[^\\Wg-zG-Z13579bBdDfF_]{1})([:])(?:[0-9a-fA-F]{1,2}\\1){4}[0-9a-fA-F]{1,2}$";
+
+const WIFI_MAC_PATTERN =
+  "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$|^([0-9A-Fa-f]{2}[\\-]){5}([0-9A-Fa-f]{2})$";
 
 const IPv6_PREFIX_ADDR_PATTERN =
   "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\\/(\\d{1,2}|1[0-1]\\d|12[0-8])$";
