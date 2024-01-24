@@ -131,11 +131,13 @@
 
     <!-- Add other stylesheets and scripts as needed -->
     <script src="./js/template.js"></script>
-    <script src="./js/navigate.js"></script>
     <script src="./js/storage.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/commonFunction.js"></script>
+    <script src="./js/controller/wifi.js"></script>
+
     <script>
       window.onload = () => {
+        checkVersion();
         loadPage("wifi-2_4G-statistics.html");
       };
     </script>
@@ -939,7 +941,7 @@
                 ><!-- ngSwitchWhen: true -->
                 <div class="btn-group btn-breadcrumb1 ng-scope">
                   <div class="ltq_brd_home">
-                    <a class="btn ng-binding" href="main.html"> Wi-Fi </a>
+                    <a class="btn ng-binding" href="index.html"> Wi-Fi </a>
                   </div>
                 </div>
                 <!-- end ngSwitchWhen: -->
@@ -1043,11 +1045,7 @@
             </ul>
             <div class="panel-body no-padding">
               <div class="alert alert-danger ng-hide" ng-show="temppopup">
-                <a
-                  class="close"
-                  aria-label="close"
-                  >✖
-                </a>
+                <a class="close" aria-label="close">✖ </a>
                 <p ng-bind-html="temppopupval | unsafe" class="ng-binding"></p>
               </div>
               <form
@@ -1083,11 +1081,8 @@
                                 label="Select"
                               >
                                 Select
-                              </option>
-                              </select
-                            ><span
-                              class="error ng-binding ng-hide"
-                            ></span
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               id="select_error"

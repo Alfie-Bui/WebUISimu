@@ -13,13 +13,34 @@ function initLS() {
 }
 
 /**
- *
- * @param {*} item: which HTML file
- * @param {*} option: take 3 value:
- *            Apply : When change the UI event
- *            Cancel: When reject all change on UI
+ * @brief: Check current Version (of database incase template DB has been changed)
+ * - If version is different then load new template DB into LS
  */
-function applyElemLS(item, option, change_entity) {
+function checkVersion() {
+  console.log(
+    `On run version: ${localStorage.getItem(
+      "VERSION"
+    )} ... Newest version: ${SIMULATOR_VERSION}`
+  );
+  if (
+    localStorage.length === 0 ||
+    localStorage.getItem("VERSION") === null ||
+    localStorage.getItem("VERSION") !== SIMULATOR_VERSION
+  ) {
+    console.log(`Update DB to newest version: ${SIMULATOR_VERSION}`);
+    initLS();
+    localStorage.setItem("VERSION", SIMULATOR_VERSION);
+  }
+}
+
+/**
+ *
+ * @param {*} page: which HTML file
+ * @param {*} option: take 3 value:
+ *            Apply : When change the UI event and refresh
+ *            Cancel: When reject all change on UI and refresh page
+ */
+function applyThenStoreToLS(page, option, change_entity) {
   if (option !== "Cancel") {
     var Status = JSON.parse(localStorage.getItem("Status"));
     var Basic = JSON.parse(localStorage.getItem("Basic"));
@@ -28,7 +49,7 @@ function applyElemLS(item, option, change_entity) {
     var Security = JSON.parse(localStorage.getItem("Security"));
     var Utilities = JSON.parse(localStorage.getItem("Utilities"));
     var VoIP = JSON.parse(localStorage.getItem("VoIP"));
-    switch (item) {
+    switch (page) {
       case "advanced-alg.html":
         Advanced = change_entity;
         break;
@@ -101,49 +122,69 @@ function applyElemLS(item, option, change_entity) {
       case "basic-wan-ipv6.html":
         Basic = change_entity;
         break;
-      case "main.html":
+      case "index.html":
+        Status = change_entity;
         break;
       case "login.html":
         break;
       case "logout.html":
         break;
       case "security-firewall.html":
+        Status = change_entity;
         break;
       case "security-parental_control_settings.html":
+        Status = change_entity;
         break;
       case "security-parental_control-devControl-add.html":
+        Status = change_entity;
         break;
       case "security-parental_control-devControl.html":
+        Security = change_entity;
         break;
       case "status-overview.html":
+        Status = change_entity;
         break;
       case "status-pon_status.html":
+        Status = change_entity;
         break;
       case "status-system_stats-lan_thr.html":
+        Status = change_entity;
         break;
       case "status-system_stats-wan_thr.html":
+        Status = change_entity;
         break;
       case "status-system_stats-wifi_thr.html":
+        Status = change_entity;
         break;
       case "utilities-diagnostics.html":
+        Utilities = change_entity;
         break;
       case "utilities-speed_test.html":
+        Utilities = change_entity;
         break;
       case "utilities-system-backup.html":
+        Utilities = change_entity;
         break;
       case "utilities-system-log_rule-edit.html":
+        Utilities = change_entity;
         break;
       case "utilities-system-log_rule.html":
+        Utilities = change_entity;
         break;
       case "utilities-system-time.html":
+        Utilities = change_entity;
         break;
       case "utilities-system-user_mgnt-edit.html":
+        Utilities = change_entity;
         break;
       case "utilities-system-user_mgnt.html":
+        Utilities = change_entity;
         break;
       case "utilities-update_fw.html":
+        Utilities = change_entity;
         break;
       case "voip-config.html":
+        VoIP = change_entity;
         break;
       case "wifi-2_4G-config.html":
         Wifi = change_entity;
@@ -188,7 +229,7 @@ function applyElemLS(item, option, change_entity) {
         Wifi = change_entity;
         break;
       default:
-        console.log(`Load ${item} fail --- no available page`);
+        console.log(`Load ${page} fail --- no available page`);
         return;
     }
 
@@ -204,5 +245,5 @@ function applyElemLS(item, option, change_entity) {
   }
 
   // redirect to next page or reload current page
-  window.location.href = item;
+  window.location.href = page;
 }

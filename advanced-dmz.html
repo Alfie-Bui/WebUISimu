@@ -131,9 +131,16 @@
 
     <!-- Add other stylesheets and scripts as needed -->
     <script src="./js/template.js"></script>
-    <script src="./js/navigate.js"></script>
     <script src="./js/storage.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/commonFunction.js"></script>
+    <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-dmz.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -925,7 +932,7 @@
                 ><!-- ngSwitchWhen: true -->
                 <div class="btn-group btn-breadcrumb1 ng-scope">
                   <div class="ltq_brd_home">
-                    <a class="btn ng-binding" href="main.html"> Advanced </a>
+                    <a class="btn ng-binding" href="index.html"> Advanced </a>
                   </div>
                 </div>
                 <!-- end ngSwitchWhen: -->
@@ -988,29 +995,12 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceNATX_GTK_DMZpopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceNATX_GTK_DMZpopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceNATX_GTK_DMZpopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
               <form
-                polling=""
-                interval=""
-                loadstatus=""
                 class="form-horizontal formCount lantiq-form-text ng-pristine ng-invalid ng-invalid-pattern"
-                name="DeviceNATX_GTK_DMZ_form"
-                name1="Device.NAT.X_GTK_DMZ?Enable,IPAddress"
                 id="DeviceNATX_GTK_DMZ"
               >
                 <div>
@@ -1025,7 +1015,6 @@
                                 type="checkbox"
                                 class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
                                 id="DeviceNATX_GTK_DMZ_Enable"
-                                ng-model="DeviceNATX_GTK_DMZ.Enable"
                                 name="DeviceNATX_GTK_DMZ_Enable"
                               /><label
                                 class="checkbox_left_align"
@@ -1045,16 +1034,13 @@
                               id="IPAddress"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-pattern"
                               placeholder="0.0.0.0"
-                              ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
+                              pattern="^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$"
                               name="DeviceNATX_GTK_DMZ_IPAddress"
-                              ng-model="DeviceNATX_GTK_DMZ.IPAddress"
-                              ng-blur='textChange("DeviceNATX_GTK_DMZ__IPAddress",DeviceNATX_GTK_DMZ.IPAddress)'
                             /><label for="IPAddress" class="active ng-binding"
                               >IP Address</label
                             ><span
                               class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_DMZ_IPAddress"
-                              ng-show="DeviceNATX_GTK_DMZ_form.DeviceNATX_GTK_DMZ_IPAddress.$error.pattern&amp;&amp; formsubmitstatus"
+                              id="invalid_ip_error"
                               >Invalid pattern , Example IPv4 address :
                               192.168.1.232
                             </span>
@@ -1076,13 +1062,9 @@
                     <div class="btn-align">
                       <input
                         type="button"
-                        id="Modify"
+                        id="Apply"
                         class="gemtek-btn-primary"
                         value="Apply"
-                        source="Device.NAT.X_GTK_DMZ?Enable,IPAddress"
-                        hiddenparams="Device.NAT.X_GTK_DMZ?"
-                        formname="DeviceNATX_GTK_DMZ"
-                        relationformname="DeviceNATX_GTK_DMZ,"
                       />
                     </div>
                   </div>
