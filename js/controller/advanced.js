@@ -156,6 +156,116 @@ function loadPage(page, options) {
 
       break;
     case "advanced-device_management.html":
+      var enaCWMP = document.getElementById(
+        "DeviceManagementServer_EnableCWMP"
+      );
+      var localWANInterfaceSelect = document.getElementById("X_GTK_Interface");
+      var acsUrl = document.getElementById("URL");
+      var acsUsername = document.getElementById("Username");
+      var acsPassword = document.getElementById(
+        "DeviceManagementServerPassword"
+      );
+      var pwd_Eye = document.getElementById(
+        "icon_pw"
+      );
+      var connectionReqUsername = document.getElementById(
+        "ConnectionRequestUsername"
+      );
+      var connectionReqPwd = document.getElementById(
+        "DeviceManagementServerConnectionRequestPassword"
+      );
+      var pwdEye2 = document.getElementById(
+        "icon_pw_2"
+      );
+      var enaPerodic = document.getElementById(
+        "DeviceManagementServer_PeriodicInformEnable"
+      );
+      var perocdicInterval = document.getElementById("PeriodicInformInterval");
+
+      var initEvent = () => {
+        pwd_Eye.addEventListener("click", () => {
+          hide_show_pw(pwd_Eye, acsPassword);
+        });
+
+        pwdEye2.addEventListener("click", () => {
+          hide_show_pw(pwdEye2, connectionReqPwd);
+        });
+
+        perocdicInterval.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            perocdicInterval,
+            document.getElementById("lowLimit_error"),
+            document.getElementById("upLimit_error"),
+            document.getElementById("invalid_error")
+          );
+        });
+
+        localWANInterfaceSelect.addEventListener("change", () => {
+          checkError_selectField(
+            localWANInterfaceSelect,
+            document.getElementById("select_error")
+          );
+        });
+      };
+
+      // fill data
+      var fillData = () => {
+        enaCWMP.checked = Advanced.DeviceManagement.EnaCWMP;
+
+        let countValue = 0;
+        for (const elem of Basic.WAN.Interfaces) {
+          var optionElement = document.createElement("option");
+          optionElement.value = countValue; // as value, corresponds to index of itself in SSIDs array
+          countValue += 1;
+          optionElement.label = elem.Name;
+          optionElement.textContent = elem.Name;
+          localWANInterfaceSelect.appendChild(optionElement);
+        }
+        localWANInterfaceSelect.value =
+          Advanced.DeviceManagement.LocalWANInterface;
+
+        acsUrl.value = Advanced.DeviceManagement.ACSURL;
+        acsUsername.value = Advanced.DeviceManagement.ACSUsername;
+        acsPassword.value = Advanced.DeviceManagement.ACSPassword;
+        connectionReqUsername.value =
+          Advanced.DeviceManagement.ConnectionReqUsername;
+        connectionReqPwd.value = Advanced.DeviceManagement.ConnectionReqPasword;
+        enaPerodic.checked = Advanced.DeviceManagement.EnaPerodic;
+        perocdicInterval.value = Advanced.DeviceManagement.PerodicInterval;
+      };
+
+      initEvent();
+      fillData();
+
+      // Apply and Cancel button
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.DeviceManagement.EnaCWMP = enaCWMP.checked;
+          Advanced.DeviceManagement.LocalWANInterface =
+            localWANInterfaceSelect.value;
+          Advanced.DeviceManagement.ACSURL = acsUrl.value;
+          Advanced.DeviceManagement.ACSUsername = acsUsername.value;
+          Advanced.DeviceManagement.ACSPassword = acsPassword.value;
+          Advanced.DeviceManagement.ConnectionReqUsername =
+            connectionReqUsername.value;
+          Advanced.DeviceManagement.ConnectionReqPasword =
+            connectionReqPwd.value;
+          Advanced.DeviceManagement.EnaPerodic = enaPerodic.checked;
+          Advanced.DeviceManagement.PerodicInterval = perocdicInterval.value;
+
+          applyThenStoreToLS(
+            "advanced-device_management.html",
+            "Apply",
+            Advanced
+          );
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel", () => {
+        applyThenStoreToLS("advanced-device_management.html", "Cancel");
+      });
       break;
     case "advanced-dmz.html":
       console.log(`Load data: ${JSON.stringify(Advanced.DMZ)}`);

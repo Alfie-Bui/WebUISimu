@@ -309,6 +309,7 @@ function checkPasswordError_inputField(
  * @param {*} empty_error 
  */
 function checkMinMaxError_inputField(input, min_error, max_error, empty_error) {
+  console.log(`${input.value} -- ${input.getAttribute("min")}`);
   if (input.value === "") {
     empty_error.classList.remove("ng-hide");
     min_error.classList.add("ng-hide");

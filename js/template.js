@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.2.6_D22/M02/Y2024";
+const SIMULATOR_VERSION = "0.2.9_D22/M02/Y2024";
 
 /**
  *
@@ -277,6 +277,17 @@ const template = {
       EnableDMZ: false,
       IPAddr: "0.0.0.0",
     },
+    DeviceManagement: {
+      EnaCWMP: true,
+      LocalWANInterface: 0,
+      ACSURL: "http://192.168.99.100:3000",
+      ACSUsername: "admin",
+      ACSPassword: "admin",
+      ConnectionReqUsername: "admin",
+      ConnectionReqPasword: "admin",
+      EnaPerodic: true,
+      PerodicInterval: 86400,
+    }
   },
   Security: {},
   Utilities: {},

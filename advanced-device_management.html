@@ -136,29 +136,10 @@
     <script src="./js/controller/advanced.js"></script>
 
     <script>
-      function toggleSwitch(id) {
-        const switchID = document.getElementById(id);
-        switchID.classList.toggle("checked");
-      }
-
-      function hide_show_pw(icon_pw_id, pw_field_id) {
-        const pwEye = document.getElementById(icon_pw_id);
-        const inputField = document.getElementById(pw_field_id);
-
-        if (pwEye.classList.contains("showpw")) {
-          // gonna hide
-          inputField.type = "text";
-
-          pwEye.classList.remove("showpw");
-          pwEye.classList.add("hidepw");
-        } else {
-          // gonna show
-          inputField.type = "password";
-
-          pwEye.classList.remove("hidepw");
-          pwEye.classList.add("showpw");
-        }
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-device_management.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -1017,385 +998,284 @@
                   class="ng-binding"
                 ></p>
               </div>
-              <form
-                polling=""
-                interval=""
-                loadstatus=""
-                class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid-min ng-valid-max ng-valid ng-valid-required"
-                name="DeviceManagementServer_form"
-                name1="Device.ManagementServer?EnableCWMP,X_GTK_Interface,URL,Username,Password,ConnectionRequestURL,ConnectionRequestUsername,ConnectionRequestPassword,PeriodicInformEnable,PeriodicInformInterval"
-                id="DeviceManagementServer"
-              >
-                <div>
-                  <div class="wrapperdiv">
-                    <div class="panel-body">
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div>
-                            <div class="checkbox">
-                              <span class="ng-binding">Enable CWMP</span
-                              ><input
-                                type="checkbox"
-                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                id="DeviceManagementServer_EnableCWMP"
-                                ng-model="DeviceManagementServer.EnableCWMP"
-                                name="DeviceManagementServer_EnableCWMP"
-                              /><label
-                                class="checkbox_left_align"
-                                for="DeviceManagementServer_EnableCWMP"
-                                onclick="toggleSwitch(this.id)"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="required row">
-                          <label
-                            for="X_GTK_Interface"
-                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            >Local Wan Interface</label
-                          >
-                          <div
-                            style="margin-top: 20px"
-                            class="no-padding-hr-l col-xs-12 col-sm-5"
-                          >
-                            <select
-                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                              id="X_GTK_Interface"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
-                              name="DeviceManagementServer_X_GTK_Interface"
-                              ng-model="DeviceManagementServer.X_GTK_Interface"
-                              ng-change='ddChange("DeviceManagementServer__X_GTK_Interface",DeviceManagementServer.X_GTK_Interface)'
-                              ng-init='dropdownUrlReq("DeviceManagementServer","X_GTK_Interface","cgi_get_fillparams?Object=Device.X_GTK_NwHardware.WANConnection&amp;ConnectionName=","false","","","","")'
-                              ng-options="obj.id as obj.name for obj in X_GTK_Interface"
-                              required="required"
-                            >
-                              <option value="?" label="Select">Select</option>
-                              <option
-                                value="1"
-                                selected="selected"
-                                label="ANI0_wan8"
-                              >
-                                ANI0_wan8
-                              </option>
-                              <option value="2" label="ANI0_wan9">
-                                ANI0_wan9
-                              </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceManagementServer_X_GTK_Interfaceresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceManagementServer_X_GTK_Interface"
-                              ng-show="DeviceManagementServer_form.DeviceManagementServer_X_GTK_Interface.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                          >
-                            <input
-                              type="text"
-                              id="URL"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              placeholder="Please enter ACS URL"
-                              name="DeviceManagementServer_URL"
-                              ng-model="DeviceManagementServer.URL"
-                              value="http://10.5.200.100:7547"
-                            /><label for="URL" class="active ng-binding"
-                              >ACS URL</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceManagementServer_URLresponsestatus"
-                            ></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                          >
-                            <input
-                              type="text"
-                              id="Username"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              placeholder="Please enter ACS Username"
-                              name="DeviceManagementServer_Username"
-                              ng-model="DeviceManagementServer.Username"
-                              value="admin"
-                            /><label for="Username" class="active ng-binding"
-                              >ACS Username</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceManagementServer_Usernameresponsestatus"
-                            ></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="no-padding-hr pwdblock col-xs-10 col-sm-11"
-                          >
-                            <div class="input-field no-padding-hr-l col-sm-12">
-                              <input
-                                type="password"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                id="DeviceManagementServerPassword"
-                                placeholder="Enter Password"
-                                name="DeviceManagementServer_Password"
-                                ng-model="DeviceManagementServer.Password"
-                                value="admin"
-                              /><label
-                                for="Password"
-                                class="active required ng-binding"
-                                >ACS Password</label
-                              ><span
-                                class="error ng-binding"
-                                ng-show='Password.validate !== ""'
-                              ></span>
-                            </div>
-                            <div class="pwdtoggle">
-                              <input
-                                type="checkbox"
-                                id="DeviceManagementServerPasswordcheckbox"
-                                ng-model="DeviceManagementServerPasswordfieldstatus"
-                                class="ng-pristine ng-untouched ng-valid"
-                                onclick="hide_show_pw('icon_pw', 'DeviceManagementServerPassword')"
-                              /><label
-                                id="icon_pw"
-                                for="DeviceManagementServerPasswordcheckbox"
-                                class="showpw checkbox_right_align"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                          >
-                            <input
-                              type="text"
-                              id="ConnectionRequestURL"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              placeholder="Please Enter the value"
-                              name="DeviceManagementServer_ConnectionRequestURL"
-                              ng-model="DeviceManagementServer.ConnectionRequestURL"
-                              disabled="disabled"
+              <div>
+                <div class="wrapperdiv">
+                  <div class="panel-body">
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div>
+                          <div class="checkbox">
+                            <span class="ng-binding">Enable CWMP</span
+                            ><input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              id="DeviceManagementServer_EnableCWMP"
+                              name="DeviceManagementServer_EnableCWMP"
                             /><label
-                              for="ConnectionRequestURL"
-                              class="active ng-binding"
-                              >Connection Request URL</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceManagementServer_ConnectionRequestURLresponsestatus"
-                            ></span>
+                              class="checkbox_left_align"
+                              for="DeviceManagementServer_EnableCWMP"
+                            ></label>
                           </div>
                         </div>
                       </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="required row">
+                        <label
+                          for="X_GTK_Interface"
+                          class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                          >Local Wan Interface</label
+                        >
+                        <div
+                          style="margin-top: 20px"
+                          class="no-padding-hr-l col-xs-12 col-sm-5"
+                        >
+                          <select
+                            class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="X_GTK_Interface"
+                            name="DeviceManagementServer_X_GTK_Interface"
+                            required="required"
                           >
+                            <option value="?" label="Select">
+                              Select
+                            </option></select
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="select_error"
+                            >* This Field is Required</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div
+                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                        >
+                          <input
+                            type="text"
+                            id="URL"
+                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                            placeholder="Please enter ACS URL"
+                          /><label for="URL" class="active ng-binding"
+                            >ACS URL</label
+                          ><span class="error ng-binding ng-hide"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div
+                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                        >
+                          <input
+                            type="text"
+                            id="Username"
+                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                            placeholder="Please enter ACS Username"
+                          /><label for="Username" class="active ng-binding"
+                            >ACS Username</label
+                          ><span class="error ng-binding ng-hide"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div class="no-padding-hr pwdblock col-xs-10 col-sm-11">
+                          <div class="input-field no-padding-hr-l col-sm-12">
                             <input
-                              type="text"
-                              id="ConnectionRequestUsername"
+                              type="password"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              placeholder="Please enter Connection Request Username"
-                              name="DeviceManagementServer_ConnectionRequestUsername"
-                              ng-model="DeviceManagementServer.ConnectionRequestUsername"
-                              value="admin"
-                            /><label
-                              for="ConnectionRequestUsername"
-                              class="active ng-binding"
-                              >Connection Request Username</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceManagementServer_ConnectionRequestUsernameresponsestatus"
-                            ></span>
+                              id="DeviceManagementServerPassword"
+                              placeholder="Enter Password"
+                            /><label class="active required ng-binding"
+                              >ACS Password</label
+                            ><span class="error ng-binding ng-hide"></span>
                           </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="no-padding-hr pwdblock col-xs-10 col-sm-11"
-                          >
-                            <div class="input-field no-padding-hr-l col-sm-12">
-                              <input
-                                type="password"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                id="DeviceManagementServerConnectionRequestPassword"
-                                placeholder="Enter Password"
-                                name="DeviceManagementServer_ConnectionRequestPassword"
-                                ng-model="DeviceManagementServer.ConnectionRequestPassword"
-                                value="admin"
-                              /><label
-                                for="ConnectionRequestPassword"
-                                class="active required ng-binding"
-                                >Connection Request Password</label
-                              ><span
-                                class="error ng-binding"
-                                ng-show='ConnectionRequestPassword.validate !== ""'
-                              ></span>
-                            </div>
-                            <div class="pwdtoggle">
-                              <input
-                                type="checkbox"
-                                id="DeviceManagementServerConnectionRequestPasswordcheckbox"
-                                ng-model="DeviceManagementServerConnectionRequestPasswordfieldstatus"
-                                class="ng-pristine ng-untouched ng-valid"
-                                onclick="hide_show_pw('icon_pw_2', 'DeviceManagementServerConnectionRequestPassword')"
-                              /><label
-                                id="icon_pw_2"
-                                for="DeviceManagementServerConnectionRequestPasswordcheckbox"
-                                class="showpw checkbox_right_align"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div>
-                            <div class="checkbox">
-                              <span class="ng-binding"
-                                >Enable Periodic Inform</span
-                              ><input
-                                type="checkbox"
-                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                id="DeviceManagementServer_PeriodicInformEnable"
-                                ng-model="DeviceManagementServer.PeriodicInformEnable"
-                                name="DeviceManagementServer_PeriodicInformEnable"
-                              /><label
-                                class="checkbox_left_align"
-                                for="DeviceManagementServer_PeriodicInformEnable"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
-                          >
+                          <div class="pwdtoggle">
                             <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid-max ng-valid ng-valid-required"
-                              id="PeriodicInformInterval"
-                              placeholder="Please enter Periodic Inform Interval"
-                              min="10"
-                              max="86400"
-                              ng-model="DeviceManagementServer.PeriodicInformInterval"
-                              name="DeviceManagementServer_PeriodicInformInterval"
-                              required="required"
-                              value="86400"
+                              type="checkbox"
+                              id="DeviceManagementServerPasswordcheckbox"
+                              class="ng-pristine ng-untouched ng-valid"
                             /><label
-                              for="PeriodicInformInterval"
-                              class="required row active ng-binding"
-                              >Periodic Inform Interval</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceManagementServer_PeriodicInformIntervalresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceManagementServer_PeriodicInformInterval"
-                              ng-show="DeviceManagementServer_form.DeviceManagementServer_PeriodicInformInterval.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceManagementServer_PeriodicInformInterval"
-                              ng-show="DeviceManagementServer_form.DeviceManagementServer_PeriodicInformInterval.$error.number"
-                            >
-                              Please enter a valid number </span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceManagementServer_PeriodicInformInterval"
-                              ng-show="DeviceManagementServer_form.DeviceManagementServer_PeriodicInformInterval.$error.min&amp;&amp; formsubmitstatus"
-                              ><span class="ng-binding"
-                                >Value must be greater than or equal to </span
-                              ><span>10</span></span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceManagementServer_PeriodicInformInterval"
-                              ng-show="DeviceManagementServer_form.DeviceManagementServer_PeriodicInformInterval.$error.max&amp;&amp; formsubmitstatus"
-                              ><span class="ng-binding"
-                                >Value must be less than or equal to </span
-                              ><span>86400</span></span
-                            >
+                              id="icon_pw"
+                              for="DeviceManagementServerPasswordcheckbox"
+                              class="hidepw checkbox_right_align"
+                            ></label>
                           </div>
                         </div>
                       </div>
-                      <div class="form-group no-padding-hr"></div>
                     </div>
-                  </div>
-                  <div
-                    class="col-lg-12 col-md-12 col-xs-12 text-center"
-                    style="
-                      position: absolute;
-                      bottom: -60px;
-                      left: 50%;
-                      transform: translateX(-50%);
-                    "
-                  >
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Cancel"
-                        class="gemtek-btn-normal"
-                        value="Cancel"
-                        source="Device.ManagementServer?EnableCWMP,X_GTK_Interface,URL,Username,Password,ConnectionRequestURL,ConnectionRequestUsername,ConnectionRequestPassword,PeriodicInformEnable,PeriodicInformInterval"
-                        hiddenparams="Device.ManagementServer?"
-                        formname="DeviceManagementServer"
-                        relationformname="DeviceManagementServer,"
-                      />
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div
+                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                        >
+                          <input
+                            type="text"
+                            id="ConnectionRequestURL"
+                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                            placeholder="Please Enter the value"
+                            name="DeviceManagementServer_ConnectionRequestURL"
+                            disabled="disabled"
+                          /><label
+                            for="ConnectionRequestURL"
+                            class="active ng-binding"
+                            >Connection Request URL</label
+                          ><span class="error ng-binding ng-hide"></span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Modify"
-                        class="gemtek-btn-primary"
-                        value="Apply"
-                        source="Device.ManagementServer?EnableCWMP,X_GTK_Interface,URL,Username,Password,ConnectionRequestURL,ConnectionRequestUsername,ConnectionRequestPassword,PeriodicInformEnable,PeriodicInformInterval"
-                        hiddenparams="Device.ManagementServer?"
-                        formname="DeviceManagementServer"
-                        relationformname="DeviceManagementServer,"
-                      />
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div
+                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                        >
+                          <input
+                            type="text"
+                            id="ConnectionRequestUsername"
+                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                            placeholder="Please enter Connection Request Username"
+                            name="DeviceManagementServer_ConnectionRequestUsername"
+                          /><label
+                            for="ConnectionRequestUsername"
+                            class="active ng-binding"
+                            >Connection Request Username</label
+                          ><span class="error ng-binding ng-hide"></span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="SendInform"
-                        class="gemtek-btn-primary"
-                        value="Send Inform to ACS Server"
-                        source="Device.ManagementServer?EnableCWMP,X_GTK_Interface,URL,Username,Password,ConnectionRequestURL,ConnectionRequestUsername,ConnectionRequestPassword,PeriodicInformEnable,PeriodicInformInterval"
-                        hiddenparams="Device.ManagementServer?"
-                        formname="DeviceManagementServer"
-                        relationformname="DeviceManagementServer,"
-                        ng-click="makePost(&#39;cgi_action&#39;,&#39;Action=SendInform&#39;,$event)"
-                      />
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div class="no-padding-hr pwdblock col-xs-10 col-sm-11">
+                          <div class="input-field no-padding-hr-l col-sm-12">
+                            <input
+                              type="password"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              id="DeviceManagementServerConnectionRequestPassword"
+                              placeholder="Enter Password"
+                              name="DeviceManagementServer_ConnectionRequestPassword"
+                            /><label
+                              for="ConnectionRequestPassword"
+                              class="active required ng-binding"
+                              >Connection Request Password</label
+                            ><span class="error ng-binding ng-hide"></span>
+                          </div>
+                          <div class="pwdtoggle">
+                            <input
+                              type="checkbox"
+                              id="DeviceManagementServerConnectionRequestPasswordcheckbox"
+                              class="ng-pristine ng-untouched ng-valid"
+                            /><label
+                              id="icon_pw_2"
+                              for="DeviceManagementServerConnectionRequestPasswordcheckbox"
+                              class="hidepw checkbox_right_align"
+                            ></label>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div>
+                          <div class="checkbox">
+                            <span class="ng-binding"
+                              >Enable Periodic Inform</span
+                            ><input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              id="DeviceManagementServer_PeriodicInformEnable"
+                              name="DeviceManagementServer_PeriodicInformEnable"
+                            /><label
+                              class="checkbox_left_align"
+                              for="DeviceManagementServer_PeriodicInformEnable"
+                            ></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid-max ng-valid ng-valid-required"
+                            id="PeriodicInformInterval"
+                            placeholder="Please enter Periodic Inform Interval"
+                            min="10"
+                            max="86400"
+                            name="DeviceManagementServer_PeriodicInformInterval"
+                            required="required"
+                          /><label
+                            for="PeriodicInformInterval"
+                            class="required row active ng-binding"
+                            >Periodic Inform Interval</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="empty_error"
+                            >* This Field is Required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_error"
+                          >
+                            Please enter a valid number </span
+                          ><span class="error ng-hide" id="lowLimit_error"
+                            ><span class="ng-binding"
+                              >Value must be greater than or equal to </span
+                            ><span>10</span></span
+                          ><span class="error ng-hide" id="upLimit_error"
+                            ><span class="ng-binding"
+                              >Value must be less than or equal to </span
+                            ><span>86400</span></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
                   </div>
                 </div>
-              </form>
+                <div
+                  class="col-lg-12 col-md-12 col-xs-12 text-center"
+                  style="
+                    position: absolute;
+                    bottom: -60px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                  "
+                >
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Cancel"
+                      class="gemtek-btn-normal"
+                      value="Cancel"
+                    />
+                  </div>
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Modify"
+                      class="gemtek-btn-primary"
+                      value="Apply"
+                    />
+                  </div>
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="SendInform"
+                      class="gemtek-btn-primary"
+                      value="Send Inform to ACS Server"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
