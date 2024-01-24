@@ -1,10 +1,9 @@
 /**
- * 
+ *
  * @NOTE Change Version to refresh database in case you have any update at database
- * 
+ *
  */
-const SIMULATOR_VERSION = "0.2.5_D22/M02/Y2024";
-
+const SIMULATOR_VERSION = "0.2.6_D22/M02/Y2024";
 
 /**
  *
@@ -273,6 +272,10 @@ const template = {
       Username: "your_username",
       Password: "your_password",
       DomainName: "yourhost.example.com",
+    },
+    DMZ: {
+      EnableDMZ: false,
+      IPAddr: "0.0.0.0",
     },
   },
   Security: {},
