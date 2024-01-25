@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.2.9_D22/M02/Y2024";
+const SIMULATOR_VERSION = "0.3.1_D25/M02/Y2024";
 
 /**
  *
@@ -287,7 +287,18 @@ const template = {
       ConnectionReqPasword: "admin",
       EnaPerodic: true,
       PerodicInterval: 86400,
-    }
+    },
+    Multicast: {
+      IGMPProxy: true,
+      Snooping: true,
+      UpstreamInterface: [],
+      DownStreamInterface: [true],
+      // IPv4 Advanced
+      FastLeave: true,
+      GroupQInterval: 10,
+      GroupLInterval: 2,
+      GroupLCount: 2,
+    },
   },
   Security: {},
   Utilities: {},

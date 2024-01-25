@@ -134,6 +134,13 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-multicast-ipv4Setting.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -1038,180 +1045,134 @@
                   class="ng-binding"
                 ></p>
               </div>
-              <form
-                polling=""
-                interval=""
-                loadstatus=""
-                class="form-horizontal formCount lantiq-form-text ng-valid ng-valid-required ng-dirty ng-valid-parse"
-                name="DeviceX_GTK_McastIGMPParameters_form"
-                name1="Device.X_GTK_Mcast.IGMPParameters?FastLeaveStatus,QueryRespInterval,LastMemQueryInterval,LastMemQueryCount"
-                id="DeviceX_GTK_McastIGMPParameters"
-              >
-                <div>
-                  <div class="wrapperdiv">
-                    <div class="panel-body">
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row checkbox-top-align">
-                          <div
-                            class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
-                          >
-                            <div class="checkbox1">
-                              <input
-                                type="checkbox"
-                                class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
-                                id="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                                ng-model="DeviceX_GTK_McastIGMPParameters.FastLeaveStatus"
-                                name="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                                checked
-                              /><label
-                                class="checkbox1_left_align"
-                                for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                                >Fast Leave</label
-                              ><label
-                                for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
+
+              <div>
+                <div class="wrapperdiv">
+                  <div class="panel-body">
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row checkbox-top-align">
+                        <div
+                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                        >
+                          <div class="checkbox1">
                             <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                              id="QueryRespInterval"
-                              placeholder="Please enter group query response interval"
-                              ng-model="DeviceX_GTK_McastIGMPParameters.QueryRespInterval"
-                              name="DeviceX_GTK_McastIGMPParameters_QueryRespInterval"
-                              required="required"
-                              value="10"
+                              type="checkbox"
+                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                              id="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+                              checked
                             /><label
-                              for="QueryRespInterval"
-                              class="required row active ng-binding"
-                              >Group Query Response Interval</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_QueryRespIntervalresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceX_GTK_McastIGMPParameters_QueryRespInterval"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_form.DeviceX_GTK_McastIGMPParameters_QueryRespInterval.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceX_GTK_McastIGMPParameters_QueryRespInterval"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_form.DeviceX_GTK_McastIGMPParameters_QueryRespInterval.$error.number"
-                            >
-                              Please enter a valid number
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
-                            <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                              id="LastMemQueryInterval"
-                              placeholder="Please enter group last member query interval"
-                              ng-model="DeviceX_GTK_McastIGMPParameters.LastMemQueryInterval"
-                              name="DeviceX_GTK_McastIGMPParameters_LastMemQueryInterval"
-                              required="required"
-                              value="2"
-                            /><label
-                              for="LastMemQueryInterval"
-                              class="required row active ng-binding"
-                              >Group Last Member Query Interval</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_LastMemQueryIntervalresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceX_GTK_McastIGMPParameters_LastMemQueryInterval"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_form.DeviceX_GTK_McastIGMPParameters_LastMemQueryInterval.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceX_GTK_McastIGMPParameters_LastMemQueryInterval"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_form.DeviceX_GTK_McastIGMPParameters_LastMemQueryInterval.$error.number"
-                            >
-                              Please enter a valid number
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
-                            <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                              id="LastMemQueryCount"
-                              placeholder="Please enter group last member query count"
-                              ng-model="DeviceX_GTK_McastIGMPParameters.LastMemQueryCount"
-                              name="DeviceX_GTK_McastIGMPParameters_LastMemQueryCount"
-                              required="required"
-                              value="2"
-                            /><label
-                              for="LastMemQueryCount"
-                              class="required row active ng-binding"
-                              >Group Last Member Query Count</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_LastMemQueryCountresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceX_GTK_McastIGMPParameters_LastMemQueryCount"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_form.DeviceX_GTK_McastIGMPParameters_LastMemQueryCount.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceX_GTK_McastIGMPParameters_LastMemQueryCount"
-                              ng-show="DeviceX_GTK_McastIGMPParameters_form.DeviceX_GTK_McastIGMPParameters_LastMemQueryCount.$error.number"
-                            >
-                              Please enter a valid number
-                            </span>
+                              class="checkbox1_left_align"
+                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+                              >Fast Leave</label
+                            ><label
+                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+                            ></label>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="text-center gemtek-button-inside-panel">
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Cancel"
-                        class="gemtek-btn-normal"
-                        value="Cancel"
-                        source=""
-                      />
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="QueryRespInterval"
+                            placeholder="Please enter group query response interval"
+                            required="required"
+                          /><label
+                            for="QueryRespInterval"
+                            class="required row active ng-binding"
+                            >Group Query Response Interval</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This Field is Required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_groupQInterval_error"
+                          >
+                            Please enter a valid number
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Modify"
-                        class="gemtek-btn-primary"
-                        value="Apply"
-                        source="Device.X_GTK_Mcast.IGMPParameters?FastLeaveStatus,QueryRespInterval,LastMemQueryInterval,LastMemQueryCount"
-                        hiddenparams="Device.X_GTK_Mcast.IGMPParameters?"
-                        formname="DeviceX_GTK_McastIGMPParameters"
-                        relationformname="DeviceX_GTK_McastIGMPParameters,"
-                      />
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="LastMemQueryInterval"
+                            placeholder="Please enter group last member query interval"
+                            required="required"
+                          /><label
+                            for="LastMemQueryInterval"
+                            class="required row active ng-binding"
+                            >Group Last Member Query Interval</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This Field is Required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_groupLInterval_error"
+                          >
+                            Please enter a valid number
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="LastMemQueryCount"
+                            placeholder="Please enter group last member query count"
+                            required="required"
+                          /><label
+                            for="LastMemQueryCount"
+                            class="required row active ng-binding"
+                            >Group Last Member Query Count</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This Field is Required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_groupLCount_error"
+                          >
+                            Please enter a valid number
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </form>
+                <div class="text-center gemtek-button-inside-panel">
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Cancel"
+                      class="gemtek-btn-normal"
+                      value="Cancel"
+                    />
+                  </div>
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Modify"
+                      class="gemtek-btn-primary"
+                      value="Apply"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

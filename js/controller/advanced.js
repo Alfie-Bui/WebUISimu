@@ -165,18 +165,14 @@ function loadPage(page, options) {
       var acsPassword = document.getElementById(
         "DeviceManagementServerPassword"
       );
-      var pwd_Eye = document.getElementById(
-        "icon_pw"
-      );
+      var pwd_Eye = document.getElementById("icon_pw");
       var connectionReqUsername = document.getElementById(
         "ConnectionRequestUsername"
       );
       var connectionReqPwd = document.getElementById(
         "DeviceManagementServerConnectionRequestPassword"
       );
-      var pwdEye2 = document.getElementById(
-        "icon_pw_2"
-      );
+      var pwdEye2 = document.getElementById("icon_pw_2");
       var enaPerodic = document.getElementById(
         "DeviceManagementServer_PeriodicInformEnable"
       );
@@ -302,8 +298,136 @@ function loadPage(page, options) {
       });
       break;
     case "advanced-multicast-ipv4Setting.html":
+      var fastLeave = document.getElementById(
+        "DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+      );
+      var groupQInterval = document.getElementById("QueryRespInterval");
+      var groupLInterval = document.getElementById("LastMemQueryInterval");
+      var groupLCount = document.getElementById("LastMemQueryCount");
+
+      var fillData = () => {
+        fastLeave.checked = Advanced.Multicast.FastLeave;
+        groupQInterval.value = Advanced.Multicast.GroupQInterval;
+        groupLInterval.value = Advanced.Multicast.GroupLInterval;
+        groupLCount.value = Advanced.Multicast.GroupLCount;
+      };
+
+      var initEvent = () => {
+        groupQInterval.addEventListener("input", () => {
+          checkEmpty_inputField(
+            groupQInterval,
+            document.getElementById("invalid_groupQInterval_error")
+          );
+        });
+
+        groupLInterval.addEventListener("click", () => {
+          checkEmpty_inputField(
+            groupLInterval,
+            document.getElementById("invalid_groupLInterval_error")
+          );
+        });
+
+        groupLCount.addEventListener("input", () => {
+          checkEmpty_inputField(
+            groupLCount,
+            document.getElementById("invalid_groupLCount_error")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-multicast-ipv4Setting.html", "Cancel");
+      });
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.Multicast.FastLeave = fastLeave.checked;
+          Advanced.Multicast.GroupQInterval = groupQInterval.value;
+          Advanced.Multicast.GroupLInterval = groupLInterval.value;
+          Advanced.Multicast.GroupLCount = groupLCount.value;
+
+          applyThenStoreToLS(
+            "advanced-multicast-ipv4Setting.html",
+            "Apply",
+            Advanced
+          );
+        }
+      });
+
       break;
     case "advanced-multicast.html":
+      console.log(`Load data: ${JSON.stringify(Advanced.Multicast)}`);
+      var igmpProxy = document.getElementById(
+        "DeviceX_GTK_McastIGMPParameters_ProxyStatus"
+      );
+      var snooping = document.getElementById(
+        "DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
+      );
+      var upstreamList = document.getElementById(
+        "DeviceX_GTK_Mcast_UpStreamIntrfName"
+      );
+      var downStreamList = document.getElementById(
+        "DeviceX_GTK_Mcast_DownStreamIntrf"
+      );
+
+      var upElemTemplate = document.getElementById("up_element_template");
+      var downElemTemplate = document.getElementById("down_element_template");
+      var numberOfWAN = Basic.WAN.Interfaces.length;
+
+      var fillData = () => {
+        igmpProxy.checked = Advanced.Multicast.IGMPProxy;
+        snooping.checked = Advanced.Multicast.Snooping;
+
+        console.log(`Number of WAN interfaces: ${numberOfWAN}`);
+        for (let i = 0; i < numberOfWAN; i++) {
+          const clone = upElemTemplate.content.cloneNode(true);
+
+          clone.firstElementChild.childNodes[1].id = i;
+          clone.firstElementChild.childNodes[2].htmlFor = i;
+
+          clone.firstElementChild.childNodes[1].checked =
+            Advanced.Multicast.UpstreamInterface[i];
+          clone.firstElementChild.childNodes[2].textContent =
+            Basic.WAN.Interfaces[i].Name;
+
+          upstreamList.appendChild(clone);
+        }
+
+        // for (const elem of Advanced.Multicast.DownStreamInterface) {
+        document.getElementById("DownStreamIntrf1").checked =
+          Advanced.Multicast.DownStreamInterface[0];
+        // }
+      };
+
+      fillData();
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-multicast.html", "Cancel");
+      });
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        // get data
+        Advanced.Multicast.IGMPProxy = igmpProxy.checked;
+        Advanced.Multicast.Snooping = snooping.checked;
+
+        Advanced.Multicast.UpstreamInterface.length = 0;
+        for (var i = 0; i < numberOfWAN; i++) {
+          Advanced.Multicast.UpstreamInterface.push(
+            document.getElementById(i).checked
+          );
+        }
+
+        console.log(` Apply: ${JSON.stringify(Advanced.Multicast)}`);
+        Advanced.Multicast.DownStreamInterface.length = 0;
+        Advanced.Multicast.DownStreamInterface.push(
+          document.getElementById("DownStreamIntrf1").checked
+        );
+
+        applyThenStoreToLS("advanced-multicast.html", "Apply", Advanced);
+      });
       break;
     case "advanced-port_mapping-add.html":
       break;

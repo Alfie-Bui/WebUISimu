@@ -134,6 +134,12 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-multicast.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -1006,215 +1012,168 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcconfiguration"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="advanced-multicast.html">Basic Settings</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcsettings"}'
-              >
+              <li>
                 <a href="advanced-multicast-ipv4Setting.html"
                   >IPv4 Advanced Settings</a
                 >
               </li>
             </ul>
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceX_GTK_McastIGMPParametersDeviceX_GTK_McastIGMPParametersDeviceX_GTK_Mcastpopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceX_GTK_McastIGMPParametersDeviceX_GTK_McastIGMPParametersDeviceX_GTK_Mcastpopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceX_GTK_McastIGMPParametersDeviceX_GTK_McastIGMPParametersDeviceX_GTK_Mcastpopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
-              <form
-                polling=""
-                interval=""
-                loadstatus=""
-                class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid"
-                name="DeviceX_GTK_McastIGMPParametersDeviceX_GTK_McastIGMPParametersDeviceX_GTK_Mcast_form"
-                name1="Device.X_GTK_Mcast.IGMPParameters?ProxyStatus&amp;Device.X_GTK_Mcast.IGMPParameters?SnoopingStatus&amp;Device.X_GTK_Mcast?UpStreamIntrfName,DownStreamIntrf"
-                id="DeviceX_GTK_McastIGMPParametersDeviceX_GTK_McastIGMPParametersDeviceX_GTK_Mcast"
-              >
-                <div>
-                  <div class="wrapperdiv">
-                    <div class="panel-body no-padding-vr"></div>
-                  </div>
-                  <div class="gemtek-onerow">
-                    <div class="panel-body">
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row checkbox-top-align">
-                          <div
-                            class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
-                          >
-                            <div class="checkbox1">
-                              <input
-                                type="checkbox"
-                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                id="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
-                                ng-model="DeviceX_GTK_McastIGMPParameters.ProxyStatus"
-                                name="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
-                                checked
-                              /><label
-                                class="checkbox1_left_align"
-                                for="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
-                                >IGMP Proxy</label
-                              ><label
-                                for="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
-                              ></label>
-                            </div>
+              <div>
+                <div class="wrapperdiv">
+                  <div class="panel-body no-padding-vr"></div>
+                </div>
+                <div class="gemtek-onerow">
+                  <div class="panel-body">
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row checkbox-top-align">
+                        <div
+                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                        >
+                          <div class="checkbox1">
+                            <input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              id="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
+                              name="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
+                              checked
+                            /><label
+                              class="checkbox1_left_align"
+                              for="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
+                              >IGMP Proxy</label
+                            ><label
+                              for="DeviceX_GTK_McastIGMPParameters_ProxyStatus"
+                            ></label>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="gemtek-onerow">
-                    <div class="panel-body">
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row checkbox-top-align">
-                          <div
-                            class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
-                          >
-                            <div class="checkbox1">
-                              <input
-                                type="checkbox"
-                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                id="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
-                                ng-model="DeviceX_GTK_McastIGMPParameters.SnoopingStatus"
-                                name="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
-                                checked
-                              /><label
-                                class="checkbox1_left_align"
-                                for="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
-                                >Snooping</label
-                              ><label
-                                for="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="wrapperdiv">
-                    <div class="panel-body no-padding-vr">
-                      <div class="form-group multicheckbox">
-                        <div class="row">
-                          <label
-                            for="UpStreamIntrfName"
-                            class="col-xs-12 no-padding-hr control-label multi-checkbox-label ng-binding"
-                            >UpStream Interface</label
-                          >
-                          <div
-                            class="col-xs-12 col-sm-12 col-md-3 no-padding-hr"
-                          >
-                            <div
-                              class="checkbox-scroll-vr"
-                              id="DeviceX_GTK_Mcast_UpStreamIntrfName"
-                            >
-                              <!-- ngRepeat: role in UpStreamIntrfName.split(',') -->
-                              <p
-                                class="no-margin-vr ng-scope"
-                                ng-repeat="
-                                        role in UpStreamIntrfName.split(&#39;,&#39;)"
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="UpStreamIntrfName1"
-                                  checklist-value="role"
-                                  ng-model="checked"
-                                  class="ng-scope ng-pristine ng-untouched ng-valid"
-                                  checklist-model='getRoles("DeviceX_GTK_Mcast.UpStreamIntrfName")'
-                                  checked
-                                /><label
-                                  class="checkbox1_left_align no-margin-vr ng-binding"
-                                  for="UpStreamIntrfName1"
-                                >
-                                  ANI0_wan8
-                                </label>
-                              </p>
-                              <!-- end ngRepeat: role in UpStreamIntrfName.split(',') -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group multicheckbox">
-                        <div class="row">
-                          <label
-                            for="DownStreamIntrf"
-                            class="col-xs-12 no-padding-hr control-label multi-checkbox-label ng-binding"
-                            >DownStream Interface</label
-                          >
-                          <div
-                            class="col-xs-12 col-sm-12 col-md-3 no-padding-hr"
-                          >
-                            <div
-                              class="checkbox-scroll-vr"
-                              id="DeviceX_GTK_Mcast_DownStreamIntrf"
-                            >
-                              <!-- ngRepeat: role in DownStreamIntrf.split(',') -->
-                              <p
-                                class="no-margin-vr ng-scope"
-                                ng-repeat="
-                                        role in DownStreamIntrf.split(&#39;,&#39;)"
-                              >
-                                <input
-                                  type="checkbox"
-                                  id="DownStreamIntrf1"
-                                  checklist-value="role"
-                                  ng-model="checked"
-                                  class="ng-scope ng-pristine ng-untouched ng-valid"
-                                  checklist-model='getRoles("DeviceX_GTK_Mcast.DownStreamIntrf")'
-                                  checked
-                                /><label
-                                  class="checkbox1_left_align no-margin-vr ng-binding"
-                                  for="DownStreamIntrf1"
-                                >
-                                  br-lan
-                                </label>
-                              </p>
-                              <!-- end ngRepeat: role in DownStreamIntrf.split(',') -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="text-center gemtek-button-inside-panel">
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Cancel"
-                        class="gemtek-btn-normal"
-                        value="Cancel"
-                        source=""
-                      />
-                    </div>
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Modify"
-                        class="gemtek-btn-primary"
-                        value="Apply"
-                        source="Device.X_GTK_Mcast.IGMPParameters?ProxyStatus&amp;Device.X_GTK_Mcast.IGMPParameters?SnoopingStatus&amp;Device.X_GTK_Mcast?UpStreamIntrfName,DownStreamIntrf"
-                        hiddenparams="Device.X_GTK_Mcast.IGMPParameters?&amp;Device.X_GTK_Mcast.IGMPParameters?&amp;Device.X_GTK_Mcast?"
-                        formname="DeviceX_GTK_McastIGMPParametersDeviceX_GTK_McastIGMPParametersDeviceX_GTK_Mcast"
-                        relationformname="DeviceX_GTK_McastIGMPParameters,DeviceX_GTK_McastIGMPParameters,DeviceX_GTK_Mcast,"
-                      />
                     </div>
                   </div>
                 </div>
-              </form>
+                <div class="gemtek-onerow">
+                  <div class="panel-body">
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row checkbox-top-align">
+                        <div
+                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                        >
+                          <div class="checkbox1">
+                            <input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              id="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
+                              name="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
+                              checked
+                            /><label
+                              class="checkbox1_left_align"
+                              for="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
+                              >Snooping</label
+                            ><label
+                              for="DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
+                            ></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wrapperdiv">
+                  <div class="panel-body no-padding-vr">
+                    <div class="form-group multicheckbox">
+                      <div class="row">
+                        <label
+                          for="UpStreamIntrfName"
+                          class="col-xs-12 no-padding-hr control-label multi-checkbox-label ng-binding"
+                          >UpStream Interface</label
+                        >
+                        <div class="col-xs-12 col-sm-12 col-md-3 no-padding-hr">
+                          <div
+                            class="checkbox-scroll-vr"
+                            id="DeviceX_GTK_Mcast_UpStreamIntrfName"
+                          >
+                            <!-- ngRepeat: role in UpStreamIntrfName.split(',') -->
+                            <template id="up_element_template">
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  checklist-value="role"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                  checked
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding up_ena"
+                                  for=""
+                                >
+                                </label>
+                              </p>
+                            </template>
+                            <!-- end ngRepeat: role in UpStreamIntrfName.split(',') -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group multicheckbox">
+                      <div class="row">
+                        <label
+                          for="DownStreamIntrf"
+                          class="col-xs-12 no-padding-hr control-label multi-checkbox-label ng-binding"
+                          >DownStream Interface</label
+                        >
+                        <div class="col-xs-12 col-sm-12 col-md-3 no-padding-hr">
+                          <div
+                            class="checkbox-scroll-vr"
+                            id="DeviceX_GTK_Mcast_DownStreamIntrf"
+                          >
+                            <!-- ngRepeat: role in DownStreamIntrf.split(',') -->
+                            <!-- <template id="down_element_template"> -->
+                            <p class="no-margin-vr ng-scope">
+                              <input
+                                type="checkbox"
+                                checklist-value="role"
+                                ng-model="checked"
+                                id="DownStreamIntrf1"
+                                class="ng-scope ng-pristine ng-untouched ng-valid"
+                                checked
+                              /><label
+                                class="checkbox1_left_align no-margin-vr ng-binding"
+                                for="DownStreamIntrf1"
+                                >br-lan
+                              </label>
+                            </p>
+                            <!-- </template> -->
+                            <!-- end ngRepeat: role in DownStreamIntrf.split(',') -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center gemtek-button-inside-panel">
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Cancel"
+                      class="gemtek-btn-normal"
+                      value="Cancel"
+                      source=""
+                    />
+                  </div>
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Modify"
+                      class="gemtek-btn-primary"
+                      value="Apply"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
