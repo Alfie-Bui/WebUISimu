@@ -134,6 +134,13 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-port_triggering.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -970,45 +977,25 @@
             using a specified outgoing port(trigger) for specific traffic.
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               Port triggering opens an incoming port when the user's computer is
               using a specified outgoing port(trigger) for specific traffic.
             </p>
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="panel ng-scope">
-            <div
-              class="alert alert-danger ng-hide"
-              ng-show="DeviceNATX_GTK_PortTriggeringpopup"
-            >
-              <a
-                class="close"
-                aria-label="close"
-                ng-click='popupclose("DeviceNATX_GTK_PortTriggeringpopup");
-                    '
-                >✖
-              </a>
+            <div class="alert alert-danger ng-hide">
+              <a class="close" aria-label="close">✖ </a>
               <p
                 ng-bind-html="DeviceNATX_GTK_PortTriggeringpopupval | unsafe"
                 class="ng-binding"
               ></p>
             </div>
             <div class="panel-heading blu_bg gemtek-portMap-panel-title">
-              <span
-                ng-bind="
-                            &#39;Port Trigger Rules&#39; | translate
-                        "
-                class="gemtek-port-title-style ng-binding"
+              <span class="gemtek-port-title-style ng-binding"
                 >Port Trigger Rules</span
               ><a
-                id="Device.NAT.X_GTK_PortTriggering.*"
+                id="Device.NAT.X_GTK_PortTriggering"
                 class="gemtek-btn-normal pull-right gemtek-btn-addplus"
-                href="advanced-port_triggering-add.html"
                 ><i class="fa fa-plus icontxtgap"></i
                 ><span style="font-weight: normal" class="ng-binding"
                   >Add</span
@@ -1018,218 +1005,98 @@
             <div class="panel-body">
               <div class="table-responsive table-scroll-vr">
                 <table
-                  polling=""
-                  loadstatus=""
-                  interval=""
                   class="table tableCount theme_intel"
-                  formname=""
-                  name="Device.NAT.X_GTK_PortTriggering.*?Enable,TriggerPort,TriggerPortEndRange,TriggerProtocol,OpenPort,OpenPortEndRange,OpenProtocol,"
-                  componenttype="table"
-                  objparamrelation="DeviceNATX_GTK_PortTriggering__Enable__string,DeviceNATX_GTK_PortTriggering__TriggerPort__string,DeviceNATX_GTK_PortTriggering__TriggerPortEndRange__string,DeviceNATX_GTK_PortTriggering__TriggerProtocol__dropdown1,DeviceNATX_GTK_PortTriggering__OpenPort__string,DeviceNATX_GTK_PortTriggering__OpenPortEndRange__string,DeviceNATX_GTK_PortTriggering__OpenProtocol__dropdown1,"
-                  iconicparams="Enable,"
                   id="DeviceNATX_GTK_PortTriggering"
-                  filterdata=""
                 >
                   <thead class="">
                     <tr>
-                      <th
-                        id="Enable"
-                        class=""
-                        ng-init='DeviceNATX_GTK_PortTriggering1=true;jsonreq("Enable","user_status");Enabledisplaystatus=false;
-                                                            '
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Enable Rules&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Enable Rules</span
-                        >
+                      <th id="Enable" class="">
+                        <span class="ng-binding">Enable Rules</span>
                       </th>
-                      <th
-                        id="TriggerPort"
-                        class=""
-                        ng-init="DeviceNATX_GTK_PortTriggering2=true;DeviceNATX_GTK_PortTriggering2=true;TriggerPortdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Trigger Port</span
-                        >
+                      <th id="TriggerPort" class="">
+                        <span class="ng-binding">Trigger Port</span>
                       </th>
-                      <th
-                        id="TriggerPortEndRange"
-                        class=""
-                        ng-init="DeviceNATX_GTK_PortTriggering3=true;DeviceNATX_GTK_PortTriggering3=true;TriggerPortEndRangedisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port Range&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Trigger Port Range</span
-                        >
+                      <th id="TriggerPortEndRange" class="">
+                        <span class="ng-binding">Trigger Port Range</span>
                       </th>
-                      <th
-                        id="TriggerProtocol"
-                        class=""
-                        ng-init='DeviceNATX_GTK_PortTriggering4=true;dropdownUrlReq("DeviceNATX_GTK_PortTriggering","TriggerProtocol","porttrigger_protocol","","","")'
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Protocol&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Trigger Protocol</span
-                        >
+                      <th id="TriggerProtocol" class="">
+                        <span class="ng-binding">Trigger Protocol</span>
                       </th>
-                      <th
-                        id="OpenPort"
-                        class=""
-                        ng-init="DeviceNATX_GTK_PortTriggering5=true;DeviceNATX_GTK_PortTriggering5=true;OpenPortdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Port&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Incoming Port</span
-                        >
+                      <th id="OpenPort" class="">
+                        <span class="ng-binding">Incoming Port</span>
                       </th>
-                      <th
-                        id="OpenPortEndRange"
-                        class=""
-                        ng-init="DeviceNATX_GTK_PortTriggering6=true;DeviceNATX_GTK_PortTriggering6=true;OpenPortEndRangedisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Port Range&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Incoming Port Range</span
-                        >
+                      <th id="OpenPortEndRange" class="">
+                        <span class="ng-binding">Incoming Port Range</span>
                       </th>
-                      <th
-                        id="OpenProtocol"
-                        class=""
-                        ng-init='DeviceNATX_GTK_PortTriggering7=true;dropdownUrlReq("DeviceNATX_GTK_PortTriggering","OpenProtocol","porttrigger_protocol","","","")'
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Protocol&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Incoming Protocol</span
-                        >
+                      <th id="OpenProtocol" class="">
+                        <span class="ng-binding">Incoming Protocol</span>
                       </th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="bodyData">
-                    <!-- ngRepeat: user in DeviceNATX_GTK_PortTriggeringtable -->
-                    <tr class="ng-scope">
-                      <!-- ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class="gemtek-enabled"
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
+                    <template id="ruleTemplate">
+                      <tr class="ng-scope">
+                        <td class="no-padding-hr ng-scope">
+                          <span class="enaRule"></span>
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope triggerPort">
+                              9000
+                            </span></span
                           >
-                            9000 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope triggerRange">
+                              80
+                            </span></span
                           >
-                            80 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><span
-                          class="ng-binding ng-scope"
-                        >
-                          TCP </span
-                        ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class="ng-binding ng-scope triggerProtocol">
+                            TCP
+                          </span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope incoming">
+                              8000
+                            </span></span
                           >
-                            8000 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope incomingRange">
+                              80
+                            </span></span
                           >
-                            80 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><span
-                          class="ng-binding ng-scope"
-                        >
-                          TCP </span
-                        ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope ng-hide">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATX_GTK_PortTriggering' -->
-                      <!-- ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <button
-                          class="btn btn-xs table-btn-txt"
-                          onclick="window.location.href='advanced-port_triggering-add.html'"
-                          name="edit"
-                          id="Device.NAT.X_GTK_PortTriggering.1"
-                        >
-                          <img src="images/icons/icon-1/edit.svg" /></button
-                        ><button
-                          class="btn btn-xs table-btn no-margin"
-                          popupinfo="DeviceNATX_GTK_PortTriggering"
-                          onclick="window.confirm('Are you sure you want to Delete?')"
-                          name="delete"
-                          id="Device.NAT.X_GTK_PortTriggering.1"
-                        >
-                          <img src="images/icons/icon-1/delete.svg" />
-                        </button>
-                      </td>
-                      <!-- end ngIf: true==$last --><!-- end ngRepeat: td in user -->
-                    </tr>
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class="ng-binding ng-scope incomingProtocol">
+                            TCP
+                          </span>
+                        </td>
+                        <td class="no-padding-hr ng-scope ng-hide">
+                          class="" >
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <button
+                            class="btn btn-xs table-btn-txt editBtn"
+                            name="edit"
+                          >
+                            <img src="images/icons/icon-1/edit.svg" /></button
+                          ><button
+                            class="btn btn-xs table-btn no-margin deleteBtn"
+                            name="delete"
+                          >
+                            <img src="images/icons/icon-1/delete.svg" />
+                          </button>
+                        </td>
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>

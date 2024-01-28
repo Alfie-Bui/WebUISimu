@@ -136,9 +136,10 @@
     <script src="./js/controller/advanced.js"></script>
 
     <script>
-      function back_to_previous() {
-        window.location.href = "advanced-port_triggering.html";
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-port_triggering-add.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -1000,13 +1001,7 @@
             using a specified outgoing port(trigger) for specific traffic.
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               Port triggering opens an incoming port when the user's computer is
               using a specified outgoing port(trigger) for specific traffic.
             </p>
@@ -1020,422 +1015,283 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceNATX_GTK_PortTriggeringpopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceNATX_GTK_PortTriggeringpopup");
-                        '
-                  >✖
-                </a>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
                 <p
                   ng-bind-html="DeviceNATX_GTK_PortTriggeringpopupval | unsafe"
                   class="ng-binding"
                 ></p>
               </div>
-              <form
-                polling=""
-                interval=""
-                loadstatus=""
-                class="form-horizontal formCount lantiq-form-text ng-valid-min ng-valid-max ng-valid ng-valid-required ng-dirty ng-valid-parse"
-                name="DeviceNATX_GTK_PortTriggering_form"
-                name1="Device.NAT.X_GTK_PortTriggering.*?Enable,TriggerPort,TriggerPortEndRange,TriggerProtocol,OpenPort,OpenPortEndRange,OpenProtocol"
-                id="DeviceNATX_GTK_PortTriggering"
-              >
-                <div>
-                  <div class="wrapperdiv">
-                    <div class="panel-body">
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div>
-                            <div class="checkbox">
-                              <span class="ng-binding">Enable Rule</span
-                              ><input
-                                type="checkbox"
-                                class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
-                                id="DeviceNATX_GTK_PortTriggering_Enable"
-                                value="1"
-                                name="DeviceNATX_GTK_PortTriggering_Enable"
-                                checked
-                              /><label
-                                class="checkbox_left_align"
-                                for="DeviceNATX_GTK_PortTriggering_Enable"
-                              ></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
-                            <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max ng-valid-required"
-                              id="TriggerPort"
-                              placeholder="true"
-                              ng-required="
-                                        true
-                                    "
-                              min="0"
-                              max="65535"
-                              name="DeviceNATX_GTK_PortTriggering_TriggerPort"
-                              value="9000"
-                              ng-init='defaultvalue("DeviceNATX_GTK_PortTriggering","TriggerPort","0")'
-                              required="required"
+              <div>
+                <div class="wrapperdiv">
+                  <div class="panel-body">
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div>
+                          <div class="checkbox">
+                            <span class="ng-binding">Enable Rule</span
+                            ><input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                              id="DeviceNATX_GTK_PortTriggering_Enable"
+                              checked
                             /><label
-                              for="TriggerPort"
-                              class="required row active ng-binding"
-                              >Trigger Port</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceNATX_GTK_PortTriggering_TriggerPortresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPort.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPort.$error.number"
-                            >
-                              Please enter a valid number </span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPort.$error.min&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port.$error.minval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be greater than or equal to </span
-                              ><span>0</span></span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPort.$error.max&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port.$error.maxval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be less than or equal to </span
-                              ><span>65535</span></span
-                            >
+                              class="checkbox_left_align"
+                              for="DeviceNATX_GTK_PortTriggering_Enable"
+                            ></label>
                           </div>
                         </div>
                       </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
-                            <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
-                              id="TriggerPortEndRange"
-                              placeholder="Please Enter the value"
-                              min="0"
-                              max="65535"
-                              name="DeviceNATX_GTK_PortTriggering_TriggerPortEndRange"
-                              value="80"
-                            /><label
-                              for="TriggerPortEndRange"
-                              class="active ng-binding"
-                              >Trigger Port Range</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceNATX_GTK_PortTriggering_TriggerPortEndRangeresponsestatus"
-                              ng-bind="DeviceNATX_GTK_PortTriggering_TriggerPortEndRangeval |translate
-                        "
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPortEndRange"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPortEndRange.$error.number"
-                            >
-                              Please enter a valid number </span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPortEndRange"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPortEndRange.$error.min&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port Range.$error.minval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be greater than or equal to </span
-                              ><span>0</span></span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerPortEndRange"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerPortEndRange.$error.max&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Trigger Port Range.$error.maxval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be less than or equal to </span
-                              ><span>65535</span></span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="required row">
-                          <label
-                            for="TriggerProtocol"
-                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            >Trigger Protocol</label
-                          >
-                          <div
-                            style="margin-top: 20px"
-                            class="no-padding-hr-l col-xs-12 col-sm-5"
-                          >
-                            <select
-                              class="dropdown-toggle form-control1 hidden-dom-removal ng-valid ng-valid-required ng-dirty ng-valid-parse ng-touched"
-                              id="TriggerProtocol"
-                              validation="false"
-                              name="DeviceNATX_GTK_PortTriggering_TriggerProtocol"
-                              required="required"
-                            >
-                              <option value="0" selected="selected" label="TCP">
-                                TCP
-                              </option>
-                              <option value="1" label="UDP">UDP</option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceNATX_GTK_PortTriggering_TriggerProtocolresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_TriggerProtocol"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_TriggerProtocol.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
-                            <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max ng-valid-required"
-                              id="OpenPort"
-                              placeholder="true"
-                              ng-required="
-                                        true
-                                    "
-                              min="0"
-                              max="65535"
-                              name="DeviceNATX_GTK_PortTriggering_OpenPort"
-                              value="8000"
-                              required="required"
-                            /><label
-                              for="OpenPort"
-                              class="required row active ng-binding"
-                              >Incoming Port</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceNATX_GTK_PortTriggering_OpenPortresponsestatus"
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPort"
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenPort.$error.number"
-                            >
-                              Please enter a valid number </span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenPort.$error.min&amp;&amp; formsubmitstatus"
-                              ><span class="ng-binding"
-                                >Value must be greater than or equal to </span
-                              ><span>0</span></span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPort"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenPort.$error.max&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Port.$error.maxval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be less than or equal to </span
-                              ><span>65535</span></span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="row">
-                          <div
-                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                          >
-                            <input
-                              type="number"
-                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
-                              id="OpenPortEndRange"
-                              placeholder="Please Enter the value"
-                              min="0"
-                              max="65535"
-                              name="DeviceNATX_GTK_PortTriggering_OpenPortEndRange"
-                              value="80"
-                            /><label
-                              for="OpenPortEndRange"
-                              class="active ng-binding"
-                              >Incoming Port Range</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceNATX_GTK_PortTriggering_OpenPortEndRangeresponsestatus"
-                              ng-bind="DeviceNATX_GTK_PortTriggering_OpenPortEndRangeval |translate
-                        "
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPortEndRange"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenPortEndRange.$error.number"
-                            >
-                              Please enter a valid number </span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPortEndRange"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenPortEndRange.$error.min&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Port Range.$error.minval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be greater than or equal to </span
-                              ><span>0</span></span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenPortEndRange"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenPortEndRange.$error.max&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Port Range.$error.maxval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be less than or equal to </span
-                              ><span>65535</span></span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div class="required row">
-                          <label
-                            for="OpenProtocol"
-                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            ng-bind="
-                        &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Protocol&#39; | translate
-                    "
-                            >Incoming Protocol</label
-                          >
-                          <div
-                            style="margin-top: 20px"
-                            class="no-padding-hr-l col-xs-12 col-sm-5"
-                          >
-                            <select
-                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-valid ng-valid-required ng-touched"
-                              id="OpenProtocol"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
-                              name="DeviceNATX_GTK_PortTriggering_OpenProtocol"
-                              ng-model="DeviceNATX_GTK_PortTriggering.OpenProtocol"
-                              ng-change='ddChange("DeviceNATX_GTK_PortTriggering__OpenProtocol",DeviceNATX_GTK_PortTriggering.OpenProtocol)'
-                              ng-init='dropdownUrlReq("DeviceNATX_GTK_PortTriggering","OpenProtocol","porttrigger_protocol","false","true","","","")'
-                              ng-options="obj.id as obj.name for obj in OpenProtocol"
-                              required="required"
-                            >
-                              <option value="0" selected="selected" label="TCP">
-                                TCP
-                              </option>
-                              <option value="1" label="UDP">UDP</option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceNATX_GTK_PortTriggering_OpenProtocolresponsestatus"
-                              ng-bind="DeviceNATX_GTK_PortTriggering_OpenProtocolval |translate
-                        "
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceNATX_GTK_PortTriggering_OpenProtocol"
-                              ng-show="DeviceNATX_GTK_PortTriggering_form.DeviceNATX_GTK_PortTriggering_OpenProtocol.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.NAT.X_GTK_PortTriggering.*.Incoming Protocol.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
                     </div>
-                  </div>
-                  <div
-                    class="col-lg-12 col-md-12 col-xs-12 text-center"
-                    style="
-                      position: absolute;
-                      bottom: -60px;
-                      left: 50%;
-                      transform: translateX(-50%);
-                    "
-                  >
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Close"
-                        class="gemtek-btn-normal"
-                        value="Cancel"
-                        source="Device.NAT.X_GTK_PortTriggering.*?Enable,TriggerPort,TriggerPortEndRange,TriggerProtocol,OpenPort,OpenPortEndRange,OpenProtocol"
-                        hiddenparams="Device.NAT.X_GTK_PortTriggering.*?Enable__1,TriggerPort__0,TriggerPortEndRange__,OpenPort__0,OpenPortEndRange__,"
-                        formname="DeviceNATX_GTK_PortTriggering"
-                        relationformname="DeviceNATX_GTK_PortTriggering,"
-                        onclick="back_to_previous()"
-                      />
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max ng-valid-required"
+                            id="TriggerPort"
+                            placeholder="true"
+                            min="0"
+                            max="65535"
+                            required="required"
+                          /><label
+                            for="TriggerPort"
+                            class="required row active ng-binding"
+                            >Trigger Port</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="empty_triggerPort_error"
+                            >* This Field is Required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_triggerPort_error"
+                          >
+                            Please enter a valid number </span
+                          ><span
+                            class="error ng-hide"
+                            id="lowLimit_triggerPort_error"
+                            ><span class="ng-binding"
+                              >Value must be greater than or equal to </span
+                            ><span>0</span></span
+                          ><span
+                            class="error ng-hide"
+                            id="upLimit_triggerPort_error"
+                            ><span class="ng-binding"
+                              >Value must be less than or equal to </span
+                            ><span>65535</span></span
+                          >
+                        </div>
+                      </div>
                     </div>
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Add"
-                        class="gemtek-btn-primary"
-                        value="Apply"
-                        source="Device.NAT.X_GTK_PortTriggering.*?Enable,TriggerPort,TriggerPortEndRange,TriggerProtocol,OpenPort,OpenPortEndRange,OpenProtocol"
-                        hiddenparams="Device.NAT.X_GTK_PortTriggering.*?Enable__1,TriggerPort__0,TriggerPortEndRange__,OpenPort__0,OpenPortEndRange__,"
-                        formname="DeviceNATX_GTK_PortTriggering"
-                        relationformname="DeviceNATX_GTK_PortTriggering,"
-                        onclick="back_to_previous()"
-                      />
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                            id="TriggerPortEndRange"
+                            placeholder="Please Enter the value"
+                            min="0"
+                            max="65535"
+                          /><label
+                            for="TriggerPortEndRange"
+                            class="active ng-binding"
+                            >Trigger Port Range</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_triggerRange_error"
+                          >
+                            Please enter a valid number </span
+                          ><span
+                            class="error ng-hide"
+                            id="lowLimit_triggerRange_error"
+                            ><span class="ng-binding"
+                              >Value must be greater than or equal to </span
+                            ><span>0</span></span
+                          ><span
+                            class="error ng-hide"
+                            id="upLimit_triggerRange_error"
+                            ><span class="ng-binding"
+                              >Value must be less than or equal to </span
+                            ><span>65535</span></span
+                          >
+                        </div>
+                      </div>
                     </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="required row">
+                        <label
+                          for="TriggerProtocol"
+                          class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                          >Trigger Protocol</label
+                        >
+                        <div
+                          style="margin-top: 20px"
+                          class="no-padding-hr-l col-xs-12 col-sm-5"
+                        >
+                          <select
+                            class="dropdown-toggle form-control1 hidden-dom-removal ng-valid ng-valid-required ng-dirty ng-valid-parse ng-touched"
+                            id="TriggerProtocol"
+                            required="required"
+                          >
+                            <option value="0" selected="selected" label="TCP">
+                              TCP
+                            </option>
+                            <option value="1" label="UDP">UDP</option></select
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This Field is Required</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max ng-valid-required"
+                            id="OpenPort"
+                            placeholder="true"
+                            min="0"
+                            max="65535"
+                            required="required"
+                          /><label
+                            for="OpenPort"
+                            class="required row active ng-binding"
+                            >Incoming Port</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This Field is Required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_incoming_error"
+                          >
+                            Please enter a valid number </span
+                          ><span
+                            class="error ng-hide"
+                            id="lowLimit_incoming_error"
+                            ><span class="ng-binding"
+                              >Value must be greater than or equal to </span
+                            ><span>0</span></span
+                          ><span
+                            class="error ng-hide"
+                            id="upLimit_incoming_error"
+                            ><span class="ng-binding"
+                              >Value must be less than or equal to </span
+                            ><span>65535</span></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                            id="OpenPortEndRange"
+                            placeholder="Please Enter the value"
+                            min="0"
+                            max="65535"
+                          /><label
+                            for="OpenPortEndRange"
+                            class="active ng-binding"
+                            >Incoming Port Range</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_incomingRange_error"
+                          >
+                            Please enter a valid number </span
+                          ><span
+                            class="error ng-hide"
+                            id="lowLimit_incomingRange_error"
+                            ><span class="ng-binding"
+                              >Value must be greater than or equal to </span
+                            ><span>0</span></span
+                          ><span
+                            class="error ng-hide"
+                            id="upLimit_incomingRange_error"
+                            ><span class="ng-binding"
+                              >Value must be less than or equal to </span
+                            ><span>65535</span></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="required row">
+                        <label
+                          for="OpenProtocol"
+                          class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                          >Incoming Protocol</label
+                        >
+                        <div
+                          style="margin-top: 20px"
+                          class="no-padding-hr-l col-xs-12 col-sm-5"
+                        >
+                          <select
+                            class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-valid ng-valid-required ng-touched"
+                            id="OpenProtocol"
+                            required="required"
+                          >
+                            <option value="0" selected="selected" label="TCP">
+                              TCP
+                            </option>
+                            <option value="1" label="UDP">UDP</option></select
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This Field is Required</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
                   </div>
                 </div>
-              </form>
+                <div
+                  class="col-lg-12 col-md-12 col-xs-12 text-center"
+                  style="
+                    position: absolute;
+                    bottom: -60px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                  "
+                >
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Close"
+                      class="gemtek-btn-normal"
+                      value="Cancel"
+                    />
+                  </div>
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Add"
+                      class="gemtek-btn-primary"
+                      value="Apply"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

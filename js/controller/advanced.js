@@ -434,8 +434,217 @@ function loadPage(page, options) {
     case "advanced-port_mapping.html":
       break;
     case "advanced-port_triggering-add.html":
+      console.log(`Load data: ${JSON.stringify(Advanced.PortTriggering)}`);
+
+      var filledData;
+      var addFlag = false;
+      if (Advanced.PortTriggering.onEdit === "") {
+        addFlag = true;
+        filledData = {
+          EnaRule: true,
+          TrigerPort: "",
+          TrigerPortRange: "",
+          TrigerProtocol: "0",
+          IncomingPort: "",
+          IncomingPortRange: "",
+          IncomingProtocol: "0",
+        };
+      } else {
+        filledData =
+          Advanced.PortTriggering.Rules[
+            parseInt(Advanced.PortTriggering.onEdit)
+          ];
+      }
+
+      console.log(`filledData: ${JSON.stringify(filledData)}`);
+
+      var enaRule = document.getElementById(
+        "DeviceNATX_GTK_PortTriggering_Enable"
+      );
+      var triggerPort = document.getElementById("TriggerPort");
+      var triggerPortRange = document.getElementById("TriggerPortEndRange");
+      var triggerProtocol = document.getElementById("TriggerProtocol");
+      var incomingPort = document.getElementById("OpenPort");
+      var incomingPortRange = document.getElementById("OpenPortEndRange");
+      var incomingPortProtocol = document.getElementById("OpenProtocol");
+
+      var fillData = () => {
+        enaRule.checked = filledData.EnaRule;
+        triggerPort.value = filledData.TrigerPort;
+        triggerPortRange.value = filledData.TrigerPortRange;
+        triggerProtocol.value = filledData.TrigerProtocol;
+        incomingPort.value = filledData.IncomingPort;
+        incomingPortRange.value = filledData.IncomingPortRange;
+        incomingPortProtocol.value = filledData.IncomingProtocol;
+
+        // check errror in case it's Add new
+        checkMinMaxError_inputField(
+          triggerPort,
+          document.getElementById("lowLimit_triggerPort_error"),
+          document.getElementById("upLimit_triggerPort_error"),
+          document.getElementById("invalid_triggerPort_error")
+        );
+        checkMinMaxError_inputField(
+          triggerPortRange,
+          document.getElementById("lowLimit_triggerRange_error"),
+          document.getElementById("upLimit_triggerRange_error"),
+          document.getElementById("invalid_triggerRange_error")
+        );
+        checkMinMaxError_inputField(
+          incomingPort,
+          document.getElementById("lowLimit_incoming_error"),
+          document.getElementById("upLimit_incoming_error"),
+          document.getElementById("invalid_incoming_error")
+        );
+        checkMinMaxError_inputField(
+          incomingPortRange,
+          document.getElementById("lowLimit_incomingRange_error"),
+          document.getElementById("upLimit_incomingRange_error"),
+          document.getElementById("invalid_incomingRange_error")
+        );
+      };
+
+      var initEvent = () => {
+        triggerPort.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            triggerPort,
+            document.getElementById("lowLimit_triggerPort_error"),
+            document.getElementById("upLimit_triggerPort_error"),
+            document.getElementById("invalid_triggerPort_error")
+          );
+        });
+
+        triggerPortRange.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            triggerPortRange,
+            document.getElementById("lowLimit_triggerRange_error"),
+            document.getElementById("upLimit_triggerRange_error"),
+            document.getElementById("invalid_triggerRange_error")
+          );
+        });
+
+        incomingPort.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            incomingPort,
+            document.getElementById("lowLimit_incoming_error"),
+            document.getElementById("upLimit_incoming_error"),
+            document.getElementById("invalid_incoming_error")
+          );
+        });
+
+        incomingPortRange.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            incomingPortRange,
+            document.getElementById("lowLimit_incomingRange_error"),
+            document.getElementById("upLimit_incomingRange_error"),
+            document.getElementById("invalid_incomingRange_error")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      // apply & cancel button
+      document.getElementById("Close").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-port_triggering.html", "Cancel");
+      });
+
+      document.getElementById("Add").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          // take data
+          filledData.EnaRule = enaRule.checked;
+          filledData.TrigerPort = triggerPort.value;
+          filledData.TrigerPortRange = triggerPortRange.value;
+          filledData.TrigerProtocol = triggerProtocol.value;
+          filledData.IncomingPort = incomingPort.value;
+          filledData.IncomingPortRange = incomingPortRange.value;
+          filledData.IncomingProtocol = incomingPortProtocol.value;
+
+          if (addFlag === true) Advanced.PortTriggering.Rules.push(filledData);
+
+          applyThenStoreToLS(
+            "advanced-port_triggering.html",
+            "Apply",
+            Advanced
+          );
+        } else {
+          console.log("Apply fail");
+        }
+      });
       break;
     case "advanced-port_triggering.html":
+      console.log(`Load data: ${JSON.stringify(Advanced.PortTriggering)}`);
+
+      var tbody = document.getElementById("bodyData");
+      var ruleElem = document.getElementById("ruleTemplate");
+
+      var fillData = () => {
+        for (const elem of Advanced.PortTriggering.Rules) {
+          const tr = ruleElem.content.cloneNode(true);
+
+          const enaRule = tr.querySelector(".enaRule");
+          const triggerPort = tr.querySelector(".triggerPort");
+          const triggerRange = tr.querySelector(".triggerRange");
+          const triggerProtocol = tr.querySelector(".triggerProtocol");
+          const incoming = tr.querySelector(".incoming");
+          const incomingRage = tr.querySelector(".incomingRange");
+          const incomingProtocol = tr.querySelector(".incomingProtocol");
+
+          const editBtn = tr.querySelector(".editBtn");
+          const deleteBtn = tr.querySelector(".deleteBtn");
+
+          elem.EnaRule
+            ? enaRule.classList.add("gemtek-enabled")
+            : enaRule.classList.add("gemtek-disabled");
+          triggerPort.textContent = elem.TrigerPort;
+          triggerRange.textContent = elem.TrigerPortRange;
+          if (elem.TrigerProtocol == "0") triggerProtocol.textContent = "TCP";
+          else triggerProtocol.textContent = "UDP";
+
+          incoming.textContent = elem.IncomingPort;
+          incomingRage.textContent = elem.IncomingPortRange;
+          if (elem.IncomingProtocol == "0")
+            incomingProtocol.textContent = "TCP";
+          else incomingProtocol.textContent = "UDP";
+
+          editBtn.addEventListener("click", () => {
+            Advanced.PortTriggering.onEdit = parseInt(
+              editBtn.closest("tr").rowIndex
+            );
+            window.location.href = "advanced-port_triggering-add.html";
+          });
+
+          deleteBtn.addEventListener("click", () => {
+            if (window.confirm("Are you sure you want to Delete ?")) {
+              Advanced.PortTriggering.Rules.splice(
+                parseInt(deleteBtn.closest("tr").rowIndex - 1), // because the first line is text of name
+                1
+              );
+              applyThenStoreToLS(
+                "advanced-port_triggering.html",
+                "Apply",
+                Advanced
+              );
+            }
+          });
+
+          tbody.appendChild(tr);
+        }
+      };
+
+      document
+        .getElementById("Device.NAT.X_GTK_PortTriggering")
+        .addEventListener("click", () => {
+          Advanced.PortTriggering.onEdit = "";
+          applyThenStoreToLS(
+            "advanced-port_triggering-add.html",
+            "Apply",
+            Advanced
+          );
+        });
+
+      fillData();
       break;
     case "advanced-static_routing-add.html":
       break;

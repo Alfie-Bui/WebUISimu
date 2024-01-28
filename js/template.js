@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.3.1_D25/M02/Y2024";
+const SIMULATOR_VERSION = "0.3.9_D26/M02/Y2024";
 
 /**
  *
@@ -298,6 +298,10 @@ const template = {
       GroupQInterval: 10,
       GroupLInterval: 2,
       GroupLCount: 2,
+    },
+    PortTriggering: {
+      onEdit: "",
+      Rules: [],
     },
   },
   Security: {},
