@@ -136,11 +136,10 @@
     <script src="./js/controller/basic.js"></script>
 
     <script>
-      function toggle_click(id) {
-        const toggle = document.getElementById(id);
-
-        toggle.classList.toggle("checked");
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("basic-lan-ipv6Config.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -995,360 +994,251 @@
           ></div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="row row-bg ng-scope">
             <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_ipaddressconfig"}'
-              >
+              <li>
                 <a href="basic-lan-ipv4Config.html">IPv4 Configuration</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_ipv6ipaddressconfig"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="basic-lan-ipv6Config.html">IPv6 Configuration</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_devicesconnected"}'
-              >
+              <li>
                 <a href="basic-lan-dev_connected.html">Device Connected</a>
               </li>
             </ul>
             <h4 class="panel_title hide"></h4>
             <div class="no-padding-hr">
               <div class="panel-body no-padding">
-                <div
-                  class="alert alert-danger ng-hide"
-                  ng-show="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6popup"
-                >
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click='popupclose("DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6popup");
-                        '
-                    >✖
-                  </a>
-                  <p
-                    ng-bind-html="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6popupval | unsafe"
-                    class="ng-binding"
-                  ></p>
+                <div class="alert alert-danger ng-hide">
+                  <a class="close" aria-label="close">✖ </a>
+                  <p class="ng-binding"></p>
                 </div>
-                <form
-                  polling=""
-                  interval=""
-                  loadstatus=""
-                  class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid ng-valid-required ng-valid-pattern"
-                  name="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6_form"
-                  name1="Device.IPv6?Enable,X_GTK_IPv6_LANMode&amp;Device.RouterAdvertisement.InterfaceSetting.1?Prefixes&amp;Device.IPv6?X_GTK_PRI_DNSv6,X_GTK_SEC_DNSv6,X_GTK_V6_DOMAIN_NAME"
-                  id="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6"
-                >
-                  <div>
-                    <div class="wrapperdiv"><div class="panel-body"></div></div>
-                    <div class="wrapperdiv">
-                      <div class="panel-body no-padding-vr">
+                <div>
+                  <div class="wrapperdiv"><div class="panel-body"></div></div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
                         <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12"
+                          class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
                         >
-                          <div
-                            class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
+                          <label for="Enable" class="control-label ng-binding"
+                            >Enable</label
                           >
-                            <label for="Enable" class="control-label ng-binding"
-                              >Enable</label
-                            >
-                            <div class="text-left">
-                              <span
-                                class="switch hidden-dom-removal ng-valid checked"
-                                ng-class="{ checked:DeviceIPv6.Enable }"
+                          <div class="text-left">
+                            <span
+                              class="switch hidden-dom-removal ng-valid checked"
+                              id="Enable"
+                              name="DeviceIPv6.Enable"
+                              ><small></small
+                              ><input
+                                type="checkbox"
                                 id="Enable"
-                                ng-model="DeviceIPv6.Enable"
                                 name="DeviceIPv6.Enable"
-                                onclick="toggle_click(this.id)"
-                                ><small></small
-                                ><input
-                                  type="checkbox"
-                                  id="Enable"
-                                  name="DeviceIPv6.Enable"
-                                  ng-model="DeviceIPv6.Enable"
-                                  style="display: none"
-                                  class="ng-pristine ng-untouched ng-valid"
-                                /><span class="switch-text"
-                                  ><span class="off">OFF</span></span
-                                ></span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group no-padding-hr"></div>
-                        <!-- ngIf: DeviceIPv6.Enable==1 -->
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12 ng-scope"
-                        >
-                          <div class="required row">
-                            <label
-                              for="X_GTK_IPv6_LANMode"
-                              class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                              >Auto Configuration Mode</label
-                            >
-                            <div
-                              style="margin-top: 20px"
-                              class="no-padding-hr-l col-xs-12 col-sm-5"
-                            >
-                              <select
-                                class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                                id="X_GTK_IPv6_LANMode"
-                                validation="false"
-                                name="DeviceIPv6_X_GTK_IPv6_LANMode"
-                                required="required"
-                              >
-                                <option value="?" class="form-control1">
-                                  Select
-                                </option>
-                                <option
-                                  class="form-control1"
-                                  value="1"
-                                  label="Stateless Address Autoconfiguration"
-                                >
-                                  Stateless Address Autoconfiguration
-                                </option>
-                                <option
-                                  class="form-control1"
-                                  selected="selected"
-                                  value="2"
-                                  label=" Stateless Address Autoconfiguration + Stateless DHCPv6"
-                                >
-                                  Stateless Address Autoconfiguration +
-                                  Stateless DHCPv6
-                                </option>
-                                <option
-                                  class="form-control1"
-                                  value="3"
-                                  label="Stateful DHCPv6"
-                                >
-                                  Stateful DHCPv6
-                                </option></select
-                              ><span class="error ng-binding ng-hide"></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPv6_X_GTK_IPv6_LANMode"
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <!-- end ngIf: DeviceIPv6.Enable==1 -->
-                        <div class="form-group no-padding-hr"></div>
-                      </div>
-                    </div>
-                    <!-- ngIf: DeviceIPv6.Enable==1 -->
-                    <div class="wrapperdiv ng-scope">
-                      <div class="panel-body no-padding-vr">
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-5">
-                              <input
-                                xmltype="ipv6"
-                                type="text"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
-                                id="Prefixes"
-                                placeholder="Please Enter Valid IPV6 Address"
-                                ng-pattern="/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/"
-                                ng-required="
-                                        true
-                                    "
-                                name="DeviceRouterAdvertisementInterfaceSetting1_Prefixes"
-                                ng-model="DeviceRouterAdvertisementInterfaceSetting1.Prefixes"
-                                required="required"
-                                value="fd00::"
-                              /><label
-                                for="Prefixes"
-                                class="required row active ng-binding"
-                                >Prefix</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="DeviceRouterAdvertisementInterfaceSetting1_Prefixesresponsestatus"
-                                ng-bind="DeviceRouterAdvertisementInterfaceSetting1_Prefixesval |translate
-                        "
+                                style="display: none"
+                                class="ng-pristine ng-untouched ng-valid"
+                              /><span class="switch-text"
+                                ><span class="off">OFF</span></span
                               ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceRouterAdvertisementInterfaceSetting1_Prefixes"
-                                ng-show="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6_form.DeviceRouterAdvertisementInterfaceSetting1_Prefixes.$error.pattern&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                            &#39;Invalid pattern,Example IPv6 address : FE80:0000:0000:0000:0202:B3FF:FE1E:8329&#39; | translate
-                        "
-                                >Invalid pattern,Example IPv6 address :
-                                FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceRouterAdvertisementInterfaceSetting1_Prefixes"
-                                ng-show="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6_form.DeviceRouterAdvertisementInterfaceSetting1_Prefixes.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.RouterAdvertisement.InterfaceSetting.1.Prefix.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end ngIf: DeviceIPv6.Enable==1 -->
-                    <!-- ngIf: DeviceIPv6.Enable==1 -->
-                    <div class="wrapperdiv ng-scope">
-                      <div class="panel-body no-padding-vr">
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-5">
-                              <input
-                                xmltype="ipv6"
-                                type="text"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
-                                id="X_GTK_PRI_DNSv6"
-                                placeholder="Please Enter Valid IPV6 Address"
-                                ng-pattern="/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/"
-                                ng-required="
-                                        true
-                                    "
-                                name="DeviceIPv6_X_GTK_PRI_DNSv6"
-                                ng-model="DeviceIPv6.X_GTK_PRI_DNSv6"
-                                required="required"
-                                value="fd00::1"
-                              /><label
-                                for="X_GTK_PRI_DNSv6"
-                                class="required row active ng-binding"
-                                >Primary DNSv6</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="DeviceIPv6_X_GTK_PRI_DNSv6responsestatus"
-                                ng-bind="DeviceIPv6_X_GTK_PRI_DNSv6val |translate
-                        "
-                              ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPv6_X_GTK_PRI_DNSv6"
-                                ng-show="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6_form.DeviceIPv6_X_GTK_PRI_DNSv6.$error.pattern&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                            &#39;Invalid pattern,Example IPv6 address : FE80:0000:0000:0000:0202:B3FF:FE1E:8329&#39; | translate
-                        "
-                                >Invalid pattern,Example IPv6 address :
-                                FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPv6_X_GTK_PRI_DNSv6"
-                                ng-show="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6_form.DeviceIPv6_X_GTK_PRI_DNSv6.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.IPv6.Primary DNSv6.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-5">
-                              <input
-                                xmltype="ipv6"
-                                type="text"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-pattern"
-                                id="X_GTK_SEC_DNSv6"
-                                placeholder="Please Enter Valid IPV6 Address"
-                                ng-pattern="/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/"
-                                name="DeviceIPv6_X_GTK_SEC_DNSv6"
-                                ng-model="DeviceIPv6.X_GTK_SEC_DNSv6"
-                                ng-blur='textChange("DeviceIPv6__X_GTK_SEC_DNSv6",DeviceIPv6.X_GTK_SEC_DNSv6)'
-                              /><label
-                                for="X_GTK_SEC_DNSv6"
-                                class="active ng-binding"
-                                ng-bind="
-                            &#39;Device.IPv6.Secondary DNSv6&#39; | translate
-                        "
-                                >Secondary DNSv6</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="DeviceIPv6_X_GTK_SEC_DNSv6responsestatus"
-                                ng-bind="DeviceIPv6_X_GTK_SEC_DNSv6val |translate
-                        "
-                              ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPv6_X_GTK_SEC_DNSv6"
-                                ng-show="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6_form.DeviceIPv6_X_GTK_SEC_DNSv6.$error.pattern&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                            &#39;Invalid pattern,Example IPv6 address : FE80:0000:0000:0000:0202:B3FF:FE1E:8329&#39; | translate
-                        "
-                                >Invalid pattern,Example IPv6 address :
-                                FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12"
-                        >
-                          <div class="row">
-                            <div
-                              class="input-field no-padding-hr-l col-xs-12 col-sm-5"
                             >
-                              <input
-                                type="text"
-                                id="X_GTK_V6_DOMAIN_NAME"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                placeholder="Please Enter the value"
-                                name="DeviceIPv6_X_GTK_V6_DOMAIN_NAME"
-                                ng-model="DeviceIPv6.X_GTK_V6_DOMAIN_NAME"
-                                value="gemtek.com"
-                              /><label
-                                for="X_GTK_V6_DOMAIN_NAME"
-                                class="active ng-binding"
-                                >Domain Name</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="DeviceIPv6_X_GTK_V6_DOMAIN_NAMEresponsestatus"
-                                ng-bind="DeviceIPv6_X_GTK_V6_DOMAIN_NAMEval |translate
-                        "
-                              ></span>
-                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- end ngIf: DeviceIPv6.Enable==1 -->
-                    <div
-                      class="col-lg-12 col-md-12 col-xs-12 text-center bordertop-button"
-                    >
-                      <div class="btn-align">
-                        <input
-                          type="button"
-                          id="Cancel"
-                          class="gemtek-btn-normal"
-                          value="Cancel"
-                          source="Device.IPv6?Enable,X_GTK_IPv6_LANMode&amp;Device.RouterAdvertisement.InterfaceSetting.1?Prefixes&amp;Device.IPv6?X_GTK_PRI_DNSv6,X_GTK_SEC_DNSv6,X_GTK_V6_DOMAIN_NAME"
-                          hiddenparams="Device.IPv6?&amp;Device.RouterAdvertisement.InterfaceSetting.1?&amp;Device.IPv6?"
-                          formname="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6"
-                          relationformname="DeviceIPv6,DeviceRouterAdvertisementInterfaceSetting1,DeviceIPv6,"
-                          ng-click="resetipv6()"
-                        />
+                      <div class="form-group no-padding-hr"></div>
+                      <!-- ngIf: DeviceIPv6.Enable==1 -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-12 ng-scope"
+                      >
+                        <div class="required row">
+                          <label
+                            for="X_GTK_IPv6_LANMode"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Auto Configuration Mode</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="X_GTK_IPv6_LANMode"
+                              name="DeviceIPv6_X_GTK_IPv6_LANMode"
+                              required="required"
+                            >
+                              <option
+                                value="?"
+                                selected="selected"
+                                class="form-control1"
+                              >
+                                Select
+                              </option>
+                              <option
+                                class="form-control1"
+                                value="1"
+                                label="Stateless Address Autoconfiguration"
+                              >
+                                Stateless Address Autoconfiguration
+                              </option>
+                              <option
+                                class="form-control1"
+                                value="2"
+                                label=" Stateless Address Autoconfiguration + Stateless DHCPv6"
+                              >
+                                Stateless Address Autoconfiguration + Stateless
+                                DHCPv6
+                              </option>
+                              <option
+                                class="form-control1"
+                                value="3"
+                                label="Stateful DHCPv6"
+                              >
+                                Stateful DHCPv6
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="select_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
                       </div>
-                      <div class="btn-align">
-                        <input
-                          type="button"
-                          id="Modify"
-                          class="gemtek-btn-primary"
-                          value="Apply"
-                          source="Device.IPv6?Enable,X_GTK_IPv6_LANMode&amp;Device.RouterAdvertisement.InterfaceSetting.1?Prefixes&amp;Device.IPv6?X_GTK_PRI_DNSv6,X_GTK_SEC_DNSv6,X_GTK_V6_DOMAIN_NAME"
-                          hiddenparams="Device.IPv6?&amp;Device.RouterAdvertisement.InterfaceSetting.1?&amp;Device.IPv6?"
-                          formname="DeviceIPv6DeviceRouterAdvertisementInterfaceSetting1DeviceIPv6"
-                          relationformname="DeviceIPv6,DeviceRouterAdvertisementInterfaceSetting1,DeviceIPv6,"
-                        />
+                      <!-- end ngIf: DeviceIPv6.Enable==1 -->
+                      <div class="form-group no-padding-hr"></div>
+                    </div>
+                  </div>
+                  <!-- ngIf: DeviceIPv6.Enable==1 -->
+                  <div class="wrapperdiv ng-scope">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-5">
+                            <input
+                              xmltype="ipv6"
+                              type="text"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
+                              id="Prefixes"
+                              placeholder="Please Enter Valid IPV6 Address"
+                              pattern="^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$"
+                              required="required"
+                            /><label
+                              for="Prefixes"
+                              class="required row active ng-binding"
+                              >Prefix</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="prefix_invalid_error"
+                              >Invalid pattern,Example IPv6 address :
+                              FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="prefix_empty_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </form>
+                  <!-- end ngIf: DeviceIPv6.Enable==1 -->
+                  <!-- ngIf: DeviceIPv6.Enable==1 -->
+                  <div class="wrapperdiv ng-scope">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-5">
+                            <input
+                              xmltype="ipv6"
+                              type="text"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
+                              id="X_GTK_PRI_DNSv6"
+                              placeholder="Please Enter Valid IPV6 Address"
+                              pattern="^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$"
+                              required="required"
+                            /><label
+                              for="X_GTK_PRI_DNSv6"
+                              class="required row active ng-binding"
+                              >Primary DNSv6</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="priDNSv6_invalid_error"
+                              >Invalid pattern,Example IPv6 address :
+                              FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="priDNSv6_empty_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-5">
+                            <input
+                              xmltype="ipv6"
+                              type="text"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                              id="X_GTK_SEC_DNSv6"
+                              placeholder="Please Enter Valid IPV6 Address"
+                              pattern="^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$"
+                              name="DeviceIPv6_X_GTK_SEC_DNSv6"
+                            /><label
+                              for="X_GTK_SEC_DNSv6"
+                              class="active ng-binding"
+                              >Secondary DNSv6</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="seDNSv6_invalid_error"
+                              >Invalid pattern,Example IPv6 address :
+                              FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="X_GTK_V6_DOMAIN_NAME"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              placeholder="Please Enter the value"
+                              name="DeviceIPv6_X_GTK_V6_DOMAIN_NAME"
+                            /><label
+                              for="X_GTK_V6_DOMAIN_NAME"
+                              class="active ng-binding"
+                              >Domain Name</label
+                            ><span class="error ng-binding ng-hide"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end ngIf: DeviceIPv6.Enable==1 -->
+                  <div
+                    class="col-lg-12 col-md-12 col-xs-12 text-center bordertop-button"
+                  >
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Cancel"
+                        class="gemtek-btn-normal"
+                        value="Cancel"
+                      />
+                    </div>
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Modify"
+                        class="gemtek-btn-primary"
+                        value="Apply"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

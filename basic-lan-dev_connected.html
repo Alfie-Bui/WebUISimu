@@ -128,10 +128,18 @@
       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
       </div>
     </script>
+
+    <!-- Add yours here -->
     <script src="./js/template.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/basic.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("basic-lan-dev_connected.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -988,189 +996,73 @@
             List of Clients Connected on the LAN Side of the CPE
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               List of Clients Connected on the LAN Side of the CPE
             </p>
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="panel ng-scope">
-            <div
-              class="alert alert-danger ng-hide"
-              ng-show="DeviceHostsHostDeviceHostsHostIPv4Addresspopup"
-            >
-              <a
-                class="close"
-                aria-label="close"
-                ng-click='popupclose("DeviceHostsHostDeviceHostsHostIPv4Addresspopup");
-                    '
-                >✖
-              </a>
-              <p
-                ng-bind-html="DeviceHostsHostDeviceHostsHostIPv4Addresspopupval | unsafe"
-                class="ng-binding"
-              ></p>
+            <div class="alert alert-danger ng-hide">
+              <a class="close" aria-label="close">✖ </a>
+              <p class="ng-binding"></p>
             </div>
             <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_ipaddressconfig"}'
-              >
+              <li>
                 <a href="basic-lan-ipv4Config.html">IPv4 Configuration</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_ipv6ipaddressconfig"}'
-              >
+              <li>
                 <a href="basic-lan-ipv6Config.html">IPv6 Configuration</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_devicesconnected"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="basic-lan-dev_connected.html">Device Connected</a>
               </li>
             </ul>
             <div class="panel-body">
               <div class="table-responsive table-scroll-vr">
                 <table
-                  polling=""
-                  loadstatus=""
-                  interval=""
                   class="table tableCount theme_intel"
-                  formname=""
-                  name="?&amp;Device.Hosts.Host.*?HostName,PhysAddress&amp;Device.Hosts.Host.*.IPv4Address.*?IPAddress"
-                  componenttype="table"
-                  objparamrelation="DeviceHostsHost__HostName__string,DeviceHostsHost__PhysAddress__string,DeviceHostsHostIPv4Address__IPAddress__string,"
-                  iconicparams=""
                   id="DeviceHostsHostDeviceHostsHostIPv4Address"
-                  filterdata=""
                 >
                   <thead class="">
                     <tr>
-                      <th
-                        id="HostName"
-                        class="col-sm-3"
-                        ng-init="DeviceHostsHostDeviceHostsHostIPv4Address1=true;DeviceHostsHostDeviceHostsHostIPv4Address1=true;HostNamedisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.Hosts.Host.*.Host Name&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Host Name</span
-                        >
+                      <th id="HostName" class="col-sm-3">
+                        <span class="ng-binding">Host Name</span>
                       </th>
-                      <th
-                        id="PhysAddress"
-                        class="col-sm-3"
-                        ng-init="DeviceHostsHostDeviceHostsHostIPv4Address2=true;DeviceHostsHostDeviceHostsHostIPv4Address2=true;PhysAddressdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.Hosts.Host.*.MAC Address&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >MAC Address</span
-                        >
+                      <th id="PhysAddress" class="col-sm-3">
+                        <span class="ng-binding">MAC Address</span>
                       </th>
-                      <th
-                        id="IPAddress"
-                        class=""
-                        ng-init="DeviceHostsHostDeviceHostsHostIPv4Address3=true;DeviceHostsHostDeviceHostsHostIPv4Address3=true;IPAddressdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.Hosts.Host.*.IPv4Address.*.IP Address&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >IP Address</span
-                        >
+                      <th id="IPAddress" class="">
+                        <span class="ng-binding">IP Address</span>
                       </th>
                     </tr>
                   </thead>
                   <tbody id="bodyData">
                     <!-- ngRepeat: user in DeviceHostsHostDeviceHostsHostIPv4Addresstable -->
-                    <tr
-                      class="ng-scope"
-                      ng-repeat="
-                                        user in DeviceHostsHostDeviceHostsHostIPv4Addresstable"
-                    >
-                      <!-- ngRepeat: key in user | keys:'DeviceHostsHostDeviceHostsHostIPv4Address' --><!-- ngIf: false==$last -->
-                      <td
-                        class="no-padding-hr ng-scope"
-                        ng-repeat="
-                                key in user | keys:&#39;DeviceHostsHostDeviceHostsHostIPv4Address&#39;
-                                "
-                        ng-show="DeviceHostsHostDeviceHostsHostIPv4Address1"
-                      >
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><img
-                          src="images/icons/icon-1/icon-device.svg"
-                          style="margin-right: 5px"
-                          class="ng-scope"
-                        /><!-- end ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            DESKTOP-DL2F1BS </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceHostsHostDeviceHostsHostIPv4Address' --><!-- ngIf: false==$last -->
-                      <td
-                        class="no-padding-hr ng-scope"
-                        ng-repeat="
-                                key in user | keys:&#39;DeviceHostsHostDeviceHostsHostIPv4Address&#39;
-                                "
-                        ng-show="DeviceHostsHostDeviceHostsHostIPv4Address2"
-                      >
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            ac:1a:3d:91:fc:cb </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceHostsHostDeviceHostsHostIPv4Address' --><!-- ngIf: false==$last -->
-                      <td
-                        class="no-padding-hr ng-scope"
-                        ng-repeat="
-                                key in user | keys:&#39;DeviceHostsHostDeviceHostsHostIPv4Address&#39;
-                                "
-                        ng-show="DeviceHostsHostDeviceHostsHostIPv4Address3"
-                      >
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            192.168.1.2 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceHostsHostDeviceHostsHostIPv4Address' --><!-- ngIf: false==$last -->
-                      <td
-                        class="no-padding-hr ng-scope ng-hide"
-                        ng-repeat="
-                                key in user | keys:&#39;DeviceHostsHostDeviceHostsHostIPv4Address&#39;
-                                "
-                        ng-show="DeviceHostsHostDeviceHostsHostIPv4Address4"
-                      >
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceHostsHostDeviceHostsHostIPv4Address' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceHostsHostDeviceHostsHostIPv4Address' -->
-                    </tr>
+                    <template id="devCon">
+                      <tr class="ng-scope">
+                        <td class="no-padding-hr ng-scope">
+                          <img
+                            src="images/icons/icon-1/icon-device.svg"
+                            style="margin-right: 5px"
+                            class="ng-scope"
+                          /><span class=""
+                            ><span class="ng-binding ng-scope hostName"> </span
+                          ></span>
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope MACaddr"> </span
+                          ></span>
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope IPaddr"> </span
+                          ></span>
+                        </td>
+                        <td class="no-padding-hr ng-scope ng-hide">
+                          <span class=""></span>
+                        </td>
+                      </tr>
+                    </template>
                     <!-- end ngRepeat: user in DeviceHostsHostDeviceHostsHostIPv4Addresstable -->
                   </tbody>
                 </table>
@@ -1181,8 +1073,6 @@
                       id="Refresh"
                       class="gemtek-btn-primary"
                       value="Refresh"
-                      source=""
-                      ng-click="deviceconnectRefresh($event,&#39;lan_devicesconnected&#39;,&#39;DeviceConnected&#39;)"
                     />
                   </div>
                 </div>

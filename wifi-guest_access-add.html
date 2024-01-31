@@ -134,37 +134,6 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/wifi.js"></script>
-
-    <script>
-      function back_to_previous() {
-        window.location.href = "wifi-guest_access.html";
-      }
-
-      function toggle_switch(id) {
-        const switchID = document.getElementById(id);
-
-        switchID.classList.toggle("checked");
-      }
-
-      function hide_show_pw(icon_pw_id, pw_field_id) {
-        const pwEye = document.getElementById(icon_pw_id);
-        const inputField = document.getElementById(pw_field_id);
-
-        if (pwEye.classList.contains("showpw")) {
-          // gonna hide
-          inputField.type = "text";
-
-          pwEye.classList.remove("showpw");
-          pwEye.classList.add("hidepw");
-        } else {
-          // gonna show
-          inputField.type = "password";
-
-          pwEye.classList.remove("hidepw");
-          pwEye.classList.add("showpw");
-        }
-      }
-    </script>
   </head>
   <body class="theme-default animate">
     <noscript>

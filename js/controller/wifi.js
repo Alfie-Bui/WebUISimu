@@ -382,7 +382,7 @@ function loadPage(page, options) {
       break;
     case "wifi-2_4G-mac_filtering.html":
       var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
-      filledData = Wifi["2.4G"].SSIDs;
+      var filledData = Wifi["2.4G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
 
       var ssid_select = document.getElementById("SSID");
@@ -1135,6 +1135,9 @@ function loadPage(page, options) {
 
       // event init on total Page
       addWifiBtn.addEventListener("click", () => {
+        if (tbody.getElementsByTagName("tr").length >= 4){
+          alertDialogHandle("Maximum number of SSID");
+        }
         if (!add_lock) {
           add_lock = true;
           make_add_wifi_form();
@@ -2631,6 +2634,9 @@ function loadPage(page, options) {
 
       // event init on total Page
       addWifiBtn.addEventListener("click", () => {
+        if (tbody.getElementsByTagName("tr").length >= 4){
+          alertDialogHandle("Maximum number of SSID");
+        }
         if (!add_lock) {
           add_lock = true;
           make_add_wifi_form();

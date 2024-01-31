@@ -8,10 +8,251 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   switch (page) {
     case "basic-lan-dev_connected.html":
+      console.log(`Load data: ${JSON.stringify(Basic.LAN.DeviceConnected)}`);
+      var filledData = Basic.LAN.DeviceConnected;
+
+      var tbody = document.getElementById("bodyData");
+      var devConTemplate = document.getElementById("devCon");
+      var refreshBtn = document.getElementById("Refresh");
+
+      for (const elem of filledData) {
+        const tr = devConTemplate.content.cloneNode(true);
+
+        tr.querySelector(".hostName").textContent = elem.HostName;
+        tr.querySelector(".MACaddr").textContent = elem.MACAddress;
+        tr.querySelector(".IPaddr").textContent = elem.IPAddress;
+
+        tbody.appendChild(tr);
+      }
+
+      refreshBtn.addEventListener("click", () => {
+        applyThenStoreToLS(page, "Cancel");
+      });
       break;
     case "basic-lan-ipv4Config.html":
+      console.log(`Load data: ${JSON.stringify(Basic.LAN.IPv4Configuration)}`);
+      var filledData = Basic.LAN.IPv4Configuration;
+
+      var devIPAddr = document.getElementById("IPAddress");
+      var subnetMask = document.getElementById("SubnetMask");
+      var dhcpMode = document.getElementById("DHCPMode");
+      var beginAddr = document.getElementById("MinAddress");
+      var endAddr = document.getElementById("MaxAddress");
+      var leaseTime = document.getElementById("LeaseTime");
+      var addBtn = document.getElementById("AddBtn");
+      var tbody = document.getElementById("bodyData");
+
+      var addIPForm = document.getElementById("add_ip_addr_reservation");
+      var ip_addForm = document.getElementById("Yiaddr");
+      var mac_addForm = document.getElementById("Chaddr");
+      var confirm_addForm = document.getElementById("Confirm");
+      var cancel_addForm = document.getElementById("Destroy");
+
+      // fill data
+      var fillData = function () {
+        devIPAddr.value = filledData.DeviceIPAddress;
+        subnetMask.value = filledData.SubnetMask;
+        dhcpMode.value = filledData.DHCPMode;
+        beginAddr.value = filledData.BeginAddress;
+        endAddr.value = filledData.EndAddress;
+        leaseTime.value = filledData.LeaseTime;
+
+        for (const elem of filledData.IPAddressReservation) {
+        }
+      };
+
+      // @TODO
+      var add_IPReservation = () => {};
+
+      var initEvent = function () {
+        devIPAddr.addEventListener("input", () => {
+          checkPattern_inputField(
+            devIPAddr,
+            new RegExp(devIPAddr.getAttribute("pattern")),
+            document.getElementById("devIP_invalid_error"),
+            document.getElementById("devIP_empty_error")
+          );
+        });
+
+        subnetMask.addEventListener("input", () => {
+          checkPattern_inputField(
+            subnetMask,
+            new RegExp(subnetMask.getAttribute("pattern")),
+            document.getElementById("subnet_invalid_error"),
+            document.getElementById("subnet_empty_error")
+          );
+        });
+
+        dhcpMode.addEventListener("change", () => {
+          checkError_selectField(
+            dhcpMode,
+            document.getElementById("dhcp_select_error")
+          );
+        });
+
+        beginAddr.addEventListener("input", () => {
+          checkPattern_inputField(
+            beginAddr,
+            new RegExp(beginAddr.getAttribute("pattern")),
+            document.getElementById("begin_invalid_error"),
+            document.getElementById("begin_empty_error")
+          );
+        });
+
+        endAddr.addEventListener("input", () => {
+          checkPattern_inputField(
+            endAddr,
+            new RegExp(endAddr.getAttribute("pattern")),
+            document.getElementById("end_invalid_error"),
+            document.getElementById("end_empty_error")
+          );
+        });
+
+        leaseTime.addEventListener("change", () => {
+          checkError_selectField(
+            leaseTime,
+            document.getElementById("LeaseTime")
+          );
+        });
+
+        addBtn.addEventListener("click", () => {
+          addIPForm.classList.remove("ng-hide");
+          checkPattern_inputField(
+            ip_addForm,
+            new RegExp(ip_addForm.getAttribute("pattern")),
+            document.getElementById("addIP_invalid_error"),
+            document.getElementById("addIP_empty_error")
+          );
+          checkPattern_inputField(
+            mac_addForm,
+            new RegExp(mac_addForm.getAttribute("pattern")),
+            document.getElementById("addMAC_invalid_error"),
+            document.getElementById("addMAC_empty_error")
+          );
+        });
+
+        // @TODO
+        confirm_addForm.addEventListener("click", () => {
+          if (checkError_show(document.querySelectorAll(".add_error"))) {
+            // @TODO
+          } else {
+            console.log("Add new IP reservation fail");
+          }
+        });
+
+        cancel_addForm.addEventListener("click", () => {
+          addIPForm.classList.add("ng-hide");
+        });
+      };
+
+      // fill data to FE
+      fillData();
+
+      // init event fot element inside FE
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        // check if error on page, true --> no error (filter all erroe except add_error class)
+        if (checkError_show(document.querySelectorAll(".checkerror"))) {
+          // @TODO
+          console.log("No error");
+          // applyThenStoreToLS(page, "Apply", Basic);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS(page, "Cancel");
+      });
       break;
     case "basic-lan-ipv6Config.html":
+      console.log(`Load data: ${JSON.stringify(Basic.LAN.IPv6Configuration)}`);
+      var filledData = Basic.LAN.IPv6Configuration;
+
+      // init variable
+      var enable = document.getElementById("Enable");
+      var autoConfigMode = document.getElementById("X_GTK_IPv6_LANMode");
+      var prefix = document.getElementById("Prefixes");
+      var primaryDNSv6 = document.getElementById("X_GTK_PRI_DNSv6");
+      var secondDNSv6 = document.getElementById("X_GTK_SEC_DNSv6");
+      var domainName = document.getElementById("X_GTK_V6_DOMAIN_NAME");
+
+      var fillData = () => {
+        filledData.Enable
+          ? enable.classList.add("checked")
+          : enable.classList.remove("checked");
+        autoConfigMode.value = filledData.AutoConfigurationMode;
+        prefix.value = filledData.Prefix;
+        primaryDNSv6.value = filledData.PrimaryDNSv6;
+        secondDNSv6.value = filledData.SecondaryDNSv6;
+        domainName.value = filledData.DomainName;
+      };
+
+      var initEvent = () => {
+        autoConfigMode.addEventListener("change", () => {
+          checkError_selectField(
+            autoConfigMode,
+            document.getElementById("select_error")
+          );
+        });
+
+        prefix.addEventListener("input", () => {
+          checkPattern_inputField(
+            prefix,
+            new RegExp(prefix.getAttribute("pattern")),
+            document.getElementById("prefix_invalid_error"),
+            document.getElementById("prefix_empty_error")
+          );
+        });
+
+        primaryDNSv6.addEventListener("input", () => {
+          checkPattern_inputField(
+            primaryDNSv6,
+            new RegExp(primaryDNSv6.getAttribute("pattern")),
+            document.getElementById("priDNSv6_invalid_error"),
+            document.getElementById("priDNSv6_empty_error")
+          );
+        });
+
+        secondDNSv6.addEventListener("input", () => {
+          var pattern = new RegExp(secondDNSv6.getAttribute("pattern"));
+          if (!pattern.test(secondDNSv6.value)) {
+            document
+              .getElementById("seDNSv6_invalid_error")
+              .classList.remove("ng-hide");
+          } else {
+            document
+              .getElementById("seDNSv6_invalid_error")
+              .classList.add("ng-hide");
+          }
+        });
+      };
+
+      // fill Data to FE
+      fillData();
+
+      // init event for elem of FE
+      initEvent();
+
+      // Apply & Cancel button
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData.Enable = enable.classList.contains("checked");
+          filledData.AutoConfigurationMode = autoConfigMode.value;
+          filledData.Prefix = prefix.value;
+          filledData.PrimaryDNSv6 = primaryDNSv6.value;
+          filledData.SecondaryDNSv6 = secondDNSv6.value;
+          filledData.DomainName = domainName.value;
+          applyThenStoreToLS(page, "Apply", Basic);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS(page, "Cancel");
+      });
       break;
     case "basic-registration_ID.html":
       break;

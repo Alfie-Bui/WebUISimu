@@ -136,25 +136,10 @@
     <script src="./js/controller/basic.js"></script>
 
     <script>
-      function show_add_ip_addr_reservation() {
-        var bodyData = document.getElementById("bodyData");
-        bodyData.classList.remove("hiderow");
-        bodyData.classList.add("showrow");
-
-        // show input tag
-        var inputTag = document.getElementById("add_ip_addr_reservation");
-        inputTag.classList.remove("ng-hide");
-      }
-
-      function hide_add_ip_addr_reservation() {
-        var bodyData = document.getElementById("bodyData");
-        bodyData.classList.remove("showrow");
-        bodyData.classList.add("hiderow");
-
-        // show input tag
-        var inputTag = document.getElementById("add_ip_addr_reservation");
-        inputTag.classList.add("ng-hide");
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("basic-lan-ipv4Config.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -1009,441 +994,295 @@
           ></div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="row row-bg ng-scope">
             <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_ipaddressconfig"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="basic-lan-ipv4Config.html">IPv4 Configuration</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_ipv6ipaddressconfig"}'
-              >
+              <li>
                 <a href="basic-lan-ipv6Config.html">IPv6 Configuration</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "lan_devicesconnected"}'
-              >
+              <li>
                 <a href="basic-lan-dev_connected.html">Device Connected</a>
               </li>
             </ul>
             <h4 class="panel_title hide"></h4>
             <div class="no-padding-hr">
               <div class="panel-body no-padding">
-                <div
-                  class="alert alert-danger ng-hide"
-                  ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1popup"
-                >
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click='popupclose("DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1popup");
-                        '
-                    >✖
-                  </a>
-                  <p
-                    ng-bind-html="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1popupval | unsafe"
-                    class="ng-binding"
-                  ></p>
+                <div class="alert alert-danger ng-hide">
+                  <a class="close" aria-label="close">✖ </a>
+                  <p class="ng-binding"></p>
                 </div>
-                <form
-                  polling=""
-                  interval=""
-                  loadstatus=""
-                  class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid-pattern ng-valid ng-valid-required"
-                  ng-init='dropdownUrlReq("DeviceDHCPv4ServerPool1","LeaseTime","DHCPLeaseTime","false","","");'
-                  name="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form"
-                  name1="Device.IP.Interface.1.IPv4Address.1?IPAddress,SubnetMask&amp;temp?DHCPMode&amp;Device.DHCPv4.Server.Pool.1?Enable,MinAddress,MaxAddress,LeaseTime&amp;Device.DHCPv4.Relay.Forwarding.1?Enable,DHCPServerIPAddress"
-                  id="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1"
-                >
-                  <div>
-                    <div class="wrapperdiv"><div class="panel-body"></div></div>
-                    <div class="wrapperdiv">
-                      <div class="panel-body no-padding-vr">
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-6"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-12">
-                              <input
-                                xmltype="ipv4"
-                                type="text"
-                                id="IPAddress"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-pattern ng-valid ng-valid-required"
-                                placeholder="Please Enter Valid IPV4 Address"
-                                ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                                ng-required="
-                                        true
-                                    "
-                                name="DeviceIPInterface1IPv4Address1_IPAddress"
-                                ng-model="DeviceIPInterface1IPv4Address1.IPAddress"
-                                required="required"
-                                value="192.168.1.1"
-                              /><label
-                                for="IPAddress"
-                                class="required row active ng-binding"
-                                >Device IP Address</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPInterface1IPv4Address1_IPAddress"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceIPInterface1IPv4Address1_IPAddress.$error.pattern&amp;&amp; formsubmitstatus"
-                                >Invalid pattern , Example IPv4 address :
-                                192.168.1.232 </span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPInterface1IPv4Address1_IPAddress"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceIPInterface1IPv4Address1_IPAddress.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.IP.Interface.1.IPv4Address.1.Device IP Address.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-6"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-12">
-                              <input
-                                xmltype="netmask"
-                                type="text"
-                                id="SubnetMask"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-pattern ng-valid ng-valid-required"
-                                placeholder="Please Enter Valid SubnetMask"
-                                ng-pattern="/^(?!0.0.0.0$)(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/"
-                                ng-required="
-                                        true
-                                    "
-                                name="DeviceIPInterface1IPv4Address1_SubnetMask"
-                                ng-model="DeviceIPInterface1IPv4Address1.SubnetMask"
-                                required="required"
-                                value="255.255.255.0"
-                              /><label
-                                for="SubnetMask"
-                                class="required row active ng-binding"
-                                >Subnet Mask</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPInterface1IPv4Address1_SubnetMask"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceIPInterface1IPv4Address1_SubnetMask.$error.pattern&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                            &#39;Invalid Subnet Mask! Examples: 255.X.X.X / 254.0.0.0 / 252.0.0.0 / 248.0.0.0 / 240.0.0.0 / 224.0.0.0 / 192.0.0.0 / 128.0.0.0 ...&#39;
-                        "
-                                >Invalid Subnet Mask! Examples: 255.X.X.X /
-                                254.0.0.0 / 252.0.0.0 / 248.0.0.0 / 240.0.0.0 /
-                                224.0.0.0 / 192.0.0.0 / 128.0.0.0 ...</span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceIPInterface1IPv4Address1_SubnetMask"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceIPInterface1IPv4Address1_SubnetMask.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.IP.Interface.1.IPv4Address.1.Subnet Mask.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
+
+                <div>
+                  <div class="wrapperdiv"><div class="panel-body"></div></div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-12">
+                            <input
+                              xmltype="ipv4"
+                              type="text"
+                              id="IPAddress"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-pattern ng-valid ng-valid-required"
+                              placeholder="Please Enter Valid IPV4 Address"
+                              pattern="^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$"
+                              name="DeviceIPInterface1IPv4Address1_IPAddress"
+                              required="required"
+                            /><label
+                              for="IPAddress"
+                              class="required row active ng-binding"
+                              >Device IP Address</label
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="devIP_invalid_error"
+                              >Invalid pattern , Example IPv4 address :
+                              192.168.1.232 </span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="devIP_empty_error"
+                              >* This Field is Required</span
+                            >
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="wrapperdiv">
-                      <div class="panel-body no-padding-vr">
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-6"
-                        >
-                          <div class="required row">
-                            <label
-                              for="DHCPMode"
-                              class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                              >DHCP Mode</label
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-12">
+                            <input
+                              xmltype="netmask"
+                              type="text"
+                              id="SubnetMask"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-pattern ng-valid ng-valid-required"
+                              placeholder="Please Enter Valid SubnetMask"
+                              pattern="^(?!0.0.0.0$)(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$"
+                              name="DeviceIPInterface1IPv4Address1_SubnetMask"
+                              required="required"
+                            /><label
+                              for="SubnetMask"
+                              class="required row active ng-binding"
+                              >Subnet Mask</label
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="subnet_invalid_error"
+                              >Invalid Subnet Mask! Examples: 255.X.X.X /
+                              254.0.0.0 / 252.0.0.0 / 248.0.0.0 / 240.0.0.0 /
+                              224.0.0.0 / 192.0.0.0 / 128.0.0.0 ...</span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="subnet_empty_error"
+                              >* This Field is Required</span
                             >
-                            <div
-                              style="margin-top: 20px"
-                              class="no-padding-hr-l col-xs-12 col-sm-12"
-                            >
-                              <select
-                                class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                                id="DHCPMode"
-                                validation="false"
-                                ng-required="
-                                        true
-                                    "
-                                name="temp_DHCPMode"
-                                ng-model="temp.DHCPMode"
-                                ng-change='ddChange("temp__DHCPMode",temp.DHCPMode)'
-                                required="required"
-                              >
-                                <option value="?" class="form-control1">
-                                  Select
-                                </option>
-                                <option
-                                  class="form-control1"
-                                  selected="selected"
-                                  value="Server"
-                                >
-                                  Server
-                                </option>
-                                <option class="form-control1" value="Relay">
-                                  Relay
-                                </option>
-                                <option class="form-control1" value="Disable">
-                                  Disable
-                                </option></select
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="temp_DHCPModeresponsestatus"
-                                ng-bind="temp_DHCPModeval |translate
-                        "
-                              ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="temp_DHCPMode"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.temp_DHCPMode.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;temp.DHCP Mode.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
                           </div>
                         </div>
-                        <div class="form-group no-padding-hr"></div>
-                      </div>
-                    </div>
-                    <!-- ngIf: temp.DHCPMode=='Server' -->
-                    <div class="wrapperdiv ng-scope">
-                      <div class="panel-body no-padding-vr">
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-12 ng-hide"
-                          ng-hide="true"
-                        >
-                          <div class="row">
-                            <div>
-                              <div class="checkbox">
-                                <span class="ng-binding">Begin Address</span
-                                ><input
-                                  type="checkbox"
-                                  class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                                  id="DeviceDHCPv4ServerPool1_Enable"
-                                  ng-model="DeviceDHCPv4ServerPool1.Enable"
-                                  value="192.168.1.2"
-                                  name="DeviceDHCPv4ServerPool1_Enable"
-                                /><label
-                                  class="checkbox_left_align"
-                                  for="DeviceDHCPv4ServerPool1_Enable"
-                                ></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-6"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-12">
-                              <input
-                                xmltype="ipv4"
-                                type="text"
-                                id="MinAddress"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
-                                placeholder="Please Enter Valid IPV4 Address"
-                                ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                                ng-required="
-                                        true
-                                    "
-                                name="DeviceDHCPv4ServerPool1_MinAddress"
-                                ng-model="DeviceDHCPv4ServerPool1.MinAddress"
-                                required="required"
-                                value="192.168.1.2"
-                              /><label
-                                for="MinAddress"
-                                class="required row active ng-binding"
-                                >Begin Address</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceDHCPv4ServerPool1_MinAddress"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceDHCPv4ServerPool1_MinAddress.$error.pattern&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                            &#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;| translate
-                        "
-                                >Invalid pattern , Example IPv4 address :
-                                192.168.1.232 </span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceDHCPv4ServerPool1_MinAddress"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceDHCPv4ServerPool1_MinAddress.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.DHCPv4.Server.Pool.1.Begin Address.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-6"
-                        >
-                          <div class="row">
-                            <div class="input-field no-padding-hr-l col-sm-12">
-                              <input
-                                xmltype="ipv4"
-                                type="text"
-                                id="MaxAddress"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
-                                placeholder="Please Enter Valid IPV4 Address"
-                                ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                                ng-required="
-                                        true
-                                    "
-                                name="DeviceDHCPv4ServerPool1_MaxAddress"
-                                ng-model="DeviceDHCPv4ServerPool1.MaxAddress"
-                                value="192.168.1.254"
-                                required="required"
-                              /><label
-                                for="MaxAddress"
-                                class="required row active ng-binding"
-                                >End Address</label
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceDHCPv4ServerPool1_MaxAddress"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceDHCPv4ServerPool1_MaxAddress.$error.pattern&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                            &#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;| translate
-                        "
-                                >Invalid pattern , Example IPv4 address :
-                                192.168.1.232 </span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceDHCPv4ServerPool1_MaxAddress"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceDHCPv4ServerPool1_MaxAddress.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.DHCPv4.Server.Pool.1.End Address.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-6"
-                        >
-                          <div class="required row">
-                            <label
-                              for="LeaseTime"
-                              class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                              >Lease Time</label
-                            >
-                            <div
-                              style="margin-top: 20px"
-                              class="no-padding-hr-l col-xs-12 col-sm-12"
-                            >
-                              <select
-                                class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                                id="LeaseTime"
-                                validation="false"
-                                name="DeviceDHCPv4ServerPool1_LeaseTime"
-                                required="required"
-                              >
-                                <option value="0" label="1 hour">1 hour</option>
-                                <option
-                                  value="1"
-                                  selected="selected"
-                                  label="1 day"
-                                >
-                                  1 day
-                                </option>
-                                <option value="2" label="1 week">
-                                  1 week
-                                </option></select
-                              ><span
-                                class="error ng-binding ng-hide"
-                                ng-show="DeviceDHCPv4ServerPool1_LeaseTimeresponsestatus"
-                                ng-bind="DeviceDHCPv4ServerPool1_LeaseTimeval |translate
-                        "
-                              ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceDHCPv4ServerPool1_LeaseTime"
-                                ng-show="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1_form.DeviceDHCPv4ServerPool1_LeaseTime.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.DHCPv4.Server.Pool.1.Lease Time.$error.required&#39;|translate
-            "
-                                >* This Field is Required</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group no-padding-hr"></div>
-                      </div>
-                    </div>
-                    <!-- end ngIf: temp.DHCPMode=='Server' -->
-                    <!-- ngIf: temp.DHCPMode=='Relay' -->
-                    <div
-                      class="col-lg-12 col-md-12 col-xs-12 text-center bordertop-button"
-                    >
-                      <div class="btn-align">
-                        <input
-                          type="button"
-                          id="Cancel"
-                          class="gemtek-btn-normal"
-                          value="Cancel"
-                          source="Device.IP.Interface.1.IPv4Address.1?IPAddress,SubnetMask&amp;temp?DHCPMode&amp;Device.DHCPv4.Server.Pool.1?Enable,MinAddress,MaxAddress,LeaseTime&amp;Device.DHCPv4.Relay.Forwarding.1?Enable,DHCPServerIPAddress"
-                          hiddenparams="Device.IP.Interface.1.IPv4Address.1?&amp;temp?&amp;Device.DHCPv4.Server.Pool.1?&amp;Device.DHCPv4.Relay.Forwarding.1?"
-                          formname="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1"
-                          relationformname="DeviceIPInterface1IPv4Address1,temp,DeviceDHCPv4ServerPool1,DeviceDHCPv4RelayForwarding1,"
-                          onclick="hide_add_ip_addr_reservation()"
-                        />
-                      </div>
-                      <div class="btn-align">
-                        <input
-                          type="button"
-                          id="Modify"
-                          class="gemtek-btn-primary"
-                          value="Apply"
-                          source="Device.IP.Interface.1.IPv4Address.1?IPAddress,SubnetMask&amp;temp?DHCPMode&amp;Device.DHCPv4.Server.Pool.1?Enable,MinAddress,MaxAddress,LeaseTime&amp;Device.DHCPv4.Relay.Forwarding.1?Enable,DHCPServerIPAddress"
-                          hiddenparams="Device.IP.Interface.1.IPv4Address.1?&amp;temp?&amp;Device.DHCPv4.Server.Pool.1?&amp;Device.DHCPv4.Relay.Forwarding.1?"
-                          formname="DeviceIPInterface1IPv4Address1tempDeviceDHCPv4ServerPool1DeviceDHCPv4RelayForwarding1"
-                          relationformname="DeviceIPInterface1IPv4Address1,temp,DeviceDHCPv4ServerPool1,DeviceDHCPv4RelayForwarding1,"
-                        />
                       </div>
                     </div>
                   </div>
-                </form>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="required row">
+                          <label
+                            for="DHCPMode"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >DHCP Mode</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="DHCPMode"
+                              name="temp_DHCPMode"
+                              required="required"
+                            >
+                              <option
+                                value="?"
+                                selected="selected"
+                                class="form-control1"
+                              >
+                                Select
+                              </option>
+                              <option class="form-control1" value="0">
+                                Server
+                              </option>
+                              <option class="form-control1" value="1">
+                                Relay
+                              </option>
+                              <option class="form-control1" value="0">
+                                Disable
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="dhcp_select_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr"></div>
+                    </div>
+                  </div>
+                  <!-- ngIf: temp.DHCPMode=='Server' -->
+                  <div class="wrapperdiv ng-scope">
+                    <div class="panel-body no-padding-vr">
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-12 ng-hide"
+                      >
+                        <div class="row">
+                          <div>
+                            <div class="checkbox">
+                              <span class="ng-binding">Begin Address</span
+                              ><input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                id="DeviceDHCPv4ServerPool1_Enable"
+                                name="DeviceDHCPv4ServerPool1_Enable"
+                              /><label
+                                class="checkbox_left_align"
+                                for="DeviceDHCPv4ServerPool1_Enable"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-12">
+                            <input
+                              xmltype="ipv4"
+                              type="text"
+                              id="MinAddress"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
+                              placeholder="Please Enter Valid IPV4 Address"
+                              pattern="^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$"
+                              name="DeviceDHCPv4ServerPool1_MinAddress"
+                              required="required"
+                            /><label
+                              for="MinAddress"
+                              class="required row active ng-binding"
+                              >Begin Address</label
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="begin_invalid_error"
+                              >Invalid pattern , Example IPv4 address :
+                              192.168.1.232 </span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="begin_empty_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="row">
+                          <div class="input-field no-padding-hr-l col-sm-12">
+                            <input
+                              xmltype="ipv4"
+                              type="text"
+                              id="MaxAddress"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-pattern"
+                              placeholder="Please Enter Valid IPV4 Address"
+                              pattern="^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$"
+                              name="DeviceDHCPv4ServerPool1_MaxAddress"
+                              required="required"
+                            /><label
+                              for="MaxAddress"
+                              class="required row active ng-binding"
+                              >End Address</label
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="end_invalid_error"
+                              >Invalid pattern , Example IPv4 address :
+                              192.168.1.232 </span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="end_empty_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-6">
+                        <div class="required row">
+                          <label
+                            for="LeaseTime"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Lease Time</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="LeaseTime"
+                              name="DeviceDHCPv4ServerPool1_LeaseTime"
+                              required="required"
+                            >
+                              <option
+                                value="?"
+                                selected="selected"
+                                label="Select"
+                              >
+                                Select
+                              </option>
+
+                              <option value="0" label="1 hour">1 hour</option>
+                              <option value="1" label="1 day">1 day</option>
+                              <option value="2" label="1 week">
+                                1 week
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="lease_select_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr"></div>
+                    </div>
+                  </div>
+                  <!-- end ngIf: temp.DHCPMode=='Server' -->
+                  <!-- ngIf: temp.DHCPMode=='Relay' -->
+                  <div
+                    class="col-lg-12 col-md-12 col-xs-12 text-center bordertop-button"
+                  >
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Cancel"
+                        class="gemtek-btn-normal"
+                        value="Cancel"
+                      />
+                    </div>
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Modify"
+                        class="gemtek-btn-primary"
+                        value="Apply"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 no-padding-hr">
               <div class="panel-body">
-                <div
-                  class="alert alert-danger ng-hide"
-                  ng-show="DeviceDHCPv4ServerPool1StaticAddresspopup"
-                  ng-init="DeviceDHCPv4ServerPool1StaticAddresspopup=false"
-                >
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click='popupclose("DeviceDHCPv4ServerPool1StaticAddresspopup");
-                        '
-                    >✖
-                  </a>
-                  <p
-                    ng-bind-html="DeviceDHCPv4ServerPool1StaticAddresspopupval | unsafe"
-                    class="ng-binding"
-                  ></p>
+                <div class="alert alert-danger ng-hide">
+                  <a class="close" aria-label="close">✖ </a>
+                  <p class="ng-binding"></p>
                 </div>
                 <div class="ip-panel-heading no-padding-hr">
-                  <span
-                    style="font-weight: bold"
-                    ng-bind="
-                            &#39;IP Address Reservation&#39; | translate
-                        "
-                    class="ng-binding"
+                  <span style="font-weight: bold" class="ng-binding"
                     >IP Address Reservation</span
-                  ><a
-                    id="Device.DHCPv4.Server.Pool.1.StaticAddress.*"
-                    class="gemtek-btn-normal"
-                    onclick="show_add_ip_addr_reservation()"
+                  ><a id="AddBtn" class="gemtek-btn-normal"
                     ><i class="fa fa-plus icontxtgap"></i
                     ><span style="font-weight: normal" class="ng-binding"
                       >Add</span
@@ -1452,138 +1291,73 @@
                 </div>
                 <div class="no-padding-hr">
                   <div>
-                    <form
-                      class="add-ip-addr-form ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
-                      name="DeviceDHCPv4ServerPool1StaticAddress_form"
-                    >
-                      <table class="add-ip-addr">
-                        <tbody>
-                          <tr
-                            ng-show="DeviceDHCPv4ServerPool1StaticAddressshowstatus"
-                            id="add_ip_addr_reservation"
-                            class="ng-hide"
-                          >
-                            <td class="col-xs-4">
-                              <div class="form-group">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
-                                    id="Chaddr"
-                                    style="margin: 0"
-                                    ng-required="
-                        true
-                    "
-                                    ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$/"
-                                    ng-model="DeviceDHCPv4ServerPool1StaticAddress.Chaddr"
-                                    name="DeviceDHCPv4ServerPool1StaticAddress_Chaddr"
-                                    ng-blur='textChange("DeviceDHCPv4ServerPool1StaticAddress__Chaddr",DeviceDHCPv4ServerPool1StaticAddress.Chaddr)'
-                                    required="required"
-                                  /><span
-                                    class="error ng-binding ng-hide"
-                                    forname="DeviceDHCPv4ServerPool1StaticAddress_Chaddr"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_form.DeviceDHCPv4ServerPool1StaticAddress_Chaddr.$error.pattern"
-                                    ng-bind="
-                        &#39;Invalid  MAC address&#39;| translate
-                    "
-                                    >Invalid MAC address</span
-                                  ><span
-                                    class="error ng-binding ng-hide"
-                                    forname="DeviceDHCPv4ServerPool1StaticAddress_Chaddr"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_editabletableform.DeviceDHCPv4ServerPool1StaticAddress_Chaddr.$error.pattern"
-                                    ng-bind="
-                        &#39;Invalid  MAC address&#39;| translate
-                    "
-                                    >Invalid MAC address</span
-                                  ><span
-                                    class="error ng-binding ng-hide"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_Chaddrresponsestatus"
-                                    ng-bind="DeviceDHCPv4ServerPool1StaticAddress_Chaddrval |translate
-                    "
-                                  ></span
-                                  ><span
-                                    class="error ng-binding ng-hide"
-                                    forname="DeviceDHCPv4ServerPool1StaticAddress_Chaddr"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_form.DeviceDHCPv4ServerPool1StaticAddress_Chaddr.$error.required&amp;&amp; formsubmitstatus"
-                                    ng-bind="
-                &#39;Device.DHCPv4.Server.Pool.1.StaticAddress.*.MAC Address.$error.required&#39;|translate
-            "
-                                    >* This Field is Required</span
-                                  >
-                                </div>
+                    <table class="add-ip-addr">
+                      <tbody>
+                        <tr id="add_ip_addr_reservation" class="ng-hide">
+                          <td class="col-xs-4">
+                            <div class="form-group">
+                              <div>
+                                <input
+                                  type="text"
+                                  class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
+                                  id="Chaddr"
+                                  style="margin: 0"
+                                  pattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+                                  required="required"
+                                /><span
+                                  class="error ng-binding ng-hide add_error"
+                                  id="addMAC_invalid_error"
+                                  >Invalid MAC address</span
+                                ><span class="error ng-binding ng-hide"></span
+                                ><span
+                                  class="error ng-binding ng-hide add_error"
+                                  id="addMAC_empty_error"
+                                  >* This Field is Required</span
+                                >
                               </div>
-                            </td>
-                            <td class="col-xs-4">
-                              <div class="form-group">
-                                <div>
-                                  <input
-                                    type="text"
-                                    class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
-                                    id="Yiaddr"
-                                    ng-required="
-                        true
-                    "
-                                    ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
-                                    ng-model="DeviceDHCPv4ServerPool1StaticAddress.Yiaddr"
-                                    name="DeviceDHCPv4ServerPool1StaticAddress_Yiaddr"
-                                    ng-blur='textChange("DeviceDHCPv4ServerPool1StaticAddress__Yiaddr",DeviceDHCPv4ServerPool1StaticAddress.Yiaddr)'
-                                    required="required"
-                                  /><span
-                                    class="error ng-binding ng-hide"
-                                    forname="DeviceDHCPv4ServerPool1StaticAddress_Yiaddr"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_form.DeviceDHCPv4ServerPool1StaticAddress_Yiaddr.$error.pattern"
-                                    ng-bind="
-                        &#39;Invalid  IPv4 address&#39;| translate
-                    "
-                                    >Invalid IPv4 address</span
-                                  ><span
-                                    class="error ng-binding ng-hide"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_Yiaddrresponsestatus"
-                                    ng-bind="DeviceDHCPv4ServerPool1StaticAddress_Yiaddrval |translate
-                    "
-                                  ></span
-                                  ><span
-                                    class="error ng-binding ng-hide"
-                                    forname="DeviceDHCPv4ServerPool1StaticAddress_Yiaddr"
-                                    ng-show="DeviceDHCPv4ServerPool1StaticAddress_form.DeviceDHCPv4ServerPool1StaticAddress_Yiaddr.$error.required&amp;&amp; formsubmitstatus"
-                                    ng-bind="
-                &#39;Device.DHCPv4.Server.Pool.1.StaticAddress.*.IP Address.$error.required&#39;|translate
-            "
-                                    >* This Field is Required</span
-                                  >
-                                </div>
+                            </div>
+                          </td>
+                          <td class="col-xs-4">
+                            <div class="form-group">
+                              <div>
+                                <input
+                                  type="text"
+                                  class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
+                                  id="Yiaddr"
+                                  pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+                                  required="required"
+                                /><span
+                                  class="error ng-binding ng-hide add_error"
+                                  id="addIP_invalid_error"
+                                  >Invalid IPv4 address</span
+                                ><span class="error ng-binding ng-hide"></span
+                                ><span
+                                  class="error ng-binding ng-hide add_error"
+                                  id="addIP_empty_error"
+                                  >* This Field is Required</span
+                                >
                               </div>
-                            </td>
-                            <td class="table-button-group">
-                              <a
-                                class="btn table-btn"
-                                componenttype="tablePlus"
-                                onclick="show_add_ip_addr_reservation()"
-                                showstatus="DeviceDHCPv4ServerPool1StaticAddressshowstatus"
-                                formname="DeviceDHCPv4ServerPool1StaticAddress"
-                                id="Add"
-                                source="Device.DHCPv4.Server.Pool.1.StaticAddress.*?Enable,Chaddr,Yiaddr,"
-                                hiddenparams="Device.DHCPv4.Server.Pool.1.StaticAddress.*?Enable__1,"
-                                ><span class="gemtek-enabled"></span></a
-                              ><a
-                                class="btn table-btn"
-                                style="margin-left: 10px"
-                                onclick="hide_add_ip_addr_reservation()"
-                                ><span class="gemtek-disabled"></span
-                              ></a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </form>
+                            </div>
+                          </td>
+                          <td class="table-button-group">
+                            <a
+                              class="btn table-btn"
+                              componenttype="tablePlus"
+                              id="Confirm"
+                              ><span class="gemtek-enabled"></span></a
+                            ><a
+                              class="btn table-btn"
+                              style="margin-left: 10px"
+                              id="Destroy"
+                              ><span class="gemtek-disabled"></span
+                            ></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <table
                       class="table tableCount theme_intel"
-                      formname=""
-                      buttonstatus=""
-                      name="Device.DHCPv4.Server.Pool.1.StaticAddress.*?Enable,Chaddr,Yiaddr,"
-                      objparamrelation="DeviceDHCPv4ServerPool1StaticAddress__Enable__checkbox,DeviceDHCPv4ServerPool1StaticAddress__Chaddr__macaddress,DeviceDHCPv4ServerPool1StaticAddress__Yiaddr__ip4,DeviceDHCPv4ServerPool1StaticAddress__DeviceDHCPv4ServerPool1StaticAddress__DeviceDHCPv4ServerPool1StaticAddress__"
                       id="DeviceDHCPv4ServerPool1StaticAddress"
-                      filterdata=""
                     >
                       <thead>
                         <tr>

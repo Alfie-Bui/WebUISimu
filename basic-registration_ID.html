@@ -134,6 +134,12 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/basic.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("basic-registration_ID.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -966,23 +972,12 @@
             </div>
 
             <div class="subheader">
-              <p
-                ng-bind="&#39;rid.headerdescription&#39; | translate"
-                class="ng-binding"
-              ></p>
+              <p class="ng-binding"></p>
             </div>
 
             <div class="panel">
               <!-- ngInclude: 'templates/tabs.html' -->
-              <div
-                <!--
-                如有使用此
-                tabs,
-                請同步
-                menu
-                Controllers
-                第492行的switch--
-              >
+              <div>
                 <ul class="nav nav-tabs gemtek-tab ng-scope">
                   <!-- ngRepeat: tab in tabs -->
                 </ul>
@@ -1003,22 +998,13 @@
                           name="RegID"
                           placeholder="Please enter the registration ID"
                           class="no-margin ng-pristine ng-untouched ng-valid ng-valid-pattern"
-                          ng-model="rid.RegID"
-                          ng-pattern=""
-                          ng-change="textChange(&#39;Device.X_GTK_RegID&#39;)"
-                          ng-disabled="!isDisconnected"
                           maxlength="36"
                         />
-                        <span
-                          class="error ng-hide"
-                          ng-show="ridForm.RegID.$error.pattern"
+                        <span class="error ng-hide"
                           >* The registration id contain only numbers and
                           letters</span
                         >
-                        <span
-                          class="error ng-binding ng-hide"
-                          ng-show="!isDisconnected"
-                          ng-bind="&#39;rid.warning&#39; | translate"
+                        <span class="error ng-binding ng-hide"
                           >* Modification only allowed when fiber optic is not
                           connected</span
                         >
@@ -1041,9 +1027,6 @@
                       <button
                         type="button"
                         class="gemtek-btn-primary ng-binding"
-                        ng-click="apply(event)"
-                        ng-disabled="ridForm.$invalid"
-                        ng-bind="&#39;Apply&#39; | translate"
                       >
                         Apply
                       </button>
@@ -1054,31 +1037,11 @@
             </div>
 
             <!-- ngInclude: 'templates/alertdialog.html' -->
-            <div class="ng-scope">
-              <div class="ng-scope">
-                <div
-                  id="alertDialog"
-                  class="ngdialog ngdialog-theme-default dialogwidth800 hide"
-                >
-                  <div class="ngdialog-overlay"></div>
-                  <div class="ngdialog-content">
-                    <div class="ngdialog-message">
-                      <img src="images/icons/icon-1/ico-notice.svg" />
-                      <h3>Notice</h3>
-                      <p class="ng-binding"></p>
-                    </div>
-                    <div class="ngdialog-buttons">
-                      <button
-                        type="button"
-                        class="gemtek-btn-primary ng-binding"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div
+              xmlns="http://www.w3.org/1999/xhtml"
+              id="alertDialogMark"
+              class="row ng-scope"
+            ></div>
           </div>
         </div>
 

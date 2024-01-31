@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.3.9_D26/M02/Y2024";
+const SIMULATOR_VERSION = "0.4.0_D26/M02/Y2024";
 
 /**
  *
@@ -129,11 +129,18 @@ const template = {
         SecondaryDNSv6: "",
         DomainName: "gemtek.com",
       },
-      DeviceConnected: {
-        HostName: "DESKTOP-DL2F1BS",
-        MACAddress: "ac:1a:3d:91:fc:cb",
-        IPAddress: "192.168.1.2",
-      },
+      DeviceConnected: [
+        {
+          HostName: "DESKTOP-DL2F1BS",
+          MACAddress: "ac:1a:3d:91:fc:cb",
+          IPAddress: "192.168.1.2",
+        },
+        {
+          HostName: "DESKTOP-ABS145B",
+          MACAddress: "77:1a:3d:43:2e:cb",
+          IPAddress: "192.168.1.15",
+        },
+      ],
     },
     RegistrationID: {
       RegistrationID: "",
