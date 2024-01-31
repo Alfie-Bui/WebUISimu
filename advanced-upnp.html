@@ -136,10 +136,10 @@
     <script src="./js/controller/advanced.js"></script>
 
     <script>
-      function toggleSwitch(id) {
-        const switchID = document.getElementById(id);
-        switchID.classList.toggle("checked");
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-upnp.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -1120,18 +1120,12 @@ and open the template in the editor.
                       <span class="gemtek-btn-mr ng-binding">Enable UPnP</span>
                       <span
                         class="switch hidden-dom-removal ng-valid"
-                        ng-change=""
                         id="DeviceUPnPDevice_Enable"
                         name="Enable"
-                        on="ON"
-                        off="OFF"
-                        onclick="toggleSwitch(this.id)"
                         ><small></small
                         ><input
                           type="checkbox"
-                          id="DeviceUPnPDevice_Enable"
                           name="Enable"
-                          ng-model="DeviceUPnPDevice.Enable"
                           style="display: none"
                           class="ng-pristine ng-untouched ng-valid"
                         /><span class="switch-text"
@@ -1150,7 +1144,7 @@ and open the template in the editor.
                   <input
                     type="button"
                     class="waves-effect waves-light gemtek-btn-normal"
-                    id="Refresh"
+                    id="Cancel"
                     value="Cancel"
                     source=""
                     ng-click="Refresh($event)"

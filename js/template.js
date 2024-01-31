@@ -303,6 +303,9 @@ const template = {
       onEdit: "",
       Rules: [],
     },
+    UPnP: {
+      EnaUPnP: false,
+    },
   },
   Security: {},
   Utilities: {},
