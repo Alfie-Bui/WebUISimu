@@ -655,6 +655,28 @@ function loadPage(page, options) {
     case "advanced-static_routing.html":
       break;
     case "advanced-upnp.html":
+      var enaUPnP = document.getElementById("DeviceUPnPDevice_Enable");
+
+      // fill data
+      Advanced.UPnP.EnaUPnP
+        ? enaUPnP.classList.add("checked")
+        : enaUPnP.classList.remove("checked");
+
+      // event
+      enaUPnP.addEventListener("click", () => {
+        enaUPnP.classList.toggle("checked");
+      });
+
+      // Apply and Cancel
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS(page, "Cancel");
+      });
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        Advanced.UPnP.EnaUPnP = enaUPnP.classList.contains("checked");
+
+        applyThenStoreToLS(page, "Apply", Advanced);
+      });
       break;
     case "advanced-vpn-add.html":
       break;
