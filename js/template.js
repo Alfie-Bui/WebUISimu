@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.4.0_D26/M02/Y2024";
+const SIMULATOR_VERSION = "0.4.2_D26/M02/Y2024";
 
 /**
  *
@@ -119,7 +119,10 @@ const template = {
         BeginAddress: "192.168.1.2",
         EndAddress: "192.168.1.254",
         LeaseTime: 1,
-        IPAddressReservation: [],
+        IPAddressReservation: [
+          { MAC: "12:12:12:12:12:12", IP: "192.168.1.2" },
+          { MAC: "13:13:13:13:13:13", IP: "192.168.1.3" },
+        ],
       },
       IPv6Configuration: {
         Enable: true,

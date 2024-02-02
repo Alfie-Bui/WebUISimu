@@ -1208,7 +1208,6 @@
                       <div class="form-group no-padding-hr col-xs-12 col-sm-6">
                         <div class="required row">
                           <label
-                            for="LeaseTime"
                             class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
                             >Lease Time</label
                           >
@@ -1219,7 +1218,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               id="LeaseTime"
-                              name="DeviceDHCPv4ServerPool1_LeaseTime"
                               required="required"
                             >
                               <option
@@ -1291,70 +1289,74 @@
                 </div>
                 <div class="no-padding-hr">
                   <div>
-                    <table class="add-ip-addr">
-                      <tbody>
-                        <tr id="add_ip_addr_reservation" class="ng-hide">
-                          <td class="col-xs-4">
-                            <div class="form-group">
-                              <div>
-                                <input
-                                  type="text"
-                                  class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
-                                  id="Chaddr"
-                                  style="margin: 0"
-                                  pattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
-                                  required="required"
-                                /><span
-                                  class="error ng-binding ng-hide add_error"
-                                  id="addMAC_invalid_error"
-                                  >Invalid MAC address</span
-                                ><span class="error ng-binding ng-hide"></span
-                                ><span
-                                  class="error ng-binding ng-hide add_error"
-                                  id="addMAC_empty_error"
-                                  >* This Field is Required</span
-                                >
+                    <form
+                      class="add-ip-addr-form ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
+                    >
+                      <table class="add-ip-addr">
+                        <tbody>
+                          <tr id="add_ip_addr_reservation" class="ng-hide">
+                            <td class="col-xs-4">
+                              <div class="form-group">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
+                                    id="Chaddr"
+                                    style="margin: 0"
+                                    apattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+                                    required="required"
+                                  /><span
+                                    class="error ng-binding ng-hide add_error"
+                                    id="addMAC_invalid_error"
+                                    >Invalid MAC address</span
+                                  ><span class="error ng-binding ng-hide"></span
+                                  ><span
+                                    class="error ng-binding ng-hide add_error"
+                                    id="addMAC_empty_error"
+                                    >* This Field is Required</span
+                                  >
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                          <td class="col-xs-4">
-                            <div class="form-group">
-                              <div>
-                                <input
-                                  type="text"
-                                  class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
-                                  id="Yiaddr"
-                                  pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
-                                  required="required"
-                                /><span
-                                  class="error ng-binding ng-hide add_error"
-                                  id="addIP_invalid_error"
-                                  >Invalid IPv4 address</span
-                                ><span class="error ng-binding ng-hide"></span
-                                ><span
-                                  class="error ng-binding ng-hide add_error"
-                                  id="addIP_empty_error"
-                                  >* This Field is Required</span
-                                >
+                            </td>
+                            <td class="col-xs-4">
+                              <div class="form-group">
+                                <div>
+                                  <input
+                                    type="text"
+                                    class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
+                                    id="Yiaddr"
+                                    apattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+                                    required="required"
+                                  /><span
+                                    class="error ng-binding ng-hide add_error"
+                                    id="addIP_invalid_error"
+                                    >Invalid IPv4 address</span
+                                  ><span class="error ng-binding ng-hide"></span
+                                  ><span
+                                    class="error ng-binding ng-hide add_error"
+                                    id="addIP_empty_error"
+                                    >* This Field is Required</span
+                                  >
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                          <td class="table-button-group">
-                            <a
-                              class="btn table-btn"
-                              componenttype="tablePlus"
-                              id="Confirm"
-                              ><span class="gemtek-enabled"></span></a
-                            ><a
-                              class="btn table-btn"
-                              style="margin-left: 10px"
-                              id="Destroy"
-                              ><span class="gemtek-disabled"></span
-                            ></a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                            </td>
+                            <td class="table-button-group">
+                              <a
+                                class="btn table-btn"
+                                componenttype="tablePlus"
+                                id="Confirm"
+                                ><span class="gemtek-enabled"></span></a
+                              ><a
+                                class="btn table-btn"
+                                style="margin-left: 10px"
+                                id="Destroy"
+                                ><span class="gemtek-disabled"></span
+                              ></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </form>
                     <table
                       class="table tableCount theme_intel"
                       id="DeviceDHCPv4ServerPool1StaticAddress"
@@ -1369,6 +1371,122 @@
                       </thead>
                       <tbody id="bodyData" class="hiderow">
                         <!-- ngRepeat: user in DeviceDHCPv4ServerPool1StaticAddresstable -->
+                        <!-- Template rowElem -->
+                        <template id="rowElem">
+                          <tr class="ng-scope">
+                            <td class="no-padding-hr-l ng-scope ng-hide"></td>
+                            <td class="no-padding-hr-l ng-scope">
+                              <span class="ng-scope ng-binding editable rowMAC">
+                              </span
+                              ><span
+                                class="editable-wrap editable-text ng-scope ng-hide"
+                                ><span class="editable-controls"
+                                  ><input
+                                    type="text"
+                                    class="editable-input ng-pristine ng-valid ng-touched macEdit"
+                                  />
+                                  <div
+                                    class="editable-error ng-binding ng-hide macError"
+                                  >
+                                    Invalid MAC Address
+                                  </div></span
+                                ></span
+                              >
+                            </td>
+
+                            <td class="no-padding-hr-l ng-scope">
+                              <span
+                                e-form="rowform"
+                                class="ng-scope ng-binding editable rowIP"
+                              >
+                              </span>
+                              <span
+                                class="editable-wrap editable-text ng-scope ng-hide"
+                                ><span class="editable-controls"
+                                  ><input
+                                    type="text"
+                                    class="editable-input ng-pristine ng-valid ng-touched ipEdit"
+                                  />
+                                  <div
+                                    class="editable-error ng-binding ng-hide ipError"
+                                  >
+                                    Invalid IPv4 Address
+                                  </div></span
+                                ></span
+                              >
+                            </td>
+
+                            <td class="table-button-group no-padding-hr">
+                              <form
+                                name="rowform"
+                                class="form-buttons form-inline editable-form ng-pristine ng-valid ng-hide rowform"
+                              >
+                                <button
+                                  type="submit"
+                                  class="btn btn-info table-btn no-margin-hr editConfirm"
+                                >
+                                  <span class="gemtek-enabled"></span></button
+                                >&nbsp;&nbsp;&nbsp;
+                                <button
+                                  type="button"
+                                  class="btn btn-info table-btn no-margin-hr editCancel"
+                                >
+                                  <span class="gemtek-disabled"></span>
+                                </button>
+                              </form>
+                              <div class="buttons">
+                                <button
+                                  class="btn table-btn no-margin-hr editBtn"
+                                  name="edit"
+                                >
+                                  <img
+                                    src="./images/icons/icon-1/edit.svg"
+                                  /></button
+                                >&nbsp;&nbsp;&nbsp;
+                                <button
+                                  class="btn table-btn no-margin-hr deleteBtn"
+                                  name="delete"
+                                >
+                                  <img src="images/icons/icon-1/delete.svg" />
+                                </button>
+                                <div>
+                                  <div
+                                    id="deletedialog"
+                                    class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                                  >
+                                    <div class="ngdialog-overlay"></div>
+                                    <div class="ngdialog-content">
+                                      <div class="ngdialog-message">
+                                        <img
+                                          src="Broadband%20Router_files/deletedialog.svg"
+                                        />
+                                        <h3>Delete ip address</h3>
+                                        <p class="ng-binding">
+                                          Are you sure you want to Delete ?
+                                        </p>
+                                      </div>
+                                      <div class="ngdialog-buttons">
+                                        <button
+                                          type="button"
+                                          class="ngdialog-button gemtek-btn-normal ng-binding"
+                                          id="Cancel"
+                                        >
+                                          Cancel</button
+                                        ><button
+                                          type="button"
+                                          class="ngdialog-button gemtek-btn-danger ng-binding"
+                                          id="OK"
+                                        >
+                                          Ok
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </template>
                       </tbody>
                     </table>
                   </div>

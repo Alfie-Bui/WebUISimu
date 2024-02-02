@@ -30,7 +30,7 @@ function loadPage(page, options) {
       });
       break;
     case "basic-lan-ipv4Config.html":
-      console.log(`Load data: ${JSON.stringify(Basic.LAN.IPv4Configuration)}`);
+      console.log("Load data:", Basic.LAN.IPv4Configuration);
       var filledData = Basic.LAN.IPv4Configuration;
 
       var devIPAddr = document.getElementById("IPAddress");
@@ -48,6 +48,9 @@ function loadPage(page, options) {
       var confirm_addForm = document.getElementById("Confirm");
       var cancel_addForm = document.getElementById("Destroy");
 
+      var tbody = document.getElementById("bodyData");
+      var rowElemTemplate = document.getElementById("rowElem");
+
       // fill data
       var fillData = function () {
         devIPAddr.value = filledData.DeviceIPAddress;
@@ -58,11 +61,125 @@ function loadPage(page, options) {
         leaseTime.value = filledData.LeaseTime;
 
         for (const elem of filledData.IPAddressReservation) {
+          add_IPReservation(elem.MAC, elem.IP);
         }
       };
 
-      // @TODO
-      var add_IPReservation = () => {};
+      var add_IPReservation = (mac, ip) => {
+        const tr = rowElemTemplate.content.cloneNode(true);
+
+        const rowForm = tr.querySelector(".rowform");
+
+        const macField = tr.querySelector(".rowMAC");
+        const ipField = tr.querySelector(".rowIP");
+        const editBtn = tr.querySelector(".editBtn");
+        const deleteBtn = tr.querySelector(".deleteBtn");
+        const editConfirm = tr.querySelector(".editConfirm");
+        const editCancel = tr.querySelector(".editCancel");
+
+        // on Edit
+        const allEditWrap = tr.querySelectorAll(".editable-wrap");
+        const macEdit = tr.querySelector(".macEdit");
+        const ipEdit = tr.querySelector(".ipEdit");
+        const macError = tr.querySelector(".macError");
+        const ipError = tr.querySelector(".ipError");
+
+        const formBtns = tr.querySelector(".form-buttons");
+        const btns = tr.querySelector(".buttons");
+
+        // fill data
+        macField.textContent = mac;
+        ipField.textContent = ip;
+
+        // init event
+        const macEditHandler = function () {
+          if (
+            !new RegExp("^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$").test(
+              macEdit.value.trim()
+            )
+          )
+            macError.classList.remove("ng-hide");
+          else macError.classList.add("ng-hide");
+        };
+
+        const ipEditHandler = function () {
+          if (
+            !new RegExp(
+              "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+            ).test(ipEdit.value.trim())
+          )
+            ipError.classList.remove("ng-hide");
+          else ipError.classList.add("ng-hide");
+        };
+
+        rowForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+        });
+
+        editBtn.addEventListener("click", () => {
+          macField.style.visibility = "hidden";
+          ipField.style.visibility = "hidden";
+          for (const editWrap of allEditWrap) {
+            editWrap.classList.remove("ng-hide");
+          }
+          formBtns.classList.remove("ng-hide");
+          btns.classList.add("ng-hide");
+
+          // event for 2 input field
+          macEdit.addEventListener("input", macEditHandler);
+          macEdit.value = mac;
+
+          ipEdit.addEventListener("input", ipEditHandler);
+          ipEdit.value = ip;
+        });
+
+        deleteBtn.addEventListener("click", () => {
+          deleteDialogHandle(
+            deleteBtn.closest("tr"),
+            "Delete ip address",
+            "Are you sure you want to Delete ?"
+          );
+        });
+
+        editConfirm.addEventListener("click", function () {
+          //check Error at MAC & IP field
+          if (checkError_show(macError, ipError)) {
+            macField.style.visibility = "visible";
+            ipField.style.visibility = "visible";
+            for (const editWrap of allEditWrap) {
+              editWrap.classList.add("ng-hide");
+            }
+            formBtns.classList.add("ng-hide");
+            btns.classList.remove("ng-hide");
+
+            // remove event
+            macEdit.removeEventListener("input", macEditHandler);
+            ipEdit.removeEventListener("input", ipEditHandler);
+
+            //update value
+            macField.textContent = macEdit.value;
+            ipField.textContent = ipEdit.value;
+            macField.style.visibility = "visible";
+            ipField.style.visibility = "visible";
+          }
+        });
+
+        editCancel.addEventListener("click", () => {
+          macField.style.visibility = "visible";
+          ipField.style.visibility = "visible";
+          for (const editWrap of allEditWrap) {
+            editWrap.classList.add("ng-hide");
+          }
+          formBtns.classList.add("ng-hide");
+          btns.classList.remove("ng-hide");
+
+          // remove event
+          macEdit.removeEventListener("input", macEditHandler);
+          ipEdit.removeEventListener("input", ipEditHandler);
+        });
+
+        tbody.appendChild(tr);
+      };
 
       var initEvent = function () {
         devIPAddr.addEventListener("input", () => {
@@ -111,30 +228,66 @@ function loadPage(page, options) {
         leaseTime.addEventListener("change", () => {
           checkError_selectField(
             leaseTime,
-            document.getElementById("LeaseTime")
+            document.getElementById("lease_select_error")
           );
         });
 
         addBtn.addEventListener("click", () => {
           addIPForm.classList.remove("ng-hide");
+          tbody.classList.remove("hiderow");
+          tbody.classList.add("showrow");
+
           checkPattern_inputField(
             ip_addForm,
-            new RegExp(ip_addForm.getAttribute("pattern")),
+            new RegExp(ip_addForm.getAttribute("apattern")),
             document.getElementById("addIP_invalid_error"),
             document.getElementById("addIP_empty_error")
           );
           checkPattern_inputField(
             mac_addForm,
-            new RegExp(mac_addForm.getAttribute("pattern")),
+            new RegExp(mac_addForm.getAttribute("apattern")),
             document.getElementById("addMAC_invalid_error"),
             document.getElementById("addMAC_empty_error")
           );
         });
 
-        // @TODO
+        ip_addForm.addEventListener("input", () => {
+          checkPattern_inputField(
+            ip_addForm,
+            new RegExp(ip_addForm.getAttribute("apattern")),
+            document.getElementById("addIP_invalid_error"),
+            document.getElementById("addIP_empty_error")
+          );
+        });
+
+        mac_addForm.addEventListener("input", () => {
+          checkPattern_inputField(
+            mac_addForm,
+            new RegExp(mac_addForm.getAttribute("apattern")),
+            document.getElementById("addMAC_invalid_error"),
+            document.getElementById("addMAC_empty_error")
+          );
+        });
+
+        // Confirm or cancel Add IP reservation
         confirm_addForm.addEventListener("click", () => {
           if (checkError_show(document.querySelectorAll(".add_error"))) {
-            // @TODO
+            var newIPReser = {
+              MAC: mac_addForm.value,
+              IP: ip_addForm.value,
+            };
+
+            filledData.IPAddressReservation.push(newIPReser);
+
+            // hide add panel
+            addIPForm.classList.add("ng-hide");
+            tbody.classList.add("hiderow");
+            tbody.classList.remove("showrow");
+
+            // reset value input field and append IP table
+            mac_addForm.value = "";
+            ip_addForm.value = "";
+            add_IPReservation(newIPReser.MAC, newIPReser.IP);
           } else {
             console.log("Add new IP reservation fail");
           }
@@ -142,6 +295,8 @@ function loadPage(page, options) {
 
         cancel_addForm.addEventListener("click", () => {
           addIPForm.classList.add("ng-hide");
+          tbody.classList.add("hiderow");
+          tbody.classList.remove("showrow");
         });
       };
 
@@ -154,8 +309,22 @@ function loadPage(page, options) {
       document.getElementById("Modify").addEventListener("click", () => {
         // check if error on page, true --> no error (filter all erroe except add_error class)
         if (checkError_show(document.querySelectorAll(".checkerror"))) {
-          // @TODO
-          console.log("No error");
+          filledData.DeviceIPAddress = devIPAddr.value;
+          filledData.SubnetMask = subnetMask.value;
+          filledData.DHCPMode = dhcpMode.value;
+          filledData.BeginAddress = beginAddr.value;
+          filledData.EndAddress = endAddr.value;
+          filledData.LeaseTime = leaseTime.value;
+          filledData.IPAddressReservation = []; // clear
+          for (const elem of tbody.getElementsByTagName("tr")) {
+            const value = elem.innerText.split("\t");
+            // console.log(elem);
+            filledData.IPAddressReservation.push({
+              MAC: value[0],
+              IP: value[1],
+            });
+          }
+          console.log("Basic.LAN.IPv4", filledData)
           // applyThenStoreToLS(page, "Apply", Basic);
         } else {
           console.log("Apply fail");
