@@ -430,8 +430,296 @@ function loadPage(page, options) {
       });
       break;
     case "advanced-port_mapping-add.html":
+      console.log("Load data:", Advanced.PortMapping);
+      var isAddRule = false;
+      if (Advanced.PortMapping.onEdit != "") {
+        filledData = Advanced.PortMapping.data.find(
+          (obj) => obj.NameOfRule === Advanced.PortMapping.onEdit
+        );
+      } else {
+        isAddRule = true;
+        filledData = {
+          NameOfRule: "",
+          Enable: true,
+          IPv4: "",
+          Interface: "?",
+          PortRange: [],
+          Protocol: "TCP",
+          IPAddr: "",
+          Port: "",
+        };
+      }
+      console.log("filledData", filledData);
+
+      var nameOfRule = document.getElementById("portAddRuleName");
+      var enableRule = document.getElementById(
+        "DeviceNATPortMapping_Enableresponsestatus"
+      );
+      var ipv4 = document.getElementById("host");
+      var showSelectInterface = document.getElementById("showSelectInterface");
+      var interfaceSelect = document.getElementById("virtualinreface");
+      var allInterfaceCheck = document.getElementById(
+        "DeviceNATPortMapping_AllInterfaces"
+      );
+      var startPort = document.getElementById("startport");
+      var endPort = document.getElementById("endportrange");
+      var protocolSelect = document.getElementById("virtualprotocol");
+      var IPaddr = document.getElementById("client");
+      var port = document.getElementById("internalport");
+
+      var fillData = function () {
+        nameOfRule.value = filledData.NameOfRule;
+        enableRule.checked = filledData.Enable;
+        ipv4.value = filledData.IPv4;
+
+        for (const elem of Basic.WAN.Interfaces) {
+          var optionElement = document.createElement("option");
+          optionElement.value = elem.Name; // as value, corresponds to index of itself in SSIDs array
+          optionElement.label = elem.Name;
+          optionElement.textContent = elem.Name;
+          interfaceSelect.appendChild(optionElement);
+        }
+
+        if (interfaceSelect.value == "All") {
+          allInterfaceCheck.checked = true;
+          showSelectInterface.classList.add("ng-hide");
+        } else {
+          showSelectInterface.classList.remove("ng-hide");
+          interfaceSelect.value = filledData.Interface;
+        }
+        startPort.value = filledData.PortRange[0];
+        endPort.value = filledData.PortRange[1];
+        protocolSelect.value = filledData.Protocol;
+        IPaddr.value = filledData.IPAddr;
+        port.value = filledData.Port;
+
+        // check Error (in case add so need to check empty)
+        checkPattern_inputField(
+          nameOfRule,
+          new RegExp(nameOfRule.getAttribute("pattern")),
+          document.getElementById("invalid_name_error"),
+          document.getElementById("empty_name_error")
+        );
+
+        checkPattern_inputField(
+          ipv4,
+          new RegExp(ipv4.getAttribute("pattern")),
+          document.getElementById("invalid_ipv4_error"),
+          document.getElementById("empty_ipv4_error")
+        );
+
+        checkError_selectField(
+          interfaceSelect,
+          document.getElementById("interface_select_error")
+        );
+
+        checkMinMaxError_inputField(
+          startPort,
+          document.getElementById("min_start_error"),
+          document.getElementById("max_start_error"),
+          document.getElementById("empty_start_error")
+        );
+
+        checkMinMaxError_inputField(
+          endPort,
+          document.getElementById("min_end_error"),
+          document.getElementById("max_end_error"),
+          document.getElementById("empty_end_error")
+        );
+
+        checkPattern_inputField(
+          IPaddr,
+          new RegExp(IPaddr.getAttribute("pattern")),
+          document.getElementById("invalid_ipaddr_error"),
+          document.getElementById("empty_ipaddr_error")
+        );
+
+        checkMinMaxError_inputField(
+          port,
+          document.getElementById("min_port_error"),
+          document.getElementById("max_port_error"),
+          document.getElementById("empty_port_error")
+        );
+      };
+
+      // init event on element
+      var initEvent = function () {
+        nameOfRule.addEventListener("input", () => {
+          checkPattern_inputField(
+            nameOfRule,
+            new RegExp(nameOfRule.getAttribute("pattern")),
+            document.getElementById("invalid_name_error"),
+            document.getElementById("empty_name_error")
+          );
+        });
+
+        ipv4.addEventListener("input", () => {
+          checkPattern_inputField(
+            ipv4,
+            new RegExp(ipv4.getAttribute("pattern")),
+            document.getElementById("invalid_ipv4_error"),
+            document.getElementById("empty_ipv4_error")
+          );
+        });
+
+        interfaceSelect.addEventListener("change", () => {
+          checkError_selectField(
+            interfaceSelect,
+            document.getElementById("interface_select_error")
+          );
+        });
+
+        startPort.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            startPort,
+            document.getElementById("min_start_error"),
+            document.getElementById("max_start_error"),
+            document.getElementById("empty_start_error")
+          );
+        });
+
+        endPort.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            endPort,
+            document.getElementById("min_end_error"),
+            document.getElementById("max_end_error"),
+            document.getElementById("empty_end_error")
+          );
+        });
+
+        IPaddr.addEventListener("input", () => {
+          checkPattern_inputField(
+            IPaddr,
+            new RegExp(IPaddr.getAttribute("pattern")),
+            document.getElementById("invalid_ipaddr_error"),
+            document.getElementById("empty_ipaddr_error")
+          );
+        });
+
+        port.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            port,
+            document.getElementById("min_port_error"),
+            document.getElementById("max_port_error"),
+            document.getElementById("empty_port_error")
+          );
+        });
+
+        allInterfaceCheck.addEventListener("change", () => {
+          if (allInterfaceCheck.checked == true) {
+            showSelectInterface.classList.add("ng-hide");
+            document
+              .getElementById("interface_select_error")
+              .classList.add("ng-hide");
+          } else {
+            checkError_selectField(
+              interfaceSelect,
+              document.getElementById("interface_select_error")
+            );
+            showSelectInterface.classList.remove("ng-hide");
+          }
+        });
+      };
+
+      // first fill data into FE
+      fillData();
+
+      // init event on each element
+      initEvent();
+
+      document.getElementById("Close").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-port_mapping.html", "Cancel");
+      });
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData.NameOfRule = nameOfRule.value;
+          filledData.Enable = enableRule.checked;
+          filledData.IPv4 = ipv4.value;
+
+          if (allInterfaceCheck.checked == true) {
+            filledData.Interface = "All";
+          } else {
+            filledData.Interface = interfaceSelect.value;
+          }
+          filledData.PortRange.push(startPort.value, endPort.value);
+          filledData.IPAddr = IPaddr.value;
+          filledData.Port = port.value;
+
+          if (isAddRule) {
+            Advanced.PortMapping.data.push(filledData);
+          }
+          applyThenStoreToLS("advanced-port_mapping.html", "Apply", Advanced);
+        } else {
+          console.log("Apply fail");
+        }
+      });
       break;
     case "advanced-port_mapping.html":
+      console.log(`Load data:`, Advanced.PortMapping);
+
+      var filledData = Advanced.PortMapping.data;
+
+      var addBtn = document.getElementById("Device.NAT.PortMapping");
+      var tbody = document.getElementById("bodyData");
+      var rowElem = document.getElementById("rowElem");
+
+      // fill data
+      for (const elem of filledData) {
+        const tr = rowElem.content.cloneNode(true);
+
+        elem.Enable
+          ? tr.querySelector(".enable").classList.add("gemtek-enabled")
+          : tr.querySelector(".enable").classList.add("gemtek-disabled");
+        tr.querySelector(".name").textContent = elem.NameOfRule;
+        tr.querySelector(".interface").textContent = elem.Interface;
+        tr.querySelector(".remote").textContent = elem.IPv4;
+        tr.querySelector(".startPort").textContent = elem.PortRange[0];
+        tr.querySelector(".endPort").textContent = elem.PortRange[1];
+        tr.querySelector(".internalPort").textContent = elem.Port;
+        tr.querySelector(".protocol").textContent = elem.Protocol;
+        tr.querySelector(".lan").textContent = elem.IPAddr;
+
+        const editBtn = tr.querySelector(".editBtn");
+        const deleteBtn = tr.querySelector(".deleteBtn");
+
+        editBtn.addEventListener("click", () => {
+          Advanced.PortMapping.onEdit = editBtn
+            .closest("tr")
+            .querySelector(".name")
+            .textContent.trim();
+          applyThenStoreToLS(
+            "advanced-port_mapping-add.html",
+            "Apply",
+            Advanced
+          ); // do not need modify anything so Cancel is make sense
+        });
+
+        deleteBtn.addEventListener("click", () => {
+          var deletedRow = deleteBtn.closest("tr");
+          deleteDialogHandle(
+            deletedRow,
+            "Delete Port Rule",
+            "Are you sure you want to Delete ?"
+          )
+            .then(() => {
+              filledData.splice(deletedRow.rowIndex - 1, 1); // the name of column is index 0
+              applyThenStoreToLS(page, "Apply", Advanced);
+            })
+            .catch(() => {
+              console.log("Cancel delete");
+            });
+        });
+
+        tbody.appendChild(tr);
+      }
+
+      // init event
+      addBtn.addEventListener("click", () => {
+        Advanced.PortMapping.onEdit = "";
+        applyThenStoreToLS("advanced-port_mapping-add.html", "Apply", Advanced);
+      });
+
       break;
     case "advanced-port_triggering-add.html":
       console.log(`Load data: ${JSON.stringify(Advanced.PortTriggering)}`);

@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.4.2_D26/M02/Y2024";
+const SIMULATOR_VERSION = "0.4.5_D26/M02/Y2024";
 
 /**
  *
@@ -312,6 +312,10 @@ const template = {
     PortTriggering: {
       onEdit: "",
       Rules: [],
+    },
+    PortMapping: {
+      onEdit: "",
+      data: [],
     },
     UPnP: {
       EnaUPnP: false,

@@ -136,9 +136,10 @@
     <script src="./js/controller/advanced.js"></script>
 
     <script>
-      function back_to_previous() {
-        window.location.href = "advanced-port_mapping.html";
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-port_mapping-add.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -919,250 +920,7 @@ and open the template in the editor.
             content="width=device-width, initial-scale=1.0"
             class="ng-scope"
           />
-          <style type="text/css" class="ng-scope">
-            /* .boxcontainer_appname {
-      width: 700px;
-      height: auto;
-    }
-
-    .boxcontainer {
-      width: 700px;
-      height: 280px;
-      margin: 10px auto;
-      position: relative;
-    }
-
-    .boxcontainer .box_even {
-      width: 148px;
-      height: 270px;
-      display: table;
-      padding: 10px;
-      float: left;
-      text-align: center;
-    }
-
-    .boxcontainer .box_even .icongroup {
-      width: 148px;
-      display: table-cell;
-      vertical-align: top;
-      position: relative;
-    }
-
-    .boxcontainer .box_even span.title {
-      display: block;
-      margin: 5px auto;
-      color: #454545;
-      font-weight: normal;
-    }
-
-    .boxcontainer .box_even .coludtxt1 {
-      color: #ffffff !important;
-      font-weight: 400 !important
-    }
-
-    .boxcontainer .box_divison {
-      width: 35px;
-      height: 160px;
-      float: left;
-    }
-
-    .boxcontainer .box_divison .directions {
-      width: 25px;
-      height: 80px;
-      margin-top: 30px;
-    }
-
-    .boxcontainer .box_divison .directions i {
-      font-size: 35px;
-      color: #e74c3c;
-      margin-top: 75px;
-    }
-
-    .boxcontainer .box_divison .directions img {
-      font-size: 35px;
-      color: #e74c3c;
-      margin-top: 80px;
-    }
-
-    Box1 .cloud>i.cloudicon {
-      font-size: 136px;
-      color: #0096d6 !important;
-      line-height: 124px;
-      position: absolute;
-      top: 70px;
-      left: 0px;
-      margin: 0px !important;
-    }
-
-    .icongroup input.form-control {
-      position: absolute;
-      top: 134px;
-      width: 106px;
-      left: 5px;
-      z-index: 2;
-      color: #ffffff;
-      border: 1px solid #0084bd;
-    }
-
-    .cloud_editbtn {
-      font-size: 24px;
-      color: #ffffff;
-      position: absolute;
-      top: 134px;
-      right: 6px;
-      z-index: 2;
-      cursor: pointer;
-    }
-
-    .cloud>span.coludtxt {
-      position: absolute;
-      top: 100px;
-      left: 45px;
-      z-index: 1;
-      color: #ffffff !important
-    }
-
-    .cloud>.int_textfield {
-      width: 124px;
-      height: 24px !important;
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      border-radius: 2px;
-      padding: 2px 5px;
-      background: transparent;
-      border: 1px solid #0072a3;
-    }
-
-    .int_textfield::-webkit-input-placeholder {
-      color: #ffffff;
-    }
-
-    .int_textfield:-moz-placeholder {
-      color: #ffffff;
-    }
-
-    .int_textfield::-moz-placeholder {
-      color: #ffffff;
-    }
-
-    .int_textfield:-ms-input-placeholder {
-      color: #ffffff;
-    }
-
-    Box2 .port_bg1 {
-      background: #8bc34a !important;
-    }
-
-    .port_bg2 {
-      background: #ff9800 !important;
-    }
-
-    .port_bg3 {
-      background: #008080 !important;
-    }
-
-    .interface label {
-      margin: 10px 0px;
-      color: #454545;
-      font-weight: 400;
-    }
-
-    .interface input[type="text"] {
-      width: 50px;
-      margin: 0 2px;
-    }
-
-    .interface input[type="number"] {
-      margin: 0 2px;
-    }
-
-    .interface .divider {
-      margin: 5px 3px
-    }
-
-    .portrangebox {
-      width: 100%;
-      display: inline-block;
-      margin: 8px 0;
-      padding: 0 0 15px;
-    }
-
-    Box3 .routersection textarea {
-      border: 1px solid #dedede;
-      resize: none;
-      padding: 2px;
-      margin-bottom: 10px;
-    }
-
-    .routersection .form-group .form-control {
-      width: 94%;
-      height: 25px !important;
-      text-align: center;
-      background: transparent;
-      border: 1px solid #dedede;
-      border-radius: 0px;
-      position: relative;
-      margin: 0 auto;
-      top: 5px;
-      color: #000000;
-    }
-
-    Box4 .inputtxt {
-      padding: 10px 0px;
-    }
-
-    .pcsection .inputtxt input[type="text"] {
-      width: 110px;
-      margin: 0 auto;
-    }
-
-    .interface select.form-control,
-    .routersection select.form-control {
-      display: block;
-      width: 90%;
-      height: 24px;
-      padding: 2px 12px;
-      font-size: 14px;
-      line-height: 1.42857143;
-      color: #555;
-      background-color: transparent;
-      background-image: none;
-      border: 1px solid #7db043;
-      border-radius: 4px;
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-      -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-      -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-      transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-      margin: 0px auto 8px;
-    }
-
-    .port_bg1 .form-group .form-control {
-      border: 1px solid #7db043;
-    }
-
-    .port_bg2 .form-group .form-control {
-      border: 1px solid #e68900;
-    }
-
-    .port_bg1 select.form-control {
-      border: 1px solid #7db043;
-    }
-
-    .port_bg2 select.form-control {
-      border: 1px solid #e68900;
-    }
-
-    .form-group span.required:after {
-      content: " *";
-      color: red;
-    }
-
-    .custom_btn1 {
-      margin-top: 40px;
-    } */
-          </style>
+          <style type="text/css" class="ng-scope"></style>
 
           <div id="translation" class="hide ng-scope">virtualport</div>
           <div ng-controller="virtualServerController" class="ng-scope">
@@ -1281,28 +1039,20 @@ and open the template in the editor.
                         id="portAddRuleName"
                         name="description"
                         type="text"
-                        ng-required="true"
                         placeholder="Please enter name of the rule"
-                        ng-pattern='/^[^"]{0,}$/'
+                        pattern='^[^"]{0,}$'
                         class="ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                         required="required"
                       />
+                      <span class="error ng-binding ng-hide"></span>
                       <span
                         class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_Description"
-                        ng-show="DeviceNATPortMapping_Descriptionresponsestatus"
-                      ></span>
-                      <span
-                        class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_Description"
-                        ng-show="virtualformstatus &amp;&amp; virtualform.description.$error.required"
+                        id="empty_name_error"
                         >* This Field is Required</span
                       >
                       <span
                         class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_Description"
-                        ng-show="virtualformstatus &amp;&amp; virtualform.description.$error.pattern"
-                        ng-bind='&#39;Please avoid " symbol&#39; | translate'
+                        id="invalid_name_error"
                         >Please avoid " symbol</span
                       >
                     </div>
@@ -1317,7 +1067,6 @@ and open the template in the editor.
                           name="Enable"
                           style="padding-top: 5px"
                           class="ng-untouched ng-valid ng-dirty ng-valid-parse"
-                          checked
                         />
                         <label
                           class="checkbox_left_align gemtek-portMapping-chk"
@@ -1326,8 +1075,6 @@ and open the template in the editor.
                         <span
                           class="error ng-binding ng-hide"
                           forname="DeviceNATPortMapping_Enable"
-                          ng-show="DeviceNATPortMapping_Enableresponsestatus"
-                          ng-bind="DeviceNATPortMapping_Enableval"
                         ></span>
                       </div>
                     </div>
@@ -1347,33 +1094,21 @@ and open the template in the editor.
                       <input
                         type="text"
                         id="host"
-                        ng-pattern="/^()(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+                        pattern="^()(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
                         name="remotehost"
                         placeholder="IPv4 Address"
                         maxlength="15"
-                        value="8.8.8.8"
                         class="ng-pristine ng-valid ng-valid-pattern ng-valid-maxlength ng-touched"
                       />
+                      <span class="error ng-binding ng-hide"></span>
                       <span
                         class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_RemoteHost"
-                        ng-show="DeviceNATPortMapping_RemoteHostresponsestatus"
-                        ng-bind="DeviceNATPortMapping_RemoteHostval"
-                      ></span>
-                      <span
-                        class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_RemoteHost"
-                        ng-show="virtualformstatus &amp;&amp; virtualform.remotehost.$error.pattern"
-                        ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
-                        >Invalid pattern , Example IPv4 address :
-                        192.168.1.232</span
+                        id="empty_ipv4_error"
+                        >* This Field is Required</span
                       >
                       <span
                         class="error ng-binding ng-hide"
-                        id="invalidRemoteIP"
-                        forname="DeviceNATPortMapping_RemoteHost"
-                        ng-show="invalidRemoteIP"
-                        ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
+                        id="invalid_ipv4_error"
                         >Invalid pattern , Example IPv4 address :
                         192.168.1.232</span
                       >
@@ -1391,7 +1126,7 @@ and open the template in the editor.
                     <!-- <div class="btn_group"> -->
                     <!-- <div class="portrangebox port_bg2"> -->
                     <!-- ngIf: DeviceNATPortMapping.AllInterfaces == '0' -->
-                    <div class="ng-scope">
+                    <div class="ng-scope" id="showSelectInterface">
                       <!-- <div class="form-group inputtxt"> -->
                       <div class="gemtek-add-portMapping-input">
                         <span class="required ng-binding">Interface</span>
@@ -1399,7 +1134,7 @@ and open the template in the editor.
                       <!-- <span class="title coludtxt required ng-binding"
                       ng-bind="'Device.NAT.PortMapping.*.Interface' | translate"></span> -->
                       <select
-                        ng-required="true"
+                        id="virtualinreface"
                         name="virtualinreface"
                         class="ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
                         required="required"
@@ -1407,22 +1142,13 @@ and open the template in the editor.
                         <option value="?" selected="selected" label="Select">
                           Select
                         </option>
-                        <option value="1" label="ANI0_wan8">ANI0_wan8</option>
-                        <option value="2" label="ANI0_wan9">ANI0_wan9</option>
                       </select>
                       <span
                         class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_X_GTK_INTERFACE"
-                        ng-show="virtualformstatus &amp;&amp; virtualform.virtualinreface.$error.required"
-                        ng-bind="&#39;Device.NAT.PortMapping.*.X_GTK_INTERFACE.$error.required&#39; | translate"
+                        id="interface_select_error"
                         >* This Field is Required</span
                       >
-                      <span
-                        class="error ng-binding ng-hide"
-                        forname="DeviceNATPortMapping_X_GTK_INTERFACE"
-                        ng-show="DeviceNATPortMapping_X_GTK_INTERFACEresponsestatus"
-                        ng-bind="DeviceNATPortMapping_X_GTK_INTERFACEval"
-                      ></span>
+                      <span class="error ng-binding ng-hide"></span>
                       <!-- </div> -->
                     </div>
                     <!-- end ngIf: DeviceNATPortMapping.AllInterfaces == '0' -->
@@ -1434,16 +1160,10 @@ and open the template in the editor.
                     />
                     <label
                       for="DeviceNATPortMapping_AllInterfaces"
-                      ng-bind="&#39;Device.NAT.PortMapping.*.All Interfaces&#39; | translate"
                       class="ng-binding"
                       >All Interfaces</label
                     >
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_AllInterfaces"
-                      ng-show="DeviceNATPortMapping_AllInterfacesresponsestatus"
-                      ng-bind="DeviceNATPortMapping_AllInterfacesval"
-                    ></span>
+                    <span class="error ng-binding ng-hide"></span>
                     <!-- </div> -->
                     <!-- <div class="portrangebox port_bg2"> -->
                     <!-- <h5 class="active required" ng-bind="'Device.NAT.PortMapping.*.Port Range' | translate"></h5> -->
@@ -1493,72 +1213,43 @@ and open the template in the editor.
                       <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
                         <span
                           class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPort"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.max"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPort.$error.max&#39; | translate"
+                          id="max_start_error"
                           >Port Max value should be 65535</span
                         >
                         <span
                           class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPort"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.min"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPort.$error.min&#39; | translate"
+                          id="min_start_error"
                           >Port Min value should be 0</span
                         >
                         <span
                           class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPort"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.number"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPort.$error.number&#39; | translate"
+                          id="empty_start_error"
                           >Not a valid number</span
                         >
-                        <span
-                          class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPort"
-                          ng-show="DeviceNATPortMapping_ExternalPortresponsestatus"
-                          ng-bind="DeviceNATPortMapping_ExternalPortval"
-                        ></span>
-                        <span
-                          class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPort"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalport.$error.required"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.RemoteHost.$error.required&#39; | translate"
+                        <span class="error ng-binding ng-hide"></span>
+                        <span class="error ng-binding ng-hide"
                           >* This Field is Required</span
                         >
                         <span
                           class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPortEndRange"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalendport.$error.max"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPortEndRange.$error.max&#39; | translate"
+                          id="max_end_error"
                           >Port Max value should be 65535</span
                         >
                         <span
                           class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPortEndRange"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalendport.$error.min"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPortEndRange.$error.min&#39; | translate"
+                          id="min_end_error"
                           >Port Min value should be 0</span
                         >
                         <span
                           class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPortEndRange"
-                          ng-show="virtualformstatus &amp;&amp; virtualform.externalendport.$error.number"
-                          ng-bind="&#39;Device.NAT.PortMapping.*.ExternalPortEndRange.$error.number&#39; | translate"
+                          id="empty_end_error"
                           >Not a valid number</span
                         >
                         <span
                           class="error ng-binding ng-hide"
                           id="portRangeInvalid"
-                          forname="DeviceNATPortMapping_ExternalPortEndRange"
-                          ng-show="portRangeInvalid"
-                          ng-bind=""
                         ></span>
-                        <span
-                          class="error ng-binding ng-hide"
-                          forname="DeviceNATPortMapping_ExternalPortEndRange"
-                          ng-show="DeviceNATPortMapping_ExternalPortEndRangeresponsestatus"
-                          ng-bind="DeviceNATPortMapping_ExternalPortEndRangeval"
-                        ></span>
+                        <span class="error ng-binding ng-hide"></span>
                       </div>
                     </div>
                     <!-- </div> -->
@@ -1580,28 +1271,20 @@ and open the template in the editor.
                       <span class="required ng-binding">Protocol</span>
                     </div>
                     <select
-                      ng-required="true"
+                      id="virtualprotocol"
                       name="virtualprotocol"
                       class="ng-pristine ng-valid ng-valid-required ng-touched"
                       required="required"
                     >
-                      <option value="0" selected="selected" label="TCP">
+                      <option value="TCP" selected="selected" label="TCP">
                         TCP
                       </option>
-                      <option value="1" label="UDP">UDP</option>
+                      <option value="UDP" label="UDP">UDP</option>
                     </select>
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_Protocol"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.virtualprotocol.$error.required"
+                    <span class="error ng-binding ng-hide"
                       >Protocol is required</span
                     >
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_Protocol"
-                      ng-show="DeviceNATPortMapping_Protocolresponsestatus"
-                      ng-bind="DeviceNATPortMapping_Protocolval"
-                    ></span>
+                    <span class="error ng-binding ng-hide"></span>
                   </div>
                   <div class="box_divison">
                     <div class="directions">
@@ -1624,8 +1307,7 @@ and open the template in the editor.
                     <input
                       type="text"
                       id="client"
-                      ng-required="true"
-                      ng-pattern="/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+                      pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
                       name="internalclient"
                       class="form-control1 ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength ng-touched"
                       placeholder="IPv4 Address"
@@ -1633,32 +1315,18 @@ and open the template in the editor.
                       value="192.168.1.13"
                       required="required"
                     />
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalClient"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.internalclient.$error.required"
+                    <span class="error ng-binding ng-hide"
                       >IP Address is required</span
                     >
+                    <span class="error ng-binding ng-hide"></span>
                     <span
                       class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalClient"
-                      ng-show="DeviceNATPortMapping_InternalClientresponsestatus"
-                      ng-bind="DeviceNATPortMapping_InternalClientval"
-                    ></span>
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalClient"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.internalclient.$error.pattern"
-                      ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
-                      >Invalid pattern , Example IPv4 address :
-                      192.168.1.232</span
+                      id="empty_ipaddr_error"
+                      >* This Field is Required</span
                     >
                     <span
                       class="error ng-binding ng-hide"
-                      id="invalidInternalIP"
-                      forname="DeviceNATPortMapping_InternalClient"
-                      ng-show="invalidInternalIP"
-                      ng-bind="&#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;"
+                      id="invalid_ipaddr_error"
                       >Invalid pattern , Example IPv4 address :
                       192.168.1.232</span
                     >
@@ -1676,51 +1344,22 @@ and open the template in the editor.
                       value="3000"
                       name="internalport"
                     />
-                    <i
-                      class="fa fa-edit editbtn hide active"
-                      ng-click="onfocus(&#39;internalport&#39;)"
-                    ></i>
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalPort"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.max"
-                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.max&#39; | translate"
+                    <i class="fa fa-edit editbtn hide active"></i>
+                    <span class="error ng-binding ng-hide" id="max_port_error"
                       >Port Max value should be 65535</span
                     >
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalPort"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.required"
-                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.required&#39; | translate"
+                    <span class="error ng-binding ng-hide"
                       >port number is required</span
                     >
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalPort"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.min"
-                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.min&#39; | translate"
+                    <span class="error ng-binding ng-hide" id="min_port_error"
                       >Port Min value should be 0</span
                     >
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalPort"
-                      ng-show="virtualformstatus &amp;&amp; virtualform.internalport.$error.number"
-                      ng-bind="&#39;Device.NAT.PortMapping.*.InternalPort.$error.number&#39; | translate"
+                    <span class="error ng-binding ng-hide" id="empty_port_error"
                       >Not a valid number</span
                     >
-                    <span
-                      class="error ng-hide"
-                      id="internalPortInvalid"
-                      forname="DeviceNATPortMapping_InternalPort"
-                      ng-show="internalPortInvalid"
-                    >
+                    <span class="error ng-hide" id="internalPortInvalid">
                     </span>
-                    <span
-                      class="error ng-binding ng-hide"
-                      forname="DeviceNATPortMapping_InternalPort"
-                      ng-show="DeviceNATPortMapping_InternalPortresponsestatus"
-                      ng-bind="DeviceNATPortMapping_InternalPortval"
-                    ></span>
+                    <span class="error ng-binding ng-hide"></span>
                   </div>
                 </form>
               </div>
@@ -1735,7 +1374,6 @@ and open the template in the editor.
                   id="Close"
                   value="Close"
                   title="Cancel"
-                  onclick="back_to_previous()"
                 >
                   <span class="ng-binding">Cancel</span>
                 </button>
@@ -1746,7 +1384,6 @@ and open the template in the editor.
                   id="Apply"
                   value="Apply"
                   title="Apply"
-                  onclick="back_to_previous()"
                 >
                   <span class="ng-binding">Apply</span>
                 </button>

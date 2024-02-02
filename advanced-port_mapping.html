@@ -134,6 +134,13 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-port_mapping.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -974,48 +981,32 @@
             service within a LAN.
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;virtualserver_lan.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               You can configure a rule to allow remote computers (for example,
               computers on the Internet) to connect to a specific computer or
               service within a LAN.
             </p>
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="panel ng-scope">
-            <div
-              class="alert alert-danger ng-hide"
-              ng-show="DeviceNATPortMappingpopup"
-            >
-              <a
-                class="close"
-                aria-label="close"
-                ng-click='popupclose("DeviceNATPortMappingpopup");
-                    '
-                >✖
-              </a>
-              <p
-                ng-bind-html="DeviceNATPortMappingpopupval | unsafe"
-                class="ng-binding"
-              ></p>
+            <div class="alert alert-danger ng-hide">
+              <a class="close" aria-label="close">✖ </a>
+              <p class="ng-binding"></p>
             </div>
             <div class="panel-heading blu_bg gemtek-portMap-panel-title">
-              <span
-                ng-bind="
-                            &#39;Port Mapping Rules&#39; | translate
-                        "
-                class="gemtek-port-title-style ng-binding"
+              <span class="gemtek-port-title-style ng-binding"
                 >Port Mapping Rules</span
               ><a
-                id="Device.NAT.PortMapping.*"
+                id="Device.NAT.PortMapping"
                 class="gemtek-btn-normal pull-right gemtek-btn-addplus"
-                href="advanced-port_mapping-add.html"
-                ><i class="fa fa-plus icontxtgap"></i
-                ><span style="font-weight: normal" class="ng-binding"
+                ><i
+                  class="fa fa-plus icontxtgap"
+                  for="Device.NAT.PortMapping"
+                ></i
+                ><span
+                  for="Device.NAT.PortMapping"
+                  style="font-weight: normal"
+                  class="ng-binding"
+                  id="addBtn"
                   >Add</span
                 ></a
               >
@@ -1023,272 +1014,109 @@
             <div class="panel-body">
               <div class="table-responsive table-scroll-vr">
                 <table
-                  polling=""
-                  loadstatus=""
-                  interval=""
                   class="table tableCount theme_intel"
-                  formname=""
-                  name="Device.NAT.PortMapping.*?Enable,Description,X_GTK_INTERFACE,RemoteHost,ExternalPort,ExternalPortEndRange,InternalPort,Protocol,InternalClient,"
-                  componenttype="table"
-                  objparamrelation="DeviceNATPortMapping__Enable__string,DeviceNATPortMapping__Description__string,DeviceNATPortMapping__X_GTK_INTERFACE__string,DeviceNATPortMapping__RemoteHost__string,DeviceNATPortMapping__ExternalPort__string,DeviceNATPortMapping__ExternalPortEndRange__string,DeviceNATPortMapping__InternalPort__string,DeviceNATPortMapping__Protocol__dropdown1,DeviceNATPortMapping__InternalClient__string,"
-                  iconicparams="Enable,"
                   id="DeviceNATPortMapping"
-                  filterdata=""
                 >
                   <thead class="">
                     <tr>
-                      <th
-                        id="Enable"
-                        class=""
-                        ng-init='DeviceNATPortMapping1=true;jsonreq("Enable","status");Enabledisplaystatus=false;
-                                                            '
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.Enable&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Enable</span
-                        >
+                      <th id="Enable" class="">
+                        <span class="ng-binding">Enable</span>
                       </th>
-                      <th
-                        id="Description"
-                        class=""
-                        ng-init="DeviceNATPortMapping2=true;DeviceNATPortMapping2=true;Descriptiondisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.Name of the Rule&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Name of the Rule</span
-                        >
+                      <th id="Description" class="">
+                        <span class="ng-binding">Name of the Rule</span>
                       </th>
-                      <th
-                        id="X_GTK_INTERFACE"
-                        class=""
-                        ng-init="DeviceNATPortMapping3=true;DeviceNATPortMapping3=true;X_GTK_INTERFACEdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.Interface&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Interface</span
-                        >
+                      <th id="X_GTK_INTERFACE" class="">
+                        <span class="ng-binding">Interface</span>
                       </th>
-                      <th
-                        id="RemoteHost"
-                        class=""
-                        ng-init="DeviceNATPortMapping4=true;DeviceNATPortMapping4=true;RemoteHostdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.Remote Host IP Address&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Remote Host IP Address</span
-                        >
+                      <th id="RemoteHost" class="">
+                        <span class="ng-binding">Remote Host IP Address</span>
                       </th>
-                      <th
-                        id="ExternalPort"
-                        class=""
-                        ng-init="DeviceNATPortMapping5=true;DeviceNATPortMapping5=true;ExternalPortdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.External Port&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >External Port</span
-                        >
+                      <th id="ExternalPort" class="">
+                        <span class="ng-binding">External Port</span>
                       </th>
-                      <th
-                        id="ExternalPortEndRange"
-                        class=""
-                        ng-init="DeviceNATPortMapping6=true;DeviceNATPortMapping6=true;ExternalPortEndRangedisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.External Port End Range&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >External Port End Range</span
-                        >
+                      <th id="ExternalPortEndRange" class="">
+                        <span class="ng-binding">External Port End Range</span>
                       </th>
-                      <th
-                        id="InternalPort"
-                        class=""
-                        ng-init="DeviceNATPortMapping7=true;DeviceNATPortMapping7=true;InternalPortdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.InternalPort&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >InternalPort</span
-                        >
+                      <th id="InternalPort" class="">
+                        <span class="ng-binding">InternalPort</span>
                       </th>
-                      <th
-                        id="Protocol"
-                        class=""
-                        ng-init='DeviceNATPortMapping8=true;dropdownUrlReq("DeviceNATPortMapping","Protocol","port_mapping_protocol","","","")'
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.Protocol&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >Protocol</span
-                        >
+                      <th id="Protocol" class="">
+                        <span class="ng-binding">Protocol</span>
                       </th>
-                      <th
-                        id="InternalClient"
-                        class=""
-                        ng-init="DeviceNATPortMapping9=true;DeviceNATPortMapping9=true;InternalClientdisplaystatus=true;
-                                                            "
-                      >
-                        <span
-                          ng-bind="
-                                                        &#39;Device.NAT.PortMapping.*.LAN Host IP Address&#39; | translate
-                                                    "
-                          class="ng-binding"
-                          >LAN Host IP Address</span
-                        >
+                      <th id="InternalClient" class="">
+                        <span class="ng-binding">LAN Host IP Address</span>
                       </th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="bodyData">
-                    <!-- ngRepeat: user in DeviceNATPortMappingtable -->
-                    <tr class="ng-scope">
-                      <!-- ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class="gemtek-enabled"
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
+                    <template id="rowElem">
+                      <tr class="ng-scope">
+                        <td class="no-padding-hr ng-scope">
+                          <span class="enable"></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope name"></span
+                          ></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope interface"></span
+                          ></span>
+                        </td>
+
+                        <td>
+                          <span class=""
+                            ><span class="ng-binding ng-scope remote"></span
+                          ></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope startPort"></span
+                          ></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope endPort"></span
+                          ></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope internalPort">
+                            </span
+                          ></span>
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <span class="ng-binding ng-scope protocol"></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope">
+                          <span class=""
+                            ><span class="ng-binding ng-scope lan"></span
+                          ></span>
+                        </td>
+
+                        <td class="no-padding-hr ng-scope ng-hide">
+                          <span class=""></span>
+                        </td>
+                        <td class="no-padding-hr ng-scope">
+                          <button class="btn btn-xs table-btn-txt editBtn">
+                            <img src="images/icons/icon-1/edit.svg" /></button
+                          ><button
+                            class="btn btn-xs table-btn no-margin deleteBtn"
                           >
-                            Gemtek </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            ANI0_wan8 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td>
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            8.8.8.8 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            3000 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            4000 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            3000 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><span
-                          class="ng-binding ng-scope"
-                        >
-                          TCP </span
-                        ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            192.168.1.13 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope ng-hide">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          ng-if="&#39;string&#39; == elementtype(key)"
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceNATPortMapping' -->
-                      <!-- ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <button
-                          class="btn btn-xs table-btn-txt"
-                          name="edit"
-                          id="Device.NAT.PortMapping.1"
-                          onclick="window.location.href='advanced-port_mapping-add.html'"
-                        >
-                          <img src="images/icons/icon-1/edit.svg" /></button
-                        ><button
-                          class="btn btn-xs table-btn no-margin"
-                          popupinfo="DeviceNATPortMapping"
-                          name="delete"
-                          id="Device.NAT.PortMapping.1"
-                        >
-                          <img src="images/icons/icon-1/delete.svg" />
-                        </button>
-                      </td>
-                      <!-- end ngIf: true==$last --><!-- end ngRepeat: td in user -->
-                    </tr>
+                            <img src="images/icons/icon-1/delete.svg" />
+                          </button>
+                        </td>
+                        <!-- end ngIf: true==$last --><!-- end ngRepeat: td in user -->
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>
