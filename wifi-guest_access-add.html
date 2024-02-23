@@ -134,6 +134,44 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/wifi.js"></script>
+
+    <script>
+      function back_to_previous() {
+        window.location.href = "wifi-guest_access.html";
+      }
+
+      function toggle_switch(id) {
+        const switchID = document.getElementById(id);
+
+        switchID.classList.toggle("checked");
+      }
+
+      function hide_show_pw(icon_pw_id, pw_field_id) {
+        const pwEye = document.getElementById(icon_pw_id);
+        const inputField = document.getElementById(pw_field_id);
+
+        if (pwEye.classList.contains("showpw")) {
+          // gonna hide
+          inputField.type = "text";
+
+          pwEye.classList.remove("showpw");
+          pwEye.classList.add("hidepw");
+        } else {
+          // gonna show
+          inputField.type = "password";
+
+          pwEye.classList.remove("hidepw");
+          pwEye.classList.add("showpw");
+        }
+      }
+    </script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("wifi-guest_access-add.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -338,7 +376,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1059,10 +1097,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-valid ng-valid-required ng-touched"
                               id="Radio"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceX_GTK_GuestAccessRule_Radio"
                               ng-model="DeviceX_GTK_GuestAccessRule.Radio"
                               ng-change='ddChange("DeviceX_GTK_GuestAccessRule__Radio",DeviceX_GTK_GuestAccessRule.Radio)'
@@ -1143,12 +1177,8 @@
                               id="SSIDName"
                               class="form-control hidden-dom-removal ng-pristine ng-invalid ng-invalid-required ng-touched"
                               placeholder="Please Enter the value"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceX_GTK_GuestAccessRule_SSIDName"
                               required="required"
-                              value="Gemtek_Guest"
                             /><label
                               for="SSIDName"
                               class="required row active ng-binding"
@@ -1163,9 +1193,8 @@
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_GuestAccessRule_SSIDName"
                               ng-show="DeviceX_GTK_GuestAccessRule_form.DeviceX_GTK_GuestAccessRule_SSIDName.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.X_GTK_GuestAccess.Rule.*.SSID.$error.required&#39;|translate
-            "
+                              ng-bind="&#39;Device.X_GTK_GuestAccess.Rule.*.SSID.$error.required&#39;|translate"
+                              id="empty_ssid_error"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1185,24 +1214,16 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-invalid ng-invalid-required ng-touched"
                               id="ModeEnabled"
-                              validation="false"
                               name="DeviceX_GTK_GuestAccessRule_ModeEnabled"
                               required="required"
                             >
-                              <option value="?" class="form-control1">
-                                Select
-                              </option>
                               <option class="form-control1" value="0">
                                 None
                               </option>
                               <option class="form-control1" value="1">
                                 WPA-Personal
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="2"
-                              >
+                              <option class="form-control1" value="2">
                                 WPA2-Personal
                               </option>
                               <option class="form-control1" value="3">
@@ -1224,9 +1245,8 @@
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_GuestAccessRule_ModeEnabled"
                               ng-show="DeviceX_GTK_GuestAccessRule_form.DeviceX_GTK_GuestAccessRule_ModeEnabled.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.X_GTK_GuestAccess.Rule.*.Security type.$error.required&#39;|translate
-            "
+                              ng-bind="&#39;Device.X_GTK_GuestAccess.Rule.*.Security type.$error.required&#39;|translate"
+                              id="select_security_error"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1235,6 +1255,7 @@
                       <!-- ngIf: DeviceX_GTK_GuestAccessRule.ModeEnabled=='WPA2-Personal' || DeviceX_GTK_GuestAccessRule.ModeEnabled=='WPA-Personal' || DeviceX_GTK_GuestAccessRule.ModeEnabled=='WPA-WPA2-Personal' -->
                       <div
                         class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                        id="panel_passphrase"
                       >
                         <div class="row">
                           <div
@@ -1243,47 +1264,41 @@
                             <div class="input-field no-padding-hr-l col-sm-12">
                               <input
                                 type="password"
-                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required ng-valid-minlength ng-valid-maxlength"
-                                id="DeviceX_GTK_GuestAccessRule1KeyPassphrase"
+                                id="Password_field"
                                 placeholder="Enter Password"
-                                maxlength="63"
-                                name="DeviceX_GTK_GuestAccessRule1_KeyPassphrase"
+                                min="8"
+                                max="63"
+                                pattern=""
                                 required="required"
-                                value="password"
                               /><label
-                                for="KeyPassphrase"
                                 class="active required ng-binding"
+                                id="title_pass"
                                 >Passphrase</label
+                              >
+                              <span
+                                class="error ng-binding ng-hide wifi_error"
+                                id="invalid_pass_error"
+                                >Invalid WEP Key</span
                               ><span
-                                class="error ng-binding"
-                                ng-show='KeyPassphrase.validate !== ""'
-                                ng-bind="KeyPassphrase.validate"
-                              ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="DeviceX_GTK_GuestAccessRule1_KeyPassphrase"
+                                class="error ng-binding ng-hide wifi_error"
+                                id="empty_pass_error"
                                 >* This Field is Required</span
                               ><span
-                                class="error ng-hide"
-                                forname="DeviceX_GTK_GuestAccessRule1_KeyPassphrase"
-                                ><span class="ng-binding"
-                                  >String length is below the limit: </span
-                                ><span>8</span></span
+                                class="error ng-binding ng-hide wifi_error"
+                                id="lowLimit_pass_error"
+                                >String length is below the limit: </span
                               ><span
-                                class="error ng-hide"
-                                forname="DeviceX_GTK_GuestAccessRule1_KeyPassphrase"
-                                ng-show="DeviceX_GTK_GuestAccessRule1_form.DeviceX_GTK_GuestAccessRule1_KeyPassphrase.$error.maxlength&amp;&amp; formsubmitstatus"
-                                ><span class="ng-binding"
-                                  >String length Exceeded the limit: </span
-                                ><span>63</span></span
-                              >
+                                class="error ng-binding ng-hide wifi_error"
+                                id="upLimit_pass_error"
+                                >String length Exceeded the limit:
+                              </span>
                             </div>
                             <div class="pwdtoggle">
                               <input
                                 type="checkbox"
                                 id="DeviceX_GTK_GuestAccessRule1KeyPassphrasecheckbox"
                                 class="ng-pristine ng-untouched ng-valid"
-                                onclick="hide_show_pw('icon_pw', 'DeviceX_GTK_GuestAccessRule1KeyPassphrase')"
+                                onclick="hide_show_pw('icon_pw', 'Password_field')"
                               /><label
                                 id="icon_pw"
                                 for="DeviceX_GTK_GuestAccessRule1KeyPassphrasecheckbox"
@@ -1310,7 +1325,7 @@
                               placeholder="Please Enter the value"
                               name="DeviceX_GTK_GuestAccessRule1_RekeyingInterval"
                               required="required"
-                              value="10000"
+                              min="0"
                             /><label
                               for="RekeyingInterval"
                               class="required row active ng-binding"
@@ -1319,8 +1334,17 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_GuestAccessRule1_RekeyingInterval"
+                              id="empty_rekey_error"
                               >* This Field is Required</span
                             >
+                            <span
+                              class="error ng-hide wifi_error detail_error"
+                              id="range_rekey_error"
+                            >
+                              <span class="ng-binding"
+                                >Value must be greater than or equal to </span
+                              ><span>0</span>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -1336,7 +1360,7 @@
                           >
                           <div class="text-left">
                             <span
-                              class="switch hidden-dom-removal ng-valid checked"
+                              class="switch hidden-dom-removal ng-valid"
                               id="GuestIsolation"
                               on=""
                               off="OFF"
@@ -1345,7 +1369,6 @@
                               ><small></small
                               ><input
                                 type="checkbox"
-                                id="GuestIsolation"
                                 name="DeviceX_GTK_GuestAccessRule.GuestIsolation"
                                 ng-model="DeviceX_GTK_GuestAccessRule.GuestIsolation"
                                 style="display: none"
@@ -1374,14 +1397,13 @@
                     <div class="btn-align">
                       <input
                         type="button"
-                        id="Add"
+                        id="Apply"
                         class="gemtek-btn-primary"
                         value="Apply"
                         source="Device.X_GTK_GuestAccess.Rule.*?Radio,SSIDType,WaveBackhaulVLAN,SSIDName,ModeEnabled,KeyPassphrase,RekeyingInterval,WEPKey,WEPKey,GuestIsolation"
                         hiddenparams="Device.X_GTK_GuestAccess.Rule.*?SSIDType__Radio,"
                         formname="DeviceX_GTK_GuestAccessRule"
                         relationformname="DeviceX_GTK_GuestAccessRule,"
-                        onclick="back_to_previous()"
                       />
                     </div>
                   </div>

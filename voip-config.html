@@ -154,6 +154,12 @@
         }
       }
     </script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("voip-config.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -358,7 +364,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1085,30 +1091,15 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                               id="X_GTK_Interface"
-                              validation="false"
                               name="DeviceX_GTK_VoIP_X_GTK_Interface"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_Interface"
                               required="required"
-                            >
-                              <option value="?" label="Select">Select</option>
-                              <option
-                                value="1"
-                                selected="selected"
-                                label="ANI0_wan8"
-                              >
-                                ANI0_wan8
-                              </option>
-                              <option value="2" label="ANI0_wan9">
-                                ANI0_wan9
-                              </option></select
+                            ></select
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_VoIP_X_GTK_Interfaceresponsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_Interface"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_Interface.$error.required&amp;&amp; formsubmitstatus"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1126,21 +1117,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter telephone number"
                               name="DeviceX_GTK_VoIP_X_GTK_TelephoneNumber"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_TelephoneNumber"
                               required="required"
-                              value="2310"
                             /><label
                               for="X_GTK_TelephoneNumber"
                               class="required row active ng-binding"
                               >Telephone Number</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_VoIP_X_GTK_TelephoneNumberresponsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_TelephoneNumber"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_TelephoneNumber.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_telephone_number"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1157,21 +1145,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter registrar address"
                               name="DeviceX_GTK_VoIP_X_GTK_RegistarAddress"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_RegistarAddress"
                               required="required"
-                              value="10.20.55.13"
                             /><label
                               for="X_GTK_RegistarAddress"
                               class="required row active ng-binding"
                               >Registrar Address</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_VoIP_X_GTK_RegistarAddressresponsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_RegistarAddress"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_RegistarAddress.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_registar_address"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1188,21 +1173,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter authentication ID"
                               name="DeviceX_GTK_VoIP_X_GTK_AuthenticationID"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_AuthenticationID"
                               required="required"
-                              value="2310"
                             /><label
                               for="X_GTK_AuthenticationID"
                               class="required row active ng-binding"
                               >Authentication ID</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_VoIP_X_GTK_AuthenticationIDresponsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_AuthenticationID"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_AuthenticationID.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_authenication_id"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1220,21 +1202,18 @@
                                 id="DeviceX_GTK_VoIPX_GTK_Password"
                                 placeholder="Please enter password"
                                 name="DeviceX_GTK_VoIP_X_GTK_Password"
-                                ng-model="DeviceX_GTK_VoIP.X_GTK_Password"
                                 required="required"
-                                value="2310"
                               /><label
                                 for="X_GTK_Password"
                                 class="active required ng-binding"
                                 >Password</label
                               ><span
-                                class="error ng-binding"
-                                ng-show='X_GTK_Password.validate !== ""'
+                                class="error ng-binding ng-hide"
                               ></span
                               ><span
                                 class="error ng-binding ng-hide"
                                 forname="DeviceX_GTK_VoIP_X_GTK_Password"
-                                ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_Password.$error.required&amp;&amp; formsubmitstatus"
+                                id="empty_password"
                                 >* This Field is Required</span
                               >
                             </div>
@@ -1242,7 +1221,6 @@
                               <input
                                 type="checkbox"
                                 id="DeviceX_GTK_VoIPX_GTK_Passwordcheckbox"
-                                ng-model="DeviceX_GTK_VoIPX_GTK_Passwordfieldstatus"
                                 class="ng-pristine ng-untouched ng-valid"
                               /><label
                                 id="icon_pw"
@@ -1272,21 +1250,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter registrar port number"
                               name="DeviceX_GTK_VoIP_X_GTK_RegistarPort"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_RegistarPort"
                               required="required"
-                              value="5060"
                             /><label
                               for="X_GTK_RegistarPort"
                               class="required row active ng-binding"
                               >Registrar Port</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_VoIP_X_GTK_RegistarPortresponsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_RegistarPort"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_RegistarPort.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_registar_port"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1303,9 +1278,7 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter SIP proxy"
                               name="DeviceX_GTK_VoIP_X_GTK_SIPProxy"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_SIPProxy"
                               required="required"
-                              value="0.0.0.0"
                             /><label
                               for="X_GTK_SIPProxy"
                               class="required row active ng-binding"
@@ -1317,7 +1290,7 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_SIPProxy"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_SIPProxy.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_sip_proxy"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1334,9 +1307,7 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter SIP proxy port number"
                               name="DeviceX_GTK_VoIP_X_GTK_SIPProxyPort"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_SIPProxyPort"
                               required="required"
-                              value="5060"
                             /><label
                               for="X_GTK_SIPProxyPort"
                               class="required row active ng-binding"
@@ -1348,7 +1319,7 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_SIPProxyPort"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_SIPProxyPort.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_sip_proxy_port"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1364,11 +1335,8 @@
                               id="X_GTK_OutboundProxy"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter Outbound proxy"
-                              ng-required="DeviceX_GTK_VoIP.X_GTK_OutboundProxyPort != &#39;&#39; &amp;&amp; DeviceX_GTK_VoIP.X_GTK_OutboundProxyPort != undefined"
                               name="DeviceX_GTK_VoIP_X_GTK_OutboundProxy"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_OutboundProxy"
                               required="required"
-                              value="0.0.0.0"
                             /><label
                               for="X_GTK_OutboundProxy"
                               class="ng-binding active required row"
@@ -1380,7 +1348,7 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_OutboundProxy"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_OutboundProxy.$error.required&amp;&amp; formsubmitstatus"
+                              id="empty_outbound_proxy"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1397,26 +1365,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               placeholder="Please enter Outbound proxy port number"
                               name="DeviceX_GTK_VoIP_X_GTK_OutboundProxyPort"
-                              ng-model="DeviceX_GTK_VoIP.X_GTK_OutboundProxyPort"
                               required="required"
-                              value="5060"
                             /><label
                               for="X_GTK_OutboundProxyPort"
                               class="ng-binding active required row"
                               >Outbound Proxy Port</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceX_GTK_VoIP_X_GTK_OutboundProxyPortresponsestatus"
-                              ng-bind="DeviceX_GTK_VoIP_X_GTK_OutboundProxyPortval |translate
-                        "
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceX_GTK_VoIP_X_GTK_OutboundProxyPort"
-                              ng-show="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP_form.DeviceX_GTK_VoIP_X_GTK_OutboundProxyPort.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.X_GTK_VoIP.Outbound Proxy Port.$error.required&#39;|translate
-            "
+                              id="empty_outbound_proxy_port"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1431,19 +1391,14 @@
                         id="Cancel"
                         class="gemtek-btn-normal"
                         value="Cancel"
-                        source=""
                       />
                     </div>
                     <div class="btn-align">
                       <input
                         type="button"
-                        id="Modify"
+                        id="Apply"
                         class="gemtek-btn-primary"
                         value="Apply"
-                        source="Device.NAT.X_GTK_ALG?SIP&amp;Device.X_GTK_VoIP?X_GTK_Interface,X_GTK_TelephoneNumber,X_GTK_RegistarAddress,X_GTK_AuthenticationID,X_GTK_Password,,X_GTK_RegistarPort,X_GTK_SIPProxy,X_GTK_SIPProxyPort,X_GTK_OutboundProxy,X_GTK_OutboundProxyPort"
-                        hiddenparams="Device.NAT.X_GTK_ALG?&amp;Device.X_GTK_VoIP?"
-                        formname="DeviceNATX_GTK_ALGDeviceX_GTK_VoIP"
-                        relationformname="DeviceNATX_GTK_ALG,DeviceX_GTK_VoIP,"
                       />
                     </div>
                   </div>

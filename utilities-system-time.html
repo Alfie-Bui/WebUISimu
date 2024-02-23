@@ -134,6 +134,14 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/utilities.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("utilities-system-time.html");
+      };
+    </script>
+
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -338,7 +346,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1097,7 +1105,6 @@
                                 type="checkbox"
                                 class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
                                 id="DeviceTime_Enable"
-                                ng-model="DeviceTime.Enable"
                                 value="1"
                                 name="DeviceTime_Enable"
                                 checked
@@ -1120,30 +1127,22 @@
                               id="NTPServer1"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
                               placeholder="Please Enter the value"
-                              ng-maxlength="64"
                               name="DeviceTime_NTPServer1"
-                              ng-model="DeviceTime.NTPServer1"
                               required="required"
-                              value="0.asia.pool.ntp.org"
                             /><label
                               for="NTPServer1"
                               class="required row active ng-binding"
                               >Server 1</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceTime_NTPServer1responsestatus"
-                              ng-bind="DeviceTime_NTPServer1val |translate
-                        "
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceTime_NTPServer1"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer1.$error.required&amp;&amp; formsubmitstatus"
                               >* This Field is Required</span
                             ><span
                               class="error ng-hide"
                               forname="DeviceTime_NTPServer1"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer1.$error.maxlength&amp;&amp; formsubmitstatus"
                               ><span class="ng-binding"
                                 >String length Exceeded the limit: </span
                               ><span>64</span></span
@@ -1161,28 +1160,22 @@
                               id="NTPServer2"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
                               placeholder="Please Enter the value"
-                              ng-maxlength="64"
                               name="DeviceTime_NTPServer2"
-                              ng-model="DeviceTime.NTPServer2"
                               required="required"
-                              value="1.asia.pool.ntp.org"
                             /><label
                               for="NTPServer2"
                               class="required row active ng-binding"
                               >Server 2</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceTime_NTPServer2responsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceTime_NTPServer2"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer2.$error.required&amp;&amp; formsubmitstatus"
                               >* This Field is Required</span
                             ><span
                               class="error ng-hide"
                               forname="DeviceTime_NTPServer2"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer2.$error.maxlength&amp;&amp; formsubmitstatus"
                               ><span class="ng-binding"
                                 >String length Exceeded the limit: </span
                               ><span>64</span></span
@@ -1200,30 +1193,22 @@
                               id="NTPServer3"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
                               placeholder="Please Enter the value"
-                              ng-maxlength="64"
                               name="DeviceTime_NTPServer3"
-                              ng-model="DeviceTime.NTPServer3"
                               required="required"
-                              value="time.windows.com"
                             /><label
                               for="NTPServer3"
                               class="required row active ng-binding"
                               >Server 3</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceTime_NTPServer3responsestatus"
-                              ng-bind="DeviceTime_NTPServer3val |translate
-                        "
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceTime_NTPServer3"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer3.$error.required&amp;&amp; formsubmitstatus"
                               >* This Field is Required</span
                             ><span
                               class="error ng-hide"
                               forname="DeviceTime_NTPServer3"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer3.$error.maxlength&amp;&amp; formsubmitstatus"
                               ><span class="ng-binding"
                                 >String length Exceeded the limit: </span
                               ><span>64</span></span
@@ -1241,28 +1226,22 @@
                               id="NTPServer4"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
                               placeholder="Please Enter the value"
-                              ng-maxlength="64"
                               name="DeviceTime_NTPServer4"
-                              ng-model="DeviceTime.NTPServer4"
                               required="required"
-                              value="time-a.nist.gov"
                             /><label
                               for="NTPServer4"
                               class="required row active ng-binding"
                               >Server 4</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceTime_NTPServer4responsestatus"
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceTime_NTPServer4"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer4.$error.required&amp;&amp; formsubmitstatus"
                               >* This Field is Required</span
                             ><span
                               class="error ng-hide"
                               forname="DeviceTime_NTPServer4"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer4.$error.maxlength&amp;&amp; formsubmitstatus"
                               ><span class="ng-binding"
                                 >String length Exceeded the limit: </span
                               ><span>64</span></span
@@ -1280,30 +1259,20 @@
                               id="NTPServer5"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
                               placeholder="Please Enter the value"
-                              ng-maxlength="64"
                               name="DeviceTime_NTPServer5"
-                              ng-model="DeviceTime.NTPServer5"
                               required="required"
-                              value="time-b.nist.gov"
                             /><label
                               for="NTPServer5"
                               class="required row active ng-binding"
                               >Server 5</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceTime_NTPServer5responsestatus"
-                              ng-bind="DeviceTime_NTPServer5val |translate
-                        "
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
-                              forname="DeviceTime_NTPServer5"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer5.$error.required&amp;&amp; formsubmitstatus"
                               >* This Field is Required</span
                             ><span
                               class="error ng-hide"
-                              forname="DeviceTime_NTPServer5"
-                              ng-show="DeviceTime_form.DeviceTime_NTPServer5.$error.maxlength&amp;&amp; formsubmitstatus"
                               ><span class="ng-binding"
                                 >String length Exceeded the limit: </span
                               ><span>64</span></span
@@ -1326,12 +1295,7 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
                               id="X_GTK_TimeZoneLocation"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceTime_X_GTK_TimeZoneLocation"
-                              ng-model="DeviceTime.X_GTK_TimeZoneLocation"
                               required="required"
                             >
                               <option value="0" label="Africa/Abidjan">
@@ -2603,17 +2567,10 @@
                               </option></select
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceTime_X_GTK_TimeZoneLocationresponsestatus"
-                              ng-bind="DeviceTime_X_GTK_TimeZoneLocationval |translate
-                        "
                             ></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceTime_X_GTK_TimeZoneLocation"
-                              ng-show="DeviceTime_form.DeviceTime_X_GTK_TimeZoneLocation.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Time.Local Timezone.$error.required&#39;|translate
-            "
                               >* This Field is Required</span
                             >
                           </div>
@@ -2629,7 +2586,6 @@
                         id="Cancel"
                         class="gemtek-btn-normal"
                         value="Cancel"
-                        source=""
                       />
                     </div>
                     <div class="btn-align">
@@ -2638,10 +2594,6 @@
                         id="Modify"
                         class="gemtek-btn-primary"
                         value="Apply"
-                        source="Device.Time?CurrentLocalTime,Enable,NTPServer1,NTPServer2,NTPServer3,NTPServer4,NTPServer5,X_GTK_TimeZoneLocation"
-                        hiddenparams="Device.Time?Enable__1,"
-                        formname="DeviceTime"
-                        relationformname="DeviceTime,"
                       />
                     </div>
                   </div>

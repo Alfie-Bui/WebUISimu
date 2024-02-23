@@ -344,7 +344,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1000,7 +1000,14 @@
                           class="no-margin ng-pristine ng-untouched ng-valid ng-valid-pattern"
                           maxlength="36"
                         />
-                        <span class="error ng-hide"
+                        <span
+                          style="color: #ff8b7c;"
+                          id = "RegIDNotify"
+                          >* This field is required.</span
+                        >
+                        <span
+                          class="error ng-hide"
+                          ng-show="ridForm.RegID.$error.pattern"
                           >* The registration id contain only numbers and
                           letters</span
                         >

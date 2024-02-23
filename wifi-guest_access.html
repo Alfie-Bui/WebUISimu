@@ -135,6 +135,20 @@
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/wifi.js"></script>
 
+    <script>
+      function toggle_switch(id) {
+        const switchID = document.getElementById(id);
+
+        switchID.classList.toggle("checked");
+      }
+    </script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("wifi-guest_access.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -339,7 +353,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1089,7 +1103,7 @@
                             >
                             <div class="text-left">
                               <span
-                                class="switch hidden-dom-removal ng-valid checked"
+                                class="switch hidden-dom-removal ng-valid"
                                 id="Enable"
                                 on=""
                                 off="OFF"
@@ -1098,7 +1112,6 @@
                                 ><small></small
                                 ><input
                                   type="checkbox"
-                                  id="Enable"
                                   name="DeviceX_GTK_GuestAccess.Enable"
                                   style="display: none"
                                   class="ng-pristine ng-untouched ng-valid"
@@ -1125,7 +1138,7 @@
                       <div class="btn-align">
                         <input
                           type="button"
-                          id="Modify"
+                          id="Apply"
                           class="gemtek-btn-primary"
                           value="Apply"
                           source="Device.X_GTK_GuestAccess?Enable"
@@ -1151,7 +1164,6 @@
                 <a
                   id="Add"
                   class="waves-effect waves-light gemtek-btn-normal"
-                  href="wifi-guest_access-add.html"
                   ><i class="fa fa-plus icontxtgap"></i
                   ><span style="font-weight: normal" class="ng-binding"
                     >Add</span
@@ -1161,17 +1173,9 @@
               <div class="gemtek-panel-p20 gemtek-border-top no-padding-hr">
                 <div class="table-responsive table-scroll-vr">
                   <table
-                    polling=""
-                    loadstatus=""
-                    interval=""
                     class="table tableCount theme_intel"
-                    formname=""
                     name="Device.X_GTK_GuestAccess.Rule.*?SSIDName,Radio,ModeEnabled,GuestIsolation,Add,"
-                    componenttype="table"
-                    objparamrelation="DeviceX_GTK_GuestAccessRule__SSIDName__dropdown1,DeviceX_GTK_GuestAccessRule__Radio__dropdown1,DeviceX_GTK_GuestAccessRule__ModeEnabled__dropdown1,DeviceX_GTK_GuestAccessRule__GuestIsolation__string,DeviceX_GTK_GuestAccessRule__Add__plusAddButton,"
-                    iconicparams="GuestIsolation,"
                     id="DeviceX_GTK_GuestAccessRule"
-                    filterdata=""
                   >
                     <thead class="">
                       <tr>
@@ -1192,71 +1196,66 @@
                     </thead>
                     <tbody id="bodyData">
                       <!-- ngRepeat: user in DeviceX_GTK_GuestAccessRuletable -->
-                      <tr class="ng-scope">
-                        <!-- ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
-                        <td class="no-padding-hr ng-scope">
-                          <!-- ngIf: 'dropdown1' == elementtype(key) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            Gemtek_Guest </span
-                          ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                        </td>
-                        <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
-                        <td class="no-padding-hr ng-scope">
-                          <!-- ngIf: 'dropdown1' == elementtype(key) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            2.4 GHz </span
-                          ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                        </td>
-                        <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
-                        <td class="no-padding-hr ng-scope">
-                          <!-- ngIf: 'dropdown1' == elementtype(key) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            WPA2-Personal </span
-                          ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                        </td>
-                        <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
-                        <td class="no-padding-hr ng-scope">
-                          <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                            class="gemtek-enabled"
-                            ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                          ><!-- end ngIf: 'string' == elementtype(key) -->
-                        </td>
-                        <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
-                        <td class="no-padding-hr ng-scope ng-hide">
-                          <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
-                        </td>
-                        <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
-                        <td class="no-padding-hr ng-scope ng-hide">
-                          <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                            class=""
-                            ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                          ><!-- end ngIf: 'string' == elementtype(key) -->
-                        </td>
-                        <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' -->
-                        <!-- ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last -->
-                        <td class="no-padding-hr ng-scope">
-                          <button
-                            class="btn btn-xs table-btn-txt"
-                            name="edit"
-                            onclick="window.location.href='wifi-guest_access-add.html'"
-                            id="Device.X_GTK_GuestAccess.Rule.1"
-                          >
-                            <img src="images/icons/icon-1/edit.svg" /></button
-                          ><button
-                            class="btn btn-xs table-btn no-margin"
-                            popupinfo="DeviceX_GTK_GuestAccessRule"
-                            name="delete"
-                            id="Device.X_GTK_GuestAccess.Rule.1"
-                            onclick="window.confirm('Are you sure you want to Delete?')"
-                          >
-                            <img src="images/icons/icon-1/delete.svg" />
-                          </button>
-                        </td>
-                        <!-- end ngIf: true==$last --><!-- end ngRepeat: td in user -->
-                      </tr>
+                      <template id="interfaceTemplate">
+                        <tr class="ng-scope">
+                          <!-- ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
+                          <td class="no-padding-hr ng-scope">
+                            <!-- ngIf: 'dropdown1' == elementtype(key) --><span
+                              class="ng-binding ng-scope ssidName"
+                            ></span
+                            ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
+                          </td>
+                          <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
+                          <td class="no-padding-hr ng-scope">
+                            <!-- ngIf: 'dropdown1' == elementtype(key) --><span
+                              class="ng-binding ng-scope wifiRadio"
+                            ></span
+                            ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
+                          </td>
+                          <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
+                          <td class="no-padding-hr ng-scope">
+                            <!-- ngIf: 'dropdown1' == elementtype(key) --><span
+                              class="ng-binding ng-scope securityType"
+                            ></span
+                            ><!-- end ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
+                          </td>
+                          <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
+                          <td class="no-padding-hr ng-scope">
+                            <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
+                              class="gemtek-enabled guestIsolation"
+                              ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
+                            ><!-- end ngIf: 'string' == elementtype(key) -->
+                          </td>
+                          <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
+                          <td class="no-padding-hr ng-scope ng-hide">
+                            <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) -->
+                          </td>
+                          <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last -->
+                          <td class="no-padding-hr ng-scope ng-hide">
+                            <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
+                              class=""
+                              ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
+                            ><!-- end ngIf: 'string' == elementtype(key) -->
+                          </td>
+                          <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'DeviceX_GTK_GuestAccessRule' -->
+                          <!-- ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last -->
+                          <td class="no-padding-hr ng-scope">
+                            <button
+                              class="btn btn-xs table-btn-txt editBtn"
+                              name="edit"
+                            >
+                              <img src="images/icons/icon-1/edit.svg" /></button
+                            ><button
+                              class="btn btn-xs table-btn no-margin deleteBtn"
+                              popupinfo="DeviceX_GTK_GuestAccessRule"
+                              name="delete"
+                            >
+                              <img src="images/icons/icon-1/delete.svg" />
+                            </button>
+                          </td>
+                          <!-- end ngIf: true==$last --><!-- end ngRepeat: td in user -->
+                        </tr>
+                      </template>
                     </tbody>
                   </table>
                 </div>
@@ -1344,33 +1343,18 @@
                                 id="Enable"
                                 class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                                 placeholder="Please Enter the value"
-                                ng-required="
-                                        true
-                                    "
                                 name="DeviceX_INTEL_COM_BEEROCKS_Enable"
-                                ng-model="DeviceX_INTEL_COM_BEEROCKS.Enable"
-                                ng-blur='textChange("DeviceX_INTEL_COM_BEEROCKS__Enable",DeviceX_INTEL_COM_BEEROCKS.Enable)'
                                 required="required"
                               /><label
                                 for="Enable"
                                 class="required row active ng-binding"
-                                ng-bind="
-                            &#39;Device.X_INTEL_COM_BEEROCKS.Enable&#39; | translate
-                        "
                                 >Enable</label
                               ><span
                                 class="error ng-binding ng-hide"
-                                ng-show="DeviceX_INTEL_COM_BEEROCKS_Enableresponsestatus"
-                                ng-bind="DeviceX_INTEL_COM_BEEROCKS_Enableval |translate
-                        "
                               ></span
                               ><span
                                 class="error ng-binding ng-hide"
                                 forname="DeviceX_INTEL_COM_BEEROCKS_Enable"
-                                ng-show="DeviceX_INTEL_COM_BEEROCKS_form.DeviceX_INTEL_COM_BEEROCKS_Enable.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.X_INTEL_COM_BEEROCKS.Enable.$error.required&#39;|translate
-            "
                                 >* This Field is Required</span
                               >
                             </div>
@@ -1388,33 +1372,18 @@
                                 id="Operational"
                                 class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                                 placeholder="Please Enter the value"
-                                ng-required="
-                                        true
-                                    "
                                 name="DeviceX_INTEL_COM_BEEROCKS_Operational"
-                                ng-model="DeviceX_INTEL_COM_BEEROCKS.Operational"
-                                ng-blur='textChange("DeviceX_INTEL_COM_BEEROCKS__Operational",DeviceX_INTEL_COM_BEEROCKS.Operational)'
                                 required="required"
                               /><label
                                 for="Operational"
                                 class="required row active ng-binding"
-                                ng-bind="
-                            &#39;Device.X_INTEL_COM_BEEROCKS.Enable&#39; | translate
-                        "
                                 >Enable</label
                               ><span
                                 class="error ng-binding ng-hide"
-                                ng-show="DeviceX_INTEL_COM_BEEROCKS_Operationalresponsestatus"
-                                ng-bind="DeviceX_INTEL_COM_BEEROCKS_Operationalval |translate
-                        "
                               ></span
                               ><span
                                 class="error ng-binding ng-hide"
                                 forname="DeviceX_INTEL_COM_BEEROCKS_Operational"
-                                ng-show="DeviceX_INTEL_COM_BEEROCKS_form.DeviceX_INTEL_COM_BEEROCKS_Operational.$error.required&amp;&amp; formsubmitstatus"
-                                ng-bind="
-                &#39;Device.X_INTEL_COM_BEEROCKS.Enable.$error.required&#39;|translate
-            "
                                 >* This Field is Required</span
                               >
                             </div>

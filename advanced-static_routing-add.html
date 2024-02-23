@@ -140,6 +140,13 @@
         window.location.href = "advanced-static_routing.html";
       }
     </script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-static_routing-add.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -344,7 +351,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1022,13 +1029,7 @@
             the system.
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               It allows you to add/delete static route and IPv4 static route to
               the system.
             </p>
@@ -1084,23 +1085,10 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
                               placeholder="Please Enter the value"
                               name="DeviceRoutingRouter1IPv4Forwarding_Enable"
-                              ng-model="DeviceRoutingRouter1IPv4Forwarding.Enable"
                               value="true"
-                              ng-init='defaultvalue("DeviceRoutingRouter1IPv4Forwarding","Enable","true")'
-                              ng-blur='textChange("DeviceRoutingRouter1IPv4Forwarding__Enable",DeviceRoutingRouter1IPv4Forwarding.Enable)'
-                            /><label
-                              for="Enable"
-                              class="active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv4Forwarding.*.Enable&#39; | translate
-                        "
+                            /><label for="Enable" class="active ng-binding"
                               >Enable</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_Enableresponsestatus"
-                              ng-bind="DeviceRoutingRouter1IPv4Forwarding_Enableval |translate
-                        "
-                            ></span>
+                            ><span class="error ng-binding ng-hide"></span>
                           </div>
                         </div>
                       </div>
@@ -1114,36 +1102,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                               placeholder="Please enter Destination IP Address"
                               ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv4Forwarding_DestIPAddress"
-                              ng-model="DeviceRoutingRouter1IPv4Forwarding.DestIPAddress"
-                              ng-blur='textChange("DeviceRoutingRouter1IPv4Forwarding__DestIPAddress",DeviceRoutingRouter1IPv4Forwarding.DestIPAddress)'
                               required="required"
                             /><label
                               for="DestIPAddress"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv4Forwarding.*.Destination IP Address&#39; | translate
-                        "
                               >Destination IP Address</label
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceRoutingRouter1IPv4Forwarding_DestIPAddress"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_DestIPAddress.$error.pattern&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                            &#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;| translate
-                        "
                               >Invalid pattern , Example IPv4 address :
                               192.168.1.232 </span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceRoutingRouter1IPv4Forwarding_DestIPAddress"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_DestIPAddress.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv4Forwarding.*.Destination IP Address.$error.required&#39;|translate
-            "
+                            ><span id="DestIPNotify" style="color: #ff8b7c"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1160,37 +1130,19 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                               placeholder="Please enter Destination Subnet Mask"
                               ng-pattern="/^(?!0.0.0.0$)(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv4Forwarding_DestSubnetMask"
-                              ng-model="DeviceRoutingRouter1IPv4Forwarding.DestSubnetMask"
-                              ng-blur='textChange("DeviceRoutingRouter1IPv4Forwarding__DestSubnetMask",DeviceRoutingRouter1IPv4Forwarding.DestSubnetMask)'
                               required="required"
                             /><label
                               for="DestSubnetMask"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv4Forwarding.*.Destination Subnet Mask&#39; | translate
-                        "
                               >Destination Subnet Mask</label
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceRoutingRouter1IPv4Forwarding_DestSubnetMask"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_DestSubnetMask.$error.pattern&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                            &#39;Invalid Subnet Mask! Examples: 255.X.X.X / 254.0.0.0 / 252.0.0.0 / 248.0.0.0 / 240.0.0.0 / 224.0.0.0 / 192.0.0.0 / 128.0.0.0 ...&#39;
-                        "
                               >Invalid Subnet Mask! Examples: 255.X.X.X /
                               254.0.0.0 / 252.0.0.0 / 248.0.0.0 / 240.0.0.0 /
                               224.0.0.0 / 192.0.0.0 / 128.0.0.0 ...</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceRoutingRouter1IPv4Forwarding_DestSubnetMask"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_DestSubnetMask.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv4Forwarding.*.Destination Subnet Mask.$error.required&#39;|translate
-            "
+                            ><span id="subMaskNotify" style="color: #ff8b7c"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1207,36 +1159,18 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                               placeholder="Please enter Gateway IP Address"
                               ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv4Forwarding_GatewayIPAddress"
-                              ng-model="DeviceRoutingRouter1IPv4Forwarding.GatewayIPAddress"
-                              ng-blur='textChange("DeviceRoutingRouter1IPv4Forwarding__GatewayIPAddress",DeviceRoutingRouter1IPv4Forwarding.GatewayIPAddress)'
                               required="required"
                             /><label
                               for="GatewayIPAddress"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv4Forwarding.*.Gateway IP Address&#39; | translate
-                        "
                               >Gateway IP Address</label
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceRoutingRouter1IPv4Forwarding_GatewayIPAddress"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_GatewayIPAddress.$error.pattern&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                            &#39;Invalid pattern , Example IPv4 address : 192.168.1.232&#39;| translate
-                        "
                               >Invalid pattern , Example IPv4 address :
                               192.168.1.232 </span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceRoutingRouter1IPv4Forwarding_GatewayIPAddress"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_GatewayIPAddress.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv4Forwarding.*.Gateway IP Address.$error.required&#39;|translate
-            "
+                            ><span id="gatewayNotify" style="color: #ff8b7c"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1248,9 +1182,6 @@
                           <label
                             for="Interface"
                             class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            ng-bind="
-                        &#39;Device.Routing.Router.1.IPv4Forwarding.*.Interface&#39; | translate
-                    "
                             >Interface</label
                           >
                           <div
@@ -1260,15 +1191,7 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-invalid ng-invalid-required ng-touched"
                               id="Interface"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv4Forwarding_Interface"
-                              ng-model="DeviceRoutingRouter1IPv4Forwarding.Interface"
-                              ng-change='ddChange("DeviceRoutingRouter1IPv4Forwarding__Interface",DeviceRoutingRouter1IPv4Forwarding.Interface)'
-                              ng-init='dropdownUrlReq("DeviceRoutingRouter1IPv4Forwarding","Interface","cgi_get_filterbyfirstparamval?Object=Device.IP.Interface&amp;X_GTK_UpStream=bridge&amp;Name=Object=Device.IP.Interface&amp;X_GTK_UpStream=true&amp;Name=","false","","","","")'
-                              ng-options="obj.id as obj.name for obj in Interface"
                               required="required"
                             >
                               <option
@@ -1287,19 +1210,8 @@
                               <option value="3" label="br-lan">
                                 br-lan
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_Interfaceresponsestatus"
-                              ng-bind="DeviceRoutingRouter1IPv4Forwarding_Interfaceval |translate
-                        "
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceRoutingRouter1IPv4Forwarding_Interface"
-                              ng-show="DeviceRoutingRouter1IPv4Forwarding_form.DeviceRoutingRouter1IPv4Forwarding_Interface.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv4Forwarding.*.Interface.$error.required&#39;|translate
-            "
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span class="error ng-binding ng-hide"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1323,10 +1235,6 @@
                         id="cancel"
                         class="gemtek-btn-normal"
                         value="Cancel"
-                        source="Device.Routing.Router.1.IPv4Forwarding.*?Enable,DestIPAddress,DestSubnetMask,GatewayIPAddress,Interface"
-                        hiddenparams="Device.Routing.Router.1.IPv4Forwarding.*?Enable__true,"
-                        formname="DeviceRoutingRouter1IPv4Forwarding"
-                        relationformname="DeviceRoutingRouter1IPv4Forwarding,"
                         onclick="back_to_previous()"
                       />
                     </div>
@@ -1336,10 +1244,6 @@
                         id="Add"
                         class="gemtek-btn-primary"
                         value="Apply"
-                        source="Device.Routing.Router.1.IPv4Forwarding.*?Enable,DestIPAddress,DestSubnetMask,GatewayIPAddress,Interface"
-                        hiddenparams="Device.Routing.Router.1.IPv4Forwarding.*?Enable__true,"
-                        formname="DeviceRoutingRouter1IPv4Forwarding"
-                        relationformname="DeviceRoutingRouter1IPv4Forwarding,"
                         onclick="back_to_previous()"
                       />
                     </div>

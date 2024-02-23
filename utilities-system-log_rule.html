@@ -136,6 +136,13 @@
     <script src="./js/controller/utilities.js"></script>
 
     <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("utilities-system-log_rule.html");
+      };
+    </script>
+
+    <script>
       function edit_direction() {
         window.location.href = "utilities-system-log_rule-edit.html";
       }
@@ -344,7 +351,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1050,13 +1057,11 @@
             <div class="panel-body">
               <div class="table-responsive table-scroll-vr">
                 <table
-                  polling=""
-                  loadstatus=""
-                  interval=""
+
                   class="table tableCount theme_intel"
                   formname="logdviewform"
                   name="Device.DeviceInfo.VendorLogFile.*?Name,MaximumSize,X_GTK_IPAddress,X_GTK_Port,"
-                  componenttype="table"
+
                   objparamrelation="DeviceDeviceInfoVendorLogFile__Name__string,DeviceDeviceInfoVendorLogFile__MaximumSize__string,DeviceDeviceInfoVendorLogFile__X_GTK_IPAddress__string,DeviceDeviceInfoVendorLogFile__X_GTK_Port__string,"
                   iconicparams=""
                   id="DeviceDeviceInfoVendorLogFile"
@@ -1142,8 +1147,9 @@
                           class=""
                           ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
                             class="ng-binding ng-scope"
+                            id="FileName"
                           >
-                            messages </span
+                          </span
                           ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
                         ><!-- end ngIf: 'string' == elementtype(key) -->
                       </td>
@@ -1159,8 +1165,9 @@
                           class=""
                           ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
                             class="ng-binding ng-scope"
+                            id="FileSize"
                           >
-                            1000 </span
+                          </span
                           ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
                         ><!-- end ngIf: 'string' == elementtype(key) -->
                       </td>
@@ -1176,6 +1183,7 @@
                           class=""
                           ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
                             class="ng-binding ng-scope"
+                            id="RemoteIP"
                           >
                           </span
                           ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
@@ -1193,6 +1201,7 @@
                           class=""
                           ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
                             class="ng-binding ng-scope"
+                            id="PortNo"
                           >
                           </span
                           ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span

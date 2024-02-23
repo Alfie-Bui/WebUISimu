@@ -8,6 +8,93 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   switch (page) {
     case "voip-config.html":
+      var enableSIPALG = document.getElementById("DeviceNATX_GTK_ALG_SIP");
+      var selectElement = document.getElementById("X_GTK_Interface");
+      var telephoneNumber = document.getElementById("X_GTK_TelephoneNumber");
+      var registarAddress = document.getElementById("X_GTK_RegistarAddress");
+      var authenticationID = document.getElementById("X_GTK_AuthenticationID");
+      var password = document.getElementById("DeviceX_GTK_VoIPX_GTK_Password");
+      var registarPort = document.getElementById("X_GTK_RegistarPort");
+      var SIPProxy = document.getElementById("X_GTK_SIPProxy");
+      var SIPProxyPort = document.getElementById("X_GTK_SIPProxyPort");
+      var outboundProxy = document.getElementById("X_GTK_OutboundProxy");
+      var outboundProxyPort = document.getElementById("X_GTK_OutboundProxyPort");
+      var wanInterfaces = Basic.WAN.Interfaces;
+      const fields = [
+        { element: telephoneNumber, errorMessageId: "empty_telephone_number" },
+        { element: registarAddress, errorMessageId: "empty_registar_address" },
+        { element: authenticationID, errorMessageId: "empty_authenication_id" },
+        { element: password, errorMessageId: "empty_password" },
+        { element: registarPort, errorMessageId: "empty_registar_port" },
+        { element: SIPProxy, errorMessageId: "empty_sip_proxy" },
+        { element: SIPProxyPort, errorMessageId: "empty_sip_proxy_port" },
+        { element: outboundProxy, errorMessageId: "empty_outbound_proxy" },
+        { element: outboundProxyPort, errorMessageId: "empty_outbound_proxy_port" }
+      ];
+
+      function fillData () {
+        enableSIPALG.checked = Advanced.ALG.EnableSIPALG;
+        telephoneNumber.value = VoIP.TelephoneNumber;
+        registarAddress.value = VoIP.RegistarAddress;
+        authenticationID.value = VoIP.AuthenticationID;
+        password.value = VoIP.Password;
+        registarPort.value = VoIP.RegistarPort;
+        SIPProxy.value = VoIP.SIPProxy;
+        SIPProxyPort.value = VoIP.SIPProxyPort;
+        outboundProxy.value = VoIP.OutboundProxy;
+        outboundProxyPort.value = VoIP.OutboundProxyPort;
+
+        selectElement.innerHTML = '';
+        let countValue = 0;
+        wanInterfaces.forEach(interface => {
+          var optionElement = document.createElement('option');
+          optionElement.textContent = interface.Name;
+          optionElement.value = countValue; /* as value, corresponds to index of itself in SSIDs array */
+          countValue++;
+          optionElement.setAttribute('data-label', interface.Name);
+          selectElement.appendChild(optionElement);
+        });
+        selectElement.value = VoIP.Interface;
+
+        fields.forEach(({ element, errorMessageId }) => {
+          checkEmpty_inputField(element, document.getElementById(errorMessageId));
+        });
+      }
+
+      function initEvent() {
+        fields.forEach(field => {
+          field.element.addEventListener("input", () => {
+            checkEmpty_inputField(field.element, document.getElementById(field.errorMessageId));
+          });
+          checkEmpty_inputField(field.element, document.getElementById(field.errorMessageId));
+        });
+      }
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.ALG.EnableSIPALG = enableSIPALG.checked;
+          VoIP.TelephoneNumber = telephoneNumber.value;
+          VoIP.RegistarAddress = registarAddress.value;
+          VoIP.AuthenticationID = authenticationID.value;
+          VoIP.Password = password.value;
+          VoIP.RegistarPort = registarPort.value;
+          VoIP.SIPProxy = SIPProxy.value;
+          VoIP.SIPProxyPort = SIPProxyPort.value;
+          VoIP.OutboundProxy = outboundProxy.value;
+          VoIP.OutboundProxyPort = outboundProxyPort.value;
+          VoIP.Interface = selectElement.value;
+            applyThenStoreToLS(
+              "voip-config.html",
+              "Apply",
+              VoIP,
+              Advanced
+            );
+        }
+      });
+
       break;
     default:
       console.log(`Load ${page} fail --- no available page`);

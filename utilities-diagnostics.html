@@ -338,7 +338,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1964,18 +1964,14 @@ and open the template in the editor.
                               <label
                                 class="diagnose_titles active gemtek-text-color gemtek-font-family-medium gemtek-text-size-sm ng-binding"
                                 style="font-weight: normal"
-                                ng-bind="&#39;diagnose.IP Ping Test&#39; | translate"
                                 >Ping Test</label
                               >
                               <input
                                 id="DeviceIPDiagnostics_IPPing"
                                 type="text"
-                                ng-focus="selectIPPing()"
                                 name="ipping"
                                 style="width: 360px"
                                 value=""
-                                ng-change="textChange(&#39;IPHost&#39;)"
-                                ng-model="IPHost"
                                 placeholder="Please enter IP/Host address"
                                 class="ng-pristine ng-untouched ng-valid"
                               />
@@ -1989,8 +1985,6 @@ and open the template in the editor.
                                 id="Modify"
                                 value="Apply"
                                 formstatus="true"
-                                ng-click="startIPPingTest(&#39;Device.IP.Diagnostics.IPPing&#39;,$event)"
-                                ng-bind="&#39;Ping Test&#39; | translate"
                               >
                                 Ping Test
                               </button>

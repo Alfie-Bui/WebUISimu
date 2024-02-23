@@ -136,6 +136,13 @@
     <script src="./js/controller/utilities.js"></script>
 
     <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("utilities-system-user_mgnt-edit.html");
+      };
+    </script>
+
+    <script>
       function back_to_previous() {
         window.location.href = "utilities-system-user_mgnt.html";
       }
@@ -363,7 +370,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1152,7 +1159,8 @@
                                 ng-bind="OldPassword.validate"
                               ></span
                               ><span
-                                class="error ng-binding ng-hide"
+                                class="error ng-binding"
+                                id="DeviceUsersUser2OldPasswordNotify"
                                 forname="DeviceUsersUser2_OldPassword"
                                 ng-show="DeviceUsersUser2_form.DeviceUsersUser2_OldPassword.$error.required&amp;&amp; formsubmitstatus"
                                 >* This Field is Required</span
@@ -1203,7 +1211,8 @@
                                 ng-show='Password.validate !== ""'
                               ></span
                               ><span
-                                class="error ng-binding ng-hide"
+                                class="error ng-binding"
+                                id="DeviceUsersUser2PasswordNotify"
                                 forname="DeviceUsersUser2_Password"
                                 ng-show="DeviceUsersUser2_form.DeviceUsersUser2_Password.$error.required&amp;&amp; formsubmitstatus"
                                 >* This Field is Required</span

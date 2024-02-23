@@ -159,6 +159,13 @@
         }
       }
     </script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-vpn-add.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -363,7 +370,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1055,12 +1062,7 @@
                 ></p>
               </div>
               <form
-                polling=""
-                interval=""
-                loadstatus=""
                 class="form-horizontal formCount lantiq-form-text ng-invalid ng-invalid-required ng-valid-pattern ng-valid-min ng-dirty ng-valid-parse"
-                name="openwrtipsecremote_form"
-                name1="openwrt.ipsec.remote.*?enabled,tunnel_name,pre_shared_key,acceptable_kmp,conn_ifname,remote_ip,src,dst,,kmp_enc_alg,kmp_hash_alg,kmp_hash_alg,kmp_dh_group,kmp_prf_alg,,encryption_algorithm,hash_algorithm,enc_dh_group,ipsec_sa_lifetime_time,enc_esn"
                 id="openwrtipsecremote"
               >
                 <div>
@@ -1076,7 +1078,7 @@
                                 class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
                                 id="openwrtipsecremote_enabled"
                                 name="openwrtipsecremote_enabled"
-                                checked
+                                unchecked
                               /><label
                                 class="checkbox_left_align"
                                 for="openwrtipsecremote_enabled"
@@ -1096,31 +1098,17 @@
                               id="tunnel_name"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                               placeholder="Please enter tunnel Name"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_tunnel_name"
                               required="required"
-                              value="gemtek"
+                              value=""
                             /><label
                               for="tunnel_name"
                               class="required row active ng-binding"
                               >Tunnel Name</label
                             ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_tunnel_nameresponsestatus"
-                              ng-bind="openwrtipsecremote_tunnel_nameval |translate
-                        "
-                            ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_tunnel_name"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_tunnel_name.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Tunnel Name.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                              id="tunnel_name_notify"
+                              style="color: #ff8b7c"
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1136,21 +1124,15 @@
                                 id="openwrtipsecremotepre_shared_key"
                                 placeholder="Please enter password"
                                 name="openwrtipsecremote_pre_shared_key"
-                                value="password"
+                                value=""
                               /><label
                                 for="pre_shared_key"
                                 class="active required ng-binding"
                                 >Shared Key(PSK)</label
                               ><span
-                                class="error ng-binding"
-                                ng-show='pre_shared_key.validate !== ""'
-                              ></span
-                              ><span
-                                class="error ng-binding ng-hide"
-                                forname="openwrtipsecremote_pre_shared_key"
-                                ng-show="openwrtipsecremote_form.openwrtipsecremote_pre_shared_key.$error.required&amp;&amp; formsubmitstatus"
-                                >* This Field is Required</span
-                              >
+                                id="openwrtipsecremotepre_shared_key_notify"
+                                style="color: #ff8b7c"
+                              ></span>
                             </div>
                             <div class="pwdtoggle">
                               <input
@@ -1181,21 +1163,13 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
                               id="acceptable_kmp"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_acceptable_kmp"
                               required="required"
                             >
                               <option value="?" class="form-control1">
                                 Select
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="ikev1"
-                              >
+                              <option class="form-control1" value="ikev1">
                                 ikev1
                               </option>
                               <option class="form-control1" value="ikev2">
@@ -1208,8 +1182,7 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_acceptable_kmp"
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1227,10 +1200,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
                               id="conn_ifname"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_conn_ifname"
                               required="required"
                             >
@@ -1241,22 +1210,17 @@
                               >
                                 Select
                               </option>
-                              <option value="1" label="ANI0_wan8">
+                              <option value="ANI0_wan8" label="ANI0_wan8">
                                 ANI0_wan8
                               </option>
-                              <option value="1" label="ANI0_wan9">
+                              <option value="ANI0_wan9" label="ANI0_wan9">
                                 ANI0_wan9
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_conn_ifnameresponsestatus"
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_conn_ifname"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_conn_ifname.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1270,30 +1234,17 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                               placeholder="Please enter IPv4 address of remote server for IPsec connection"
                               ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_remote_ip"
                               required="required"
-                              value="8.8.8.8"
+                              value=""
                             /><label
                               for="remote_ip"
                               class="required row active ng-binding"
                               >Peer Address</label
                             ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_remote_ip"
-                              >Invalid pattern , Example IPv4 address :
-                              192.168.1.232 </span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_remote_ip"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_remote_ip.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Peer Address.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                              id="remote_ip_notify"
+                              style="color: #ff8b7c"
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1307,30 +1258,17 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                               placeholder="Please enter local subnet"
                               ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_src"
                               required="required"
-                              value="192.168.1.13/24"
+                              value=""
                             /><label
                               for="src"
                               class="required row active ng-binding"
                               >Local Subnet</label
-                            ><span class="gemtek-sub-label"
-                              >(Subnet in classless format only eg:
-                              192.168.1.0/24)</span
                             ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_src"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_src.$error.pattern&amp;&amp; formsubmitstatus"
-                              >Invalid pattern , Example IPv4 address :
-                              192.168.1.232 </span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_src"
-                              >* This Field is Required</span
-                            >
+                              id="src_notify"
+                              style="color: #ff8b7c"
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1344,33 +1282,25 @@
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
                               placeholder="Please enter peer subnet"
                               ng-pattern="/^(?!0.0.0.0|128.0.0.0|192.0.0.0|224.0.0.0|240.0.0.0|248.0.0.0|252.0.0.0|254.0.0.0|255.0.0.0|255.128.0.0|255.192.0.0|255.224.0.0|255.240.0.0|255.248.0.0|255.252.0.0|255.254.0.0|255.255.0.0|255.255.128.0|255.255.192.0|255.255.224.0|255.255.240.0|255.255.248.0|255.255.252.0|255.255.254.0|255.255.255.0|255.255.255.128|255.255.255.192|255.255.255.224|255.255.255.240|255.255.255.248|255.255.255.252|255.255.255.254|255.255.255.255$)(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_dst"
                               required="required"
-                              value="8.8.8.8/24"
+                              value=""
                             /><label
                               for="dst"
                               class="required row active ng-binding"
                               >Peer Subnet</label
-                            ><span class="gemtek-sub-label"
-                              >(Subnet in classless format only eg:
-                              192.168.1.0/24)</span
+                            ><span class="error ng-binding ng-hide"
+                              >* Subnet in classless format only eg:
+                              192.168.1.0/24</span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_dst"
-                              >Invalid pattern , Example IPv4 address :
+                              >* Invalid pattern , Example IPv4 address :
                               192.168.1.232 </span
                             ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_dst"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_dst.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Peer Subnet.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                              id="dst_notify"
+                              style="color: #ff8b7c"
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1395,10 +1325,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
                               id="kmp_enc_alg"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_kmp_enc_alg"
                               required="required"
                             >
@@ -1411,11 +1337,7 @@
                               <option class="form-control1" value="aes192">
                                 aes192
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="aes256"
-                              >
+                              <option class="form-control1" value="aes256">
                                 aes256
                               </option>
                               <option class="form-control1" value="des">
@@ -1424,21 +1346,11 @@
                               <option class="form-control1" value="3des">
                                 3des
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_kmp_enc_algresponsestatus"
-                              ng-bind="openwrtipsecremote_kmp_enc_algval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_kmp_enc_alg"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_kmp_enc_alg.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Encryption Method.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1459,7 +1371,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
                               id="kmp_hash_alg"
-                              validation="false"
                               ng-required="openwrtipsecremote.acceptable_kmp==&#39;ikev1&#39;"
                               name="openwrtipsecremote_kmp_hash_alg"
                               required="required"
@@ -1473,11 +1384,7 @@
                               <option class="form-control1" value="sha1">
                                 sha1
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="sha256"
-                              >
+                              <option class="form-control1" value="sha256">
                                 sha256
                               </option>
                               <option class="form-control1" value="sha384">
@@ -1486,21 +1393,11 @@
                               <option class="form-control1" value="sha512">
                                 sha512
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_kmp_hash_algresponsestatus"
-                              ng-bind="openwrtipsecremote_kmp_hash_algval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_kmp_hash_alg"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_kmp_hash_alg.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Hash Method.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1520,10 +1417,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
                               id="kmp_dh_group"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_kmp_dh_group"
                               required="required"
                             >
@@ -1533,11 +1426,7 @@
                               <option class="form-control1" value="modp768">
                                 modp768
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="modp1024"
-                              >
+                              <option class="form-control1" value="modp1024">
                                 modp1024
                               </option>
                               <option class="form-control1" value="modp1536">
@@ -1553,12 +1442,7 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_kmp_dh_group"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_kmp_dh_group.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.DH Group.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1584,10 +1468,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                               id="encryption_algorithm"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_encryption_algorithm"
                               required="required"
                             >
@@ -1597,11 +1477,7 @@
                               <option class="form-control1" value="null">
                                 null
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="aes128"
-                              >
+                              <option class="form-control1" value="aes128">
                                 aes128
                               </option>
                               <option class="form-control1" value="aes192">
@@ -1616,21 +1492,11 @@
                               <option class="form-control1" value="3des">
                                 3des
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_encryption_algorithmresponsestatus"
-                              ng-bind="openwrtipsecremote_encryption_algorithmval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_encryption_algorithm"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_encryption_algorithm.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Encryption Method.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1648,10 +1514,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-invalid ng-invalid-required ng-touched"
                               id="hash_algorithm"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_hash_algorithm"
                               required="required"
                             >
@@ -1664,11 +1526,7 @@
                               <option class="form-control1" value="sha1">
                                 sha1
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="sha256"
-                              >
+                              <option class="form-control1" value="sha256">
                                 sha256
                               </option>
                               <option class="form-control1" value="sha384">
@@ -1681,9 +1539,7 @@
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_hash_algorithm"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_hash_algorithm.$error.required&amp;&amp; formsubmitstatus"
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1701,10 +1557,6 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                               id="enc_dh_group"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="openwrtipsecremote_enc_dh_group"
                               required="required"
                             >
@@ -1714,11 +1566,7 @@
                               <option class="form-control1" value="none">
                                 none
                               </option>
-                              <option
-                                class="form-control1"
-                                selected="selected"
-                                value="modp768"
-                              >
+                              <option class="form-control1" value="modp768">
                                 modp768
                               </option>
                               <option class="form-control1" value="modp1024">
@@ -1733,21 +1581,11 @@
                               <option class="form-control1" value="modp4096">
                                 modp4096
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_enc_dh_groupresponsestatus"
-                              ng-bind="openwrtipsecremote_enc_dh_groupval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="openwrtipsecremote_enc_dh_group"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_enc_dh_group.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.DH Group.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            >
+                            ></span>
                           </div>
                         </div>
                       </div>
@@ -1761,46 +1599,24 @@
                               class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-invalid ng-invalid-required"
                               id="ipsec_sa_lifetime_time"
                               placeholder="Enter key timeout value in mins"
-                              ng-required="
-                                        true
-                                    "
                               min="1"
                               name="openwrtipsecremote_ipsec_sa_lifetime_time"
                               required="required"
-                              value="60"
+                              value=""
                             /><label
                               for="ipsec_sa_lifetime_time"
                               class="required row active ng-binding"
                               >Key Lifetime(in mins)</label
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="openwrtipsecremote_ipsec_sa_lifetime_timeresponsestatus"
-                              ng-bind="openwrtipsecremote_ipsec_sa_lifetime_timeval |translate
-                        "
+                              id="ipsec_sa_lifetime_time_notify"
+                              style="color: #ff8b7c"
                             ></span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_ipsec_sa_lifetime_time"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_ipsec_sa_lifetime_time.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;openwrt.ipsec.remote.*.Key Lifetime(in mins).$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="openwrtipsecremote_ipsec_sa_lifetime_time"
-                              ng-show="openwrtipsecremote_form.openwrtipsecremote_ipsec_sa_lifetime_time.$error.number"
-                            >
-                              Please enter a valid number </span
                             ><span
                               class="error ng-hide"
                               forname="openwrtipsecremote_ipsec_sa_lifetime_time"
                               ng-show="openwrtipsecremote_form.openwrtipsecremote_ipsec_sa_lifetime_time.$error.min&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;openwrt.ipsec.remote.*.Key Lifetime(in mins).$error.minval&#39;|translate
-                                "
-                                class="ng-binding"
+                              ><span class="ng-binding"
                                 >Value must be greater than or equal to </span
                               ><span>1</span></span
                             >
@@ -1817,7 +1633,6 @@
                         id="cancel"
                         class="gemtek-btn-normal"
                         value="Cancel"
-                        source=""
                         onclick="back_to_previous()"
                       />
                     </div>
@@ -1827,10 +1642,6 @@
                         id="Add"
                         class="gemtek-btn-primary"
                         value="Apply"
-                        source="openwrt.ipsec.remote.*?enabled,tunnel_name,pre_shared_key,acceptable_kmp,conn_ifname,remote_ip,src,dst,,kmp_enc_alg,kmp_hash_alg,kmp_hash_alg,kmp_dh_group,kmp_prf_alg,,encryption_algorithm,hash_algorithm,enc_dh_group,ipsec_sa_lifetime_time,enc_esn"
-                        hiddenparams="openwrt.ipsec.remote.*?"
-                        formname="openwrtipsecremote"
-                        relationformname="openwrtipsecremote,"
                         onclick="back_to_previous()"
                       />
                     </div>

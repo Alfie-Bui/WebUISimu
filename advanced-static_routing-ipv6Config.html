@@ -133,6 +133,13 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-static_routing-ipv6Config.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -337,7 +344,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -989,30 +996,16 @@
               class="alert alert-danger ng-hide"
               ng-show="DeviceRoutingRouter1IPv6Forwardingpopup"
             >
-              <a
-                class="close"
-                aria-label="close"
-                ng-click='popupclose("DeviceRoutingRouter1IPv6Forwardingpopup");
-                    '
-                >✖
-              </a>
-              <p
-                ng-bind-html="DeviceRoutingRouter1IPv6Forwardingpopupval | unsafe"
-                class="ng-binding"
-              ></p>
+              <a class="close" aria-label="close">✖ </a>
+              <p class="ng-binding"></p>
             </div>
             <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "staticrouteview"}'
-              >
+              <li>
                 <a href="advanced-static_routing.html"
                   >Static Routing Configuration</a
                 >
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "ipv6staticrouteview"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="advanced-static_routing-ipv6Config.html"
                   >IPv6 Static Routing Configuration</a
                 >
@@ -1032,30 +1025,14 @@
             <div class="panel-body">
               <div class="table-responsive table-scroll-vr">
                 <table
-                  polling=""
-                  loadstatus=""
-                  interval=""
                   class="table tableCount theme_intel"
-                  formname=""
-                  name="Device.Routing.Router.1.IPv6Forwarding.*?Enable,DestIPPrefix,NextHop,Add"
-                  componenttype="table"
-                  objparamrelation="DeviceRoutingRouter1IPv6Forwarding__Enable__string,DeviceRoutingRouter1IPv6Forwarding__DestIPPrefix__string,DeviceRoutingRouter1IPv6Forwarding__NextHop__string,DeviceRoutingRouter1IPv6Forwarding__Add__plusAddButton"
-                  iconicparams="Enable,"
                   id="DeviceRoutingRouter1IPv6Forwarding"
-                  filterdata="Device.Routing.Router.1.IPv6Forwarding.*?Origin__Static__equalsto"
                 >
                   <thead class="">
                     <tr>
-                      <th
-                        id="Enable"
-                        class="col-sm-2"
-                        ng-init='DeviceRoutingRouter1IPv6Forwarding1=true;jsonreq("Enable","status");Enabledisplaystatus=false;
-                                                            '
-                      >
+                      <th id="Enable" class="col-sm-2">
                         <span
-                          ng-bind="
-                                                        &#39;Device.Routing.Router.1.IPv6Forwarding.*.Enable Static Routing&#39; | translate
-                                                    "
+
                           class="ng-binding"
                           >Enable Static Routing</span
                         >
@@ -1063,13 +1040,9 @@
                       <th
                         id="DestIPPrefix"
                         class="col-sm-3"
-                        ng-init="DeviceRoutingRouter1IPv6Forwarding2=true;DeviceRoutingRouter1IPv6Forwarding2=true;DestIPPrefixdisplaystatus=true;
                                                             "
                       >
                         <span
-                          ng-bind="
-                                                        &#39;Device.Routing.Router.1.IPv6Forwarding.*.Destination IP Prefix&#39; | translate
-                                                    "
                           class="ng-binding"
                           >Destination IP Prefix</span
                         >
@@ -1077,13 +1050,8 @@
                       <th
                         id="NextHop"
                         class=""
-                        ng-init="DeviceRoutingRouter1IPv6Forwarding3=true;DeviceRoutingRouter1IPv6Forwarding3=true;NextHopdisplaystatus=true;
-                                                            "
                       >
                         <span
-                          ng-bind="
-                                                        &#39;Device.Routing.Router.1.IPv6Forwarding.*.Next Hop&#39; | translate
-                                                    "
                           class="ng-binding"
                           >Next Hop</span
                         >
@@ -1091,14 +1059,50 @@
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody id="bodyData">
-                    <!-- ngRepeat: user in DeviceRoutingRouter1IPv6Forwardingtable -->
+                  <tbody id="bodyDatav6">
+                    <div>
+                      <div
+                        id="deletedialog"
+                        class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                      >
+                        <div class="ngdialog-overlay"></div>
+                        <div class="ngdialog-content">
+                          <div class="ngdialog-message">
+                            <img src="images/icons/icon-1/deletedialog.svg" />
+                            <h3>Delete Static Routing Configuration</h3>
+                            <p class="ng-binding">
+                              Are you sure you want to delete ?
+                            </p>
+                          </div>
+                          <div class="ngdialog-buttons">
+                            <button
+                              type="button"
+                              class="ngdialog-button gemtek-btn-normal ng-binding"
+                              onclick="document.getElementById('deletedialog').classList.add('hide')"
+                              id="Cancel"
+                            >
+                              Cancel</button
+                            ><button
+                              type="button"
+                              class="ngdialog-button gemtek-btn-danger ng-binding"
+                              id="OKv6"
+                            >
+                              Ok
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <div xmlns="http://www.w3.org/1999/xhtml" class="row ng-scope"></div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="row ng-scope"
+            id="alertDialogMark"
+          ></div>
         </div>
 
         <!-- Footer section-->

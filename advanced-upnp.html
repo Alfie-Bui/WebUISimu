@@ -345,7 +345,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -924,7 +924,7 @@ and open the template in the editor.
             class="ng-scope"
           />
           <style type="text/css" class="ng-scope">
-            /* 
+            /*
              * To configure other images as icons
              * Write a css class with the value of icon parameter in json data
              * EX:-
@@ -933,7 +933,7 @@ and open the template in the editor.
              *    background-position: 0 !important;
              *  }
              * In json data icon parameter value is "jstree-custom-folder"
-             * 
+             *
              */
 
             .Upnp-fan {
@@ -1081,33 +1081,20 @@ and open the template in the editor.
             <!--Breadscrumbs ends here -->
 
             <div class="subheader">
-              <p
-                ng-bind="&#39;upnp.headerdescription&#39;| translate"
-                class="ng-binding"
-              >
+              <p class="ng-binding">
                 It allows you to enable or disable UPnP service.
               </p>
             </div>
             <div class="row ng-hide" ng-show="upnppopup">
               <div class="alert alert-danger">
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click="popupclose(&#39;upnppopup&#39;)"
-                  >×</a
-                >
+                <a class="close" aria-label="close">×</a>
                 <strong class="ng-binding">Warning!</strong
-                ><span ng-bind="upnppopupval" class="ng-binding"></span>
+                ><span class="ng-binding"></span>
               </div>
             </div>
             <div class="row ng-hide" ng-show="upnppostpopup">
               <div class="alert alert-danger">
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click="popupclose(&#39;upnppostpopup&#39;)"
-                  >×</a
-                >
+                <a class="close" aria-label="close">×</a>
                 <strong class="ng-binding">Warning!</strong
                 ><span ng-bind="upnppostpopupval" class="ng-binding"></span>
               </div>
@@ -1146,8 +1133,6 @@ and open the template in the editor.
                     class="waves-effect waves-light gemtek-btn-normal"
                     id="Cancel"
                     value="Cancel"
-                    source=""
-                    ng-click="Refresh($event)"
                   />
                 </div>
                 <div class="btn-align">
@@ -1162,7 +1147,7 @@ and open the template in the editor.
               </div>
             </div>
             <!-- <div class="panel">
-    <div class="panel-heading blu_bg">          
+    <div class="panel-heading blu_bg">
         <span class="panel_heading_icon">
             <img alt="panel-icon" src="images/icons/upnp.png">
         </span>

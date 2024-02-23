@@ -141,6 +141,14 @@
       }
     </script>
   </head>
+
+  <script>
+    window.onload = () => {
+      checkVersion();
+      loadPage("advanced-static_routing-ipv6Config-add.html");
+    };
+  </script>
+
   <body class="theme-default animate">
     <noscript>
       <div
@@ -344,7 +352,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1020,13 +1028,7 @@
             This page allows to Add/Delete IPv6 Static Route to the sysytem
           </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p
-              id="headerdescriptiondata"
-              ng-bind="
-                    &#39;.headerdescription&#39; | translate
-                "
-              class="ng-binding"
-            >
+            <p id="headerdescriptiondata" class="ng-binding">
               This page allows to Add/Delete IPv6 Static Route to the sysytem
             </p>
           </div>
@@ -1050,10 +1052,7 @@
                         '
                   >✖
                 </a>
-                <p
-                  ng-bind-html="DeviceRoutingRouter1IPv6Forwardingpopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+                <p class="ng-binding"></p>
               </div>
               <form
                 polling=""
@@ -1085,19 +1084,9 @@
                               value="true"
                               ng-init='defaultvalue("DeviceRoutingRouter1IPv6Forwarding","Enable","true")'
                               ng-blur='textChange("DeviceRoutingRouter1IPv6Forwarding__Enable",DeviceRoutingRouter1IPv6Forwarding.Enable)'
-                            /><label
-                              for="Enable"
-                              class="active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv6Forwarding.*.Enable&#39; | translate
-                        "
+                            /><label for="Enable" class="active ng-binding"
                               >Enable</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_Enableresponsestatus"
-                              ng-bind="DeviceRoutingRouter1IPv6Forwarding_Enableval |translate
-                        "
-                            ></span>
+                            ><span class="error ng-binding ng-hide"></span>
                           </div>
                         </div>
                       </div>
@@ -1111,9 +1100,6 @@
                               id="DestIPPrefix"
                               placeholder="please enter IP Prefix"
                               ng-pattern="/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv6Forwarding_DestIPPrefix"
                               ng-model="DeviceRoutingRouter1IPv6Forwarding.DestIPPrefix"
                               ng-blur='textChange("DeviceRoutingRouter1IPv6Forwarding__DestIPPrefix",DeviceRoutingRouter1IPv6Forwarding.DestIPPrefix)'
@@ -1121,32 +1107,16 @@
                             /><label
                               for="DestIPPrefix"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv6Forwarding.*.Destination IP Prefix&#39; | translate
-                        "
                               >Destination IP Prefix</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="_DestIPPrefixresponsestatus"
-                              ng-bind="_DestIPPrefixval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceRoutingRouter1IPv6Forwarding_DestIPPrefix"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_form.DeviceRoutingRouter1IPv6Forwarding_DestIPPrefix.$error.pattern&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                            &#39;Invalid pattern,Example IPv6 address : FE80:0000:0000:0000:0202:B3FF:FE1E:8329&#39; | translate
-                        "
                               >Invalid pattern,Example IPv6 address :
                               FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
                             ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceRoutingRouter1IPv6Forwarding_DestIPPrefix"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_form.DeviceRoutingRouter1IPv6Forwarding_DestIPPrefix.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv6Forwarding.*.Destination IP Prefix.$error.required&#39;|translate
-            "
+                              id="DestIPPrefixNotify"
+                              style="color: #ff8b7c"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1162,9 +1132,6 @@
                               id="NextHop"
                               placeholder="please enter Next Hop"
                               ng-pattern="/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv6Forwarding_NextHop"
                               ng-model="DeviceRoutingRouter1IPv6Forwarding.NextHop"
                               ng-blur='textChange("DeviceRoutingRouter1IPv6Forwarding__NextHop",DeviceRoutingRouter1IPv6Forwarding.NextHop)'
@@ -1172,32 +1139,14 @@
                             /><label
                               for="NextHop"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.Routing.Router.1.IPv6Forwarding.*.NextHop&#39; | translate
-                        "
                               >NextHop</label
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="_NextHopresponsestatus"
-                              ng-bind="_NextHopval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceRoutingRouter1IPv6Forwarding_NextHop"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_form.DeviceRoutingRouter1IPv6Forwarding_NextHop.$error.pattern&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                            &#39;Invalid pattern,Example IPv6 address : FE80:0000:0000:0000:0202:B3FF:FE1E:8329&#39; | translate
-                        "
                               >Invalid pattern,Example IPv6 address :
                               FE80:0000:0000:0000:0202:B3FF:FE1E:8329</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceRoutingRouter1IPv6Forwarding_NextHop"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_form.DeviceRoutingRouter1IPv6Forwarding_NextHop.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv6Forwarding.*.NextHop.$error.required&#39;|translate
-            "
+                            ><span id="nextHopNotify" style="color: #ff8b7c"
                               >* This Field is Required</span
                             >
                           </div>
@@ -1208,9 +1157,6 @@
                           <label
                             for="Interface"
                             class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            ng-bind="
-                        &#39;Device.Routing.Router.1.IPv6Forwarding.*.Interface&#39; | translate
-                    "
                             >Interface</label
                           >
                           <div
@@ -1220,15 +1166,7 @@
                             <select
                               class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-invalid ng-invalid-required ng-touched"
                               id="Interface"
-                              validation="false"
-                              ng-required="
-                                        true
-                                    "
                               name="DeviceRoutingRouter1IPv6Forwarding_Interface"
-                              ng-model="DeviceRoutingRouter1IPv6Forwarding.Interface"
-                              ng-change='ddChange("DeviceRoutingRouter1IPv6Forwarding__Interface",DeviceRoutingRouter1IPv6Forwarding.Interface)'
-                              ng-init='dropdownUrlReq("DeviceRoutingRouter1IPv6Forwarding","Interface","cgi_get_filterbyfirstparamval?Object=Device.IP.Interface&amp;X_GTK_UpStream=bridge&amp;Name=Object=Device.IP.Interface&amp;X_GTK_UpStream=true&amp;Name=","false","","","","")'
-                              ng-options="obj.id as obj.name for obj in Interface"
                               required="required"
                             >
                               <option value="? string: ?"></option>
@@ -1248,19 +1186,10 @@
                               <option value="3" label="br-lan">
                                 br-lan
                               </option></select
-                            ><span
-                              class="error ng-binding ng-hide"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_Interfaceresponsestatus"
-                              ng-bind="DeviceRoutingRouter1IPv6Forwarding_Interfaceval |translate
-                        "
-                            ></span
+                            ><span class="error ng-binding ng-hide"></span
                             ><span
                               class="error ng-binding ng-hide"
                               forname="DeviceRoutingRouter1IPv6Forwarding_Interface"
-                              ng-show="DeviceRoutingRouter1IPv6Forwarding_form.DeviceRoutingRouter1IPv6Forwarding_Interface.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.Routing.Router.1.IPv6Forwarding.*.Interface.$error.required&#39;|translate
-            "
                               >* This Field is Required</span
                             >
                           </div>
@@ -1283,23 +1212,15 @@
                         id="cancel"
                         class="gemtek-btn-normal"
                         value="Cancel"
-                        source="Device.Routing.Router.1.IPv6Forwarding.*?Enable,DestIPPrefix,NextHop,Interface"
-                        hiddenparams="Device.Routing.Router.1.IPv6Forwarding.*?Enable__true,"
-                        formname="DeviceRoutingRouter1IPv6Forwarding"
-                        relationformname="DeviceRoutingRouter1IPv6Forwarding,"
                         onclick="back_to_previous()"
                       />
                     </div>
                     <div class="btn-align">
                       <input
                         type="button"
-                        id="Add"
+                        id="Addv6"
                         class="gemtek-btn-primary"
                         value="Apply"
-                        source="Device.Routing.Router.1.IPv6Forwarding.*?Enable,DestIPPrefix,NextHop,Interface"
-                        hiddenparams="Device.Routing.Router.1.IPv6Forwarding.*?Enable__true,"
-                        formname="DeviceRoutingRouter1IPv6Forwarding"
-                        relationformname="DeviceRoutingRouter1IPv6Forwarding,"
                         onclick="back_to_previous()"
                       />
                     </div>

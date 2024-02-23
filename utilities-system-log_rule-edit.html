@@ -136,6 +136,13 @@
     <script src="./js/controller/utilities.js"></script>
 
     <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("utilities-system-log_rule-edit.html");
+      };
+    </script>
+
+    <script>
       function back_to_previous() {
         window.location.href = "utilities-system-log_rule.html";
       }
@@ -344,7 +351,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1085,47 +1092,20 @@
                               id="Name"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid-maxlength ng-valid ng-valid-required"
                               placeholder="Enter the Log File Name"
-                              ng-required="
-                                        true
-                                    "
-                              ng-maxlength="64"
                               name="DeviceDeviceInfoVendorLogFile1_Name"
-                              ng-model="DeviceDeviceInfoVendorLogFile1.Name"
-                              ng-blur='textChange("DeviceDeviceInfoVendorLogFile1__Name",DeviceDeviceInfoVendorLogFile1.Name)'
                               required="required"
                             /><label
                               for="Name"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.DeviceInfo.VendorLogFile.1.File Name&#39; | translate
-                        "
                               >File Name</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_Nameresponsestatus"
-                              ng-bind="DeviceDeviceInfoVendorLogFile1_Nameval |translate
-                        "
                             ></span
                             ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceDeviceInfoVendorLogFile1_Name"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_form.DeviceDeviceInfoVendorLogFile1_Name.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.DeviceInfo.VendorLogFile.1.File Name.$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceDeviceInfoVendorLogFile1_Name"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_form.DeviceDeviceInfoVendorLogFile1_Name.$error.maxlength&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                    &#39;Device.DeviceInfo.VendorLogFile.1.File Name.$error.maxlen&#39;|translate
-                "
-                                class="ng-binding"
-                                >String length Exceeded the limit: </span
-                              ><span>64</span></span
-                            >
+                            class="error ng-binding"
+                            id="FileNameNotify"
+                            ></span
+                          >
                           </div>
                         </div>
                       </div>
@@ -1139,52 +1119,20 @@
                               class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid ng-valid-required"
                               id="MaximumSize"
                               placeholder="Enter size of file in KB"
-                              ng-required="
-                                        true
-                                    "
                               min="1"
-                              ng-model="DeviceDeviceInfoVendorLogFile1.MaximumSize"
                               name="DeviceDeviceInfoVendorLogFile1_MaximumSize"
-                              ng-blur='textChange("DeviceDeviceInfoVendorLogFile1__MaximumSize",DeviceDeviceInfoVendorLogFile1.MaximumSize)'
                               required="required"
                             /><label
                               for="MaximumSize"
                               class="required row active ng-binding"
-                              ng-bind="
-                            &#39;Device.DeviceInfo.VendorLogFile.1.File Size(KB)&#39; | translate
-                        "
                               >File Size(KB)</label
                             ><span
                               class="error ng-binding ng-hide"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_MaximumSizeresponsestatus"
-                              ng-bind="DeviceDeviceInfoVendorLogFile1_MaximumSizeval |translate
-                        "
                             ></span
                             ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceDeviceInfoVendorLogFile1_MaximumSize"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_form.DeviceDeviceInfoVendorLogFile1_MaximumSize.$error.required&amp;&amp; formsubmitstatus"
-                              ng-bind="
-                &#39;Device.DeviceInfo.VendorLogFile.1.File Size(KB).$error.required&#39;|translate
-            "
-                              >* This Field is Required</span
-                            ><span
-                              class="error ng-binding ng-hide"
-                              forname="DeviceDeviceInfoVendorLogFile1_MaximumSize"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_form.DeviceDeviceInfoVendorLogFile1_MaximumSize.$error.number"
-                            >
-                              Please enter a valid number </span
-                            ><span
-                              class="error ng-hide"
-                              forname="DeviceDeviceInfoVendorLogFile1_MaximumSize"
-                              ng-show="DeviceDeviceInfoVendorLogFile1_form.DeviceDeviceInfoVendorLogFile1_MaximumSize.$error.min&amp;&amp; formsubmitstatus"
-                              ><span
-                                ng-bind="
-                                    &#39;Device.DeviceInfo.VendorLogFile.1.File Size(KB).$error.minval&#39;|translate
-                                "
-                                class="ng-binding"
-                                >Value must be greater than or equal to </span
-                              ><span>1</span></span
+                              class="error ng-binding"
+                              id="FileSizeNotify"
+                              ></span
                             >
                           </div>
                         </div>
@@ -1194,17 +1142,12 @@
                           <div>
                             <div class="checkbox">
                               <span
-                                ng-bind="
-                                &#39;Device.DeviceInfo.VendorLogFile.1.Remote Server&#39; | translate
-                            "
                                 class="ng-binding"
                                 >Remote Server</span
                               ><input
                                 type="checkbox"
                                 class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
                                 id="DeviceDeviceInfoVendorLogFile1_X_GTK_Remote"
-                                ng-click="enableSwitch = !enableSwitch"
-                                ng-model="DeviceDeviceInfoVendorLogFile1.X_GTK_Remote"
                                 name="DeviceDeviceInfoVendorLogFile1_X_GTK_Remote"
                               /><label
                                 class="checkbox_left_align"
@@ -1214,8 +1157,57 @@
                           </div>
                         </div>
                       </div>
-                      <!-- ngIf: DeviceDeviceInfoVendorLogFile1.X_GTK_Remote==true -->
-                      <!-- ngIf: DeviceDeviceInfoVendorLogFile1.X_GTK_Remote==true -->
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5 ng-hide"
+                            id="RemoteIPPanel"
+                          >
+                            <input
+                              type="text"
+                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid ng-valid-required"
+                              id="RemoteIP"
+                              placeholder="Enter remote IP"
+                            /><label
+                              for="MaximumSize"
+                              class="required row active ng-binding"
+                              >Remote IP</label
+                            ><span
+                              class="error ng-binding"
+                            ></span
+                            ><span
+                            class="error ng-binding"
+                            id="RemoteIPNotify"
+                            ></span
+                          >
+                          </div>
+                          <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5 ng-hide"
+                          id="PortNoPanel"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid ng-valid-required"
+                            id="PortNo"
+                            placeholder="Enter port number"
+                            min="1"
+                            name="DeviceDeviceInfoVendorLogFile1_MaximumSize"
+                            required="required"
+                          /><label
+                            for="MaximumSize"
+                            class="required row active ng-binding"
+                            >Port No</label
+                          ><span
+                            class="error ng-binding ng-hide"
+                          ></span
+                          ><span
+                          class="error ng-binding"
+                          id="PortNoNotify"
+                          ></span
+                        >
+                        </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -1233,10 +1225,6 @@
                         id="cancel"
                         class="gemtek-btn-normal"
                         value="CANCEL"
-                        source="Device.DeviceInfo.VendorLogFile.1?Name,MaximumSize,X_GTK_Remote,X_GTK_IPAddress,X_GTK_Port"
-                        hiddenparams="Device.DeviceInfo.VendorLogFile.1?"
-                        formname="DeviceDeviceInfoVendorLogFile1"
-                        relationformname="DeviceDeviceInfoVendorLogFile1,"
                         onclick="back_to_previous()"
                       />
                     </div>
@@ -1246,10 +1234,6 @@
                         id="Modify"
                         class="gemtek-btn-primary"
                         value="APPLY"
-                        source="Device.DeviceInfo.VendorLogFile.1?Name,MaximumSize,X_GTK_Remote,X_GTK_IPAddress,X_GTK_Port"
-                        hiddenparams="Device.DeviceInfo.VendorLogFile.1?"
-                        formname="DeviceDeviceInfoVendorLogFile1"
-                        relationformname="DeviceDeviceInfoVendorLogFile1,"
                         onclick="back_to_previous()"
                       />
                     </div>

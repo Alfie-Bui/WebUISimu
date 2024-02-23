@@ -134,6 +134,13 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-vpn.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -338,7 +345,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1004,7 +1011,7 @@
                 class="gemtek-port-title-style ng-binding"
                 >IPsec Tunnel Settings</span
               ><a
-                id="openwrt.ipsec.remote.*"
+                id="AddIpsec"
                 class="gemtek-btn-normal pull-right gemtek-btn-addplus"
                 href="advanced-vpn-add.html"
                 ><i class="fa fa-plus icontxtgap"></i
@@ -1016,13 +1023,8 @@
             <div class="panel-body">
               <div class="table-responsive table-scroll-vr">
                 <table
-                  polling=""
-                  loadstatus=""
-                  interval=""
                   class="table tableCount theme_intel"
-                  formname=""
                   name="openwrt.ipsec.remote.*?enabled,tunnel_name,acceptable_kmp,conn_ifname,remote_ip,src,dst,"
-                  componenttype="table"
                   objparamrelation="openwrtipsecremote__enabled__string,openwrtipsecremote__tunnel_name__string,openwrtipsecremote__acceptable_kmp__string,openwrtipsecremote__conn_ifname__string,openwrtipsecremote__remote_ip__string,openwrtipsecremote__src__string,openwrtipsecremote__dst__string,"
                   iconicparams="enabled,"
                   id="openwrtipsecremote"
@@ -1031,7 +1033,7 @@
                   <thead class="">
                     <tr>
                       <th
-                        id="enabled"
+                        id="openwrtipsecremote_enabled"
                         class=""
                         ng-init='openwrtipsecremote1=true;jsonreq("enabled","status");enableddisplaystatus=false;
                                                             '
@@ -1134,143 +1136,56 @@
                   <tbody id="bodyData">
                     <!-- ngRepeat: user in openwrtipsecremotetable -->
                     <tr class="ng-scope">
-                      <!-- ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class="gemtek-enabled"
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            gemtek </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            ikev1 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            ANI0_wan8 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            8.8.8.8 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            192.168.1.13/24 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --><span
-                            class="ng-binding ng-scope"
-                          >
-                            8.8.8.8/24 </span
-                          ><!-- end ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last -->
-                      <td class="no-padding-hr ng-scope ng-hide">
-                        <!-- ngIf: 'dropdown1' == elementtype(key) --><!-- ngIf: 'dropdown2' == elementtype(key) --><!-- ngIf: icon --><!-- ngIf: 'string' == elementtype(key) --><span
-                          class=""
-                          ><!-- ngIf: iconicstatus(key.split('__')[1]) --></span
-                        ><!-- end ngIf: 'string' == elementtype(key) -->
-                      </td>
-                      <!-- end ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' --><!-- ngIf: false==$last --><!-- end ngRepeat: key in user | keys:'openwrtipsecremote' -->
-                      <!-- ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last --><!-- end ngRepeat: td in user --><!-- ngIf: true==$last -->
-                      <td class="no-padding-hr ng-scope">
-                        <button
-                          class="btn btn-xs table-btn-txt"
-                          name="edit"
-                          id="openwrt.ipsec.remote.1"
-                          onclick="window.location.href='advanced-vpn-add.html'"
+                      <button
+                        class="btn btn-xs table-btn-txt hide"
+                        name="edit"
+                        id="openwrt.ipsec.remote.1"
+                        onclick="window.location.href='advanced-vpn-add.html'"
+                      >
+                        <img src="images/icons/icon-1/edit.svg" /></button
+                      ><button
+                        class="btn btn-xs table-btn no-margin hide"
+                        popupinfo="openwrtipsecremote"
+                        name="delete"
+                        onclick="document.getElementById('deletedialog').classList.remove('hide')"
+                        id="openwrt.ipsec.remote.1"
+                      >
+                        <img src="images/icons/icon-1/delete.svg" />
+                      </button>
+                      <div>
+                        <div
+                          id="deletedialog"
+                          class="ngdialog ngdialog-theme-default dialogwidth800 hide"
                         >
-                          <img src="images/icons/icon-1/edit.svg" /></button
-                        ><button
-                          class="btn btn-xs table-btn no-margin"
-                          popupinfo="openwrtipsecremote"
-                          name="delete"
-                          onclick="document.getElementById('deletedialog').classList.remove('hide')"
-                          id="openwrt.ipsec.remote.1"
-                        >
-                          <img src="images/icons/icon-1/delete.svg" />
-                        </button>
-                        <div>
-                          <div
-                            id="deletedialog"
-                            class="ngdialog ngdialog-theme-default dialogwidth800 hide"
-                          >
-                            <div class="ngdialog-overlay"></div>
-                            <div class="ngdialog-content">
-                              <div class="ngdialog-message">
-                                <img
-                                  src="images/icons/icon-1/deletedialog.svg"
-                                />
-                                <h3>Delete IPsec</h3>
-                                <p class="ng-binding">
-                                  Are you sure you want to delete gemtek ?
-                                </p>
-                              </div>
-                              <div class="ngdialog-buttons">
-                                <button
-                                  type="button"
-                                  class="ngdialog-button gemtek-btn-normal ng-binding"
-                                  onclick="document.getElementById('deletedialog').classList.add('hide')"
-                                  id="Cancel"
-                                >
-                                  Cancel</button
-                                ><button
-                                  type="button"
-                                  class="ngdialog-button gemtek-btn-danger ng-binding"
-                                  onclick="document.getElementById('deletedialog').classList.add('hide')"
-                                  id="OK"
-                                >
-                                  Ok
-                                </button>
-                              </div>
+                          <div class="ngdialog-overlay"></div>
+                          <div class="ngdialog-content">
+                            <div class="ngdialog-message">
+                              <img src="images/icons/icon-1/deletedialog.svg" />
+                              <h3>Delete IPsec</h3>
+                              <p class="ng-binding">
+                                Are you sure you want to delete ?
+                              </p>
+                            </div>
+                            <div class="ngdialog-buttons">
+                              <button
+                                type="button"
+                                class="ngdialog-button gemtek-btn-normal ng-binding"
+                                onclick="document.getElementById('deletedialog').classList.add('hide')"
+                                id="Cancel"
+                              >
+                                Cancel</button
+                              ><button
+                                type="button"
+                                class="ngdialog-button gemtek-btn-danger ng-binding"
+                                onclick="document.getElementById('deletedialog').classList.add('hide')"
+                                id="OK"
+                              >
+                                Ok
+                              </button>
                             </div>
                           </div>
                         </div>
-                      </td>
-                      <!-- end ngIf: true==$last --><!-- end ngRepeat: td in user -->
+                      </div>
                     </tr>
                   </tbody>
                 </table>

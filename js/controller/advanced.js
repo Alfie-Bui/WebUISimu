@@ -934,13 +934,261 @@ function loadPage(page, options) {
 
       fillData();
       break;
-    case "advanced-static_routing-add.html":
+    case "advanced-static_routing.html":
+      // Function to create a new table row with the provided data
+      function createNewRow(data, option, idx) {
+        // Create a new table row
+        let newRow = document.createElement('tr');
+        newRow.className = "ng-scope";
+        if (option == 'ipv6') {
+          let cellEn = document.createElement('td');
+          cellEn.className = 'no-padding-hr ng-scope';
+          let spanEn = document.createElement('span');
+          spanEn.className = "gemtek-enabled";
+          cellEn.appendChild(spanEn);
+          newRow.appendChild(cellEn);
+        }
+        // Add table cells with data
+        for (let key in data) {
+            let cell = document.createElement('td');
+            cell.className = 'no-padding-hr ng-scope';
+            let span = document.createElement('span');
+            span.textContent = data[key];
+            cell.appendChild(span);
+            newRow.appendChild(cell);
+        }
+        // Add the delete button cell
+        let deleteCell = document.createElement('td');
+        deleteCell.className = 'no-padding-hr ng-scope';
+        let deleteButton = document.createElement('button');
+        deleteButton.className = "btn btn-xs table-btn no-margin";
+        deleteButton.setAttribute('name', 'delete');
+        deleteButton.value = option;
+        deleteButton.onclick = function () {
+            if ((Advanced.StaticRouting.StaticRoutingConfiguration.NumberOfEntries === '1' && deleteButton.value === 'ipv4') || (Advanced.StaticRouting.IPv6StaticRoutingConfiguration.NumberOfEntries === '1' && deleteButton.value === 'ipv6')) {
+              alertDialogHandle("Cannot delete all static routing rules");
+              return;
+            }
+            document.getElementById('deletedialog').classList.remove('hide');
+            document.getElementById('deletedialog').value = idx.toString();
+        };
+        let deleteImg = document.createElement('img');
+        deleteImg.setAttribute('src', 'images/icons/icon-1/delete.svg');
+        deleteButton.appendChild(deleteImg);
+        deleteCell.appendChild(deleteButton);
+        // Add the delete dialog cell (hidden initially)
+        let deleteDialogCell = document.createElement('td');
+        // ... (Add the content of the delete dialog cell as needed)
+        // Append cells to the row
+        newRow.appendChild(deleteCell);
+        newRow.appendChild(deleteDialogCell);
+        return newRow;
+      }
+
+      let numberOfEntries = Number(Advanced.StaticRouting.StaticRoutingConfiguration.NumberOfEntries);
+      for (let index = 0; index < numberOfEntries; index++) {
+          let newStaticRoute = {
+              ip: Advanced.StaticRouting.StaticRoutingConfiguration[index].DestIPAddress,
+              subnet: Advanced.StaticRouting.StaticRoutingConfiguration[index].DestSubnetMask,
+              gateway: Advanced.StaticRouting.StaticRoutingConfiguration[index].GatewayIPAddress
+          };
+          document.querySelector('#bodyData').appendChild(createNewRow(newStaticRoute, 'ipv4', index));
+      }
+
+      document.querySelector('#OK').onclick = () => {
+        document.getElementById('deletedialog').classList.add('hide');
+        let delIdx = document.getElementById('deletedialog').value;
+        manageJSONData(Advanced, `StaticRouting.StaticRoutingConfiguration.${delIdx}`, null, 'delete');
+        Advanced.StaticRouting.StaticRoutingConfiguration.NumberOfEntries = (Number(Advanced.StaticRouting.StaticRoutingConfiguration.NumberOfEntries) - 1).toString();
+        applyThenStoreToLS(page, "Apply", Advanced);
+      }
+
+
       break;
-    case "advanced-static_routing-ipv6Config-add.html":
+    case "advanced-static_routing-add.html":
+      let destIPValid = false;
+      let destSubmaskValid = false;
+      let destGWValid = false;
+      let ifValid = false;
+      let applyBtnOn = false;
+      let ipv4RouteIdx = Number(Advanced.StaticRouting.StaticRoutingConfiguration.NumberOfEntries);
+
+      function applyBtnCheck() {
+        applyBtnOn = (destGWValid && destSubmaskValid && destIPValid && ifValid) ? true : false;
+        document.querySelector('#Add').disabled = (applyBtnOn) ? false : true;
+      }
+
+      ipv4Regex = /^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})){3}$/;
+      document.querySelector('#Add').disabled = true;
+      document.querySelectorAll('input').forEach(function(input) {
+          input.onkeyup = function() {
+            if (input.value.length > 0) {
+              if (ipv4Regex.test(input.value)) {
+                switch (input.id) {
+                  case "DestIPAddress":
+                    document.querySelector('#DestIPNotify').innerHTML = "";
+                    destIPValid = true;
+                    break;
+                  case "DestSubnetMask":
+                    document.querySelector('#subMaskNotify').innerHTML = "";
+                    destSubmaskValid = true;
+                    break;
+                  default:
+                    document.querySelector("#gatewayNotify").innerHTML = "";
+                    destGWValid = true;
+                    break;
+                }
+              } else {
+                switch (input.id) {
+                  case "DestIPAddress":
+                    destIPValid = false;
+                    document.querySelector('#DestIPNotify').innerHTML = "Invalid pattern , Example IPv4 address :192.168.1.232";
+                    break;
+                  case "DestSubnetMask":
+                    destSubmaskValid = false;
+                    document.querySelector('#subMaskNotify').innerHTML = "Invalid Subnet Mask! Examples: 255.X.X.X / 254.0.0.0 / 252.0.0.0 / 248.0.0.0 / 240.0.0.0 / 224.0.0.0 / 192.0.0.0 / 128.0.0.0 ...";
+                    break;
+                  default:
+                    destGWValid = false;
+                    document.querySelector("#gatewayNotify").innerHTML = "Invalid pattern , Example IPv4 address :192.168.1.1";
+                    break;
+                }
+              }
+            } else {
+                switch (input.id) {
+                  case "DestIPAddress":
+                    document.querySelector('#DestIPNotify').innerHTML = "* This Field is Required";
+                    destIPValid = false;
+                    break;
+                  case "DestSubnetMask":
+                    document.querySelector('#subMaskNotify').innerHTML = "* This Field is Required";
+                    destSubmaskValid = false;
+                    break;
+                  default:
+                    document.querySelector("#gatewayNotify").innerHTML = "* This Field is Required";
+                    destGWValid = false;
+                    break;
+              }
+            }
+            applyBtnCheck();
+          }
+      });
+
+      document.querySelector('#Interface').onchange = function () {
+        ifValid = (document.querySelector('#Interface').value !== '?') ? true : false;
+        applyBtnCheck();
+      };
+
+      // get data from input and store data to DB
+      document.querySelector('#Add').addEventListener("click", function () {
+          document.querySelectorAll('input').forEach(function (input) {
+              if (input.id === "DestIPAddress" || input.id === "DestSubnetMask" || input.id === "GatewayIPAddress") {
+                  manageJSONData(Advanced, `StaticRouting.StaticRoutingConfiguration.${ipv4RouteIdx.toString()}.${input.id}`, input.value, 'add');
+              }
+          });
+          ipv4RouteIdx++;
+          Advanced.StaticRouting.StaticRoutingConfiguration.NumberOfEntries = ipv4RouteIdx.toString();
+          // store data to DB
+          applyThenStoreToLS(page, "Apply", Advanced);
+          // back to ipv4 static routing table
+          window.location.href = "advanced-static_routing.html";
+      });
+
       break;
     case "advanced-static_routing-ipv6Config.html":
+      let numberOfEntriesv6 = Number(Advanced.StaticRouting.IPv6StaticRoutingConfiguration.NumberOfEntries);
+      for (let index = 0; index < numberOfEntriesv6; index++) {
+          let newStaticRoutev6 = {
+              ip: Advanced.StaticRouting.IPv6StaticRoutingConfiguration[index].DestIPPrefix,
+              gateway: Advanced.StaticRouting.IPv6StaticRoutingConfiguration[index].NextHop
+          };
+          document.querySelector('#bodyDatav6').appendChild(createNewRow(newStaticRoutev6, 'ipv6', index));
+      }
+
+      document.querySelector('#OKv6').onclick = () => {
+        document.getElementById('deletedialog').classList.add('hide');
+        let delIdx = document.getElementById('deletedialog').value;
+        manageJSONData(Advanced, `StaticRouting.IPv6StaticRoutingConfiguration.${delIdx}`, null, 'delete');
+        Advanced.StaticRouting.IPv6StaticRoutingConfiguration.NumberOfEntries = (Number(Advanced.StaticRouting.IPv6StaticRoutingConfiguration.NumberOfEntries) - 1).toString();
+        applyThenStoreToLS(page, "Apply", Advanced);
+      }
       break;
-    case "advanced-static_routing.html":
+    case "advanced-static_routing-ipv6Config-add.html":
+      let destIPValidv6 = false;
+      let destGWValidv6 = false;
+      let ifValidv6 = false;
+      let applyBtnOnv6 = false;
+      let ipv6RouteIdx = Number(Advanced.StaticRouting.IPv6StaticRoutingConfiguration.NumberOfEntries);
+
+      function applyBtnCheckv6() {
+          applyBtnOnv6 = (destGWValidv6 && destIPValidv6 && ifValidv6) ? true : false;
+          document.querySelector('#Addv6').disabled = (applyBtnOnv6) ? false : true;
+      }
+
+      const ipv6Regex = /^\s*((([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:))|(([0-9a-fA-F]{1,4}:){6}(:[0-9a-fA-F]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9a-fA-F]{1,4}:){5}(((:[0-9a-fA-F]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9a-fA-F]{1,4}:){4}(((:[0-9a-fA-F]{1,4}){1,3})|((:[0-9a-fA-F]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-fA-F]{1,4}:){3}(((:[0-9a-fA-F]{1,4}){1,4})|((:[0-9a-fA-F]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-fA-F]{1,4}:){2}(((:[0-9a-fA-F]{1,4}){1,5})|((:[0-9a-fA-F]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-fA-F]{1,4}:){1}(((:[0-9a-fA-F]{1,4}){1,6})|((:[0-9a-fA-F]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9a-fA-F]{1,4}){1,7})|((:[0-9a-fA-F]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/;
+      document.querySelector('#Addv6').disabled = true;
+      document.querySelectorAll('input').forEach(function (input) {
+          input.onkeyup = function () {
+              if (input.value.length > 0) {
+                  if (ipv6Regex.test(input.value)) {
+                      switch (input.id) {
+                          case "DestIPPrefix":
+                              document.querySelector('#DestIPPrefixNotify').innerHTML = "";
+                              destIPValidv6 = true;
+                              break;
+                          default:
+                              document.querySelector("#nextHopNotify").innerHTML = "";
+                              destGWValidv6 = true;
+                              break;
+                      }
+                  } else {
+                      switch (input.id) {
+                          case "DestIPPrefix":
+                              destIPValidv6 = false;
+                              document.querySelector('#DestIPPrefixNotify').innerHTML = "Invalid pattern, Example IPv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334";
+                              break;
+                          default:
+                              destGWValidv6 = false;
+                              document.querySelector("#nextHopNotify").innerHTML = "Invalid pattern, Example IPv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334";
+                              break;
+                      }
+                  }
+              } else {
+                  switch (input.id) {
+                      case "DestIPPrefix":
+                          document.querySelector('#DestIPPrefixNotify').innerHTML = "* This Field is Required";
+                          destIPValidv6 = false;
+                          break;
+                      default:
+                          document.querySelector("#nextHopNotify").innerHTML = "* This Field is Required";
+                          destGWValidv6 = false;
+                          break;
+                  }
+              }
+              applyBtnCheckv6();
+          }
+      });
+
+      document.querySelector('#Interface').onchange = function () {
+          ifValidv6 = (document.querySelector('#Interface').value !== '?') ? true : false;
+          applyBtnCheckv6();
+      };
+
+      // get data from input and store data to DB
+      document.querySelector('#Addv6').addEventListener("click", function () {
+          document.querySelectorAll('input').forEach(function (input) {
+              if (input.id === "DestIPPrefix" || input.id === "NextHop") {
+                  manageJSONData(Advanced, `StaticRouting.IPv6StaticRoutingConfiguration.${ipv6RouteIdx.toString()}.${input.id}`, input.value, 'add');
+              }
+          });
+          ipv6RouteIdx++;
+          Advanced.StaticRouting.IPv6StaticRoutingConfiguration.NumberOfEntries = ipv6RouteIdx.toString();
+          // store data to DB
+          applyThenStoreToLS(page, "Apply", Advanced);
+          // back to IPv6 static routing table
+          window.location.href = "advanced-static_routing-ipv6Config.html";
+      });
+
       break;
     case "advanced-upnp.html":
       var enaUPnP = document.getElementById("DeviceUPnPDevice_Enable");
@@ -966,9 +1214,330 @@ function loadPage(page, options) {
         applyThenStoreToLS(page, "Apply", Advanced);
       });
       break;
-    case "advanced-vpn-add.html":
-      break;
     case "advanced-vpn.html":
+        function createIpsecRow(data, index) {
+          // Create <tr> element
+          var tr = document.createElement('tr');
+          tr.classList.add('ng-scope');
+          // Iterate through data and create <td> elements
+          for (var key in data) {
+              var td = document.createElement('td');
+              td.classList.add('no-padding-hr', 'ng-scope');
+
+              var span = document.createElement('span');
+              if (key === "openwrtipsecremote_enabled") {
+                if (data[key] === 'on') {
+                  span.classList.add('gemtek-enabled');
+                } else {
+                  span.classList.add('gemtek-disabled');
+                }
+              } else {
+                  // Create <span> element for non-array data
+                  var span = document.createElement('span');
+                  span.classList.add('ng-binding', 'ng-scope');
+                  span.textContent = data[key];
+              }
+              td.appendChild(span);
+              tr.appendChild(td);
+          }
+          // Create buttons and append to the last <td>
+          var lastTd = document.createElement('td');
+          lastTd.classList.add('no-padding-hr', 'ng-scope');
+          var editButton = document.createElement('button');
+          editButton.classList.add('btn', 'btn-xs', 'table-btn-txt');
+          editButton.setAttribute('name', 'edit');
+          editButton.setAttribute('id', 'openwrt.ipsec.remote.1');
+          editButton.addEventListener('click', function() {
+              manageJSONData(Advanced, `vpn.openwrtipsecremote.${index.toString()}.status`, 'onchanging', 'add');
+              applyThenStoreToLS(page, "Apply", Advanced);
+              window.location.href = 'advanced-vpn-add.html';
+          });
+          editButton.innerHTML = '<img src="images/icons/icon-1/edit.svg" />';
+          lastTd.appendChild(editButton);
+
+          var deleteButton = document.createElement('button');
+          deleteButton.classList.add('btn', 'btn-xs', 'table-btn', 'no-margin');
+          deleteButton.setAttribute('popupinfo', 'openwrtipsecremote');
+          deleteButton.setAttribute('name', 'delete');
+          deleteButton.setAttribute('id', 'openwrt.ipsec.remote.1');
+          deleteButton.addEventListener('click', function() {
+              document.getElementById('deletedialog').classList.remove('hide');
+              document.getElementById('deletedialog').value = index.toString();
+          });
+          deleteButton.innerHTML = '<img src="images/icons/icon-1/delete.svg" />';
+          lastTd.appendChild(deleteButton);
+
+          // Append last <td> to <tr>
+          tr.appendChild(lastTd);
+
+          // Return the created <tr> element
+          return tr;
+      }
+
+      let numberOfTunnel = Number(Advanced.vpn.openwrtipsecremote.NumberOfEntries);
+      for (let index = 0; index < numberOfTunnel; index++) {
+          let tunnelInfo = {
+              openwrtipsecremote_enabled: Advanced.vpn.openwrtipsecremote[index].openwrtipsecremote_enabled,
+              tunnel_name: Advanced.vpn.openwrtipsecremote[index].tunnel_name,
+              acceptable_kmp: Advanced.vpn.openwrtipsecremote[index].acceptable_kmp,
+              conn_ifname: Advanced.vpn.openwrtipsecremote[index].conn_ifname,
+              remote_ip: Advanced.vpn.openwrtipsecremote[index].remote_ip,
+              src: Advanced.vpn.openwrtipsecremote[index].src,
+              dst: Advanced.vpn.openwrtipsecremote[index].dst
+          };
+          document.querySelector('#bodyData').appendChild(createIpsecRow(tunnelInfo, index));
+      }
+
+      document.querySelector('#OK').onclick = () => {
+        document.getElementById('deletedialog').classList.add('hide');
+        let delIdx = document.getElementById('deletedialog').value;
+        manageJSONData(Advanced, `vpn.openwrtipsecremote.${delIdx}`, null, 'delete');
+        Advanced.vpn.openwrtipsecremote.NumberOfEntries = (Number(Advanced.vpn.openwrtipsecremote.NumberOfEntries) - 1).toString();
+        applyThenStoreToLS(page, "Apply", Advanced);
+      }
+
+      break;
+    case "advanced-vpn-add.html":
+      let is_tunnel_name_valid = false;
+      let is_openwrtipsecremotepre_shared_key_valid = false;
+      let is_acceptable_kmp_valid = false;
+      let is_conn_ifname_valid = false;
+      let is_remote_ip_valid = false;
+      let is_src_valid = false;
+      let is_dst_valid = false;
+      let is_kmp_enc_alg_valid = false;
+      let is_kmp_hash_alg_valid = false;
+      let is_kmp_dh_group_valid = false;
+      let is_encryption_algorithm_valid = false;
+      let is_hash_algorithm_valid = false;
+      let is_enc_dh_group_valid = false;
+      let is_ipsec_sa_lifetime_time_valid = false;
+      let ipsec_apply_btn_on = false;
+      let is_edit_ipsec = false;
+      let edit_tunnel_idx = -1;
+      let tunnel_idx = Number(Advanced.vpn.openwrtipsecremote.NumberOfEntries);
+      const ipv4Regex1 = /^(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})){3}$/;
+      const isValidSubnet = subnet => /^(\d{1,3}\.){3}\d{1,3}\/(0|1\d|2[0-9]|3[0-2])$/.test(subnet) && subnet.split('/').every((val, index) => (index === 0 ? /^(\d{1,3}\.){3}\d{1,3}$/.test(val) : true));
+      const isNumberGreaterThanOne = value => typeof value === 'number' && value > 1;
+
+      for (let index = 0; index < tunnel_idx; index++) {
+        if (Advanced.vpn.openwrtipsecremote[index].status !== 'unchanged') {
+          // edit ipsec tunnel
+          is_edit_ipsec = true;
+          edit_tunnel_idx = index;
+          document.querySelector('#openwrtipsecremote_enabled').checked = (Advanced.vpn.openwrtipsecremote[index].openwrtipsecremote_enabled === 'on') ? true : false;
+          document.querySelector('#tunnel_name').value = Advanced.vpn.openwrtipsecremote[index].tunnel_name;
+          document.querySelector('#openwrtipsecremotepre_shared_key').value = Advanced.vpn.openwrtipsecremote[index].openwrtipsecremotepre_shared_key;
+          document.querySelector('#acceptable_kmp').value = Advanced.vpn.openwrtipsecremote[index].acceptable_kmp;
+          document.querySelector('#conn_ifname').value = Advanced.vpn.openwrtipsecremote[index].conn_ifname;
+          document.querySelector('#remote_ip').value = Advanced.vpn.openwrtipsecremote[index].remote_ip;
+          document.querySelector('#src').value = Advanced.vpn.openwrtipsecremote[index].src;
+          document.querySelector('#dst').value = Advanced.vpn.openwrtipsecremote[index].dst;
+          document.querySelector('#kmp_enc_alg').value = Advanced.vpn.openwrtipsecremote[index].kmp_enc_alg;
+          document.querySelector('#kmp_hash_alg').value = Advanced.vpn.openwrtipsecremote[index].kmp_hash_alg;
+          document.querySelector('#kmp_dh_group').value = Advanced.vpn.openwrtipsecremote[index].kmp_dh_group;
+          document.querySelector('#encryption_algorithm').value = Advanced.vpn.openwrtipsecremote[index].encryption_algorithm;
+          document.querySelector('#hash_algorithm').value = Advanced.vpn.openwrtipsecremote[index].hash_algorithm;
+          document.querySelector('#enc_dh_group').value = Advanced.vpn.openwrtipsecremote[index].enc_dh_group;
+          document.querySelector('#ipsec_sa_lifetime_time').value = Advanced.vpn.openwrtipsecremote[index].ipsec_sa_lifetime_time;
+          Advanced.vpn.openwrtipsecremote[index].status = 'unchanged';
+          localStorage.setItem("Advanced", JSON.stringify(Advanced));
+        }
+      }
+
+      if (is_edit_ipsec) {
+        is_tunnel_name_valid = true;
+        is_openwrtipsecremotepre_shared_key_valid = true;
+        is_acceptable_kmp_valid = true;
+        is_conn_ifname_valid = true;
+        is_remote_ip_valid = true;
+        is_src_valid = true;
+        is_dst_valid = true;
+        is_kmp_enc_alg_valid = true;
+        is_kmp_hash_alg_valid = true;
+        is_kmp_dh_group_valid = true;
+        is_encryption_algorithm_valid = true;
+        is_hash_algorithm_valid = true;
+        is_enc_dh_group_valid = true;
+        is_ipsec_sa_lifetime_time_valid = true;
+        ipsec_apply_btn_on = true;
+        is_edit_ipsec = true;
+      } else {
+        document.querySelector('#tunnel_name_notify').innerHTML = "* This Field is Required";
+        document.querySelector('#openwrtipsecremotepre_shared_key_notify').innerHTML = "* This Field is Required";
+        document.querySelector('#remote_ip_notify').innerHTML = "* This Field is Required";
+        document.querySelector('#src_notify').innerHTML = "* This Field is Required";
+        document.querySelector('#dst_notify').innerHTML = "* This Field is Required";
+        document.querySelector('#ipsec_sa_lifetime_time_notify').innerHTML = "* This Field is Required";
+      }
+
+      function ipsec_apply_btn_Check() {
+        ipsec_apply_btn_on = (is_tunnel_name_valid &&
+                              is_openwrtipsecremotepre_shared_key_valid &&
+                              is_acceptable_kmp_valid &&
+                              is_conn_ifname_valid &&
+                              is_remote_ip_valid &&
+                              is_src_valid &&
+                              is_dst_valid &&
+                              is_kmp_enc_alg_valid &&
+                              is_kmp_hash_alg_valid &&
+                              is_kmp_dh_group_valid &&
+                              is_encryption_algorithm_valid &&
+                              is_hash_algorithm_valid &&
+                              is_enc_dh_group_valid &&
+                              is_ipsec_sa_lifetime_time_valid) ? true : false;
+
+        document.querySelector('#Add').disabled = !ipsec_apply_btn_on;
+      }
+
+      document.querySelector('#Add').disabled = !ipsec_apply_btn_on;
+
+      function input_valid_check(input) {
+          if (input.value.length > 0) {
+            switch (input.id) {
+              case "tunnel_name":
+                is_tunnel_name_valid = true;
+                document.querySelector('#tunnel_name_notify').innerHTML = "";
+                break;
+              case "openwrtipsecremotepre_shared_key":
+                is_openwrtipsecremotepre_shared_key_valid = true;
+                document.querySelector('#openwrtipsecremotepre_shared_key_notify').innerHTML = "";
+                break;
+              case "remote_ip":
+                is_remote_ip_valid = ipv4Regex1.test(input.value);
+                document.querySelector('#remote_ip_notify').innerHTML = (is_remote_ip_valid) ? "" : "* Invalid pattern , Example IPv4 address :192.168.1.232";
+                break;
+              case "src":
+                is_src_valid = isValidSubnet(input.value);
+                document.querySelector('#src_notify').innerHTML = (is_src_valid) ? "" : "* Subnet in classless format only eg: 192.168.1.0/24";
+                break;
+              case "dst":
+                is_dst_valid = isValidSubnet(input.value);
+                document.querySelector('#dst_notify').innerHTML = (is_dst_valid) ? "" : "* Subnet in classless format only eg: 192.168.6.0/24";
+                break;
+              case "ipsec_sa_lifetime_time":
+                is_ipsec_sa_lifetime_time_valid = isNumberGreaterThanOne(Number(input.value));
+                document.querySelector('#ipsec_sa_lifetime_time_notify').innerHTML = (is_ipsec_sa_lifetime_time_valid) ? "" : "* Value must be greater than or equal to 1";
+              break;
+          }
+        } else {
+            switch (input.id) {
+              case "tunnel_name":
+                document.querySelector('#tunnel_name_notify').innerHTML = "* This Field is Required";
+                is_tunnel_name_valid = false;
+                break;
+              case "openwrtipsecremotepre_shared_key":
+                document.querySelector('#openwrtipsecremotepre_shared_key_notify').innerHTML = "* This Field is Required";
+                is_openwrtipsecremotepre_shared_key_valid = false;
+                break;
+              case "remote_ip":
+                document.querySelector('#remote_ip_notify').innerHTML = "* This Field is Required";
+                is_remote_ip_valid = false;
+                break;
+              case "src":
+                document.querySelector('#src_notify').innerHTML = "* This Field is Required";
+                is_src_valid = false;
+                break;
+              case "dst":
+                document.querySelector('#dst_notify').innerHTML = "* This Field is Required";
+                is_dst_valid = false;
+                break;
+              case "ipsec_sa_lifetime_time":
+                document.querySelector('#ipsec_sa_lifetime_time_notify').innerHTML = "* This Field is Required";
+                is_ipsec_sa_lifetime_time_valid = false;
+                break;
+              default:
+                break;
+          }
+        }
+        ipsec_apply_btn_Check();
+      }
+
+      document.querySelectorAll('input').forEach(function(input) {
+          input.onkeyup = function() {
+            input_valid_check(input)
+          }
+      });
+
+      document.querySelectorAll('select').forEach(function(select) {
+        select.onchange = () => {
+          switch (select.id) {
+            case 'acceptable_kmp':
+              is_acceptable_kmp_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'conn_ifname':
+              is_conn_ifname_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'kmp_enc_alg':
+              is_kmp_enc_alg_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'kmp_hash_alg':
+              is_kmp_hash_alg_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'kmp_dh_group':
+              is_kmp_dh_group_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'encryption_algorithm':
+              is_encryption_algorithm_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'hash_algorithm':
+              is_hash_algorithm_valid = (select.value !== '?') ? true : false;
+              break;
+            case 'enc_dh_group':
+              is_enc_dh_group_valid = (select.value !== '?') ? true : false;
+              break;
+            default:
+              break;
+          }
+          ipsec_apply_btn_Check();
+        }
+      });
+
+      // get data from input and store data to DB
+      document.querySelector('#Add').addEventListener("click", function () {
+          if (is_edit_ipsec) {
+            tunnel_idx = edit_tunnel_idx;
+          }
+          manageJSONData(Advanced, `vpn.openwrtipsecremote.${tunnel_idx.toString()}.status`, 'unchanged', 'add');
+          document.querySelectorAll('input').forEach(function (input) {
+              if (input.id === "tunnel_name"
+              || input.id === "openwrtipsecremotepre_shared_key"
+              || input.id === "remote_ip"
+              || input.id === "src"
+              || input.id === "dst"
+              || input.id === "ipsec_sa_lifetime_time") {
+                  manageJSONData(Advanced, `vpn.openwrtipsecremote.${tunnel_idx.toString()}.${input.id}`, input.value, 'add');
+              } else if (input.id === 'openwrtipsecremote_enabled') {
+                if (input.checked === true) {
+                  manageJSONData(Advanced, `vpn.openwrtipsecremote.${tunnel_idx.toString()}.openwrtipsecremote_enabled`, 'on', 'add');
+                } else {
+                  manageJSONData(Advanced, `vpn.openwrtipsecremote.${tunnel_idx.toString()}.openwrtipsecremote_enabled`, 'off', 'add');
+                }
+              }
+          });
+          document.querySelectorAll('select').forEach(function (select) {
+            if (select.id === "acceptable_kmp"
+            || select.id === "conn_ifname"
+            || select.id === "kmp_enc_alg"
+            || select.id === "kmp_hash_alg"
+            || select.id === "kmp_dh_group"
+            || select.id === "encryption_algorithm"
+            || select.id === "hash_algorithm"
+            || select.id === "enc_dh_group") {
+                manageJSONData(Advanced, `vpn.openwrtipsecremote.${tunnel_idx.toString()}.${select.id}`, select.value, 'add');
+            }
+          });
+          if (!is_edit_ipsec) {
+            tunnel_idx++;
+            Advanced.vpn.openwrtipsecremote.NumberOfEntries = tunnel_idx.toString();
+            is_edit_ipsec = false;
+          }
+
+          // store data to DB
+          applyThenStoreToLS(page, "Apply", Advanced);
+          // back to ipv4 static routing table
+          window.location.href = "advanced-vpn.html";
+      });
       break;
     default:
       console.log(`Load ${page} fail --- no available page`);

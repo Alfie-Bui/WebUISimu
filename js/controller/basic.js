@@ -424,6 +424,35 @@ function loadPage(page, options) {
       });
       break;
     case "basic-registration_ID.html":
+      patternRegex = /^[A-Z0-9]{12}$/;
+      document.querySelector('button.gemtek-btn-primary').disabled = true;
+      document.querySelector('#RegID').value = Basic.RegistrationID.RegistrationID;
+      // check registratin ID is valid or not
+      document.querySelector('#RegID').onkeyup = function() {
+        if (document.querySelector('#RegID').value.length > 0) {
+          if (patternRegex.test(document.querySelector('#RegID').value)) {
+            // valid PONID
+            document.querySelector('#RegIDNotify').innerHTML = "";
+            document.querySelector('button.gemtek-btn-primary').disabled = false;
+          } else {
+            // invalid PONID
+            document.querySelector('#RegIDNotify').innerHTML = "* Invalid registration ID, i.e INTC92002035";
+          }
+        } else {
+          document.querySelector('button.gemtek-btn-primary').disabled = true;
+          document.querySelector('#RegIDNotify').innerHTML = "* This field is required.";
+        }
+      };
+      // get set data to local storage
+      document.querySelector('button.gemtek-btn-primary').addEventListener("click", function(){
+        Basic.RegistrationID.RegistrationID = document.querySelector('#RegID').value;
+        applyThenStoreToLS(page, "Apply", Basic);
+        document.querySelector('#RegID').value = Basic.RegistrationID.RegistrationID;
+      })
+      document.querySelector('button.gemtek-btn-normal').addEventListener("click", function(){
+        applyThenStoreToLS(page, "Cancel", Basic);
+      })
+      document.querySelector('#RegIDNotify').innerHTML="";
       break;
     case "basic-wan-addWAN.html":
       var filledData;

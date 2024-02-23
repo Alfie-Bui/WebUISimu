@@ -137,24 +137,10 @@
     <script src="./js/controller/status.js"></script>
 
     <script>
-      function change_list_wifi(id) {
-        const list_wifi5G = document.getElementById("list_wifi5G");
-        const list_wifi2_4G = document.getElementById("list_wifi2_4G");
-
-        const selectOne = document.getElementById(id);
-
-        if (selectOne.value === "0") {
-          // 2.4G
-          list_wifi2_4G.classList.remove("ng-hide");
-          list_wifi5G.classList.add("ng-hide");
-          draw_chart(list_wifi2_4G.value, "WIFI");
-        } else {
-          // 5G
-          list_wifi5G.classList.remove("ng-hide");
-          list_wifi2_4G.classList.add("ng-hide");
-          draw_chart(list_wifi5G.value, "WIFI");
-        }
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("status-system_stats-wifi_thr.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -360,7 +346,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1073,7 +1059,6 @@ and open the template in the editor.
                                 <select
                                   class="gemtek-mb-10 ng-valid ng-scope ng-dirty ng-valid-parse ng-touched"
                                   id="selectOne"
-                                  onchange="change_list_wifi(this.id)"
                                 >
                                   <option
                                     value="0"
@@ -1084,39 +1069,17 @@ and open the template in the editor.
                                   </option>
                                   <option value="1" label="5G">
                                     5G
-                                  </option></select
-                                ><select
-                                  class="gemtek-mb-10 ng-pristine ng-untouched ng-valid ng-scope ng-hide"
-                                  ng-model="selected"
-                                  id="list_wifi5G"
-                                  onchange="draw_chart(document.getElementById(this.id).value, 'WIFI')"
-                                >
-                                  <option
-                                    value="GEMTEK_5G"
-                                    selected="selected"
-                                    label="GEMTEK_5G"
-                                  >
-                                    GEMTEK_5G
                                   </option>
                                 </select>
-
                                 <select
                                   class="gemtek-mb-10 ng-pristine ng-untouched ng-valid ng-scope"
-                                  ng-model="selected"
-                                  id="list_wifi2_4G"
-                                  onchange="draw_chart(document.getElementById(this.id).value, 'WIFI')"
+                                  id="list_wifi"
+                                  <!-- onchange="draw_chart(document.getElementById(this.id).value, 'WIFI')" -->
                                 >
-                                  <option
-                                    value="GEMTEK"
-                                    selected="selected"
-                                    label="GEMTEK"
-                                  >
-                                    GEMTEK
-                                  </option>
                                 </select>
-                                <script>
+                                <!-- <script>
                                   change_list_wifi("selectOne");
-                                </script>
+                                </script> -->
                               </div>
                             </div>
                             <div
@@ -1164,7 +1127,7 @@ and open the template in the editor.
                                   "
                                 ></canvas>
                               </div>
-                              <script>
+                              <!-- <script>
                                 var item;
                                 if (selectOne.value === "0") {
                                   // 2.4GHz
@@ -1181,7 +1144,7 @@ and open the template in the editor.
                                     ).value;
                                 }
                                 draw_chart(item, "WIFI");
-                              </script>
+                              </script> -->
                             </div>
                             <div
                               id="wifithroughput"

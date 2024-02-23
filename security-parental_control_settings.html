@@ -134,6 +134,12 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/security.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("security-parental_control_settings.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -338,7 +344,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1179,7 +1185,6 @@ and open the template in the editor.
                             ng-init="DeviceFirewallX_GTK_ParentalControl_DefaultAction.DefaultAction = &#39;1&#39;"
                             ng-model="DeviceFirewallX_GTK_ParentalControl.DefaultAction"
                             value="1"
-                            checked
                           />
                           <label for="permit">Permit</label>
                           <input
@@ -1222,10 +1227,9 @@ and open the template in the editor.
                       <div class="btn-align">
                         <button
                           class="gemtek-btn-primary"
-                          id="Modify"
+                          id="Apply"
                           value="Apply"
                           formstatus="true"
-                          ng-click="Modify(&#39;Device.Firewall.X_GTK_ParentalControl?Device.Firewall&#39;,$event)"
                           title="Save"
                         >
                           <span

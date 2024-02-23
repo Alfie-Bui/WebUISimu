@@ -971,8 +971,7 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${
-                wifiInfoBuffer.length
+              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length
               }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
@@ -1135,7 +1134,7 @@ function loadPage(page, options) {
 
       // event init on total Page
       addWifiBtn.addEventListener("click", () => {
-        if (tbody.getElementsByTagName("tr").length >= 4){
+        if (tbody.getElementsByTagName("tr").length >= 4) {
           alertDialogHandle("Maximum number of SSID");
         }
         if (!add_lock) {
@@ -2470,9 +2469,7 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${
-                wifiInfoBuffer.length
-              }): ${JSON.stringify(wifiInfoBuffer)}`
+              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length}): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
             // remove if detail panel on it
@@ -2634,7 +2631,7 @@ function loadPage(page, options) {
 
       // event init on total Page
       addWifiBtn.addEventListener("click", () => {
-        if (tbody.getElementsByTagName("tr").length >= 4){
+        if (tbody.getElementsByTagName("tr").length >= 4) {
           alertDialogHandle("Maximum number of SSID");
         }
         if (!add_lock) {
@@ -2957,8 +2954,329 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-guest_access-add.html":
+      var filledData;
+      var addFlag = false;
+      if (Wifi.GuestAccess.onEdit === "") {
+        addFlag = true;
+        filledData = {
+          WirelessBand: "0",
+          SSID: "",
+          SecurityType: "2",
+          Passphrase: "",
+          RekeyInterval: "",
+          GuestIsolation: false,
+        };
+      } else {
+        filledData = Wifi.GuestAccess.Interfaces.filter(
+          (obj) => obj.SSID === Wifi.GuestAccess.onEdit
+        )[0];
+        console.log(
+          `Load ${page} -- Edit ${filledData.Name}}\n${JSON.stringify(
+            filledData
+          )}`
+        );
+      }
+
+      var wifiRadio = document.getElementById("Radio");
+      var ssidName = document.getElementById("SSIDName");
+      var securityType = document.getElementById("ModeEnabled");
+      var passphrase = document.getElementById("Password_field");
+      var rekeyInterval = document.getElementById("RekeyingInterval");
+      var guestIsolation = document.getElementById("GuestIsolation");
+
+      // adapt security type
+      var check_security_type = function () {
+        var password_field = document.getElementById("Password_field");
+        var title_pass = document.getElementById("title_pass");
+        var lowLimit_error = document.getElementById("lowLimit_pass_error");
+        var upLimit_error = document.getElementById("upLimit_pass_error");
+
+        var adapt_type = function (title, placeholder, pattern, min, max) {
+          title_pass.textContent = title;
+          password_field.placeholder = placeholder;
+          password_field.pattern = pattern;
+          password_field.min = min;
+          password_field.max = max;
+          lowLimit_error.textContent = `String length is below the limit: ${min}`;
+          upLimit_error.textContent = `String length Exceeded the limit: ${max}`;
+        };
+
+        switch (securityType.value) {
+          case "0":
+            document
+              .getElementById("panel_passphrase")
+              .classList.add("ng-hide");
+            document.getElementById("invalid_pass_error").classList.add("ng-hide");
+            document.getElementById("empty_pass_error").classList.add("ng-hide");
+            document.getElementById("lowLimit_pass_error").classList.add("ng-hide");
+            document.getElementById("upLimit_pass_error").classList.add("ng-hide");
+            break;
+          case "4": // WEP-64
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type(
+              "Key(Exactly 10 Hex digits)",
+              "Enter Password web",
+              WEP64_KEY_PATTERN,
+              10,
+              10
+            );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          case "5": // WEP-128
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type(
+              "Key(Exactly 26 Hex digits)",
+              "Enter Password web",
+              WEP128_KEY_PATTERN,
+              26,
+              26
+            );
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          case "6": // WPA3-Personal
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          case "7": // WPA2-WPA3-Personal
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+          default:
+            document
+              .getElementById("panel_passphrase")
+              .classList.remove("ng-hide");
+
+            adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
+
+            checkPasswordError_inputField(
+              password_field,
+              new RegExp(password_field.getAttribute("pattern")),
+              document.getElementById("invalid_pass_error"),
+              document.getElementById("empty_pass_error"),
+              document.getElementById("lowLimit_pass_error"),
+              document.getElementById("upLimit_pass_error")
+            );
+            break;
+        }
+      };
+
+      var fillData = () => {
+        wifiRadio.value = filledData.WirelessBand;
+        ssidName.value = filledData.SSID;
+        securityType.value = filledData.SecurityType;
+        passphrase.value = filledData.Passphrase;
+        rekeyInterval.value = filledData.RekeyInterval;
+        filledData.GuestIsolation
+          ? guestIsolation.classList.add("checked")
+          : guestIsolation.classList.remove("checked");
+        checkEmpty_inputField(
+          ssidName,
+          document.getElementById("empty_ssid_error")
+        );
+        check_security_type();
+        checkRange_inputField(
+          rekeyInterval,
+          range_rekey_error,
+          empty_rekey_error
+        );
+      };
+
+      var initEvent = () => {
+        ssidName.addEventListener("input", () => {
+          checkEmpty_inputField(
+            ssidName,
+            document.getElementById("empty_ssid_error")
+          );
+        });
+        securityType.addEventListener("change", () => {
+          check_security_type();
+        });
+        passphrase.addEventListener("input", () => {
+          checkPasswordError_inputField(
+            passphrase,
+            new RegExp(passphrase.getAttribute("pattern")),
+            document.getElementById("invalid_pass_error"),
+            document.getElementById("empty_pass_error"),
+            document.getElementById("lowLimit_pass_error"),
+            document.getElementById("upLimit_pass_error")
+          );
+        });
+
+        rekeyInterval.addEventListener("input", () => {
+          checkRange_inputField(
+            rekeyInterval,
+            range_rekey_error,
+            empty_rekey_error
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      /* apply & cancel button */
+      document.getElementById("Close").addEventListener("click", () => {
+        applyThenStoreToLS("wifi-guest_access.html", "Cancel");
+      });
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData.WirelessBand = wifiRadio.value;
+          filledData.SSID = ssidName.value;
+          filledData.SecurityType = securityType.value;
+          filledData.Passphrase = passphrase.value;
+          filledData.RekeyInterval = rekeyInterval.value;
+          filledData.GuestIsolation = guestIsolation.classList.contains("checked");
+
+          if (addFlag === true) Wifi.GuestAccess.Interfaces.push(filledData);
+
+          applyThenStoreToLS(
+            "wifi-guest_access.html",
+            "Apply",
+            Wifi
+          );
+        }
+      });
+
       break;
     case "wifi-guest_access.html":
+      console.log(`Load data: ${JSON.stringify(Wifi.GuestAccess)}`);
+      var tbody = document.getElementById("bodyData");
+      var ruleElem = document.getElementById("interfaceTemplate");
+      var addBtn = document.getElementById("Add");
+      var enableGuestAccess = document.getElementById("Enable");
+
+      Wifi.GuestAccess.EnableGuestAccess
+        ? enableGuestAccess.classList.add("checked")
+        : enableGuestAccess.classList.remove("checked");
+
+      var fillData = () => {
+        for (const elem of Wifi.GuestAccess.Interfaces) {
+          const tr = ruleElem.content.cloneNode(true);
+          const ssidName = tr.querySelector(".ssidName");
+          const wifiRadio = tr.querySelector(".wifiRadio");
+          const securityType = tr.querySelector(".securityType");
+          const guestIsolation = tr.querySelector(".guestIsolation");
+
+          const editBtn = tr.querySelector(".editBtn");
+          const deleteBtn = tr.querySelector(".deleteBtn");
+
+          ssidName.textContent = elem.SSID;
+          if (elem.WirelessBand === "0") {
+            wifiRadio.textContent = "2.4 GHz";
+          } else if (elem.WirelessBand === "1") {
+            wifiRadio.textContent = "5 GHz";
+          }
+          securityType.textContent = checkSecurityType(elem.SecurityType);
+          elem.GuestIsolation
+            ? guestIsolation.classList.add("gemtek-enabled")
+            : guestIsolation.classList.add("gemtek-disabled");
+          editBtn.addEventListener("click", () => {
+            Wifi.GuestAccess.onEdit = elem.SSID;
+            applyThenStoreToLS("wifi-guest_access-add.html", "Apply", Wifi);
+          });
+
+          deleteBtn.addEventListener("click", () => {
+            if (window.confirm("Are you sure you want to Delete ?")) {
+              Wifi.GuestAccess.Interfaces.splice(
+                parseInt(deleteBtn.closest("tr").rowIndex - 1), // because the first line is text of name
+                1
+              );
+              applyThenStoreToLS(
+                "wifi-guest_access.html",
+                "Apply",
+                Wifi
+              );
+            }
+          });
+          tbody.appendChild(tr);
+        }
+      };
+
+      var checkSecurityType = function (securityType) {
+        switch (securityType) {
+          case "0":
+            return "None";
+          case "1":
+            return "WPA-Personal";
+          case "2":
+            return "WPA2-Personal";
+          case "3":
+            return "WPA-WPA2-Personal";
+          case "4":
+            return "WEP-64";
+          case "5":
+            return "WEP-128";
+          case "6":
+            return "WPA3-Personal";
+          case "7":
+            return "WPA2-WPA3-Personal";
+          default:
+            return "";
+        }
+      }
+
+      fillData();
+
+      addBtn.addEventListener("click", () => {
+        Wifi.GuestAccess.onEdit = "";
+        applyThenStoreToLS("wifi-guest_access-add.html", "Apply", Wifi);
+      });
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        Wifi.GuestAccess.EnableGuestAccess = enableGuestAccess.classList.contains("checked");
+        applyThenStoreToLS(
+          "wifi-guest_access.html",
+          "Apply",
+          Wifi
+        );
+      });
       break;
     default:
       console.log(`Load ${page} fail --- no available page`);

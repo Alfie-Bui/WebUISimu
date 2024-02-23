@@ -136,6 +136,12 @@
     <script src="js/status-system_stats-draw.js"></script>
     <script src="js/Echart/echarts.min.js"></script>
     <script src="./js/controller/status.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("status-system_stats-wan_thr.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -340,7 +346,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -1056,22 +1062,7 @@ and open the template in the editor.
                               <select
                                 id="wan_select"
                                 class="gemtek-mb-10 ng-pristine ng-untouched ng-valid ng-scope"
-                                onchange="draw_chart(document.getElementById('wan_select').options[document.getElementById('wan_select').selectedIndex].label, document.getElementById('wan_select').value)"
                               >
-                                <option
-                                  value="LAN"
-                                  selected="selected"
-                                  label="ANI0_wan8"
-                                >
-                                  ANI0_wan8
-                                </option>
-                                <option
-                                  value="WAN_PON"
-                                  selected="selected"
-                                  label="ANI0_wan9"
-                                >
-                                  ANI0_wan9
-                                </option>
                               </select>
                             </div>
                           </div>
@@ -1114,7 +1105,7 @@ and open the template in the editor.
                                   border-width: 0px;
                                 "
                               ></canvas>
-                              <script>
+                              <!-- <script>
                                 draw_chart(
                                   document.getElementById("wan_select").options[
                                     document.getElementById("wan_select")
@@ -1122,7 +1113,7 @@ and open the template in the editor.
                                   ].label,
                                   document.getElementById("wan_select").value
                                 );
-                              </script>
+                              </script> -->
                             </div>
                           </div>
                           <div

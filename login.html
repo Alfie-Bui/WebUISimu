@@ -190,13 +190,18 @@
       const loginBtn = document.getElementById("loginBtn");
       const username = document.getElementById("user");
       const password = document.getElementById("password");
+      const Account = JSON.parse(localStorage.getItem("Account"));
+      const userNamefromLS = Account.UserName;
+      const passwordFromLS = Account.Password;
+      console.log(userNamefromLS);
+      console.log(passwordFromLS);
       var e = document.getElementById("timer");
       e.style.display = "none";
       var f = document.getElementById("msg");
       f.style.display = "none";
 
       function login() {
-        if (username.value === "admin" && password.value === "Gemtek@123") {
+        if (username.value === userNamefromLS && password.value === passwordFromLS) {
           window.location = "index.html";
         } else {
           f.style.display = "block";

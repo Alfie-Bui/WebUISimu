@@ -135,16 +135,10 @@
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/security.js"></script>
     <script>
-      function toggleSwitch(id) {
-        const switchID = document.getElementById(id);
-        if (switchID.classList.contains("gemtek-switch-on")) {
-          switchID.classList.remove("gemtek-switch-on");
-          switchID.classList.add("gemtek-switch-off");
-        } else {
-          switchID.classList.remove("gemtek-switch-off");
-          switchID.classList.add("gemtek-switch-on");
-        }
-      }
+      window.onload = () => {
+        checkVersion();
+        loadPage("security-firewall.html");
+      };
     </script>
   </head>
   <body class="theme-default animate">
@@ -350,7 +344,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span >Logout</span>
                   </a>
                 </li>
               </ul>
@@ -940,7 +934,7 @@ and open the template in the editor.
             .grn_bg{background:#00a489 !important;color:#ffffff;}
             .blu_bg{background:#428bca !important;color:#ffffff;}
             .ltgrn_bg{background:#79b260 !important;color:#ffffff;}
-            .pilot_bg{background:#7266ba !important;color:#ffffff;}            
+            .pilot_bg{background:#7266ba !important;color:#ffffff;}
             .yel_bg{background:#f49b00 !important;color:#ffffff;}
             .black_bg{background:#2f2f2f !important;color:#ffffff;}
             .port_status{min-height: 1px;min-width:100px;float: left;margin:0px 4px; }
@@ -1184,7 +1178,6 @@ and open the template in the editor.
                                 class="gemtek-switch-on"
                                 style="cursor: pointer"
                                 id="Telnet"
-                                onclick="toggleSwitch(this.id)"
                               ></div>
                             </td>
                           </tr>
@@ -1201,7 +1194,6 @@ and open the template in the editor.
                                 class="gemtek-switch-on"
                                 style="cursor: pointer"
                                 id="SSH"
-                                onclick="toggleSwitch(this.id)"
                               ></div>
                             </td>
                           </tr>
@@ -1218,7 +1210,6 @@ and open the template in the editor.
                                 class="gemtek-switch-on"
                                 style="cursor: pointer"
                                 id="HTTPS"
-                                onclick="toggleSwitch(this.id)"
                               ></div>
                             </td>
                           </tr>
@@ -1235,7 +1226,6 @@ and open the template in the editor.
                                 class="gemtek-switch-on"
                                 style="cursor: pointer"
                                 id="ICMP"
-                                onclick="toggleSwitch(this.id)"
                               ></div>
                             </td>
                           </tr>
@@ -1261,11 +1251,10 @@ and open the template in the editor.
             </button> -->
                     <input
                       type="button"
-                      id="Modify"
+                      id="Apply"
                       class="waves-effect waves-light gemtek-btn-primary"
                       value="Apply"
                       formstatus=""
-                      ng-click="firewallApply()"
                     />
                   </div>
                 </div>

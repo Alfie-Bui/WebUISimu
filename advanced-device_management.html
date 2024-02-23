@@ -345,7 +345,7 @@
                       src="images/icons/icon-1/logout.svg"
                       style="cursor: pointer"
                     />
-                    <span ng-click="Logout()">Logout</span>
+                    <span>Logout</span>
                   </a>
                 </li>
               </ul>
@@ -988,15 +988,9 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceManagementServerpopup"
-              >
+              <div class="alert alert-danger ng-hide">
                 <a class="close" aria-label="close">✖ </a>
-                <p
-                  ng-bind-html="DeviceManagementServerpopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+                <p class="ng-binding"></p>
               </div>
               <div>
                 <div class="wrapperdiv">

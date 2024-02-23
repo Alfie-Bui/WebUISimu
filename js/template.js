@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.4.5_D26/M02/Y2024";
+const SIMULATOR_VERSION = "0.4.5_D23/M02/Y2024";
 
 /**
  *
@@ -11,7 +11,19 @@ const SIMULATOR_VERSION = "0.4.5_D26/M02/Y2024";
  *
  */
 const template = {
-  Status: {},
+  Status: {
+    Status: {
+      Manufacturer: "Gemtek",
+      SerialNumber: "BWT230512002202",
+      SoftwareVersion: "GemtekSW-v0.8.6-0854-14Nov23",
+      ModelName: "TB-362",
+      HardwareVersion: "PRX300 rev 1.2, PRX321-HGU-11AX",
+      SubnetMask: "255.255.255.0",
+      PrimaryDNS: "8.8.8.8",
+      SecondaryDNS: "8.8.4.4",
+      MACAddress: "4c:ba:7d:a7:55:22",
+    }
+  },
   Basic: {
     WAN: {
       onEdit: "", // if empty --> Add button instead of Edit button
@@ -257,12 +269,9 @@ const template = {
       ],
     },
     GuestAccess: {
-      WirewlessBand: 0,
-      SSID: "Gemtek_Guest",
-      SecurityType: 2,
-      Passphrase: "password",
-      RekeyInterval: "10000",
-      GuestIsolation: true,
+      onEdit: "", // if empty --> Add button instead of Edit button
+      EnableGuestAccess: true,
+      Interfaces: [],
     },
   },
   Advanced: {
@@ -320,10 +329,104 @@ const template = {
     UPnP: {
       EnaUPnP: false,
     },
+    StaticRouting: {
+      StaticRoutingConfiguration: {
+        NumberOfEntries: '1',
+        "0": {
+          DestIPAddress: "8.8.8.8",
+          DestSubnetMask: "255.255.255.255",
+          GatewayIPAddress: "192.168.1.1"
+        }
+      },
+      IPv6StaticRoutingConfiguration: {
+        NumberOfEntries: '1',
+        "0": {
+          DestIPPrefix: "2001:4860:4860::8888",
+          NextHop: "FE80::96FF:3CFF:FEDD:AE20"
+        }
+      }
+    },
+    vpn: {
+      openwrtipsecremote: {
+        NumberOfEntries: '1',
+        "0": {
+          openwrtipsecremote_enabled: "on",
+          tunnel_name: "gemtek",
+          openwrtipsecremotepre_shared_key: "password",
+          acceptable_kmp: "ikev1",
+          conn_ifname: "ANI0_wan8",
+          remote_ip: "27.72.192.226",
+          src: "192.168.1.0/24",
+          dst: "192.168.6.0/24",
+          kmp_enc_alg: "aes128",
+          kmp_hash_alg: "md5",
+          kmp_dh_group: "modp768",
+          encryption_algorithm: "aes128",
+          hash_algorithm: "md5",
+          enc_dh_group: "modp768",
+          ipsec_sa_lifetime_time: "120",
+          status: 'unchanged'
+        }
+      }
+    }
   },
-  Security: {},
-  Utilities: {},
-  VoIP: {},
+  Security: {
+    Firewall: {
+      EnableFirewall: true,
+      Services: {
+        EnableTelnet: true,
+        EnableSSH: true,
+        EnableHTTPS: true,
+        EnableICMP: true,
+      }
+    },
+    ParentalControl: {
+      ParentalControlSettings: {
+        EnableParentalControl: true,
+        DefaultAction: "0"  /* 1: permit, 0: deny */
+      },
+      DeviceUnderParentalControl: {
+        onEdit: "",
+        Rules: [],
+      }
+    },
+  },
+  VoIP: {
+    Interface: 0,
+    TelephoneNumber: "2310",
+    RegistarAddress: "10.20.55.13",
+    AuthenticationID: "2310",
+    Password: "2310",
+    RegistarPort: "5060",
+    SIPProxy: "0.0.0.0",
+    SIPProxyPort: "5060",
+    OutboundProxy: "0.0.0.0",
+    OutboundProxyPort: "5060",
+  },
+  Utilities: {
+    System: {
+      SystemLogRule: {
+        Name: "messages",
+        MaximumSize: "1000",
+        DeviceDeviceInfoVendorLogFile1_X_GTK_Remote: false,
+        RemoteIP: "192.168.1.5",
+        PortNo: "9999",
+      },
+    },
+    SystemTime: {
+      DeviceTime_Enable: true,
+      NTPServer1: "0.asia.pool.ntp.org",
+      NTPServer2: "1.asia.pool.ntp.org",
+      NTPServer3: "2.asia.pool.ntp.org",
+      NTPServer4: "3.asia.pool.ntp.org",
+      NTPServer5: "0.north-america.pool.ntp.org",
+      X_GTK_TimeZoneLocation: 221, // Asia/HoChiMinh
+    },
+  },
+  Account: {
+    UserName: "admin",
+    Password: "Gemtek@123",
+  },
 };
 
 /**
@@ -374,6 +477,8 @@ const alertDialogTemplate =
     </div>\
   </div>\
 </div>';
+
+
 
 /** Pattern */
 const IPv4_PATTERN =
