@@ -8,6 +8,8 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   switch (page) {
     case "voip-config.html":
+      console.log(`Load ${page}`, VoIP);
+
       var enableSIPALG = document.getElementById("DeviceNATX_GTK_ALG_SIP");
       var selectElement = document.getElementById("X_GTK_Interface");
       var telephoneNumber = document.getElementById("X_GTK_TelephoneNumber");
@@ -18,7 +20,9 @@ function loadPage(page, options) {
       var SIPProxy = document.getElementById("X_GTK_SIPProxy");
       var SIPProxyPort = document.getElementById("X_GTK_SIPProxyPort");
       var outboundProxy = document.getElementById("X_GTK_OutboundProxy");
-      var outboundProxyPort = document.getElementById("X_GTK_OutboundProxyPort");
+      var outboundProxyPort = document.getElementById(
+        "X_GTK_OutboundProxyPort"
+      );
       var wanInterfaces = Basic.WAN.Interfaces;
       const fields = [
         { element: telephoneNumber, errorMessageId: "empty_telephone_number" },
@@ -29,10 +33,13 @@ function loadPage(page, options) {
         { element: SIPProxy, errorMessageId: "empty_sip_proxy" },
         { element: SIPProxyPort, errorMessageId: "empty_sip_proxy_port" },
         { element: outboundProxy, errorMessageId: "empty_outbound_proxy" },
-        { element: outboundProxyPort, errorMessageId: "empty_outbound_proxy_port" }
+        {
+          element: outboundProxyPort,
+          errorMessageId: "empty_outbound_proxy_port",
+        },
       ];
 
-      function fillData () {
+      function fillData() {
         enableSIPALG.checked = Advanced.ALG.EnableSIPALG;
         telephoneNumber.value = VoIP.TelephoneNumber;
         registarAddress.value = VoIP.RegistarAddress;
@@ -44,29 +51,39 @@ function loadPage(page, options) {
         outboundProxy.value = VoIP.OutboundProxy;
         outboundProxyPort.value = VoIP.OutboundProxyPort;
 
-        selectElement.innerHTML = '';
+        selectElement.innerHTML = "";
         let countValue = 0;
-        wanInterfaces.forEach(interface => {
-          var optionElement = document.createElement('option');
+        wanInterfaces.forEach((interface) => {
+          var optionElement = document.createElement("option");
           optionElement.textContent = interface.Name;
-          optionElement.value = countValue; /* as value, corresponds to index of itself in SSIDs array */
+          optionElement.value =
+            countValue; /* as value, corresponds to index of itself in SSIDs array */
           countValue++;
-          optionElement.setAttribute('data-label', interface.Name);
+          optionElement.setAttribute("data-label", interface.Name);
           selectElement.appendChild(optionElement);
         });
         selectElement.value = VoIP.Interface;
 
         fields.forEach(({ element, errorMessageId }) => {
-          checkEmpty_inputField(element, document.getElementById(errorMessageId));
+          checkEmpty_inputField(
+            element,
+            document.getElementById(errorMessageId)
+          );
         });
       }
 
       function initEvent() {
-        fields.forEach(field => {
+        fields.forEach((field) => {
           field.element.addEventListener("input", () => {
-            checkEmpty_inputField(field.element, document.getElementById(field.errorMessageId));
+            checkEmpty_inputField(
+              field.element,
+              document.getElementById(field.errorMessageId)
+            );
           });
-          checkEmpty_inputField(field.element, document.getElementById(field.errorMessageId));
+          checkEmpty_inputField(
+            field.element,
+            document.getElementById(field.errorMessageId)
+          );
         });
       }
 
@@ -86,12 +103,7 @@ function loadPage(page, options) {
           VoIP.OutboundProxy = outboundProxy.value;
           VoIP.OutboundProxyPort = outboundProxyPort.value;
           VoIP.Interface = selectElement.value;
-            applyThenStoreToLS(
-              "voip-config.html",
-              "Apply",
-              VoIP,
-              Advanced
-            );
+          applyThenStoreToLS("voip-config.html", "Apply", VoIP, Advanced);
         }
       });
 

@@ -8,7 +8,7 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   switch (page) {
     case "wifi-2_4G-config.html":
-      console.log(`Load ${page}\n${JSON.stringify(Wifi["2.4G"])}`);
+      console.log(`Load ${page}`, Wifi["2.4G"]);
       var enable2_4G = document.getElementById("Enable");
       var autoChannel = document.getElementById("AutoChannelEnable");
       var operationModeSelect = document.getElementById("OperatingStandards");
@@ -381,6 +381,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-2_4G-mac_filtering.html":
+      console.log(`Load ${page}`, Wifi["2.4G"]);
+
       var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
       var filledData = Wifi["2.4G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
@@ -522,7 +524,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-2_4G-ssids.html":
-      console.log(`Load ${page}\n${JSON.stringify(Wifi["2.4G"])}`);
+      console.log(`Load ${page}`, Wifi["2.4G"]);
+
       var addWifiBtn = document.getElementById("AddBtn");
       var tableHeader = document.getElementById("headerTable");
       var tbody = document.getElementById("bodyData");
@@ -971,7 +974,8 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length
+              `Remove Wifi --> Wifi now (length ${
+                wifiInfoBuffer.length
               }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
@@ -1198,6 +1202,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-2_4G-statistics.html":
+      console.log(`Load ${page}`, Wifi["2.4G"]);
+
       var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
       filledData = Wifi["2.4G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
@@ -1227,6 +1233,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-2_4G-wds.html":
+      console.log(`Load ${page}`, Wifi["2.4G"]);
+
       var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
       filledData = Wifi["2.4G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
@@ -1399,6 +1407,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-2_4G-wps.html":
+      console.log(`Load ${page}`, Wifi["2.4G"]);
+
       var numberOfSSIDs = Wifi["2.4G"].SSIDs.length;
       console.log(`Load number of SSID data: ${numberOfSSIDs}`);
       for (const elem of Wifi["2.4G"].SSIDs) {
@@ -1455,7 +1465,7 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-5G-config.html":
-      console.log(`Load ${page}\n${JSON.stringify(Wifi["5G"])}`);
+      console.log(`Load ${page}`, Wifi["5G"]);
 
       var enable5G = document.getElementById("Enable");
       var autoChannel = document.getElementById("AutoChannelEnable");
@@ -1879,6 +1889,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-5G-mac_filter.html":
+      console.log(`Load ${page}`, Wifi["5G"]);
+
       var numberOfSSIDs = Wifi["5G"].SSIDs.length;
       filledData = Wifi["5G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
@@ -2020,7 +2032,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-5G-ssids.html":
-      console.log(`Load ${page}\n${JSON.stringify(Wifi["5G"])}`);
+      console.log(`Load ${page}`, Wifi["5G"]);
+
       var addWifiBtn = document.getElementById("AddBtn");
       var tableHeader = document.getElementById("headerTable");
       var tbody = document.getElementById("bodyData");
@@ -2469,7 +2482,9 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length}): ${JSON.stringify(wifiInfoBuffer)}`
+              `Remove Wifi --> Wifi now (length ${
+                wifiInfoBuffer.length
+              }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
             // remove if detail panel on it
@@ -2695,6 +2710,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-5G-statistics.html":
+      console.log(`Load ${page}`, Wifi["5G"]);
+
       var numberOfSSIDs = Wifi["5G"].SSIDs.length;
       filledData = Wifi["5G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
@@ -2724,6 +2741,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-5G-wds.html":
+      console.log(`Load ${page}`, Wifi["5G"]);
+
       var numberOfSSIDs = Wifi["5G"].SSIDs.length;
       filledData = Wifi["5G"].SSIDs;
       console.log(`Load number of SSID: ${numberOfSSIDs}`);
@@ -2896,6 +2915,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-5G-wps.html":
+      console.log(`Load ${page}`, Wifi["5G"]);
+
       var numberOfSSIDs = Wifi["5G"].SSIDs.length;
       console.log(`Load number of SSID data: ${numberOfSSIDs}`);
 
@@ -2954,6 +2975,8 @@ function loadPage(page, options) {
       });
       break;
     case "wifi-guest_access-add.html":
+      console.log(`Load ${page}`, Wifi.GuestAccess);
+
       var filledData;
       var addFlag = false;
       if (Wifi.GuestAccess.onEdit === "") {
@@ -2970,11 +2993,7 @@ function loadPage(page, options) {
         filledData = Wifi.GuestAccess.Interfaces.filter(
           (obj) => obj.SSID === Wifi.GuestAccess.onEdit
         )[0];
-        console.log(
-          `Load ${page} -- Edit ${filledData.Name}}\n${JSON.stringify(
-            filledData
-          )}`
-        );
+        console.log(`Load ${page} -- Edit ${filledData.Name}}`, filledData);
       }
 
       var wifiRadio = document.getElementById("Radio");
@@ -3006,10 +3025,18 @@ function loadPage(page, options) {
             document
               .getElementById("panel_passphrase")
               .classList.add("ng-hide");
-            document.getElementById("invalid_pass_error").classList.add("ng-hide");
-            document.getElementById("empty_pass_error").classList.add("ng-hide");
-            document.getElementById("lowLimit_pass_error").classList.add("ng-hide");
-            document.getElementById("upLimit_pass_error").classList.add("ng-hide");
+            document
+              .getElementById("invalid_pass_error")
+              .classList.add("ng-hide");
+            document
+              .getElementById("empty_pass_error")
+              .classList.add("ng-hide");
+            document
+              .getElementById("lowLimit_pass_error")
+              .classList.add("ng-hide");
+            document
+              .getElementById("upLimit_pass_error")
+              .classList.add("ng-hide");
             break;
           case "4": // WEP-64
             document
@@ -3172,21 +3199,19 @@ function loadPage(page, options) {
           filledData.SecurityType = securityType.value;
           filledData.Passphrase = passphrase.value;
           filledData.RekeyInterval = rekeyInterval.value;
-          filledData.GuestIsolation = guestIsolation.classList.contains("checked");
+          filledData.GuestIsolation =
+            guestIsolation.classList.contains("checked");
 
           if (addFlag === true) Wifi.GuestAccess.Interfaces.push(filledData);
 
-          applyThenStoreToLS(
-            "wifi-guest_access.html",
-            "Apply",
-            Wifi
-          );
+          applyThenStoreToLS("wifi-guest_access.html", "Apply", Wifi);
         }
       });
 
       break;
     case "wifi-guest_access.html":
-      console.log(`Load data: ${JSON.stringify(Wifi.GuestAccess)}`);
+      console.log(`Load ${page}`, Wifi.GuestAccess);
+
       var tbody = document.getElementById("bodyData");
       var ruleElem = document.getElementById("interfaceTemplate");
       var addBtn = document.getElementById("Add");
@@ -3228,11 +3253,7 @@ function loadPage(page, options) {
                 parseInt(deleteBtn.closest("tr").rowIndex - 1), // because the first line is text of name
                 1
               );
-              applyThenStoreToLS(
-                "wifi-guest_access.html",
-                "Apply",
-                Wifi
-              );
+              applyThenStoreToLS("wifi-guest_access.html", "Apply", Wifi);
             }
           });
           tbody.appendChild(tr);
@@ -3260,7 +3281,7 @@ function loadPage(page, options) {
           default:
             return "";
         }
-      }
+      };
 
       fillData();
 
@@ -3270,12 +3291,9 @@ function loadPage(page, options) {
       });
 
       document.getElementById("Apply").addEventListener("click", () => {
-        Wifi.GuestAccess.EnableGuestAccess = enableGuestAccess.classList.contains("checked");
-        applyThenStoreToLS(
-          "wifi-guest_access.html",
-          "Apply",
-          Wifi
-        );
+        Wifi.GuestAccess.EnableGuestAccess =
+          enableGuestAccess.classList.contains("checked");
+        applyThenStoreToLS("wifi-guest_access.html", "Apply", Wifi);
       });
       break;
     default:

@@ -8,7 +8,8 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   switch (page) {
     case "basic-lan-dev_connected.html":
-      console.log(`Load data: ${JSON.stringify(Basic.LAN.DeviceConnected)}`);
+      console.log(`Load ${page}`, Basic.LAN.DeviceConnected);
+
       var filledData = Basic.LAN.DeviceConnected;
 
       var tbody = document.getElementById("bodyData");
@@ -30,7 +31,8 @@ function loadPage(page, options) {
       });
       break;
     case "basic-lan-ipv4Config.html":
-      console.log("Load data:", Basic.LAN.IPv4Configuration);
+      console.log(`Load ${page}`, Basic.LAN.IPv4Configuration);
+
       var filledData = Basic.LAN.IPv4Configuration;
 
       var devIPAddr = document.getElementById("IPAddress");
@@ -324,7 +326,7 @@ function loadPage(page, options) {
               IP: value[1],
             });
           }
-          console.log("Basic.LAN.IPv4", filledData)
+          console.log("Basic.LAN.IPv4", filledData);
           // applyThenStoreToLS(page, "Apply", Basic);
         } else {
           console.log("Apply fail");
@@ -336,7 +338,8 @@ function loadPage(page, options) {
       });
       break;
     case "basic-lan-ipv6Config.html":
-      console.log(`Load data: ${JSON.stringify(Basic.LAN.IPv6Configuration)}`);
+      console.log(`Load ${page}`, Basic.LAN.IPv6Configuration);
+
       var filledData = Basic.LAN.IPv6Configuration;
 
       // init variable
@@ -424,37 +427,51 @@ function loadPage(page, options) {
       });
       break;
     case "basic-registration_ID.html":
+      console.log(`Load ${page}`, Basic.LAN.RegistrationID);
+
       patternRegex = /^[A-Z0-9]{12}$/;
-      document.querySelector('button.gemtek-btn-primary').disabled = true;
-      document.querySelector('#RegID').value = Basic.RegistrationID.RegistrationID;
+      document.querySelector("button.gemtek-btn-primary").disabled = true;
+      document.querySelector("#RegID").value =
+        Basic.RegistrationID.RegistrationID;
       // check registratin ID is valid or not
-      document.querySelector('#RegID').onkeyup = function() {
-        if (document.querySelector('#RegID').value.length > 0) {
-          if (patternRegex.test(document.querySelector('#RegID').value)) {
+      document.querySelector("#RegID").onkeyup = function () {
+        if (document.querySelector("#RegID").value.length > 0) {
+          if (patternRegex.test(document.querySelector("#RegID").value)) {
             // valid PONID
-            document.querySelector('#RegIDNotify').innerHTML = "";
-            document.querySelector('button.gemtek-btn-primary').disabled = false;
+            document.querySelector("#RegIDNotify").innerHTML = "";
+            document.querySelector(
+              "button.gemtek-btn-primary"
+            ).disabled = false;
           } else {
             // invalid PONID
-            document.querySelector('#RegIDNotify').innerHTML = "* Invalid registration ID, i.e INTC92002035";
+            document.querySelector("#RegIDNotify").innerHTML =
+              "* Invalid registration ID, i.e INTC92002035";
           }
         } else {
-          document.querySelector('button.gemtek-btn-primary').disabled = true;
-          document.querySelector('#RegIDNotify').innerHTML = "* This field is required.";
+          document.querySelector("button.gemtek-btn-primary").disabled = true;
+          document.querySelector("#RegIDNotify").innerHTML =
+            "* This field is required.";
         }
       };
       // get set data to local storage
-      document.querySelector('button.gemtek-btn-primary').addEventListener("click", function(){
-        Basic.RegistrationID.RegistrationID = document.querySelector('#RegID').value;
-        applyThenStoreToLS(page, "Apply", Basic);
-        document.querySelector('#RegID').value = Basic.RegistrationID.RegistrationID;
-      })
-      document.querySelector('button.gemtek-btn-normal').addEventListener("click", function(){
-        applyThenStoreToLS(page, "Cancel", Basic);
-      })
-      document.querySelector('#RegIDNotify').innerHTML="";
+      document
+        .querySelector("button.gemtek-btn-primary")
+        .addEventListener("click", function () {
+          Basic.RegistrationID.RegistrationID =
+            document.querySelector("#RegID").value;
+          applyThenStoreToLS(page, "Apply", Basic);
+          document.querySelector("#RegID").value =
+            Basic.RegistrationID.RegistrationID;
+        });
+      document
+        .querySelector("button.gemtek-btn-normal")
+        .addEventListener("click", function () {
+          applyThenStoreToLS(page, "Cancel", Basic);
+        });
+      document.querySelector("#RegIDNotify").innerHTML = "";
       break;
     case "basic-wan-addWAN.html":
+      console.log(`Load ${page}`, Basic.WAN);
       var filledData;
       var addNew_flag = false;
 
@@ -464,11 +481,7 @@ function loadPage(page, options) {
         filledData = Basic.WAN.Interfaces.filter(
           (obj) => obj.Name === Basic.WAN.onEdit
         )[0];
-        console.log(
-          `Load ${page} -- Edit ${filledData.Name}}\n${JSON.stringify(
-            filledData
-          )}`
-        );
+        console.log(`Load ${page} -- Edit ${filledData.Name}}`, filledData);
       } else {
         // if add New interface --> make prototype
         addNew_flag = true;
@@ -1653,7 +1666,8 @@ function loadPage(page, options) {
       });
       break;
     case "basic-wan-ipv4.html":
-      console.log(`Load ${page}\n${JSON.stringify(Basic.WAN.Interfaces)}`);
+      console.log(`Load ${page}`, Basic.WAN.Interfaces);
+
       var bodyData = document.getElementById("bodyData");
       var addBtn = document.getElementById("Add");
       var rowElement = document.getElementById("rowElement");
@@ -1750,7 +1764,7 @@ function loadPage(page, options) {
       });
       break;
     case "basic-wan-ipv6.html":
-      console.log(`Load ${page}\n${JSON.stringify(Basic.WAN.Interfaces)}`);
+      console.log(`Load ${page}`, Basic.WAN.Interfaces);
       var bodyData = document.getElementById("bodyData");
       var addBtn = document.getElementById("Add");
       var rowElement = document.getElementById("rowElement");

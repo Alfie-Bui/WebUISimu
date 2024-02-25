@@ -8,6 +8,7 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   switch (page) {
     case "status-overview.html":
+      console.log(`Load ${page}`, Status.Status);
       var manufacturer = document.getElementById("Manufacturer");
       var serialNumber = document.getElementById("SerialNumber");
       var softwareVersion = document.getElementById("SoftwareVersion");
@@ -45,7 +46,7 @@ function loadPage(page, options) {
           default:
             return "";
         }
-      }
+      };
 
       var fillData = () => {
         manufacturer.textContent = Status.Status.Manufacturer;
@@ -64,8 +65,12 @@ function loadPage(page, options) {
         primaryDNS.textContent = Status.Status.PrimaryDNS;
         secondaryDNS.textContent = Status.Status.SecondaryDNS;
         macAddr.textContent = Status.Status.MACAddress;
-        wifi2SecurityLevel.textContent = checkSecurityType(Wifi["2.4G"].SSIDs[0].Configuration.SecurityType + "");
-        wifi5SecurityLevel.textContent = checkSecurityType(Wifi["5G"].SSIDs[0].Configuration.SecurityType + "");
+        wifi2SecurityLevel.textContent = checkSecurityType(
+          Wifi["2.4G"].SSIDs[0].Configuration.SecurityType + ""
+        );
+        wifi5SecurityLevel.textContent = checkSecurityType(
+          Wifi["5G"].SSIDs[0].Configuration.SecurityType + ""
+        );
       };
 
       fillData();
@@ -76,47 +81,69 @@ function loadPage(page, options) {
       break;
     case "status-system_stats-wan_thr.html":
       var wanInterfaces = Basic.WAN.Interfaces;
-      var selectElement = document.getElementById('wan_select');
+      var selectElement = document.getElementById("wan_select");
 
       var fillData = () => {
-        selectElement.innerHTML = '';
-        wanInterfaces.forEach(interface => {
-          var optionElement = document.createElement('option');
+        selectElement.innerHTML = "";
+        wanInterfaces.forEach((interface) => {
+          var optionElement = document.createElement("option");
           optionElement.textContent = interface.Name;
-          optionElement.value = (interface.SelectionMode === 'ETH') ? 'WAN_ETH' : 'WAN_PON';
-          optionElement.setAttribute('data-label', interface.Name);
+          optionElement.value =
+            interface.SelectionMode === "ETH" ? "WAN_ETH" : "WAN_PON";
+          optionElement.setAttribute("data-label", interface.Name);
           selectElement.appendChild(optionElement);
         });
 
         var selectedOption = selectElement.options[selectElement.selectedIndex];
-        console.log("Selected Interface:", selectedOption.value, "Selected Label:", selectedOption.getAttribute('data-label'));
-        draw_chart(selectedOption.getAttribute('data-label'), selectedOption.value);
+        console.log(
+          "Selected Interface:",
+          selectedOption.value,
+          "Selected Label:",
+          selectedOption.getAttribute("data-label")
+        );
+        draw_chart(
+          selectedOption.getAttribute("data-label"),
+          selectedOption.value
+        );
       };
 
       fillData();
 
       selectElement.onchange = () => {
         var selectedOption = selectElement.options[selectElement.selectedIndex];
-        console.log("Selected Interface:", selectedOption.value, "Selected Label:", selectedOption.getAttribute('data-label'));
-        draw_chart(selectedOption.getAttribute('data-label'), selectedOption.value);
+        console.log(
+          "Selected Interface:",
+          selectedOption.value,
+          "Selected Label:",
+          selectedOption.getAttribute("data-label")
+        );
+        draw_chart(
+          selectedOption.getAttribute("data-label"),
+          selectedOption.value
+        );
       };
 
       break;
     case "status-system_stats-wifi_thr.html":
-      var selectOneElement = document.getElementById('selectOne');
-      var selectWifiElement = document.getElementById('list_wifi');
+      var selectOneElement = document.getElementById("selectOne");
+      var selectWifiElement = document.getElementById("list_wifi");
       var wifiSSIDs;
 
       function fillWifiOptions(wifiList) {
-        selectWifiElement.innerHTML = '';
+        selectWifiElement.innerHTML = "";
         wifiList.forEach(function (ssid) {
-          var optionWifiElement = document.createElement('option');
+          var optionWifiElement = document.createElement("option");
           optionWifiElement.textContent = ssid.Configuration.SSID;
-          optionWifiElement.value = 'WIFI';
-          optionWifiElement.setAttribute('data-label', ssid.Configuration.SSID);
+          optionWifiElement.value = "WIFI";
+          optionWifiElement.setAttribute("data-label", ssid.Configuration.SSID);
           selectWifiElement.appendChild(optionWifiElement);
         });
-        draw_chart(selectWifiElement.options[selectWifiElement.selectedIndex].getAttribute('data-label'), "WIFI");
+        draw_chart(
+          selectWifiElement.options[
+            selectWifiElement.selectedIndex
+          ].getAttribute("data-label"),
+          "WIFI"
+        );
       }
 
       function handleSelectOneChange(value) {
@@ -127,11 +154,21 @@ function loadPage(page, options) {
 
       selectOneElement.onchange = function () {
         handleSelectOneChange(selectOneElement.value);
-        draw_chart(selectWifiElement.options[selectWifiElement.selectedIndex].getAttribute('data-label'), "WIFI");
+        draw_chart(
+          selectWifiElement.options[
+            selectWifiElement.selectedIndex
+          ].getAttribute("data-label"),
+          "WIFI"
+        );
       };
 
       selectWifiElement.onchange = function () {
-        draw_chart(selectWifiElement.options[selectWifiElement.selectedIndex].getAttribute('data-label'), "WIFI");
+        draw_chart(
+          selectWifiElement.options[
+            selectWifiElement.selectedIndex
+          ].getAttribute("data-label"),
+          "WIFI"
+        );
       };
 
       handleSelectOneChange(selectOneElement.value);

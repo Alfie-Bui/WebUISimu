@@ -10,7 +10,8 @@ function loadPage(page, options) {
 
   switch (page) {
     case "security-firewall.html":
-      console.log(`Load data: ${JSON.stringify(Security.Firewall)}`);
+      console.log(`Load ${page}`, Security.Firewall);
+
       const enableFirewall = document.getElementById("DeviceFirewall_Enable");
       var applyBtn = document.getElementById("Apply");
       const switches = ["Telnet", "SSH", "HTTPS", "ICMP"];
@@ -23,9 +24,10 @@ function loadPage(page, options) {
 
       function fillData() {
         enableFirewall.checked = Security.Firewall.EnableFirewall;
-        switches.forEach(switchID => {
+        switches.forEach((switchID) => {
           const switchElement = document.getElementById(switchID);
-          const serviceEnabled = Security.Firewall.Services["Enable" + switchID];
+          const serviceEnabled =
+            Security.Firewall.Services["Enable" + switchID];
           switchElement.checked = serviceEnabled;
           switchElement.classList.toggle("gemtek-switch-on", serviceEnabled);
           switchElement.classList.toggle("gemtek-switch-off", !serviceEnabled);
@@ -33,13 +35,15 @@ function loadPage(page, options) {
       }
 
       function initEvent() {
-        switches.forEach(switchID => {
-          document.getElementById(switchID).addEventListener("click", function () {
-            toggleSwitch(switchID);
-          });
+        switches.forEach((switchID) => {
+          document
+            .getElementById(switchID)
+            .addEventListener("click", function () {
+              toggleSwitch(switchID);
+            });
         });
 
-        enableFirewall.addEventListener('change', function () {
+        enableFirewall.addEventListener("change", function () {
           console.log("Enable Firewall Settings changed:", this.checked);
         });
       }
@@ -49,8 +53,10 @@ function loadPage(page, options) {
 
       applyBtn.addEventListener("click", () => {
         Security.Firewall.EnableFirewall = enableFirewall.checked;
-        switches.forEach(switchID => {
-          Security.Firewall.Services["Enable" + switchID] = document.getElementById(switchID).classList.contains("gemtek-switch-on");
+        switches.forEach((switchID) => {
+          Security.Firewall.Services["Enable" + switchID] = document
+            .getElementById(switchID)
+            .classList.contains("gemtek-switch-on");
         });
 
         console.log("Security settings updated:", Security);
@@ -59,15 +65,21 @@ function loadPage(page, options) {
 
       break;
     case "security-parental_control_settings.html":
-      console.log(`Load data: ${JSON.stringify(Security.ParentalControl)}`);
-      var enableParentalControl = document.getElementById("DeviceFirewallX_GTK_ParentalControl_Enable");
+      console.log(`Load ${page}`, Security.ParentalControl);
+
+      var enableParentalControl = document.getElementById(
+        "DeviceFirewallX_GTK_ParentalControl_Enable"
+      );
       var permitRadio = document.getElementById("permit");
       var denyRadio = document.getElementById("deny");
       var applyBtn = document.getElementById("Apply");
 
       var fillDataSettings = () => {
-        enableParentalControl.checked = Security.ParentalControl.ParentalControlSettings.EnableParentalControl;
-        if (Security.ParentalControl.ParentalControlSettings.DefaultAction === "1") {
+        enableParentalControl.checked =
+          Security.ParentalControl.ParentalControlSettings.EnableParentalControl;
+        if (
+          Security.ParentalControl.ParentalControlSettings.DefaultAction === "1"
+        ) {
           permitRadio.checked = true;
         } else {
           denyRadio.checked = true;
@@ -77,16 +89,28 @@ function loadPage(page, options) {
       fillDataSettings();
 
       applyBtn.addEventListener("click", () => {
-        Security.ParentalControl.ParentalControlSettings.EnableParentalControl = enableParentalControl.checked;
+        Security.ParentalControl.ParentalControlSettings.EnableParentalControl =
+          enableParentalControl.checked;
         permitRadio.checked
-          ? Security.ParentalControl.ParentalControlSettings.DefaultAction = "1"
-          : Security.ParentalControl.ParentalControlSettings.DefaultAction = "0";
-        console.log("Parental Control settings updated:", Security.ParentalControl.ParentalControlSettings);
-        applyThenStoreToLS("security-parental_control_settings.html", applyBtn.value, Security);
+          ? (Security.ParentalControl.ParentalControlSettings.DefaultAction =
+              "1")
+          : (Security.ParentalControl.ParentalControlSettings.DefaultAction =
+              "0");
+        console.log(
+          "Parental Control settings updated:",
+          Security.ParentalControl.ParentalControlSettings
+        );
+        applyThenStoreToLS(
+          "security-parental_control_settings.html",
+          applyBtn.value,
+          Security
+        );
       });
 
       break;
     case "security-parental_control-devControl-add.html":
+      console.log(`Load ${page}`, Security.ParentalControl);
+
       var filledData;
       var addFlag = false;
       if (Security.ParentalControl.DeviceUnderParentalControl.onEdit === "") {
@@ -103,10 +127,17 @@ function loadPage(page, options) {
           URL: "",
         };
       } else {
-        filledData = Security.ParentalControl.DeviceUnderParentalControl.Rules.filter(
-          (obj) => obj.PolicyName === Security.ParentalControl.DeviceUnderParentalControl.onEdit
-        )[0];
-        console.log(`Load ${page} -- Edit ${filledData.PolicyName}}\n${JSON.stringify(filledData)}`);
+        filledData =
+          Security.ParentalControl.DeviceUnderParentalControl.Rules.filter(
+            (obj) =>
+              obj.PolicyName ===
+              Security.ParentalControl.DeviceUnderParentalControl.onEdit
+          )[0];
+        console.log(
+          `Load ${page} -- Edit ${filledData.PolicyName}}\n${JSON.stringify(
+            filledData
+          )}`
+        );
       }
 
       var EnableParentalControlRule = document.getElementById("props_Enable");
@@ -137,7 +168,8 @@ function loadPage(page, options) {
       }
 
       function fillDataAdd() {
-        EnableParentalControlRule.checked = filledData.EnableParentalControlRule;
+        EnableParentalControlRule.checked =
+          filledData.EnableParentalControlRule;
         PolicyName.value = filledData.PolicyName;
         ParentalControlType.value = filledData.ParentalControlType;
         MACAddress.value = filledData.MACAddress;
@@ -147,19 +179,21 @@ function loadPage(page, options) {
         URL.value = filledData.URL;
         if (!addFlag) {
           var listItems = document.querySelectorAll(".weekdayslist li");
-          const daysArray = filledData.DaysOfTheWeek.split(',').map(day => day.trim());
-          const filteredArray = daysArray.filter(day => day !== '');
+          const daysArray = filledData.DaysOfTheWeek.split(",").map((day) =>
+            day.trim()
+          );
+          const filteredArray = daysArray.filter((day) => day !== "");
           console.log(filteredArray);
           const dayToNumber = {
-            "Su": 0,
-            "Mo": 1,
-            "Tu": 2,
-            "We": 3,
-            "Th": 4,
-            "Fr": 5,
-            "Sa": 6
+            Su: 0,
+            Mo: 1,
+            Tu: 2,
+            We: 3,
+            Th: 4,
+            Fr: 5,
+            Sa: 6,
           };
-          const numberArray = filteredArray.map(day => dayToNumber[day]);
+          const numberArray = filteredArray.map((day) => dayToNumber[day]);
           console.log(numberArray);
           numberArray.forEach(function (index) {
             listItems[index].classList.toggle("active");
@@ -175,11 +209,11 @@ function loadPage(page, options) {
         dtpicker.style.display = "block";
       }
 
-      TimeStart.addEventListener('click', function () {
+      TimeStart.addEventListener("click", function () {
         open_dtBox(this.id);
       });
 
-      TimeEnd.addEventListener('click', function () {
+      TimeEnd.addEventListener("click", function () {
         open_dtBox(this.id);
       });
 
@@ -190,40 +224,40 @@ function loadPage(page, options) {
         const minute_up = document.getElementById("minute_up");
         const minute_down = document.getElementById("minute_down");
         const minute = document.getElementById("minute");
-        const startTimeInput = document.getElementById('TimeStart');
-        const endTimeInput = document.getElementById('TimeEnd');
-        const setButton = document.querySelector('.dtpicker-buttonSet');
+        const startTimeInput = document.getElementById("TimeStart");
+        const endTimeInput = document.getElementById("TimeEnd");
+        const setButton = document.querySelector(".dtpicker-buttonSet");
 
-        hour_up.addEventListener('click', () => {
+        hour_up.addEventListener("click", () => {
           hour.value = (parseInt(hour.value) + 1) % 24;
           updateTimeDisplay(); // Update the time display when hour changes
         });
 
-        hour_down.addEventListener('click', () => {
+        hour_down.addEventListener("click", () => {
           hour.value = (parseInt(hour.value) - 1 + 24) % 24;
           updateTimeDisplay(); // Update the time display when hour changes
         });
 
-        minute_up.addEventListener('click', () => {
+        minute_up.addEventListener("click", () => {
           minute.value = (parseInt(minute.value) + 1) % 60;
           updateTimeDisplay(); // Update the time display when minute changes
         });
 
-        minute_down.addEventListener('click', () => {
+        minute_down.addEventListener("click", () => {
           minute.value = (parseInt(minute.value) - 1 + 60) % 60;
           updateTimeDisplay(); // Update the time display when minute changes
         });
 
-        setButton.addEventListener('click', () => {
-          const hourValue = hour.value.padStart(2, '0');
-          const minuteValue = minute.value.padStart(2, '0');
+        setButton.addEventListener("click", () => {
+          const hourValue = hour.value.padStart(2, "0");
+          const minuteValue = minute.value.padStart(2, "0");
           console.log(`User input: ${hourValue}:${minuteValue}`);
         });
 
         function updateTimeDisplay() {
-          const hourValue = hour.value.padStart(2, '0');
-          const minuteValue = minute.value.padStart(2, '0');
-          const timeDisplay = document.querySelector('.dtpicker-value');
+          const hourValue = hour.value.padStart(2, "0");
+          const minuteValue = minute.value.padStart(2, "0");
+          const timeDisplay = document.querySelector(".dtpicker-value");
 
           timeDisplay.textContent = `${hourValue}:${minuteValue}`;
 
@@ -239,7 +273,8 @@ function loadPage(page, options) {
       initEventPT();
 
       document.getElementById("Apply").addEventListener("click", () => {
-        filledData.EnableParentalControlRule = EnableParentalControlRule.checked;
+        filledData.EnableParentalControlRule =
+          EnableParentalControlRule.checked;
         filledData.PolicyName = PolicyName.value;
         filledData.ParentalControlType = ParentalControlType.value;
         filledData.MACAddress = MACAddress.value;
@@ -249,7 +284,10 @@ function loadPage(page, options) {
         filledData.URL = URL.value;
         filledData.DaysOfTheWeek = ParentalControlDaysOfTheWeek.value;
 
-        if (addFlag === true) Security.ParentalControl.DeviceUnderParentalControl.Rules.push(filledData);
+        if (addFlag === true)
+          Security.ParentalControl.DeviceUnderParentalControl.Rules.push(
+            filledData
+          );
 
         applyThenStoreToLS(
           "security-parental_control-devControl.html",
@@ -260,13 +298,18 @@ function loadPage(page, options) {
 
       break;
     case "security-parental_control-devControl.html":
-      console.log(`Load data: ${JSON.stringify(Security.ParentalControl.DeviceUnderParentalControl)}`);
+      console.log(
+        `Load ${page}`,
+        Security.ParentalControl.DeviceUnderParentalControl
+      );
+
       var tbody = document.getElementById("bodyData");
       var ruleElem = document.getElementById("ruleTemplate");
       var addBtn = document.getElementById("Add");
 
       var fillDevControlData = () => {
-        for (const elem of Security.ParentalControl.DeviceUnderParentalControl.Rules) {
+        for (const elem of Security.ParentalControl.DeviceUnderParentalControl
+          .Rules) {
           const tr = ruleElem.content.cloneNode(true);
           const policyName = tr.querySelector(".policyName");
           const parentalControlType = tr.querySelector(".parentalControlType");
@@ -274,7 +317,9 @@ function loadPage(page, options) {
           const timeStartEnd = tr.querySelector(".timeStartEnd");
           const access = tr.querySelector(".Access");
           const daysOfTheWeek = tr.querySelector(".daysOfTheWeek");
-          const statusParentalControlRule = tr.querySelector('.statusParentalControlRule');
+          const statusParentalControlRule = tr.querySelector(
+            ".statusParentalControlRule"
+          );
 
           const editBtn = tr.querySelector(".editBtn");
           const deleteBtn = tr.querySelector(".deleteBtn");
@@ -283,19 +328,28 @@ function loadPage(page, options) {
             ? statusParentalControlRule.classList.add("gemtek-enabled")
             : statusParentalControlRule.classList.add("gemtek-disabled");
           policyName.textContent = elem.PolicyName;
-          parentalControlType.textContent = checkParentalControlType(elem.ParentalControlType);
+          parentalControlType.textContent = checkParentalControlType(
+            elem.ParentalControlType
+          );
           macAddress.textContent = elem.MACAddress;
           timeStartEnd.textContent = elem.TimeStart + " - " + elem.TimeEnd;
           daysOfTheWeek.textContent = elem.DaysOfTheWeek;
           if (elem.Target === "Accept") {
-            access.innerHTML = '<span class="gemtek-permit">' + access.innerHTML + '</span>';
+            access.innerHTML =
+              '<span class="gemtek-permit">' + access.innerHTML + "</span>";
           } else if (elem.Target === "Drop") {
-            access.innerHTML = '<span class="gemtek-deny">' + access.innerHTML + '</span>';
+            access.innerHTML =
+              '<span class="gemtek-deny">' + access.innerHTML + "</span>";
           }
 
           editBtn.addEventListener("click", () => {
-            Security.ParentalControl.DeviceUnderParentalControl.onEdit = elem.PolicyName;
-            applyThenStoreToLS("security-parental_control-devControl-add.html", "Apply", Security);
+            Security.ParentalControl.DeviceUnderParentalControl.onEdit =
+              elem.PolicyName;
+            applyThenStoreToLS(
+              "security-parental_control-devControl-add.html",
+              "Apply",
+              Security
+            );
           });
 
           deleteBtn.addEventListener("click", () => {
@@ -325,13 +379,17 @@ function loadPage(page, options) {
           default:
             return "";
         }
-      }
+      };
 
       fillDevControlData();
 
       addBtn.addEventListener("click", () => {
         Security.ParentalControl.DeviceUnderParentalControl.onEdit = "";
-        applyThenStoreToLS("security-parental_control-devControl-add.html", "Apply", Security);
+        applyThenStoreToLS(
+          "security-parental_control-devControl-add.html",
+          "Apply",
+          Security
+        );
       });
 
       break;

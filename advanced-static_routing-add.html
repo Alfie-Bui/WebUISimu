@@ -102,7 +102,7 @@
       </form>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      <button type="button" class="btn btn-info pull-right" >Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="modalDialogId">
@@ -112,8 +112,8 @@
       <div>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
-      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" >Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" >Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="sessionTimeout">
@@ -124,8 +124,8 @@
       <div>You will automatically be logged off in {{$root.time}} seconds.</div>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" >Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" >No</button>
       </div>
     </script>
 
@@ -226,7 +226,7 @@
       </div>
       <span>Please wait...</span>
     </div>
-    <div id="main-wrapper" ng-controller="menuController" class="ng-scope">
+    <div id="main-wrapper" class="ng-scope">
       <div
         id="main-navbar"
         class="navbar navbar-inverse ng-scope"
@@ -389,7 +389,6 @@
                     tabindex="-1"
                     href="status-overview.html"
                     type="custom"
-                    source="adv_homepage"
                     title="Status"
                   >
                     <span class="mm-text ng-binding">Status</span>
@@ -403,7 +402,6 @@
                     tabindex="-1"
                     href="status-pon_status.html"
                     type="custom"
-                    source="pon_status"
                     title="PON Status"
                   >
                     <span class="mm-text ng-binding">PON Status</span>
@@ -414,7 +412,6 @@
                     tabindex="-1"
                     href="status-system_stats-wan_thr.html"
                     type="custom"
-                    source="stats"
                     title="System Stats"
                   >
                     <span class="mm-text ng-binding">System Stats</span>
@@ -450,7 +447,6 @@
                     tabindex="-1"
                     href="basic-wan-ipv4.html"
                     type="tableform"
-                    source="wan_ipv4wanconnections"
                     title="WAN"
                   >
                     <span class="mm-text ng-binding">WAN</span>
@@ -466,7 +462,6 @@
                     tabindex="-1"
                     type="tableform"
                     href="basic-lan-ipv4Config.html"
-                    source="lan_ipaddressconfig"
                     title="LAN"
                   >
                     <span class="mm-text ng-binding">LAN</span>
@@ -479,7 +474,6 @@
                     tabindex="-1"
                     href="basic-registration_ID.html"
                     type="custom"
-                    source="regid"
                     title="Registration ID"
                   >
                     <span class="mm-text ng-binding">Registration ID</span>
@@ -513,7 +507,6 @@
                     tabindex="-1"
                     href="wifi-2_4G-ssids.html"
                     type="tableform"
-                    source="adv_ssid"
                     title="2.4G"
                   >
                     <span class="mm-text ng-binding">2.4G</span>
@@ -529,7 +522,6 @@
                     tabindex="-1"
                     href="wifi-5G-ssids.html"
                     type="tableform"
-                    source="adv5_ssid"
                     title="5G"
                   >
                     <span class="mm-text ng-binding">5G</span>
@@ -545,7 +537,6 @@
                     tabindex="-1"
                     href="wifi-guest_access.html"
                     type="tableform"
-                    source="guestaccessview"
                     title="Guest Access"
                   >
                     <span class="mm-text ng-binding">Guest Access</span>
@@ -583,7 +574,6 @@
                     tabindex="-1"
                     href="advanced-dmz.html"
                     type="tableform"
-                    source="NAT_DMZviewform"
                     title="DMZ"
                   >
                     <span class="mm-text ng-binding">DMZ</span>
@@ -599,7 +589,6 @@
                     tabindex="-1"
                     href="advanced-port_mapping.html"
                     type="tableform"
-                    source="virtualserver"
                     title="Port Mapping"
                   >
                     <span class="mm-text ng-binding">Port Mapping</span>
@@ -615,7 +604,6 @@
                     tabindex="-1"
                     href="advanced-port_triggering.html"
                     type="tableform"
-                    source="porttriggerview"
                     title="Port Triggering"
                   >
                     <span class="mm-text ng-binding">Port Triggering</span>
@@ -631,7 +619,6 @@
                     tabindex="-1"
                     href="advanced-static_routing.html"
                     type="tableform"
-                    source="staticrouteview"
                     title="Static Routing"
                   >
                     <span class="mm-text ng-binding">Static Routing</span>
@@ -647,7 +634,6 @@
                     tabindex="-1"
                     href="advanced-device_management.html"
                     type="tableform"
-                    source="managementserverview"
                     title="Device Management"
                   >
                     <span class="mm-text ng-binding">Device Management</span>
@@ -660,7 +646,6 @@
                     tabindex="-1"
                     href="advanced-alg.html"
                     type="tableform"
-                    source="algview"
                     title="ALG"
                   >
                     <span class="mm-text ng-binding">ALG</span>
@@ -673,7 +658,6 @@
                     tabindex="-1"
                     href="advanced-upnp.html"
                     type="custom"
-                    source="upnp"
                     title="UPnP"
                   >
                     <span class="mm-text ng-binding">UPnP</span>
@@ -689,7 +673,6 @@
                     tabindex="-1"
                     href="advanced-multicast.html"
                     type="tableform"
-                    source="multicast_mcconfiguration"
                     title="Multicast"
                   >
                     <span class="mm-text ng-binding">Multicast</span>
@@ -705,7 +688,6 @@
                     tabindex="-1"
                     href="advanced-vpn.html"
                     type="tableform"
-                    source="ipsecview"
                     title="VPN"
                   >
                     <span class="mm-text ng-binding">VPN</span>
@@ -721,7 +703,6 @@
                     tabindex="-1"
                     href="advanced-ddns.html"
                     type="tableform"
-                    source="ddnsform"
                     title="DDNS"
                   >
                     <span class="mm-text ng-binding">DDNS</span>
@@ -756,7 +737,6 @@
                     tabindex="-1"
                     href="security-firewall.html"
                     type="custom"
-                    source="firewall"
                     title="Firewall"
                   >
                     <span class="mm-text ng-binding">Firewall</span>
@@ -772,7 +752,6 @@
                     tabindex="-1"
                     href="security-parental_control_settings.html"
                     type="custom"
-                    source="parentalcontrol"
                     title="Parental Control"
                   >
                     <span class="mm-text ng-binding">Parental Control</span>
@@ -807,7 +786,6 @@
                     tabindex="-1"
                     href="utilities-system-user_mgnt.html"
                     type="tableform"
-                    source="userview"
                     title="System"
                   >
                     <span class="mm-text ng-binding">System</span>
@@ -823,7 +801,6 @@
                     tabindex="-1"
                     href="utilities-update_fw.html"
                     type="custom"
-                    source="adminactions"
                     title="Upgrade Firmware"
                   >
                     <span class="mm-text ng-binding">Upgrade Firmware</span>
@@ -836,7 +813,6 @@
                     tabindex="-1"
                     href="utilities-diagnostics.html"
                     type="custom"
-                    source="diagnose"
                     title="Diagnostics"
                   >
                     <span class="mm-text ng-binding">Diagnostics</span>
@@ -852,7 +828,6 @@
                     tabindex="-1"
                     href="utilities-speed_test.html"
                     type="custom"
-                    source="speedtest"
                     title="Speed Test"
                   >
                     <span class="mm-text ng-binding">Speed Test</span>
@@ -890,7 +865,6 @@
                     tabindex="-1"
                     href="voip-config.html"
                     type="tableform"
-                    source="voip_config"
                     title="Configuration"
                   >
                     <span class="mm-text ng-binding">Configuration</span>
@@ -1043,29 +1017,12 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceRoutingRouter1IPv4Forwardingpopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceRoutingRouter1IPv4Forwardingpopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceRoutingRouter1IPv4Forwardingpopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
               <form
-                polling=""
-                interval=""
-                loadstatus=""
                 class="form-horizontal formCount lantiq-form-text ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
-                name="DeviceRoutingRouter1IPv4Forwarding_form"
-                name1="Device.Routing.Router.1.IPv4Forwarding.*?Enable,DestIPAddress,DestSubnetMask,GatewayIPAddress,Interface"
                 id="DeviceRoutingRouter1IPv4Forwarding"
               >
                 <div>
