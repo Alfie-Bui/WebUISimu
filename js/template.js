@@ -3,7 +3,7 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "0.4.5_D23/M02/Y2024";
+const SIMULATOR_VERSION = "GemtekWeb-t02-29Feb24";
 
 /**
  *
@@ -22,7 +22,7 @@ const template = {
       PrimaryDNS: "8.8.8.8",
       SecondaryDNS: "8.8.4.4",
       MACAddress: "4c:ba:7d:a7:55:22",
-    }
+    },
   },
   Basic: {
     WAN: {
@@ -57,52 +57,6 @@ const template = {
             // main WAN --> IPv6
             IPv6Address: "2222::382f:e77d:b85e:4d2f",
             v6DefaultGateway: "fe80::e0:92ff:fe00:141",
-            //
-            AddressingType: "DHCPv6",
-            PrefixMode: "", // if empty --> disable "Enable PD" checkbox
-            PrefixAddress: "",
-            PrimaryTime: "",
-            ValidTime: "",
-            // DHCP v6 Connection type option
-            Option16_1: "",
-            Option16_2: "",
-            Option1: "",
-            Option17: "",
-            // Static v6 Connection type option
-            IPv6AddressStatic: "",
-            Prefix: "",
-            v6GatewayAddressStatic: "",
-            IPv6DNSServer: [],
-          },
-        },
-        {
-          Name: "ANI0_wan9",
-          SelectionMode: "PON",
-          ConnectionType: "DHCP",
-          VLAN: "", // if empty --> false
-          MacCloning: "",
-          // Static connection type option
-          IPAddressStatic: "",
-          SubnetMask: "",
-          GatewayAddressStatic: "",
-          IPv4DNSServer: [],
-          // DHCP connection type option
-          Option60: "",
-          Option61: "",
-          Option125: "",
-          // PPPoE connection type option
-          Username: "",
-          Password: "",
-          MTUSize: "",
-          IPAddress: "192.168.9.101",
-          DefaultGateway: "192.168.9.100",
-          Actions: true,
-          /** IPv6 information */
-          EnableIPv6: false,
-          IPv6: {
-            // main WAN --> IPv6
-            IPv6Address: "",
-            v6DefaultGateway: "",
             //
             AddressingType: "DHCPv6",
             PrefixMode: "", // if empty --> disable "Enable PD" checkbox
@@ -331,25 +285,25 @@ const template = {
     },
     StaticRouting: {
       StaticRoutingConfiguration: {
-        NumberOfEntries: '1',
-        "0": {
+        NumberOfEntries: "1",
+        0: {
           DestIPAddress: "8.8.8.8",
           DestSubnetMask: "255.255.255.255",
-          GatewayIPAddress: "192.168.1.1"
-        }
+          GatewayIPAddress: "192.168.1.1",
+        },
       },
       IPv6StaticRoutingConfiguration: {
-        NumberOfEntries: '1',
-        "0": {
+        NumberOfEntries: "1",
+        0: {
           DestIPPrefix: "2001:4860:4860::8888",
-          NextHop: "FE80::96FF:3CFF:FEDD:AE20"
-        }
-      }
+          NextHop: "FE80::96FF:3CFF:FEDD:AE20",
+        },
+      },
     },
     vpn: {
       openwrtipsecremote: {
-        NumberOfEntries: '1',
-        "0": {
+        NumberOfEntries: "1",
+        0: {
           openwrtipsecremote_enabled: "on",
           tunnel_name: "gemtek",
           openwrtipsecremotepre_shared_key: "password",
@@ -365,10 +319,10 @@ const template = {
           hash_algorithm: "md5",
           enc_dh_group: "modp768",
           ipsec_sa_lifetime_time: "120",
-          status: 'unchanged'
-        }
-      }
-    }
+          status: "unchanged",
+        },
+      },
+    },
   },
   Security: {
     Firewall: {
@@ -378,17 +332,17 @@ const template = {
         EnableSSH: true,
         EnableHTTPS: true,
         EnableICMP: true,
-      }
+      },
     },
     ParentalControl: {
       ParentalControlSettings: {
         EnableParentalControl: true,
-        DefaultAction: "0"  /* 1: permit, 0: deny */
+        DefaultAction: "0" /* 1: permit, 0: deny */,
       },
       DeviceUnderParentalControl: {
         onEdit: "",
         Rules: [],
-      }
+      },
     },
   },
   VoIP: {
@@ -477,8 +431,6 @@ const alertDialogTemplate =
     </div>\
   </div>\
 </div>';
-
-
 
 /** Pattern */
 const IPv4_PATTERN =

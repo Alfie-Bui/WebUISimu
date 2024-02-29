@@ -134,6 +134,12 @@
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/utilities.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("utilities-update_fw.html");
+      };
+    </script>
   </head>
   <body class="theme-default animate">
     <noscript>
@@ -998,7 +1004,9 @@ and open the template in the editor.
                       <h6 class="ver_class gemtek-text-color ng-binding">
                         Current Version
                       </h6>
-                      <p class="ng-binding">GemtekSW-v0.8.7-1259-25Nov23</p>
+                      <p class="ng-binding" id="FirmwareName">
+                        GemtekSW-v0.8.7-1259-25Nov23
+                      </p>
                     </div>
                     <div>
                       <h6 class="ver_class gemtek-text-color ng-binding">

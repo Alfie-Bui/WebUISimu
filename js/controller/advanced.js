@@ -279,16 +279,61 @@ function loadPage(page, options) {
         applyThenStoreToLS("advanced-dmz.html", "Cancel");
       });
 
-      var IP_DMZ_PATTERN = new RegExp(ipAddr.getAttribute("pattern"));
-      ipAddr.addEventListener("input", () => {
-        if (!IP_DMZ_PATTERN.test(ipAddr.value)) {
-          ipError.classList.remove("ng-hide");
-        } else {
-          ipError.classList.add("ng-hide");
+      function testIPvalid(input_IP, dev_IP, start_IP, end_IP, subnetmask) {
+        var ipComponents = dev_IP.split(".");
+        var subnetComponents = subnetmask.split(".");
+        var inputComponents = input_IP.split(".");
+
+        /**
+         * Method: IP AND subnetmask === deviceIP AND subnetmask --> at the same network
+         */
+        for (var i = 0; i < ipComponents.length; i++) {
+          if (
+            (parseInt(ipComponents[i]) & parseInt(subnetComponents[i])) !=
+            (parseInt(inputComponents[i]) & parseInt(subnetComponents[i]))
+          ) {
+            ipError.textContent =
+              "Invalid DMZ IP address, please check device IP and Subnet Mask";
+            return false;
+          }
         }
+        // pass Network address pattern --> test range IP
+        var startComponents = start_IP.split(".");
+        var endComponents = end_IP.split(".");
+
+        if (
+          parseInt(startComponents[3]) > parseInt(inputComponents[3]) ||
+          parseInt(endComponents[3]) < parseInt(inputComponents[3])
+        ) {
+          ipError.textContent = `Invalid DMZ IP address, valid range for IP address from: ${start_IP} to ${end_IP}`;
+          return false;
+        }
+        return true;
+      }
+
+      function errorHandleDMZIP() {
+        if (
+          testIPvalid(
+            ipAddr.value.toString(),
+            Basic.LAN.IPv4Configuration.DeviceIPAddress,
+            Basic.LAN.IPv4Configuration.BeginAddress,
+            Basic.LAN.IPv4Configuration.EndAddress,
+            Basic.LAN.IPv4Configuration.SubnetMask
+          )
+        ) {
+          ipError.classList.add("ng-hide");
+        } else {
+          ipError.classList.remove("ng-hide");
+        }
+      }
+
+      ipAddr.addEventListener("input", () => {
+        errorHandleDMZIP();
       });
 
       document.getElementById("Apply").addEventListener("click", () => {
+        errorHandleDMZIP();
+
         if (checkError_show(ipError)) {
           Advanced.DMZ.EnableDMZ = enaDMZ.checked;
           Advanced.DMZ.IPAddr = ipAddr.value;
@@ -483,12 +528,22 @@ function loadPage(page, options) {
           interfaceSelect.appendChild(optionElement);
         }
 
-        if (interfaceSelect.value == "All") {
+        if (filledData.Interface == "All") {
           allInterfaceCheck.checked = true;
           showSelectInterface.classList.add("ng-hide");
+          document
+            .getElementById("interface_select_error")
+            .classList.add("ng-hide");
+          console.log(
+            document.getElementById("interface_select_error").classList
+          );
         } else {
           showSelectInterface.classList.remove("ng-hide");
           interfaceSelect.value = filledData.Interface;
+          checkError_selectField(
+            interfaceSelect,
+            document.getElementById("interface_select_error")
+          );
         }
         startPort.value = filledData.PortRange[0];
         endPort.value = filledData.PortRange[1];
@@ -509,11 +564,6 @@ function loadPage(page, options) {
           new RegExp(ipv4.getAttribute("pattern")),
           document.getElementById("invalid_ipv4_error"),
           document.getElementById("empty_ipv4_error")
-        );
-
-        checkError_selectField(
-          interfaceSelect,
-          document.getElementById("interface_select_error")
         );
 
         checkMinMaxError_inputField(
@@ -548,6 +598,9 @@ function loadPage(page, options) {
       // init event on element
       var initEvent = function () {
         nameOfRule.addEventListener("input", () => {
+          document
+            .getElementById("duplicate_name_error")
+            .classList.add("ng-hide");
           checkPattern_inputField(
             nameOfRule,
             new RegExp(nameOfRule.getAttribute("pattern")),
@@ -573,6 +626,7 @@ function loadPage(page, options) {
         });
 
         startPort.addEventListener("input", () => {
+          document.getElementById("portRangeInvalid").classList.add("ng-hide");
           checkMinMaxError_inputField(
             startPort,
             document.getElementById("min_start_error"),
@@ -582,6 +636,7 @@ function loadPage(page, options) {
         });
 
         endPort.addEventListener("input", () => {
+          document.getElementById("portRangeInvalid").classList.add("ng-hide");
           checkMinMaxError_inputField(
             endPort,
             document.getElementById("min_end_error"),
@@ -634,8 +689,78 @@ function loadPage(page, options) {
         applyThenStoreToLS("advanced-port_mapping.html", "Cancel");
       });
 
+      function verifyRule() {
+        const currentRules = Advanced.PortMapping.data.filter(
+          (obj) => obj.NameOfRule !== Advanced.PortMapping.onEdit
+        );
+        console.log("Current rule: ", currentRules);
+        // step 1: check name
+        // check name of rule if it is duplicated
+        for (const elem of currentRules) {
+          if (nameOfRule.value === elem.NameOfRule) {
+            document
+              .getElementById("duplicate_name_error")
+              .classList.remove("ng-hide");
+            console.log("Check rule false Step 1");
+            return false;
+          }
+        }
+
+        // step 2: check Port range && interface && protocol
+        //check port range
+        if (parseInt(endPort.value) < parseInt(startPort.value)) {
+          document
+            .getElementById("portRangeInvalid")
+            .classList.remove("ng-hide");
+          return false;
+        }
+        var onPageProtocol;
+        allInterfaceCheck.checked
+          ? (onPageProtocol = "All")
+          : (onPageProtocol = protocolSelect.value);
+        for (const elem of currentRules) {
+          if (
+            elem.PortRange[0] === startPort.value.toString() &&
+            elem.PortRange[1] === endPort.value.toString() &&
+            elem.Interface === interfaceSelect.value &&
+            elem.Protocol === onPageProtocol
+          ) {
+            document
+              .getElementById("duplicate_name_error")
+              .classList.remove("ng-hide");
+            console.log("Check rule false Step 2");
+            return false;
+          }
+        }
+
+        // step 3: check all infor
+        for (const elem of currentRules) {
+          if (
+            elem.PortRange[0] === startPort.value.toString() &&
+            elem.PortRange[1] === endPort.value.toString() &&
+            elem.Protocol === onPageProtocol &&
+            elem.IPv4 === ipv4.value &&
+            elem.IPAddr === IPaddr.value &&
+            elem.Port === port.value.toString()
+          ) {
+            document
+              .getElementById("duplicate_name_error")
+              .classList.remove("ng-hide");
+            console.log("Check rule false Step 3");
+            return false;
+          }
+        }
+        document
+          .getElementById("duplicate_name_error")
+          .classList.add("ng-hide");
+        return true;
+      }
+
       document.getElementById("Apply").addEventListener("click", () => {
-        if (checkError_show(document.querySelectorAll(".error"))) {
+        if (
+          verifyRule() &&
+          checkError_show(document.querySelectorAll(".error"))
+        ) {
           filledData.NameOfRule = nameOfRule.value;
           filledData.Enable = enableRule.checked;
           filledData.IPv4 = ipv4.value;

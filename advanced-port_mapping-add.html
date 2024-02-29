@@ -1029,6 +1029,11 @@ and open the template in the editor.
                         id="invalid_name_error"
                         >Please avoid " symbol</span
                       >
+                      <span
+                        class="error ng-binding ng-hide"
+                        id="duplicate_name_error"
+                        >This rule has already existed</span
+                      >
                     </div>
                     <div
                       class="col-xs-12 col-sm-12 col-lg-4 col-md-4 gemtek-display-flex-vc"
@@ -1157,7 +1162,6 @@ and open the template in the editor.
                           min="0"
                           max="65535"
                           maxlength="5"
-                          value="3000"
                           required="required"
                         />
                       </div>
@@ -1179,7 +1183,6 @@ and open the template in the editor.
                           min="0"
                           max="65535"
                           maxlength="5"
-                          value="4000"
                         />
                       </div>
                     </div>
@@ -1222,7 +1225,9 @@ and open the template in the editor.
                         <span
                           class="error ng-binding ng-hide"
                           id="portRangeInvalid"
-                        ></span>
+                          >End port have to equal or greater than start
+                          port</span
+                        >
                         <span class="error ng-binding ng-hide"></span>
                       </div>
                     </div>

@@ -327,7 +327,7 @@ function loadPage(page, options) {
             });
           }
           console.log("Basic.LAN.IPv4", filledData);
-          // applyThenStoreToLS(page, "Apply", Basic);
+          applyThenStoreToLS(page, "Apply", Basic);
         } else {
           console.log("Apply fail");
         }
@@ -553,6 +553,8 @@ function loadPage(page, options) {
       var macAddress = document.getElementById("MacCloningShow");
       var macAddress_input = document.getElementById("MACAddress");
 
+      var enableDefaultGW = document.getElementById("EnableDefaultGateway");
+
       /** V6 common */
       var enablev6 = document.getElementById("EnableIPv6");
       var addressType = document.getElementById("AddressType");
@@ -627,8 +629,9 @@ function loadPage(page, options) {
           if (enableVLAN.checked == true) {
             vlan.classList.remove("ng-hide");
             vlan_input.value = filledData.VLAN;
-            checkEmpty_inputField(
+            checkRange_inputField(
               vlan_input,
+              document.getElementById("exceed_error_vlan"),
               document.getElementById("empty_error_vlan")
             );
           } else {
@@ -637,10 +640,10 @@ function loadPage(page, options) {
         });
 
         vlan_input.addEventListener("input", () => {
-          checkError_inputField(
+          checkRange_inputField(
             vlan_input,
-            document.getElementById("empty_error_vlan"),
-            document.getElementById("exceed_error_vlan")
+            document.getElementById("exceed_error_vlan"),
+            document.getElementById("empty_error_vlan")
           );
         });
 
@@ -1286,6 +1289,9 @@ function loadPage(page, options) {
 
         connectionType.value = filledData.ConnectionType;
 
+        if (filledData.DefaultGateway !== "") enableDefaultGW.checked = true;
+        else enableDefaultGW.checked = false;
+
         if (filledData.VLAN !== "") {
           enableVLAN.checked = true;
           vlan.classList.remove("ng-hide");
@@ -1483,7 +1489,13 @@ function loadPage(page, options) {
               elemAfterChange.IPAddressStatic = ipaddressStatic.value;
               elemAfterChange.SubnetMask = subnetMask.value;
               elemAfterChange.GatewayAddressStatic = gatewayStatic.value;
-              elemAfterChange.DefaultGateway = gatewayStatic.value;
+
+              if (enableDefaultGW.checked === true) {
+                var ipComponents = ipaddressStatic.value.split(".");
+                ipComponents[3] = "1";
+                elemAfterChange.DefaultGateway = ipComponents.join("."); // <3 first octets>.1
+              } else elemAfterChange.DefaultGateway = "";
+
               elemAfterChange.IPv4DNSServer = []; // clear
               for (const elem of v4DNSlist.querySelectorAll(".DNSServer")) {
                 elemAfterChange.IPv4DNSServer.push(elem.value);
@@ -1505,16 +1517,9 @@ function loadPage(page, options) {
                   elemAfterChange.IPv6.IPv6DNSServer.push(elem.value);
                 }
               }
-
-              if (addNew_flag) {
-                // if Add button --> push new element instead off modify
-                Basic.WAN.Interfaces.push(elemAfterChange);
-              }
-
-              /* Clear */
-              applyThenStoreToLS("basic-wan-ipv4.html", "Apply", Basic);
             } else {
               console.log("Basic.WAN.addWAN: Apply Static fail");
+              return;
             }
             break;
           case "DHCP":
@@ -1585,36 +1590,33 @@ function loadPage(page, options) {
 
             if (common_apply_flag && dhcp_apply_flag) {
               // if no error --> wrap data in the page to store
-              var networkPart = Math.floor(Math.random() * 254) + 1; // Generates a random integer between 1 and 254
               var hostPart = Math.floor(Math.random() * 254) + 1; // Generates a random integer between 1 and 254
-              if (
-                document.getElementById("EnableDefaultGateway").checked === true
-              ) {
+              elemAfterChange.IPAddress = `192.168.99.${hostPart.toString()}`;
+              elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
+
+              console.log(`${elemAfterChange.VLAN} --- ${vlan_input.value}`);
+              if (enableVLAN.checked === true)
+                // try to gen unique IP address (but relate to VLAN as a hash)
+                elemAfterChange.IPAddress = `${
+                  parseInt(vlan_input.value / 1024) + 172
+                }.${parseInt(vlan_input.value / 254) + 168}.${
+                  vlan_input.value % 254
+                }.${hostPart}`;
+
+              if (enableDefaultGW.checked === true) {
                 // if default gateway v4
                 elemAfterChange.DefaultGateway = "192.168.99.1";
-                elemAfterChange.IPAddress = `192.168.99.${hostPart.toString()}`;
+                if (enableVLAN.checked === true)
+                  elemAfterChange.DefaultGateway =
+                    elemAfterChange.IPAddress.replace(`${hostPart}`, "1");
 
                 // v6
-                elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
                 elemAfterChange.IPv6.v6DefaultGateway =
                   "fe80::e0:92ff:fe00:141";
-              } else {
-                elemAfterChange.DefaultGateway = `192.168.${hostPart.toString()}.1`;
-                elemAfterChange.IPAddress = `192.168.${networkPart.toString()}.${hostPart.toString()}`;
-
-                // v6
-                elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
-                elemAfterChange.IPv6.v6DefaultGateway =
-                  generateIPv6WANAddress();
               }
-
-              if (addNew_flag) {
-                // if Add button --> push new element instead off modify
-                Basic.WAN.Interfaces.push(elemAfterChange);
-              }
-              applyThenStoreToLS("basic-wan-ipv4.html", "Apply", Basic);
             } else {
               console.log("Basic.WAN.addWAN: Apply DHCP fail");
+              return;
             }
             break;
           case "PPPoE":
@@ -1623,46 +1625,77 @@ function loadPage(page, options) {
             );
             if (common_apply_flag && pppoe_apply_flag) {
               // if no error --> wrap data in the page to store
-              var networkPart = Math.floor(Math.random() * 254) + 1; // Generates a random integer between 1 and 254
               var hostPart = Math.floor(Math.random() * 254) + 1; // Generates a random integer between 1 and 254
-              if (
-                document.getElementById("EnableDefaultGateway").checked === true
-              ) {
+
+              elemAfterChange.IPAddress = `192.168.99.${hostPart.toString()}`;
+              elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
+              console.log(`${elemAfterChange.VLAN} --- ${vlan_input.value}`);
+
+              console.log(`${elemAfterChange.VLAN} --- ${vlan_input.value}`);
+              if (enableVLAN.checked === true)
+                // try to gen unique IP address (but relate to VLAN as a hash)
+                elemAfterChange.IPAddress = `${
+                  parseInt(vlan_input.value / 1024) + 172
+                }.${parseInt(vlan_input.value / 254) + 168}.${
+                  vlan_input.value % 254
+                }.${hostPart}`;
+
+              if (enableDefaultGW.checked === true) {
                 // if default gateway
                 elemAfterChange.DefaultGateway = "192.168.99.1";
-                elemAfterChange.IPAddress = `192.168.99.${hostPart.toString()}`;
+                if (enableVLAN.checked === true)
+                  elemAfterChange.DefaultGateway =
+                    elemAfterChange.IPAddress.replace(`${hostPart}`, "1");
 
                 // v6
-                elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
                 elemAfterChange.IPv6.v6DefaultGateway =
                   "fe80::e0:92ff:fe00:141";
-              } else {
-                elemAfterChange.DefaultGateway = `192.168.${hostPart.toString()}.1`;
-                elemAfterChange.IPAddress = `192.168.${networkPart.toString()}.${hostPart.toString()}`;
-
-                // v6
-                elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
-                elemAfterChange.IPv6.v6DefaultGateway =
-                  generateIPv6WANAddress();
               }
               elemAfterChange.Username = pppoe_username.value;
               elemAfterChange.Password = pppoe_password.value;
               elemAfterChange.MTUSize = parseInt(pppoe_mtu_size.value);
-
-              if (addNew_flag) {
-                // if Add button --> push new element instead off modify
-                Basic.WAN.Interfaces.push(elemAfterChange);
-              }
-              applyThenStoreToLS("basic-wan-ipv4.html", "Apply", Basic);
             } else {
               console.log("Basic.WAN.addWAN: Apply PPPoE fail");
+              return;
             }
             break;
           default:
             console.log(
               "Some thing wrong in Connection Type. Check it out !!!"
             );
+            return;
         }
+        if (addNew_flag) {
+          // if Add button --> push new element instead off modify
+          const oldLength = Basic.WAN.Interfaces.length;
+          var tempIndex = -1;
+          for (var i = 0; i < Basic.WAN.Interfaces.length; i++) {
+            if (
+              parseInt(elemAfterChange.Name.match(/\d+/g)[1]) >
+              parseInt(Basic.WAN.Interfaces[i].Name.match(/\d+/g)[1])
+            ) {
+              tempIndex = i;
+            }
+          }
+          if (tempIndex === -1)
+            Basic.WAN.Interfaces.splice(0, 0, elemAfterChange);
+          else Basic.WAN.Interfaces.splice(tempIndex + 1, 0, elemAfterChange);
+        }
+
+        // clear DefaultGW of the other (v4 & v6)
+        if (enableDefaultGW.checked === true) {
+          for (const elem of Basic.WAN.Interfaces) {
+            if (elem.Name !== elemAfterChange.Name) elem.DefaultGateway = "";
+          }
+          for (const elem of Basic.WAN.Interfaces) {
+            if (elem.Name !== elemAfterChange.Name)
+              elem.IPv6.v6DefaultGateway = "";
+          }
+        } else {
+          elemAfterChange.DefaultGateway = "";
+          elemAfterChange.IPv6.v6DefaultGateway = "";
+        }
+        applyThenStoreToLS("basic-wan-ipv4.html", "Apply", Basic);
       });
       break;
     case "basic-wan-ipv4.html":
@@ -1686,7 +1719,7 @@ function loadPage(page, options) {
         const deleteBtn = tr.querySelector(".DeleteBtn");
 
         // fill data
-        nameCell.textContent = elem.Name;
+        nameCell.textContent = elem.Name.replace("_", `_${elem.VLAN}_`);
         connectiomTypeCell.textContent = elem.SelectionMode;
         iPAddressCell.textContent = elem.IPAddress;
         if (elem.Actions === false) {

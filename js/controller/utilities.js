@@ -371,6 +371,7 @@ function loadPage(page, options) {
     case "utilities-system-user_mgnt.html":
       break;
     case "utilities-update_fw.html":
+      document.getElementById("FirmwareName").textContent = SIMULATOR_VERSION;
       break;
     default:
       console.log(`Load ${page} fail --- no available page`);
