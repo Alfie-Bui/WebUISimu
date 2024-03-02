@@ -997,8 +997,9 @@ function loadPage(page, options) {
       var ruleElem = document.getElementById("ruleTemplate");
 
       var fillData = () => {
-        for (const elem of Advanced.PortTriggering.Rules) {
+        for (const [index, elem] of Advanced.PortTriggering.Rules.entries()) {
           const tr = ruleElem.content.cloneNode(true);
+          tr.querySelector("tr").setAttribute("index", index);
 
           const enaRule = tr.querySelector(".enaRule");
           const triggerPort = tr.querySelector(".triggerPort");
@@ -1026,8 +1027,8 @@ function loadPage(page, options) {
           else incomingProtocol.textContent = "UDP";
 
           editBtn.addEventListener("click", () => {
-            Advanced.PortTriggering.onEdit =
-              parseInt(editBtn.closest("tr").rowIndex) - 1;
+            var index = editBtn.closest("tr").getAttribute("index");
+            Advanced.PortTriggering.onEdit = parseInt(index);
             applyThenStoreToLS(
               "advanced-port_triggering-add.html",
               "Apply",
@@ -1036,9 +1037,10 @@ function loadPage(page, options) {
           });
 
           deleteBtn.addEventListener("click", () => {
+            var index = deleteBtn.closest("tr").getAttribute("index");
             if (window.confirm("Are you sure you want to Delete ?")) {
               Advanced.PortTriggering.Rules.splice(
-                parseInt(deleteBtn.closest("tr").rowIndex - 1), // because the first line is text of name
+                parseInt(index), // because the first line is text of name
                 1
               );
               applyThenStoreToLS(
