@@ -962,9 +962,11 @@ function loadPage(page, options) {
         });
 
         deleteBtn.addEventListener("click", () => {
-          if (tbody.querySelectorAll("tr").length === 1) {
-            // @TODO alert if only remain 1
-            show_alert_dialog("Default SSID cannot be removed");
+          if (
+            deleteBtn.closest("tr").querySelector("input[type='text']")
+              .value === Wifi["2.4G"].SSIDs[0].Configuration.SSID
+          ) {
+            alertDialogHandle("Default SSID cannot be removed");
           } else {
             var currentRow = deleteBtn.closest("tr");
 
@@ -981,8 +983,10 @@ function loadPage(page, options) {
 
             // remove if detail panel on it
             if (
+              currentRow.nextElementSibling !== null &&
+              currentRow.nextElementSibling !== undefined &&
               currentRow.nextElementSibling ===
-              document.getElementById("detail_panel")
+                document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
@@ -2470,9 +2474,11 @@ function loadPage(page, options) {
         });
 
         deleteBtn.addEventListener("click", () => {
-          if (tbody.querySelectorAll("tr").length === 1) {
-            // @TODO alert if only remain 1
-            show_alert_dialog("Default SSID cannot be removed");
+          if (
+            deleteBtn.closest("tr").querySelector("input[type='text']")
+              .value === Wifi["5G"].SSIDs[0].Configuration.SSID
+          ) {
+            alertDialogHandle("Default SSID cannot be removed");
           } else {
             var currentRow = deleteBtn.closest("tr");
 
@@ -2489,8 +2495,10 @@ function loadPage(page, options) {
 
             // remove if detail panel on it
             if (
+              currentRow.nextElementSibling !== null &&
+              currentRow.nextElementSibling !== undefined &&
               currentRow.nextElementSibling ===
-              document.getElementById("detail_panel")
+                document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
