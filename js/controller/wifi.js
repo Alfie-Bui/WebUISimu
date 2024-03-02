@@ -9,6 +9,9 @@ function loadPage(page, options) {
   switch (page) {
     case "wifi-2_4G-config.html":
       console.log(`Load ${page}`, Wifi["2.4G"]);
+
+      var filledData = Wifi["2.4G"].SSIDs[0];
+
       var enable2_4G = document.getElementById("Enable");
       var autoChannel = document.getElementById("AutoChannelEnable");
       var operationModeSelect = document.getElementById("OperatingStandards");
@@ -290,7 +293,6 @@ function loadPage(page, options) {
       };
 
       var fillData = () => {
-        var filledData = Wifi["2.4G"].SSIDs[0];
         console.log(`Fill data into Configuration: ${filledData}`);
 
         filledData.Configuration.EnableRadio
@@ -345,7 +347,7 @@ function loadPage(page, options) {
       fillData();
 
       // apply and cancel event
-      document.getElementById("Apply", () => {
+      document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
           filledData.Configuration.EnableRadio =
             enable2_4G.classList.contains("checked");
@@ -1471,6 +1473,8 @@ function loadPage(page, options) {
     case "wifi-5G-config.html":
       console.log(`Load ${page}`, Wifi["5G"]);
 
+      var filledData = Wifi["5G"].SSIDs[0];
+
       var enable5G = document.getElementById("Enable");
       var autoChannel = document.getElementById("AutoChannelEnable");
       var useDFSChannel = document.getElementById("IEEE80211hEnabled");
@@ -1795,7 +1799,6 @@ function loadPage(page, options) {
       };
 
       var fillData = () => {
-        var filledData = Wifi["5G"].SSIDs[0];
         console.log(`Fill data into Configuration: ${filledData}`);
 
         filledData.Configuration.EnableRadio
@@ -1856,7 +1859,7 @@ function loadPage(page, options) {
       fillData();
 
       // apply and cancel event
-      document.getElementById("Apply", () => {
+      document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
           filledData.Configuration.EnableRadio =
             enable5G.classList.contains("checked");
