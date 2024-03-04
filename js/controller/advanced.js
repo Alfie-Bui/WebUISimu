@@ -166,6 +166,10 @@ function loadPage(page, options) {
       var acsPassword = document.getElementById(
         "DeviceManagementServerPassword"
       );
+      var connectionRequestURL = document.getElementById(
+        "ConnectionRequestURL"
+      );
+
       var pwd_Eye = document.getElementById("icon_pw");
       var connectionReqUsername = document.getElementById(
         "ConnectionRequestUsername"
@@ -220,6 +224,11 @@ function loadPage(page, options) {
         }
         localWANInterfaceSelect.value =
           Advanced.DeviceManagement.LocalWANInterface;
+
+        // if Enable --> take IP of WAN interface
+        if (enaCWMP.checked === true) {
+          connectionRequestURL.value =  Basic.WAN.Interfaces[parseInt(localWANInterfaceSelect.value)].IPAddress;
+        }
 
         acsUrl.value = Advanced.DeviceManagement.ACSURL;
         acsUsername.value = Advanced.DeviceManagement.ACSUsername;
