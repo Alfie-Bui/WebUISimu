@@ -3,7 +3,8 @@
  * @NOTE Change Version to refresh database in case you have any update at database
  *
  */
-const SIMULATOR_VERSION = "GemtekWeb-t02-29Feb24";
+
+const SIMULATOR_VERSION = "GemtekWeb_t02_29Feb24"; /* Release version and tag tracking */
 
 /**
  *

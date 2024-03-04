@@ -154,15 +154,15 @@ function loadPage(page, options) {
             formBtns.classList.add("ng-hide");
             btns.classList.remove("ng-hide");
 
-            // remove event
-            macEdit.removeEventListener("input", macEditHandler);
-            ipEdit.removeEventListener("input", ipEditHandler);
-
             //update value
             macField.textContent = macEdit.value;
             ipField.textContent = ipEdit.value;
             macField.style.visibility = "visible";
             ipField.style.visibility = "visible";
+
+            // remove event
+            macEdit.removeEventListener("input", macEditHandler);
+            ipEdit.removeEventListener("input", ipEditHandler);
           }
         });
 
