@@ -122,10 +122,10 @@ function applyThenStoreToLS(page, option, change_entity) {
       case "basic-wan-ipv6.html":
         Basic = change_entity;
         break;
-      case "index.html":
+      case "main.html":
         Status = change_entity;
         break;
-      case "login.html":
+      case "index.html":
         break;
       case "logout.html":
         break;

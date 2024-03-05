@@ -16,7 +16,7 @@ function toggleOpenClass(element) {
 }
 
 function home() {
-  window.location.href = "index.html";
+  window.location.href = "main.html";
 }
 
 function main_menu_toggle() {
@@ -42,7 +42,7 @@ function hide_alert_dialog() {
  *
  * @param {*} pwEye: password eye entity
  * @param {*} inputField: which input field to show or hide when click
- * 
+ *
  * @brief: to show or hide your password field
  */
 function hide_show_pw(pwEye, inputField) {
@@ -67,7 +67,7 @@ function hide_show_pw(pwEye, inputField) {
  * @param {*} remove_element: the entiry want to remove
  * @param {*} h3_content: h3 tag content
  * @param {*} p_content: p tag content
- * 
+ *
  * @returns: return a promise so you can .then and .catch to decide your next move
  */
 function deleteDialogHandle(remove_element, h3_content, p_content) {
@@ -106,9 +106,9 @@ function deleteDialogHandle(remove_element, h3_content, p_content) {
  * @brief: handle alert dialog interact, alert dialog in "alertDialogTemplate" ./template.js
  *
  * @param {*} p_content: p tag content
- * 
+ *
  * @returns: return a promise so you can .then and .catch to decide your next move
- * 
+ *
  */
 function alertDialogHandle(p_content) {
   const alertDialog = document.createElement("div");
@@ -134,7 +134,7 @@ function alertDialogHandle(p_content) {
  * @param {*} empty_error: empty error message entity
  * @param {*} exceed_error: exceed character message entity
  * @mechanism: to check if error remain, the function (and all checkError function) check if error tag's class list contain "ng-hide"
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */
@@ -160,7 +160,7 @@ function checkError_inputField(input, empty_error, exceed_error) {
  * @param {*} input
  * @param {*} empty_error
  * @mechanism: to check if error remain, the function (and all checkError function) check if error tag's class list contain "ng-hide"
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */
@@ -179,9 +179,9 @@ function checkEmpty_inputField(input, empty_error) {
  * @param {*} input
  * @param {*} range_error
  * @param {*} empty_error
- * 
+ *
  * @mechanism: to check if error remain, the function (and all checkError function) check if error tag's class list contain "ng-hide"
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */
@@ -211,7 +211,7 @@ function checkRange_inputField(input, range_error, empty_error) {
  * @param {*} select: select field entity
  * @param {*} error: error message show
  * @mechanism: to check if error remain, the function (and all checkError function) check if error tag's class list contain "ng-hide"
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */
@@ -231,9 +231,9 @@ function checkError_selectField(select, error) {
  * @param {*} pattern
  * @param {*} pattern_error
  * @param {*} empty_error
- * 
+ *
  * @mechanism: to check if error remain, the function (and all checkError function) check if error tag's class list contain "ng-hide"
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */
@@ -255,16 +255,16 @@ function checkPattern_inputField(input, pattern, pattern_error, empty_error) {
 }
 
 /**
- * 
- * @param {*} input: input is pasword field 
+ *
+ * @param {*} input: input is pasword field
  * @param {*} pattern: new RegExp function (you can convert string pattern to pattern entity by using new RegExp function)
  * @param {*} pattern_error
- * @param {*} empty_error 
- * @param {*} lowLimit_error 
+ * @param {*} empty_error
+ * @param {*} lowLimit_error
  * @param {*} upLimit_error
- * 
+ *
  * @mechanism: to check if error remain, the function (and all checkError function) check if error tag's class list contain "ng-hide"
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */
@@ -302,11 +302,11 @@ function checkPasswordError_inputField(
 }
 
 /**
- * 
- * @param {*} input: @NOTE: input field must has min and max attribute  
- * @param {*} min_error 
- * @param {*} max_error 
- * @param {*} empty_error 
+ *
+ * @param {*} input: @NOTE: input field must has min and max attribute
+ * @param {*} min_error
+ * @param {*} max_error
+ * @param {*} empty_error
  */
 function checkMinMaxError_inputField(input, min_error, max_error, empty_error) {
   if (input.value === "") {
@@ -328,7 +328,7 @@ function checkMinMaxError_inputField(input, min_error, max_error, empty_error) {
   }
 }
 
-/** 
+/**
  * Check local Storage function & print the capacity of it
  * */
 var localStorageSpace = function () {
@@ -385,7 +385,7 @@ function hideError() {
 /**
  *
  * @brief: using it to check error before apply and load data into database
- * 
+ *
  * @return true: if no error found
  *         false: if error be trapped
  */

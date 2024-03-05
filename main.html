@@ -1,23 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0054)#/tableform/wan_ipv6wanconnections -->
+<!-- saved from url=(0023)#/ -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style type="text/css">
-      @charset "UTF-8";
-      [ng\:cloak],
-      [ng-cloak],
-      [data-ng-cloak],
-      [x-ng-cloak],
-      .ng-cloak,
-      .x-ng-cloak,
-      .ng-hide:not(.ng-hide-animate) {
-        display: none !important;
-      }
-      ng\:form {
-        display: block;
-      }
-    </style>
+    <style type="text/css"></style>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Broadband Router</title>
@@ -52,30 +38,6 @@
       type="text/css"
     />
 
-    <style type="text/css">
-      /* Chart.js */
-      @-webkit-keyframes chartjs-render-animation {
-        from {
-          opacity: 0.99;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      @keyframes chartjs-render-animation {
-        from {
-          opacity: 0.99;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      .chartjs-render-monitor {
-        -webkit-animation: chartjs-render-animation 0.001s;
-        animation: chartjs-render-animation 0.001s;
-      }
-    </style>
-
     <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
     <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
     <link rel="stylesheet" href="css/Custom/gemtek.css" />
@@ -95,14 +57,14 @@
       <div class="form-group">
       <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+
       </div>
       </div>
       <!-- Modify -->
       </form>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="btn btn-info pull-right" >Cancel</button>
+      <button type="button" class="btn btn-info pull-right">Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="modalDialogId">
@@ -133,16 +95,23 @@
     <script src="./js/template.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
-    <script src="./js/controller/basic.js"></script>
+    <script src="./js/controller/index.js"></script>
 
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("basic-wan-ipv6.html");
+        loadPage("main.html");
       };
+
+      localStorageSpace();
     </script>
   </head>
-  <body class="theme-default animate">
+
+  <body
+    class="theme-default animate"
+    data-new-gr-c-s-check-loaded="14.1142.0"
+    data-gr-ext-installed=""
+  >
     <noscript>
       <div
         class="panel-heading mantis"
@@ -196,7 +165,7 @@
               </g>
             </g>
             <g
-              transform="matrix(-0.9999972581863403,0.00234362599439919,-0.00234362599439919,-0.9999972581863403,64.38539123535156,51.20069885253906)"
+              transform="matrix(0.7700003385543823,0.6380434632301331,-0.6380434632301331,0.7700003385543823,50.99961471557617,63.95631408691406)"
               opacity="1"
               style="display: block"
             >
@@ -211,7 +180,7 @@
                   stroke="rgb(179,235,247)"
                   stroke-opacity="1"
                   stroke-width="12"
-                  d=" M28.184999465942383,-38.84700012207031 C40.18899917602539,-30.118000030517578 48,-15.96399974822998 48,0 C48,5.144000053405762 47.18899917602539,10.10099983215332 45.6879997253418,14.748000144958496"
+                  d=" M6.614999771118164,-47.547000885009766 C19.200000762939453,-45.808998107910156 30.233999252319336,-39.183998107910156 37.73699951171875,-29.652000427246094"
                 ></path>
               </g>
             </g>
@@ -308,14 +277,7 @@
                   >
                   <!-- ngIf: showMenu -->
                 </li>
-                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
-                                    <div class="no-padding-vr">
-                                        <ul class="notificationdiv">
-                                            <li class="theme1">Theme-1</li>
-                                            <li class="theme2">Theme-2</li>
-                                        </ul>
-                                    </div>
-                                </li> -->
+                <li></li>
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/language.svg" /><span
@@ -326,11 +288,6 @@
                     >
                   </div>
                 </li>
-                <!-- <li>
-                                    <a style="overflow: hidden;white-space: nowrap;">
-                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
-                                    </a>
-                                </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/user.svg" />
@@ -380,8 +337,8 @@
                   id="adv_homepage-0"
                 >
                   <a
-                    tabindex="-1"
                     href="status-overview.html"
+                    tabindex="-1"
                     type="custom"
                     title="Status"
                   >
@@ -416,7 +373,7 @@
             </li>
             <li
               name="Basic"
-              class="sidebarItem ng-scope open"
+              class="sidebarItem ng-scope"
               onclick="toggleOpenClass(this)"
             >
               <button
@@ -434,7 +391,7 @@
               >
                 <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  class="no-padding-hr no-margin-vr ng-scope"
                   id="wan_ipv4wanconnections-0"
                 >
                   <a
@@ -873,218 +830,517 @@
         </div>
       </div>
 
-      <div id="content-wrapper" style="min-height: 606px">
-        <!-- ngView: true -->
+      <div id="content-wrapper" style="min-height: 976px">
         <div
           data-ng-view="true"
           id="dataView"
           translate-cloak=""
           class="ng-scope"
         >
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="row ltq_breadcrumbs ng-scope"
-          >
-            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true --></ng-switch
+          <title class="ng-scope">Intel</title>
+          <link
+            href="css/Bootstrap/bootstrap.css"
+            rel="stylesheet"
+            type="text/css"
+            class="ng-scope"
+          />
+
+          <div id="translation" class="hide ng-scope">advhomepage</div>
+          <div id="homepage" class="container-fluid no-padding-hr ng-scope">
+            <h4 class="ng-binding ng-scope">Status Overview</h4>
+            <div>
+              <a class="gemtek-home-breadcrumbs" href="main.html"
+                >HOME / STATUS</a
               >
             </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true -->
-                <h4 class="ng-binding ng-scope">WAN</h4>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <div class="btn-group btn-breadcrumb1 ng-scope">
-                  <div class="ltq_brd_home">
-                    <a class="btn ng-binding" href="main.html"> Basic </a>
+            <a class="gemtek-home-breadcrumbs" href="main.html"> </a>
+
+            <div class="row no-margin-hr">
+              <div class="col-lg-7">
+                <div class="row">
+                  <div class="panel no-padding-vr">
+                    <div class="text-left gemtek-Device-Status">
+                      <span class="ng-binding">Device Status</span>
+                    </div>
+                    <div class="panel-body no-padding-vr">
+                      <div class="row">
+                        <table class="table tableCount theme_intel">
+                          <tbody>
+                            <tr>
+                              <th class="ng-binding gemtek-statistics-chat-th">
+                                <div class="gemtek-border-right">
+                                  <div class="ng-binding">Internet Status</div>
+                                  <div class="gemtek-input-mt10">
+                                    <span class="gemtek-status-up"></span>
+                                    <!-- ngIf: DeviceIPInterface.Status=='Up' --><span
+                                      class="gemtek-statistics-icon ng-scope"
+                                      style="vertical-align: super"
+                                      >Up</span
+                                    ><!-- end ngIf: DeviceIPInterface.Status=='Up' -->
+                                    <!-- ngIf: DeviceIPInterface.Status!='Up' -->
+                                  </div>
+                                </div>
+                              </th>
+                              <th class="ng-binding gemtek-statistics-chat-th">
+                                <div class="gemtek-border-right">
+                                  <div class="ng-binding">Active Clients</div>
+                                  <div class="gemtek-input-mt10">
+                                    <img
+                                      src="images/icons/icon-1/ico-client.svg"
+                                      alt=""
+                                    />
+                                    <span
+                                      id="Wifi"
+                                      class="gemtek-statistics-icon ng-pristine ng-untouched ng-valid ng-binding"
+                                      style="vertical-align: text-top"
+                                      >1</span
+                                    >
+                                  </div>
+                                </div>
+                              </th>
+                              <th class="ng-binding gemtek-statistics-chat-th">
+                                <div class="gemtek-border-right">
+                                  <div class="ng-binding">
+                                    2.4GHz WiFi Security Level
+                                  </div>
+                                  <div class="gemtek-input-mt10">
+                                    <img
+                                      src="images/icons/ico-wifi-secruity-mode.png"
+                                      alt=""
+                                    />
+                                    <span
+                                      class="gemtek-statistics-icon ng-binding"
+                                      style="vertical-align: text-top"
+                                      id="WiFi2SecurityLevel"
+                                    ></span>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="DeviceWiFiAccessPoint1Security_ModeEnabled"
+                                    ></span>
+                                  </div>
+                                </div>
+                              </th>
+                              <td class="ng-binding gemtek-statistics-chat-th">
+                                <div>
+                                  <div class="ng-binding">
+                                    5GHz WiFi Security Level
+                                  </div>
+                                  <div class="gemtek-input-mt10">
+                                    <img
+                                      src="images/icons/ico-wifi-secruity-mode.png"
+                                      alt=""
+                                    />
+                                    <span
+                                      class="gemtek-statistics-icon ng-binding"
+                                      style="vertical-align: text-top"
+                                      id="WiFi5SecurityLevel"
+                                    ></span>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                      forname="DeviceWiFiAccessPoint2Security_ModeEnabled"
+                                    ></span>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <table
+                          class="table tableCount theme_intel gemtek-two-color-table"
+                        >
+                          <form
+                            role="form"
+                            id="reportform"
+                            class="ng-pristine ng-valid"
+                          ></form>
+                          <tbody>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td>Protocol</td>
+                              <td class="text-right gemtek-text-color">
+                                <span
+                                  ng-bind="DeviceIPInterfaceIPv4Address.X_GTK_Description"
+                                  class="ng-binding"
+                                  id="Protocol"
+                                ></span>
+                                <span
+                                  class="error ng-binding ng-hide"
+                                  forname="DeviceIPInterfaceIPv4Address_X_GTK_Description"
+                                ></span>
+                              </td>
+                            </tr>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td class="ng-binding">Internet Address</td>
+                              <td class="text-right gemtek-text-color">
+                                <span
+                                  class="ng-binding"
+                                  id="InternetAddress"
+                                ></span>
+                                <span
+                                  class="error ng-binding ng-hide"
+                                  forname="DeviceIPInterfaceIPv4Address_IPAddress"
+                                ></span>
+                              </td>
+                            </tr>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td class="ng-binding">Default Gateway</td>
+                              <td class="text-right gemtek-text-color">
+                                <span
+                                  class="ng-binding"
+                                  id="DefaultGateway"
+                                ></span>
+                                <span
+                                  class="error ng-binding ng-hide"
+                                  forname="DeviceIPInterfaceIPv4Address_GatewayIPAddress"
+                                ></span>
+                              </td>
+                            </tr>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td class="ng-binding">Subnet Mask</td>
+                              <td class="text-right gemtek-text-color">
+                                <span
+                                  ng-bind="DeviceIPInterfaceIPv4Address.SubnetMask"
+                                  class="ng-binding"
+                                  id="SubnetMask"
+                                ></span>
+                                <span
+                                  class="error ng-binding ng-hide"
+                                  forname="DeviceIPInterfaceIPv4Address_SubnetMask"
+                                ></span>
+                              </td>
+                            </tr>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td class="ng-binding">Primary DNS</td>
+                              <td class="text-right gemtek-text-color">
+                                <!-- ngIf: primarystatus=='Enabled' -->
+                                <div class="ng-scope">
+                                  <span
+                                    class="ng-binding"
+                                    id="PrimaryDNS"
+                                  ></span>
+                                </div>
+                                <!-- end ngIf: primarystatus=='Enabled' -->
+                              </td>
+                            </tr>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td class="ng-binding">Secondary DNS</td>
+                              <td class="text-right gemtek-text-color">
+                                <!-- ngIf: secondarystatus=='Enabled' -->
+                                <div class="ng-scope">
+                                  <span
+                                    class="ng-binding"
+                                    id="SecondaryDNS"
+                                  ></span>
+                                </div>
+                                <!-- end ngIf: secondarystatus=='Enabled' -->
+                              </td>
+                            </tr>
+                            <tr class="gemtek-tr-bottom-line">
+                              <td class="ng-binding">MacAddress</td>
+                              <td class="text-right gemtek-text-color">
+                                <span class="ng-binding" id="MacAddress"></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <!-- <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="margin-bottom:15px;"> -->
+                        <!-- <div class="home_samplebox mantis active" data-target="1" ng-click="toggleDetails($event)">
+                    <div class="content_mg">
+                      <label><span ng-bind="'Device.IP.Interface.*.Internet Status' | translate"></span><b
+                          ng-bind="DeviceIPInterface.Status"></b></label>
+                      <span class="error" forname="DeviceIPInterface_Status"
+                        ng-show="DeviceIPInterface_Statusresponsestatus" ng-bind="DeviceIPInterface_Statusval">
+
+                      </span>
+                      <label><span ng-bind="'Device.IP.Interface.*.IPv4Address.*.WAN IP' | translate"></span><b
+                          ng-bind="DeviceIPInterfaceIPv4Address.IPAddress"></b></label>
+                      <span class="error" forname="DeviceIPInterfaceIPv4Address_IPAddress"
+                        ng-show="DeviceIPInterfaceIPv4Address_IPAddressresponsestatus"
+                        ng-bind="DeviceIPInterfaceIPv4Address_IPAddressval">
+
+                      </span>
+                      <label><span ng-bind="'macaddress' | translate"></span><b ng-bind="MacAddress"></b></label>
+                    </div>
+                    <img src="images/icons/internetstatus.png" alt="img" class="internet_img" width="80" />
+                  </div> -->
+
+                        <!-- <div class="home_samplebox navy_Blue cursor_default">
+                    <div class="row cursor_default">
+
+                      <div class="col">
+                        <div class="content_mg">
+                          <div class="cursor_default" data-target="2" ng-click="toggleDetails($event, 'WiFi2.4')">
+                            <label class="cursor_pointer"
+                              ng-bind="'Device.WiFi.AccessPoint.1.Security.WiFi Security Level' | translate"></label>
+                            <label class="cursor_pointer"><b
+                                ng-bind="DeviceWiFiAccessPoint1Security.ModeEnabled"></b></label>
+                            <span class="error" forname="DeviceWiFiAccessPoint1Security_ModeEnabled"
+                              ng-show="DeviceWiFiAccessPoint1Security_ModeEnabledresponsestatus"
+                              ng-bind="DeviceWiFiAccessPoint1Security_ModeEnabledval">
+                            </span>
+                          </div>
+                          <br><br>
+                          <div class="cursor_default" data-target="2" ng-click="toggleDetails($event, 'WiFi5')">
+                            <label class="cursor_pointer"
+                              ng-bind="'Device.WiFi.AccessPoint.2.Security.WiFi Security Level' | translate"
+                              ng-show="RadioNumberOfEntries == '2' || RadioNumberOfEntries == '3'"></label>
+                            <label class="cursor_pointer"
+                              ng-show="RadioNumberOfEntries == '2' || RadioNumberOfEntries == '3'"><b
+                                ng-bind="DeviceWiFiAccessPoint2Security.ModeEnabled"></b></label>
+                            <span class="error" forname="DeviceWiFiAccessPoint2Security_ModeEnabled"
+                              ng-show="DeviceWiFiAccessPoint2Security_ModeEnabledresponsestatus"
+                              ng-bind="DeviceWiFiAccessPoint2Security_ModeEnabledval">
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <img src="images/icons/security_img.png" alt="img" class="internet_img" width="80" />
+
+                      </div>
+                    </div>
+                  </div> -->
+
+                        <!--  Uncomment following code the implement no of devices count block.
+                                        <div class="devider2"></div>
+                                        <div class="btn_2">
+                                            <div class="home_samplebox palesky" data-target="3" ng-click="toggleDetails($event)">-->
+                        <!-- <div class="home_samplebox palesky" data-target="3" ng-click="toggleDetails($event)"
+                    style="height: 110px;">
+                    <div class="headertxt  no-padding-hr" ng-bind="'advhomepage.No of Clients' | translate"></div>
+                    <div class="contentdashboard">
+                      <div class="count_block " ng-model="noofclients" ng-bind="noofclients"></div>
+                      <div class="img_block"><img src="images/icons/client.png" alt="img" height="40" /></div>
+                    </div>
+                  </div> -->
+                        <!-- <div class="home_samplebox palesky" data-target="4" ng-click="toggleDetails($event)">
+                                                <div class="headertxt  no-padding-hr" ng-bind="'advhomepage.No of Devices' | translate"></div>
+                                                <div class="contentdashboard">
+                                                    <div class="count_block ">0</div>
+                                                    <div class="img_block"><img src="images/icons/usb.png" alt="img" class="usb_icon" height="50"/></div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                        <!-- </div> -->
+                        <!-- <div ng-include="'adv_homepage_systemstatus.html'"></div>
+                <div ng-include="'adv_homepage_securitylevel.html'"></div>
+                <div ng-include="'adv_homepage_numberofclients.html'"></div>
+                <div ng-include="'adv_homepage_numberofdevices.html'"></div> -->
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <!-- end ngSwitchWhen: -->
-                <!-- ngSwitchWhen: false --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope no-slash">
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope"
-                  >
-                    WAN </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
-                </div>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope ng-hide"
-                  >
-                    IPv6 Configuration </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
-                </div>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="translation"
-            class="ng-hide ng-scope"
-          ></div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="headername"
-            class="ng-hide ng-scope"
-          ></div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="headerdescription"
-            class="ng-hide ng-scope"
-          ></div>
-
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="panel panel-wan ng-scope"
-          >
-            <div class="alert alert-danger ng-hide">
-              <a class="close" aria-label="close">✖ </a>
-              <p class="ng-binding"></p>
-            </div>
-            <ul class="nav nav-tabs gemtek-tab">
-              <li>
-                <a href="basic-wan-ipv4.html">IPv4</a>
-              </li>
-              <li class="active">
-                <a href="basic-wan-ipv6.html">IPv6</a>
-              </li>
-            </ul>
-            <div class="gemtek-wan-add-btn">
-              <a id="Add" class="waves-effect waves-light gemtek-btn-primary"
-                ><i class="fa fa-plus icontxtgap"></i
-                ><span style="font-weight: normal" class="ng-binding"
-                  >Add WAN</span
-                ></a
-              >
-            </div>
-            <div class="panel-body">
-              <div class="table-responsive table-scroll-vr">
-                <table
-                  class="table tableCount theme_intel"
-                  id="DeviceIPInterfaceDeviceIPInterfaceIPv6Address"
+              </div>
+              <adv-widget title="System Info" class="ng-isolate-scope">
+                <div
+                  class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mbl-no-padding-hr"
                 >
-                  <thead class="">
-                    <tr>
-                      <th id="Name" class="col-xs-2">
-                        <span class="ng-binding">Name</span>
-                      </th>
-                      <th id="X_GTK_Description" class="col-xs-2">
-                        <span class="ng-binding">Connection Type</span>
-                      </th>
-                      <th id="IPAddress" class="col-xs-2">
-                        <span class="ng-binding">IP Address</span>
-                      </th>
-                      <th id="Status" class="col-xs-2">
-                        <span class="ng-binding">Status</span>
-                      </th>
-                      <th id="NextHop" class="">
-                        <span class="ng-binding">Default Gateway</span>
-                      </th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="bodyData">
-                    <!-- ngRepeat: user in DeviceIPInterfaceDeviceIPInterfaceIPv6Addresstable -->
-
-                    <!-- end ngRepeat: user in DeviceIPInterfaceDeviceIPInterfaceIPv6Addresstable -->
-                  </tbody>
-
-                  <template id="rowElement" index="">
-                    <tr class="ng-scope">
-                      <td class="no-padding-hr ng-scope">
-                        <span class="">
-                          <span class="ng-binding ng-scope NameCell"> </span>
-                        </span>
-                      </td>
-
-                      <td class="no-padding-hr ng-scope">
-                        <span class=""
-                          ><span class="ng-binding ng-scope ConnectiomTypeCell">
-                          </span
-                        ></span>
-                      </td>
-
-                      <td class="no-padding-hr ng-scope">
-                        <span class=""
-                          ><span class="ng-binding ng-scope IPAddressCell">
-                          </span
-                        ></span>
-                      </td>
-
-                      <td class="no-padding-hr ng-scope">
-                        <span class="StatusCell"></span>
-                      </td>
-
-                      <td class="no-padding-hr ng-scope">
-                        <span class=""
-                          ><span class="ng-binding ng-scope DefaultGatewayCell">
-                          </span
-                        ></span>
-                      </td>
-
-                      <td class="no-padding-hr ng-scope ng-hide"></td>
-                      <td class="no-padding-hr ng-scope">
-                        <button
-                          class="btn btn-xs table-btn-txt EditBtn"
-                          name="edit"
+                  <div class="panel acc">
+                    <div class="gemtek-Device-Status">
+                      <span class="ng-binding">System Info</span>
+                    </div>
+                    <div class="panel-body adv_widget no-padding">
+                      <!--            <h4><span><i class={{icon}}></i></span>
+                            {{title | translate}}
+                        </h4>-->
+                      <!-- ngRepeat: obj in objects track by $index -->
+                      <ul
+                        ng-repeat="obj in objects track by $index"
+                        class="ng-scope"
+                      >
+                        <!-- ngRepeat: key in obj| keys1 track by $index -->
+                        <li
+                          ng-repeat="key in obj| keys1 track by $index"
+                          class="ng-scope"
                         >
-                          <img src="images/icons/icon-1/edit.svg" />
-                        </button>
-
-                        <button
-                          class="btn btn-xs table-btn no-margin DeleteBtn"
-                          name="delete"
-                        >
-                          <img src="images/icons/icon-1/delete.svg" />
-                        </button>
-                        <div></div>
-                      </td>
-                    </tr>
-                  </template>
-                </table>
-                <div></div>
+                          <label>
+                            <span class="ng-binding">Manufacturer</span>
+                            <span class="ng-binding" id="Manufacturer"></span>
+                          </label>
+                        </li>
+                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
+                        <li class="ng-scope">
+                          <label>
+                            <span class="ng-binding">Serial Number</span>
+                            <span class="ng-binding" id="SerialNumber"></span>
+                          </label>
+                        </li>
+                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
+                        <li class="ng-scope">
+                          <label>
+                            <span class="ng-binding">Software Version</span>
+                            <span
+                              class="ng-binding"
+                              id="SoftwareVersion"
+                            ></span>
+                          </label>
+                        </li>
+                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
+                        <li class="ng-scope">
+                          <label>
+                            <span class="ng-binding">Model Name</span>
+                            <span class="ng-binding" id="ModelName"></span>
+                          </label>
+                        </li>
+                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
+                        <li class="ng-scope">
+                          <label>
+                            <span class="ng-binding">Hardware Version</span>
+                            <span
+                              class="ng-binding"
+                              id="HardwareVersion"
+                            ></span>
+                          </label>
+                        </li>
+                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
+                      </ul>
+                      <!-- end ngRepeat: obj in objects track by $index -->
+                    </div>
+                  </div>
+                </div>
+              </adv-widget>
+              <!-- <adv-widget title="Memory Information" icon="panel-heading-icon" time="30000" polling="true"
+        webname='["Total Memory","Free Memory","Buffer Memory","Cached Memory"]'
+        url="cgi_get?Object=Device.DeviceInfo.MemoryStatus&Total=&Free=&X_LANTIQ_COM_Buffer=&X_LANTIQ_COM_Cached=">
+      </adv-widget> -->
+              <!-- <div ng-if="$root.message">
+        <adv-widget title="DSL Line Status" icon="dsl" time="30000" polling="true"
+          webname='["Upstream Data Rate (kbps)","Downstream Data Rate (kbps)"]'
+          url="cgi_get?Object=Device.DSL.Channel.1&UpstreamCurrRate=&DownstreamCurrRate=" checker="true" checkervalue=""
+          checkerurl="cgi_get?Object=Device.DSL.X_LANTIQ_COM_Config&Enable=">
+        </adv-widget>
+        <div ng-if="$root.linemessage">
+          <adv-widget title="DSL Line 2 Status" icon="dsl" time="30000" polling="true"
+            webname='["Upstream Data Rate (kbps)","Downstream Data Rate (kbps)"]'
+            url="cgi_get?Object=Device.DSL.Channel.2&UpstreamCurrRate=&DownstreamCurrRate=" checker="true"
+            checkervalue="" checkerurl="cgi_get?Object=Device.DSL.X_LANTIQ_COM_Config&Enable=">
+          </adv-widget>
+        </div>
+      </div> -->
+            </div>
+            <!-- <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"> -->
+            <div class="row">
+              <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 gemtek-pr-0">
+                <dynamic-port-status-widget
+                  id="EthernetPortStatus"
+                  title="Ethernet Port Status"
+                  color="yel_bg"
+                  class="ng-isolate-scope"
+                >
+                  <div
+                    class="port_status col-sm-12 col-xs-12 col-lg-12 col-md-12 mbl-no-padding-hr no-padding-hr"
+                  >
+                    <div class="panel">
+                      <div class="gemtek-Device-Status">
+                        <span class="ng-binding">Ethernet Port Status</span>
+                      </div>
+                      <div class="panel-body no-padding">
+                        <div class="row status_box">
+                          <!-- dynamicPortData object contains data with object names as keys-->
+                          <!-- ngRepeat: dynamicPort in dynamicPortData -->
+                          <div class="gemtek-status-icons ng-scope">
+                            <div class="lanport">
+                              <!-- dynamicPort is an array which have first element as 'Status' -->
+                              <img
+                                alt="img"
+                                src="images/icons/icon-1/ico-ethernet-port-active.svg"
+                              />
+                              <p class="ng-binding">VANI0</p>
+                              <!-- ng-repeat on dynamicPort otherthan first element ('Status') / $index != 0-->
+                              <!--                        <p ng-repeat="data in dynamicPort" ng-if="$index != 0">{{data}}</p>-->
+                            </div>
+                          </div>
+                          <!-- end ngRepeat: dynamicPort in dynamicPortData -->
+                          <div class="gemtek-status-icons ng-scope">
+                            <div class="lanport">
+                              <!-- dynamicPort is an array which have first element as 'Status' -->
+                              <img
+                                alt="img"
+                                src="images/icons/icon-1/ico-ethernet-port-inactive.svg"
+                              />
+                              <p class="ng-binding">eth1_0</p>
+                              <!-- ng-repeat on dynamicPort otherthan first element ('Status') / $index != 0-->
+                              <!--                        <p ng-repeat="data in dynamicPort" ng-if="$index != 0">{{data}}</p>-->
+                            </div>
+                          </div>
+                          <!-- end ngRepeat: dynamicPort in dynamicPortData -->
+                          <div class="gemtek-status-icons ng-scope">
+                            <div class="lanport">
+                              <!-- dynamicPort is an array which have first element as 'Status' -->
+                              <img
+                                alt="img"
+                                src="images/icons/icon-1/ico-ethernet-port-inactive.svg"
+                              />
+                              <p class="ng-binding">eth1_1</p>
+                              <!-- ng-repeat on dynamicPort otherthan first element ('Status') / $index != 0-->
+                              <!--                        <p ng-repeat="data in dynamicPort" ng-if="$index != 0">{{data}}</p>-->
+                            </div>
+                          </div>
+                          <!-- end ngRepeat: dynamicPort in dynamicPortData -->
+                          <div class="gemtek-status-icons ng-scope">
+                            <div class="lanport">
+                              <!-- dynamicPort is an array which have first element as 'Status' -->
+                              <img
+                                alt="img"
+                                src="images/icons/icon-1/ico-ethernet-port-inactive.svg"
+                              />
+                              <p class="ng-binding">eth1_2</p>
+                              <!-- ng-repeat on dynamicPort otherthan first element ('Status') / $index != 0-->
+                              <!--                        <p ng-repeat="data in dynamicPort" ng-if="$index != 0">{{data}}</p>-->
+                            </div>
+                          </div>
+                          <!-- end ngRepeat: dynamicPort in dynamicPortData -->
+                          <div class="gemtek-status-icons ng-scope">
+                            <div class="lanport">
+                              <!-- dynamicPort is an array which have first element as 'Status' -->
+                              <img
+                                alt="img"
+                                src="images/icons/icon-1/ico-ethernet-port-active.svg"
+                              />
+                              <p class="ng-binding">eth1_3</p>
+                              <!-- ng-repeat on dynamicPort otherthan first element ('Status') / $index != 0-->
+                              <!--                        <p ng-repeat="data in dynamicPort" ng-if="$index != 0">{{data}}</p>-->
+                            </div>
+                          </div>
+                          <!-- end ngRepeat: dynamicPort in dynamicPortData -->
+                          <div class="gemtek-status-icons ng-scope">
+                            <div class="lanport">
+                              <!-- dynamicPort is an array which have first element as 'Status' -->
+                              <img
+                                alt="img"
+                                src="images/icons/icon-1/ico-ethernet-port-active.svg"
+                              />
+                              <p class="ng-binding">eth0_0</p>
+                              <!-- ng-repeat on dynamicPort otherthan first element ('Status') / $index != 0-->
+                              <!--                        <p ng-repeat="data in dynamicPort" ng-if="$index != 0">{{data}}</p>-->
+                            </div>
+                          </div>
+                          <!-- end ngRepeat: dynamicPort in dynamicPortData -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dynamic-port-status-widget>
+                <!-- params='["Status","Name","MaxBitRate"]' -->
+              </div>
+              <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div ng-if="$root.message">
+              <div class="row no-margin-hr">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 no-padding-hr">
+                  <dynamic-port-status-widget id="DSLPortStatus" title="DSL Port Status" icon="panel-heading-icon"
+                    color="yel_bg" onimage="images/voip.png" offimage="images/voip_blck.png" socket="false"
+                    polling="true" time="10000"
+                    urls='["cgi_get?Object=Device.DSL.Line.1","cgi_get_fillparams?Object=Device.DSL.Line.2"]'
+                    params='["Status","Name","DownstreamMaxBitRate"]'>
+                  </dynamic-port-status-widget>
+                </div>
               </div>
             </div>
+          </div> -->
+            </div>
+            <!-- </div>
+    </div> -->
           </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="alertDialogMark"
-            class="row ng-scope"
-          ></div>
         </div>
 
         <!-- Footer section-->
@@ -1193,7 +1449,6 @@
     <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
     <!--[if !IE]> -->
     <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
-
     <div class="hiddendiv common"></div>
   </body>
 </html>

@@ -7,7 +7,7 @@ function loadPage(page, options) {
     let Utilities = JSON.parse(localStorage.getItem("Utilities"));
     let VoIP = JSON.parse(localStorage.getItem("VoIP"));
     switch (page) {
-        case "index.html":
+        case "main.html":
             var manufacturer = document.getElementById("Manufacturer");
             var serialNumber = document.getElementById("SerialNumber");
             var softwareVersion = document.getElementById("SoftwareVersion");
