@@ -137,6 +137,10 @@
         opacity: 0.5;
       }
     </style>
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/storage.js"></script>
+    <script src="./js/template.js"></script>
+    <script src="./js/commonFunction.js"></script>
   </head>
 
   <body>
@@ -187,6 +191,7 @@
       </div>
     </div>
     <script>
+      checkVersion();
       const loginBtn = document.getElementById("loginBtn");
       const username = document.getElementById("user");
       const password = document.getElementById("password");
