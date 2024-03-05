@@ -6,6 +6,36 @@ function loadPage(page, options) {
   let Security = JSON.parse(localStorage.getItem("Security"));
   let Utilities = JSON.parse(localStorage.getItem("Utilities"));
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
+
+  // take existed SSIDs
+  let existedSSIDs = [];
+  for (const elem of Wifi["2.4G"].SSIDs) {
+    existedSSIDs.push(elem.Configuration.SSID);
+  }
+  for (const elem of Wifi["5G"].SSIDs) {
+    existedSSIDs.push(elem.Configuration.SSID);
+  }
+  for (const elem of Wifi.GuestAccess.Interfaces) {
+    existedSSIDs.push(elem.SSID);
+  }
+
+  /**
+   * check duplicate between 2.4G, 5G & Guest access
+   *
+   * @return true: no dup
+   *         false: dup
+   */
+  function checkDuplicateSSID_handle(current_val) {
+    /* check Duplicate Wifi SSID */
+    console.log("Existed SSID: ", existedSSIDs);
+
+    // check dup
+    if (existedSSIDs.includes(current_val)) {
+      return false;
+    }
+    return true;
+  }
+
   switch (page) {
     case "wifi-2_4G-config.html":
       console.log(`Load ${page}`, Wifi["2.4G"]);
@@ -993,6 +1023,16 @@ function loadPage(page, options) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
             }
+            //remove it from the "check duplicate arrray"
+            console.log(
+              "Remove SSID: ",
+              currentRow.querySelector(".ssid").value
+            );
+            var indexOfCurrent = existedSSIDs.indexOf(
+              currentRow.querySelector(".ssid").value
+            );
+            existedSSIDs.splice(indexOfCurrent, 1);
+
             // FE remove
             currentRow.remove();
           }
@@ -1116,6 +1156,13 @@ function loadPage(page, options) {
             checkError_show(document.querySelectorAll(".add_wifi_error")) ===
             true
           ) {
+            if (checkDuplicateSSID_handle(ssid_field.value) === false) {
+              alertDialogHandle(
+                "SSID has already existed. Please try a new one !"
+              );
+              return;
+            }
+            existedSSIDs.push(ssid_field.value);
             newWifiInfo.Configuration.SSID = ssid_field.value;
             newWifiInfo.Configuration.SecurityType = security_type.value;
             newWifiInfo.WPSEnabled = wps.checked;
@@ -1146,6 +1193,7 @@ function loadPage(page, options) {
       addWifiBtn.addEventListener("click", () => {
         if (tbody.getElementsByTagName("tr").length >= 4) {
           alertDialogHandle("Maximum number of SSID");
+          return;
         }
         if (!add_lock) {
           add_lock = true;
@@ -2506,6 +2554,15 @@ function loadPage(page, options) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
             }
+            console.log(
+              "Remove SSID: ",
+              currentRow.querySelector(".ssid").value
+            );
+            var indexOfCurrent = existedSSIDs.indexOf(
+              currentRow.querySelector(".ssid").value
+            );
+            existedSSIDs.splice(indexOfCurrent, 1);
+
             // FE remove
             currentRow.remove();
           }
@@ -2629,6 +2686,13 @@ function loadPage(page, options) {
             checkError_show(document.querySelectorAll(".add_wifi_error")) ===
             true
           ) {
+            if (checkDuplicateSSID_handle(ssid_field.value) === false) {
+              alertDialogHandle(
+                "SSID has already existed. Please try a new one !"
+              );
+              return;
+            }
+            existedSSIDs.push(ssid_field.value);
             newWifiInfo.Configuration.SSID = ssid_field.value;
             newWifiInfo.Configuration.SecurityType = security_type.value;
             newWifiInfo.WPSEnabled = wps.checked;
@@ -2659,6 +2723,7 @@ function loadPage(page, options) {
       addWifiBtn.addEventListener("click", () => {
         if (tbody.getElementsByTagName("tr").length >= 4) {
           alertDialogHandle("Maximum number of SSID");
+          return;
         }
         if (!add_lock) {
           add_lock = true;
@@ -2988,6 +3053,7 @@ function loadPage(page, options) {
     case "wifi-guest_access-add.html":
       console.log(`Load ${page}`, Wifi.GuestAccess);
 
+      var onEditFlag = false;
       var filledData;
       var addFlag = false;
       if (Wifi.GuestAccess.onEdit === "") {
@@ -3005,6 +3071,7 @@ function loadPage(page, options) {
           (obj) => obj.SSID === Wifi.GuestAccess.onEdit
         )[0];
         console.log(`Load ${page} -- Edit ${filledData.Name}}`, filledData);
+        onEditFlag = true;
       }
 
       var wifiRadio = document.getElementById("Radio");
@@ -3206,6 +3273,18 @@ function loadPage(page, options) {
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
           filledData.WirelessBand = wifiRadio.value;
+          // check duplicate SSID at Add (edit flag = false) & Edit (edit flag = true
+          if (
+            (onEditFlag === true && ssidName.value != filledData.SSID) ||
+            onEditFlag === false
+          ) {
+            if (checkDuplicateSSID_handle(ssidName.value) === false) {
+              alertDialogHandle(
+                "SSID has already existed. Please try a new one !"
+              );
+              return;
+            }
+          }
           filledData.SSID = ssidName.value;
           filledData.SecurityType = securityType.value;
           filledData.Passphrase = passphrase.value;

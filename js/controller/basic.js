@@ -1705,9 +1705,10 @@ function loadPage(page, options) {
       var addBtn = document.getElementById("Add");
       var rowElement = document.getElementById("rowElement");
 
-      for (const elem of Basic.WAN.Interfaces) {
+      for (const [index, elem] of Basic.WAN.Interfaces.entries()) {
         const tr = rowElement.content.cloneNode(true);
 
+        tr.querySelector("tr").setAttribute("index", index);
         const nameCell = tr.querySelector(".NameCell");
         const connectiomTypeCell = tr.querySelector(".ConnectiomTypeCell");
         const iPAddressCell = tr.querySelector(".IPAddressCell");
@@ -1767,15 +1768,11 @@ function loadPage(page, options) {
             )
               .then(() => {
                 // if true --> delete (OK button is pressed)
-                Basic.WAN.Interfaces = Basic.WAN.Interfaces.filter(
-                  (obj) =>
-                    obj.Name !==
-                    row.innerText
-                      .split("\n")
-                      .map((line) => line.trim())
-                      .filter(Boolean)[0]
+                Basic.WAN.Interfaces.splice(
+                  parseInt(deleteBtn.closest("tr").getAttribute("index")),
+                  1
                 );
-
+                console.log(Basic.WAN.Interfaces);
                 applyThenStoreToLS("basic-wan-ipv4.html", "Apply", Basic);
               })
               .catch(() => {});
