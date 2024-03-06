@@ -7,7 +7,7 @@ function loadPage(page, options) {
   let Utilities = JSON.parse(localStorage.getItem("Utilities"));
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   var curTimeTarget = "";
-
+  var daysOfTheWeekChanged = false;
   switch (page) {
     case "security-firewall.html":
       console.log(`Load ${page}`, Security.Firewall);
@@ -93,9 +93,9 @@ function loadPage(page, options) {
           enableParentalControl.checked;
         permitRadio.checked
           ? (Security.ParentalControl.ParentalControlSettings.DefaultAction =
-              "1")
+            "1")
           : (Security.ParentalControl.ParentalControlSettings.DefaultAction =
-              "0");
+            "0");
         console.log(
           "Parental Control settings updated:",
           Security.ParentalControl.ParentalControlSettings
@@ -118,13 +118,13 @@ function loadPage(page, options) {
         filledData = {
           EnableParentalControlRule: false,
           PolicyName: "",
-          ParentalControlType: "ipaddress",
+          ParentalControlType: "url",
           MACAddress: "",
-          TimeStart: "00:00",
-          TimeEnd: "00:00",
+          TimeStart: "",
+          TimeEnd: "",
           DaysOfTheWeek: "",
           Target: "Accept",
-          URL: "",
+          DataForm: [], /* Depend on ParentalControlType: url, ipaddress or port Form */
         };
       } else {
         filledData =
@@ -147,12 +147,21 @@ function loadPage(page, options) {
       var TimeStart = document.getElementById("TimeStart");
       var TimeEnd = document.getElementById("TimeEnd");
       var Target = document.getElementById("Target");
-      var URL = document.getElementById("url");
-
+      var ParentalControlDaysOfTheWeek = document.getElementById("ParentalControlDaysOfTheWeek");
       var listItems = document.querySelectorAll(".weekdayslist li");
+      var addUrlList = document.getElementById("AddUrlList");
+      var inputFieldUrlList = document.getElementById("input_field_url_list");
+      var bodyUrlData = document.getElementById("bodyUrlData");
+      var addIpAddressList = document.getElementById("AddIpAddressList");
+      var inputFieldIpAddressList = document.getElementById("input_field_ipaddress_list");
+      var bodyIpAddressData = document.getElementById("bodyIpAddressData");
+      var addPortList = document.getElementById("AddPortList");
+      var inputFieldPortList = document.getElementById("input_field_port_list");
+      var bodyPortData = document.getElementById("bodyPortData");
+
       listItems.forEach(function (item) {
         item.addEventListener("click", function () {
-          console.log(this);
+          daysOfTheWeekChanged = true;
           this.classList.toggle("active");
           updateHiddenInput();
         });
@@ -160,12 +169,137 @@ function loadPage(page, options) {
 
       function updateHiddenInput() {
         var activeDays = document.querySelectorAll(".weekdayslist li.active");
+        if (activeDays.length === 0) {
+          document.getElementById("empty_weekdays_list").classList.remove("ng-hide");
+        } else {
+          document.getElementById("empty_weekdays_list").classList.add("ng-hide");
+        }
         var selectedDays = [];
         activeDays.forEach(function (day) {
           selectedDays.push(day.textContent);
+          ParentalControlDaysOfTheWeek.value = selectedDays.join(",");
         });
-        ParentalControlDaysOfTheWeek.value = selectedDays.join(",");
       }
+
+      $('#ParentalControlType').change(function () {
+        var selectedType = $(this).val();
+
+        // Hide all form sections
+        $('.form-section').hide();
+
+        // Show the corresponding form based on the selected type
+        $('#' + selectedType + 'Form').show();
+
+        console.log("selectedType", selectedType);
+        if (selectedType === "url") {
+          addUrlList.addEventListener("click", () => {
+            addDataFormList(selectedType, "");
+          });
+        } else if (selectedType === "ipaddress") {
+          addIpAddressList.addEventListener("click", () => {
+            addDataFormList(selectedType, "");
+          });
+        } else {
+          addPortList.addEventListener("click", () => {
+            addDataFormList(selectedType, "");
+          });
+        }
+      });
+
+      var addDataFormList = function (parentalControlType, elem) {
+        if (parentalControlType === "url") {
+          const tr = inputFieldUrlList.content.cloneNode(true);
+          const urlInput = tr.querySelector(".url_input");
+
+          const deleteRow = tr.querySelector(".Delete");
+          const empty_error = tr.querySelector(".empty_url_error");
+          const pattern_error = tr.querySelector(".format_url_error");
+          urlInput.value = elem;
+          checkPattern_inputField(
+            urlInput,
+            URL_PATTERN,
+            pattern_error,
+            empty_error
+          );
+          urlInput.addEventListener("input", () => {
+            checkPattern_inputField(
+              urlInput,
+              URL_PATTERN,
+              pattern_error,
+              empty_error
+            );
+          });
+          deleteRow.addEventListener("click", () => {
+            var row = deleteRow.closest("tr");
+            deleteDialogHandle(
+              row,
+              "Delete",
+              "Are you sure you want to delete ?"
+            );
+          });
+          bodyUrlData.append(tr);
+        } else if (parentalControlType === "ipaddress") {
+          const tr = inputFieldIpAddressList.content.cloneNode(true);
+          const ipAddressInput = tr.querySelector(".ip_address_input");
+          const deleteRow = tr.querySelector(".DeleteIpAddressList");
+          const empty_error = tr.querySelector(".empty_ip_address_error");
+          const pattern_error = tr.querySelector(".format_ip_address_error");
+          ipAddressInput.value = elem;
+          checkPattern_inputField(
+            ipAddressInput,
+            new RegExp(IPv4_PATTERN),
+            pattern_error,
+            empty_error
+          );
+          ipAddressInput.addEventListener("input", () => {
+            checkPattern_inputField(
+              ipAddressInput,
+              new RegExp(IPv4_PATTERN),
+              pattern_error,
+              empty_error
+            );
+          });
+          deleteRow.addEventListener("click", () => {
+            var row = deleteRow.closest("tr");
+            deleteDialogHandle(
+              row,
+              "Delete",
+              "Are you sure you want to delete ?"
+            );
+          });
+          bodyIpAddressData.append(tr);
+        } else if (parentalControlType === "port") {
+          const tr = inputFieldPortList.content.cloneNode(true);
+          const portInput = tr.querySelector(".port_input");
+          const deleteRow = tr.querySelector(".DeletePortList");
+          const empty_error = tr.querySelector(".empty_port_error");
+          const pattern_error = tr.querySelector(".format_port_error");
+          portInput.value = elem;
+          checkPattern_inputField(
+            portInput,
+            PORT_PATTERN,
+            pattern_error,
+            empty_error
+          );
+          portInput.addEventListener("input", () => {
+            checkPattern_inputField(
+              portInput,
+              PORT_PATTERN,
+              pattern_error,
+              empty_error
+            );
+          });
+          deleteRow.addEventListener("click", () => {
+            var row = deleteRow.closest("tr");
+            deleteDialogHandle(
+              row,
+              "Delete",
+              "Are you sure you want to delete ?"
+            );
+          });
+          bodyPortData.append(tr);
+        }
+      };
 
       function fillDataAdd() {
         EnableParentalControlRule.checked =
@@ -176,7 +310,6 @@ function loadPage(page, options) {
         TimeStart.value = filledData.TimeStart;
         TimeEnd.value = filledData.TimeEnd;
         Target.value = filledData.Target;
-        URL.value = filledData.URL;
         if (!addFlag) {
           var listItems = document.querySelectorAll(".weekdayslist li");
           const daysArray = filledData.DaysOfTheWeek.split(",").map((day) =>
@@ -198,7 +331,31 @@ function loadPage(page, options) {
           numberArray.forEach(function (index) {
             listItems[index].classList.toggle("active");
           });
+
+          $('.form-section').hide();
+          $('#' + filledData.ParentalControlType + 'Form').show();
+
+          for (const elem of filledData.DataForm) {
+            addDataFormList(filledData.ParentalControlType, elem);
+          }
+        } else {
+          checkEmpty_inputField(
+            ParentalControlDaysOfTheWeek,
+            document.getElementById("empty_weekdays_list")
+          );
         }
+        checkEmpty_inputField(
+          PolicyName,
+          document.getElementById("empty_policy_name_error")
+        );
+        checkEmpty_inputField(
+          TimeStart,
+          document.getElementById("empty_start_time_error")
+        );
+        checkEmpty_inputField(
+          TimeEnd,
+          document.getElementById("empty_end_time_error")
+        );
       }
 
       fillDataAdd();
@@ -252,50 +409,115 @@ function loadPage(page, options) {
           const hourValue = hour.value.padStart(2, "0");
           const minuteValue = minute.value.padStart(2, "0");
           console.log(`User input: ${hourValue}:${minuteValue}`);
+          if (curTimeTarget === "TimeStart") {
+            startTimeInput.value = `${hourValue}:${minuteValue}`;
+            document.getElementById("empty_start_time_error").classList.add("ng-hide");
+          } else if (curTimeTarget === "TimeEnd") {
+            endTimeInput.value = `${hourValue}:${minuteValue}`;
+            document.getElementById("empty_end_time_error").classList.add("ng-hide");
+          }
         });
 
         function updateTimeDisplay() {
           const hourValue = hour.value.padStart(2, "0");
           const minuteValue = minute.value.padStart(2, "0");
           const timeDisplay = document.querySelector(".dtpicker-value");
-
           timeDisplay.textContent = `${hourValue}:${minuteValue}`;
-
-          if (curTimeTarget === "TimeStart") {
-            startTimeInput.value = `${hourValue}:${minuteValue}`;
-          } else if (curTimeTarget === "TimeEnd") {
-            endTimeInput.value = `${hourValue}:${minuteValue}`;
-          }
           console.log(`Time updated: ${hourValue}:${minuteValue}`);
+        }
+
+        PolicyName.addEventListener("input", () => {
+          checkEmpty_inputField(
+            PolicyName,
+            document.getElementById("empty_policy_name_error")
+          );
+        });
+        MACAddress.addEventListener("input", () => {
+          const macAddress = MACAddress.value.trim();
+          const validateMACAddress = (macAddress) => {
+            const macRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+            return macRegex.test(macAddress);
+          };
+
+          if (macAddress === '') {
+            document.getElementById("mac_address_format_error").classList.add('ng-hide');
+          } else {
+            const isValidMAC = validateMACAddress(macAddress);
+            if (isValidMAC) {
+              document.getElementById("mac_address_format_error").classList.add('ng-hide');
+            } else {
+              document.getElementById("mac_address_format_error").classList.remove('ng-hide');
+            }
+          }
+        });
+
+        console.log("ParentalControlType.value", ParentalControlType.value);
+        if (ParentalControlType.value === "url") {
+          addUrlList.addEventListener("click", () => {
+            addDataFormList(ParentalControlType.value, "");
+          });
+        } else if (ParentalControlType.value === "ipaddress") {
+          addIpAddressList.addEventListener("click", () => {
+            addDataFormList(ParentalControlType.value, "");
+          });
+        } else if (ParentalControlType.value === "port") {
+          addPortList.addEventListener("click", () => {
+            addDataFormList(ParentalControlType.value, "");
+          });
         }
       }
 
       initEventPT();
 
       document.getElementById("Apply").addEventListener("click", () => {
-        filledData.EnableParentalControlRule =
-          EnableParentalControlRule.checked;
-        filledData.PolicyName = PolicyName.value;
-        filledData.ParentalControlType = ParentalControlType.value;
-        filledData.MACAddress = MACAddress.value;
-        filledData.TimeStart = TimeStart.value;
-        filledData.TimeEnd = TimeEnd.value;
-        filledData.Target = Target.value;
-        filledData.URL = URL.value;
-        filledData.DaysOfTheWeek = ParentalControlDaysOfTheWeek.value;
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          filledData.EnableParentalControlRule =
+            EnableParentalControlRule.checked;
+          filledData.PolicyName = PolicyName.value;
+          filledData.ParentalControlType = ParentalControlType.value;
+          filledData.MACAddress = MACAddress.value;
+          filledData.TimeStart = TimeStart.value;
+          filledData.TimeEnd = TimeEnd.value;
+          filledData.Target = Target.value;
+          if (daysOfTheWeekChanged) {
+            filledData.DaysOfTheWeek = ParentalControlDaysOfTheWeek.value;
+            daysOfTheWeekChanged = false;
+          }
 
-        if (addFlag === true)
-          Security.ParentalControl.DeviceUnderParentalControl.Rules.push(
-            filledData
+          var inputFields;
+          if (filledData.ParentalControlType === "url") {
+            inputFields = document.querySelectorAll('#urlForm input[name="url"]');
+          } else if (filledData.ParentalControlType === "ipaddress") {
+            inputFields = document.querySelectorAll('#ipaddressForm input[name="ip"]');
+          } else if (filledData.ParentalControlType === "port") {
+            inputFields = document.querySelectorAll('#portForm input[name="port"]');
+          }
+
+          var inputValues = [];
+          filledData.DataForm = [];
+          inputFields.forEach(function (inputField) {
+            var value = inputField.value;
+            inputValues.push(value);
+            filledData.DataForm.push(value);
+          });
+          console.log("Input values:", inputValues);
+          if (addFlag === true)
+            Security.ParentalControl.DeviceUnderParentalControl.Rules.push(
+              filledData
+            );
+          applyThenStoreToLS(
+            "security-parental_control-devControl.html",
+            "Apply",
+            Security
           );
+        }
 
-        applyThenStoreToLS(
-          "security-parental_control-devControl.html",
-          "Apply",
-          Security
-        );
       });
 
+      document.getElementById("Cancel").addEventListener("click", () => {
+        daysOfTheWeekChanged = false;
+        applyThenStoreToLS("security-parental_control-devControl.html", "Cancel");
+      });
       break;
     case "security-parental_control-devControl.html":
       console.log(

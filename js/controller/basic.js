@@ -308,9 +308,61 @@ function loadPage(page, options) {
       // init event fot element inside FE
       initEvent();
 
+      // test if start, end & device IP is valid (on same network address)
+      function testIPvalid(dev_IP, start_IP, end_IP, subnetmask) {
+        var ipComponents = dev_IP.split(".");
+        var startComponents = start_IP.split(".");
+        var endComponents = end_IP.split(".");
+        var subnetComponents = subnetmask.split(".");
+        /**
+         * Test in range 1 --> 254
+         */
+        if (
+          parseInt(ipComponents[3]) <= 0 ||
+          parseInt(ipComponents[3]) >= 255 ||
+          parseInt(startComponents[3]) <= 0 ||
+          parseInt(startComponents[3]) >= 255 ||
+          parseInt(endComponents[3]) <= 0 ||
+          parseInt(endComponents[3]) >= 255
+        ) {
+          alertDialogHandle("Invalid Device IP address, Begin address or End address!");
+          return false;
+        }
+
+        /**
+         * Method: IP AND subnetmask === start_IP AND subnetmask === end_IP AND subnetmask --> at the same network
+         */
+        for (var i = 0; i < ipComponents.length; i++) {
+          if (
+            (parseInt(ipComponents[i]) & parseInt(subnetComponents[i])) !=
+              (parseInt(startComponents[i]) & parseInt(subnetComponents[i])) ||
+            (parseInt(ipComponents[i]) & parseInt(subnetComponents[i])) !=
+              (parseInt(endComponents[i]) & parseInt(subnetComponents[i])) ||
+            (parseInt(startComponents[i]) & parseInt(subnetComponents[i])) !=
+              (parseInt(endComponents[i]) & parseInt(subnetComponents[i]))
+          ) {
+            alertDialogHandle(
+              `Invalid Begin or End IP address!. The IP address pool is ${devIPAddr.value}. Please enter your desired IP address again!`
+            );
+            return false;
+          }
+        }
+        return true;
+      }
+
       document.getElementById("Modify").addEventListener("click", () => {
         // check if error on page, true --> no error (filter all erroe except add_error class)
         if (checkError_show(document.querySelectorAll(".checkerror"))) {
+          if (
+            testIPvalid(
+              devIPAddr.value,
+              beginAddr.value,
+              endAddr.value,
+              subnetMask.value
+            ) === false
+          ) {
+            return;
+          }
           filledData.DeviceIPAddress = devIPAddr.value;
           filledData.SubnetMask = subnetMask.value;
           filledData.DHCPMode = dhcpMode.value;

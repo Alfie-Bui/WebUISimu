@@ -452,6 +452,9 @@ const IPv6_PATTERN =
 const WEP64_KEY_PATTERN = "^[0-9a-fA-F]+$";
 const WEP128_KEY_PATTERN = "^[0-9a-fA-F]+$";
 
+const URL_PATTERN = /^[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&amp;&#39;\*\+,;=.]+$/;
+
+const PORT_PATTERN = /^\d{1,5}$/;
 /** Pool WAN interface */
 const WAN_INTERFACE_POOL = [
   "ANI0_wan8",
@@ -462,3 +465,4 @@ const WAN_INTERFACE_POOL = [
   "ANI0_wan13",
   "ANI0_wan14",
 ];
+

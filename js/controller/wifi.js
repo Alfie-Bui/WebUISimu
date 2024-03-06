@@ -1008,8 +1008,7 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${
-                wifiInfoBuffer.length
+              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length
               }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
@@ -1018,7 +1017,7 @@ function loadPage(page, options) {
               currentRow.nextElementSibling !== null &&
               currentRow.nextElementSibling !== undefined &&
               currentRow.nextElementSibling ===
-                document.getElementById("detail_panel")
+              document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
@@ -2539,8 +2538,7 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${
-                wifiInfoBuffer.length
+              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length
               }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
@@ -2549,7 +2547,7 @@ function loadPage(page, options) {
               currentRow.nextElementSibling !== null &&
               currentRow.nextElementSibling !== undefined &&
               currentRow.nextElementSibling ===
-                document.getElementById("detail_panel")
+              document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
@@ -3104,6 +3102,9 @@ function loadPage(page, options) {
               .getElementById("panel_passphrase")
               .classList.add("ng-hide");
             document
+              .getElementById("panel_rekey_interval")
+              .classList.add("ng-hide");
+            document
               .getElementById("invalid_pass_error")
               .classList.add("ng-hide");
             document
@@ -3115,12 +3116,17 @@ function loadPage(page, options) {
             document
               .getElementById("upLimit_pass_error")
               .classList.add("ng-hide");
+            document
+              .getElementById("empty_rekey_error")
+              .classList.add("ng-hide");
             break;
           case "4": // WEP-64
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
-
+            document
+              .getElementById("panel_rekey_interval")
+              .classList.remove("ng-hide");
             adapt_type(
               "Key(Exactly 10 Hex digits)",
               "Enter Password web",
@@ -3142,7 +3148,9 @@ function loadPage(page, options) {
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
-
+            document
+              .getElementById("panel_rekey_interval")
+              .classList.remove("ng-hide");
             adapt_type(
               "Key(Exactly 26 Hex digits)",
               "Enter Password web",
@@ -3164,7 +3172,9 @@ function loadPage(page, options) {
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
-
+            document
+              .getElementById("panel_rekey_interval")
+              .classList.remove("ng-hide");
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
 
             checkPasswordError_inputField(
@@ -3180,7 +3190,9 @@ function loadPage(page, options) {
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
-
+            document
+              .getElementById("panel_rekey_interval")
+              .classList.remove("ng-hide");
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
 
             checkPasswordError_inputField(
@@ -3196,7 +3208,9 @@ function loadPage(page, options) {
             document
               .getElementById("panel_passphrase")
               .classList.remove("ng-hide");
-
+            document
+              .getElementById("panel_rekey_interval")
+              .classList.remove("ng-hide");
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
 
             checkPasswordError_inputField(
