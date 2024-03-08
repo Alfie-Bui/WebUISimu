@@ -716,7 +716,7 @@ and open the template in the editor.
                         <input type="text" id="PolicyName" name="PolicyName"
                           class="form-control no-margin ng-pristine ng-invalid ng-invalid-required ng-touched"
                           placeholder="Please enter policy name" required="" />
-                        <span class="error ng-binding ng-hide" id="empty_policy_name_error">* This Field is
+                        <span class="error ng-binding ng-hide commonError" id="empty_policy_name_error">* This Field is
                           Required</span>
                       </div>
                     </div>
@@ -750,7 +750,7 @@ and open the template in the editor.
                             class="startTime1 gemtek-timepick ng-pristine ng-untouched ng-invalid ng-invalid-required"
                             trigger-event="" placeholder="" type="text" data-field="time" data-startend="start"
                             data-format="HH:mm" data-startendelem=".endTime1" required="" readonly="" />
-                          <span class="error ng-hide" id="empty_start_time_error">* This Field is Required</span>
+                          <span class="error ng-hide commonError" id="empty_start_time_error">* This Field is Required</span>
                         </div>
                       </div>
                       <div class="form-group required col-xs-12 col-sm-5 text-left custom_formgroup no-padding-hr-l">
@@ -761,7 +761,7 @@ and open the template in the editor.
                             name="TimeEnd" id="TimeEnd" trigger-event="" placeholder="" type="text" data-field="time"
                             data-startend="end" data-format="HH:mm" data-startendelem=".startTime1" required=""
                             readonly="" />
-                          <span class="error ng-hide" id="empty_end_time_error">* This Field is
+                          <span class="error ng-hide commonError" id="empty_end_time_error">* This Field is
                             Required</span>
                         </div>
                       </div>
@@ -797,7 +797,7 @@ and open the template in the editor.
                           </ul>
                           <input type="hidden" id="ParentalControlDaysOfTheWeek" name="DaysOfTheWeek" required=""
                             class="ng-pristine ng-untouched ng-valid ng-valid-required" />
-                          <span class="error weekdayslist-error ng-hide" id="empty_weekdays_list">* This Field is
+                          <span class="error weekdayslist-error ng-hide commonError" id="empty_weekdays_list">* This Field is
                             Required</span>
                         </div>
                       </div>
@@ -845,9 +845,9 @@ and open the template in the editor.
                                   class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern url_input"
                                   pattern="/^[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&amp;&#39;\*\+,;=.]+$/"
                                   required="" />
-                                <span class="error ng-hide empty_url_error">* This Field is Required</span>
-                                <span class="error ng-hide format_url_error">* Allowed domain name only</span>
-                                <span class="error gemtek-d-block ng-hide">* This value already exists. Please input
+                                <span class="error commonErrorUrl ng-hide empty_url_error">* This Field is Required</span>
+                                <span class="error commonErrorUrl ng-hide format_url_error">* Allowed domain name only</span>
+                                <span class="error commonErrorUrl gemtek-d-block ng-hide">* This value already exists. Please input
                                   again.</span>
                               </ng-form>
                             </td>
@@ -891,9 +891,9 @@ and open the template in the editor.
                                 <input type="text" name="ip" id="ip_address_input"
                                   class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ip_address_input"
                                   required="" />
-                                <span class="error ng-hide empty_ip_address_error">* This Field is Required</span>
-                                <span class="error ng-hide format_ip_address_error">* Allowed IP address only</span>
-                                <span class="error gemtek-d-block ng-hide">* This value already exists. Please input
+                                <span class="error commonErrorIp ng-hide empty_ip_address_error">* This Field is Required</span>
+                                <span class="error commonErrorIp ng-hide format_ip_address_error">* Allowed IP address only</span>
+                                <span class="error commonErrorIp gemtek-d-block ng-hide">* This value already exists. Please input
                                   again.</span>
                               </ng-form>
                             </td>
@@ -938,9 +938,9 @@ and open the template in the editor.
                                 <input type="text" name="port"
                                   class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern port_input"
                                   required="" />
-                                <span class="error ng-hide empty_port_error">* This Field is Required</span>
-                                <span class="error ng-hide format_port_error">* Enter a valid port number</span>
-                                <span class="error gemtek-d-block ng-hide">* This value already exists. Please input
+                                <span class="error commonErrorPort ng-hide empty_port_error">* This Field is Required</span>
+                                <span class="error commonErrorPort ng-hide format_port_error">* Enter a valid port number</span>
+                                <span class="error commonErrorPort gemtek-d-block ng-hide">* This value already exists. Please input
                                   again.</span>
                               </ng-form>
                             </td>

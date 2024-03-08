@@ -723,16 +723,16 @@ function loadPage(page, options) {
             .classList.remove("ng-hide");
           return false;
         }
-        var onPageProtocol;
+        var onPageInterface;
         allInterfaceCheck.checked
-          ? (onPageProtocol = "All")
-          : (onPageProtocol = protocolSelect.value);
+          ? (onPageInterface = "All")
+          : (onPageInterface = interfaceSelect.value);
         for (const elem of currentRules) {
           if (
-            elem.PortRange[0] === startPort.value.toString() &&
-            elem.PortRange[1] === endPort.value.toString() &&
-            elem.Interface === interfaceSelect.value &&
-            elem.Protocol === onPageProtocol
+            elem.PortRange[0] == startPort.value.toString() &&
+            elem.PortRange[1] == endPort.value.toString() &&
+            elem.Interface === onPageInterface &&
+            elem.Protocol === protocolSelect.value
           ) {
             document
               .getElementById("duplicate_name_error")
@@ -745,12 +745,14 @@ function loadPage(page, options) {
         // step 3: check all infor
         for (const elem of currentRules) {
           if (
+            nameOfRule.value === elem.NameOfRule &&
             elem.PortRange[0] === startPort.value.toString() &&
             elem.PortRange[1] === endPort.value.toString() &&
-            elem.Protocol === onPageProtocol &&
+            elem.Interface === onPageInterface &&
             elem.IPv4 === ipv4.value &&
             elem.IPAddr === IPaddr.value &&
-            elem.Port === port.value.toString()
+            elem.Port === port.value.toString() &&
+            elem.Protocol === protocolSelect.value
           ) {
             document
               .getElementById("duplicate_name_error")
@@ -1257,9 +1259,11 @@ function loadPage(page, options) {
         };
       });
 
+      notifyErrorForSelectElement(document.getElementById('Interface'));
       document.querySelector("#Interface").onchange = function () {
         ifValid =
           document.querySelector("#Interface").value !== "?" ? true : false;
+          notifyErrorForSelectElement(document.getElementById('Interface'));
         applyBtnCheck();
       };
 
@@ -1395,9 +1399,11 @@ function loadPage(page, options) {
         };
       });
 
+      notifyErrorForSelectElement(document.getElementById('Interface'));
       document.querySelector("#Interface").onchange = function () {
         ifValidv6 =
           document.querySelector("#Interface").value !== "?" ? true : false;
+        notifyErrorForSelectElement(document.getElementById('Interface'));
         applyBtnCheckv6();
       };
 
@@ -1778,32 +1784,43 @@ function loadPage(page, options) {
       });
 
       document.querySelectorAll("select").forEach(function (select) {
+        // After reloading pages, check select field to notify suitable message
+        notifyErrorForSelectElement(select);
+        // After select changing, check select field to notify suitable message
         select.onchange = () => {
           switch (select.id) {
             case "acceptable_kmp":
               is_acceptable_kmp_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "conn_ifname":
               is_conn_ifname_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "kmp_enc_alg":
               is_kmp_enc_alg_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "kmp_hash_alg":
               is_kmp_hash_alg_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "kmp_dh_group":
               is_kmp_dh_group_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "encryption_algorithm":
               is_encryption_algorithm_valid =
                 select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "hash_algorithm":
               is_hash_algorithm_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             case "enc_dh_group":
               is_enc_dh_group_valid = select.value !== "?" ? true : false;
+              notifyErrorForSelectElement(select);
               break;
             default:
               break;

@@ -8,6 +8,7 @@ function loadPage(page, options) {
   let VoIP = JSON.parse(localStorage.getItem("VoIP"));
   var curTimeTarget = "";
   var daysOfTheWeekChanged = false;
+
   switch (page) {
     case "security-firewall.html":
       console.log(`Load ${page}`, Security.Firewall);
@@ -181,30 +182,38 @@ function loadPage(page, options) {
         });
       }
 
-      $('#ParentalControlType').change(function () {
+      $('#ParentalControlType').off('change').on('change', function () {
         var selectedType = $(this).val();
-
-        // Hide all form sections
         $('.form-section').hide();
-
-        // Show the corresponding form based on the selected type
         $('#' + selectedType + 'Form').show();
-
         console.log("selectedType", selectedType);
         if (selectedType === "url") {
-          addUrlList.addEventListener("click", () => {
+          var old_element = document.getElementById("AddUrlList");
+          var new_element = old_element.cloneNode(true);
+          old_element.parentNode.replaceChild(new_element, old_element);
+          addUrlListHandler = new_element.addEventListener("click", () => {
+            console.log("from updateHiddenInputURL");
             addDataFormList(selectedType, "");
           });
         } else if (selectedType === "ipaddress") {
-          addIpAddressList.addEventListener("click", () => {
+          var old_element = document.getElementById("AddIpAddressList");
+          var new_element = old_element.cloneNode(true);
+          old_element.parentNode.replaceChild(new_element, old_element);
+          addIpAddressListHandler = new_element.addEventListener("click", () => {
+            console.log("from updateHiddenInputIP");
             addDataFormList(selectedType, "");
           });
-        } else {
-          addPortList.addEventListener("click", () => {
+        } else if (selectedType === "port") {
+          var old_element = document.getElementById("AddPortList");
+          var new_element = old_element.cloneNode(true);
+          old_element.parentNode.replaceChild(new_element, old_element);
+          addPortListHandler = new_element.addEventListener("click", () => {
+            console.log("from updateHiddenInputPORT");
             addDataFormList(selectedType, "");
           });
         }
       });
+
 
       var addDataFormList = function (parentalControlType, elem) {
         if (parentalControlType === "url") {
@@ -470,7 +479,15 @@ function loadPage(page, options) {
       initEventPT();
 
       document.getElementById("Apply").addEventListener("click", () => {
-        if (checkError_show(document.querySelectorAll(".error"))) {
+        var checkErrorDataFormTable = false;
+        if (ParentalControlType.value === "url") {
+          checkErrorDataFormTable = checkError_show(document.querySelectorAll(".commonErrorUrl"));
+        } else if (ParentalControlType.value === "ipaddress") {
+          checkErrorDataFormTable = checkError_show(document.querySelectorAll(".commonErrorIp"));
+        } else if (ParentalControlType.value === "port") {
+          checkErrorDataFormTable = checkError_show(document.querySelectorAll(".commonErrorPort"));
+        }
+        if (checkError_show(document.querySelectorAll(".commonError")) && checkErrorDataFormTable) {
           filledData.EnableParentalControlRule =
             EnableParentalControlRule.checked;
           filledData.PolicyName = PolicyName.value;

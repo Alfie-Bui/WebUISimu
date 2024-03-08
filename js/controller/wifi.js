@@ -1530,7 +1530,6 @@ function loadPage(page, options) {
       var channelBWSelect = document.getElementById(
         "OperatingChannelBandwidth"
       );
-
       var advertiseSSID = document.getElementById("SSIDAdvertisementEnabled");
       var wmm = document.getElementById("WMMCapability");
       var wmmps = document.getElementById("UAPSDEnable");
@@ -1697,14 +1696,6 @@ function loadPage(page, options) {
           optionElement.label = avaiBW[avaiBW.length - 1];
           optionElement.textContent = avaiBW[avaiBW.length - 1];
           channelBWSelect.appendChild(optionElement);
-
-          document
-            .getElementById("channel_bw_select")
-            .classList.remove("ng-hide");
-          checkError_selectField(
-            channelBWSelect,
-            document.getElementById("select_bw_error")
-          );
         } else {
           for (var i = 0; i < avaiBW.length; i++) {
             var optionElement = document.createElement("option");
@@ -1713,14 +1704,15 @@ function loadPage(page, options) {
             optionElement.textContent = avaiBW[i];
             channelBWSelect.appendChild(optionElement);
           }
-          document
-            .getElementById("channel_bw_select")
-            .classList.remove("ng-hide");
-          checkError_selectField(
-            channelBWSelect,
-            document.getElementById("select_bw_error")
-          );
         }
+        channelBWSelect.value = filledData.Configuration.ChannelBandwidth;
+        document
+          .getElementById("channel_bw_select")
+          .classList.remove("ng-hide");
+        checkError_selectField(
+          channelBWSelect,
+          document.getElementById("select_bw_error")
+        );
       };
 
       var initEvent = () => {
@@ -1868,7 +1860,6 @@ function loadPage(page, options) {
           channelSelect.disabled = false;
         }
 
-        channelBWSelect.value = filledData.Configuration.ChannelBandwidth;
         filledData.Configuration.AdvertiseSSID
           ? advertiseSSID.classList.add("checked")
           : advertiseSSID.classList.remove("checked");
@@ -3285,9 +3276,11 @@ function loadPage(page, options) {
       });
 
       document.getElementById("Apply").addEventListener("click", () => {
+        if (securityType.value === "0") {
+          empty_rekey_error.classList.add("ng-hide");
+        }
         if (checkError_show(document.querySelectorAll(".error"))) {
           filledData.WirelessBand = wifiRadio.value;
-          // check duplicate SSID at Add (edit flag = false) & Edit (edit flag = true
           if (
             (onEditFlag === true && ssidName.value != filledData.SSID) ||
             onEditFlag === false

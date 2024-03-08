@@ -421,3 +421,17 @@ function getRandomFloat(min, max, decimals) {
 
   return parseFloat(str);
 }
+
+function notifyErrorForSelectElement(selectElement) {
+  let notifySuffix = '_notify';
+  let errorSpan = document.getElementById(selectElement.id + notifySuffix);
+  if (!errorSpan) {
+    console.log(selectElement.id + notifySuffix)
+    errorSpan = document.createElement("span");
+    errorSpan.id = selectElement.id + "_notify";
+    errorSpan.style.color = "#ff8b7c";
+    // Create span element below select element
+    selectElement.parentNode.insertBefore(errorSpan, selectElement.nextSibling);
+  }
+  errorSpan.innerHTML = (selectElement.value === '?') ? "* This field is required!" : "";
+}
