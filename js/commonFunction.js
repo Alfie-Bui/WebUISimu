@@ -409,3 +409,15 @@ function checkError_show() {
   }
   return true;
 }
+
+
+/**
+ * Generate a random float
+ */
+function getRandomFloat(min, max, decimals) {
+  const str = (Math.random() * (max - min) + min).toFixed(
+    decimals,
+  );
+
+  return parseFloat(str);
+}

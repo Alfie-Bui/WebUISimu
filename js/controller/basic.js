@@ -325,7 +325,9 @@ function loadPage(page, options) {
           parseInt(endComponents[3]) <= 0 ||
           parseInt(endComponents[3]) >= 255
         ) {
-          alertDialogHandle("Invalid Device IP address, Begin address or End address!");
+          alertDialogHandle(
+            "Invalid Device IP address, Begin address or End address!"
+          );
           return false;
         }
 
@@ -1542,12 +1544,6 @@ function loadPage(page, options) {
               elemAfterChange.SubnetMask = subnetMask.value;
               elemAfterChange.GatewayAddressStatic = gatewayStatic.value;
 
-              if (enableDefaultGW.checked === true) {
-                var ipComponents = ipaddressStatic.value.split(".");
-                ipComponents[3] = "1";
-                elemAfterChange.DefaultGateway = ipComponents.join("."); // <3 first octets>.1
-              } else elemAfterChange.DefaultGateway = "";
-
               elemAfterChange.IPv4DNSServer = []; // clear
               for (const elem of v4DNSlist.querySelectorAll(".DNSServer")) {
                 elemAfterChange.IPv4DNSServer.push(elem.value);
@@ -1557,7 +1553,6 @@ function loadPage(page, options) {
               elemAfterChange.EnableIPv6 = enablev6.checked;
               if (enablev6.checked === true) {
                 elemAfterChange.IPv6.IPv6Address = ipaddressStaticv6.value;
-                elemAfterChange.IPv6.v6DefaultGateway = gatewayStaticv6.value;
                 //
                 elemAfterChange.IPv6.IPv6AddressStatic =
                   ipaddressStaticv6.value;
@@ -1568,6 +1563,18 @@ function loadPage(page, options) {
                 for (const elem of v6DNSlist.querySelectorAll(".DNSServerv6")) {
                   elemAfterChange.IPv6.IPv6DNSServer.push(elem.value);
                 }
+              }
+
+              if (enableDefaultGW.checked === true) {
+                var ipComponents = ipaddressStatic.value.split(".");
+                ipComponents[3] = "1";
+                elemAfterChange.DefaultGateway = ipComponents.join("."); // <3 first octets>.1
+
+                // v6 Default GW
+                elemAfterChange.IPv6.v6DefaultGateway = "fe80::e0:92ff:fe00:141";
+              } else {
+                elemAfterChange.DefaultGateway = "";
+                elemAfterChange.IPv6.v6DefaultGateway = "";
               }
             } else {
               console.log("Basic.WAN.addWAN: Apply Static fail");

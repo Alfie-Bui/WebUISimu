@@ -3,7 +3,7 @@ var intervalID;
 /*
  * Echarts myChart1: default style line chart here
  */
-function draw_chart(lower_limit, upper_limit, stopSignal) {
+function draw_chart(lower_limit, upper_limit, stopSignal, initPage) {
   if (stopSignal) {
     clearInterval(intervalID);
   }
@@ -253,7 +253,7 @@ function draw_chart(lower_limit, upper_limit, stopSignal) {
   echarts.connect("group1");
 
   // if stop signal --> just init, do not take data
-  if (stopSignal) {
+  if (stopSignal || initPage) {
     return;
   }
 
@@ -267,23 +267,16 @@ function draw_chart(lower_limit, upper_limit, stopSignal) {
   let pingAvg;
   let uploadAvg;
   function getData() {
-    console.log(`Count: ${count}`);
-    count++;
-
     let paramValue;
 
     if (count <= 150) {
-      paramValue = Math.floor(
-        Math.random() * (upper_limit - lower_limit) + lower_limit
-      );
+      paramValue = getRandomFloat(lower_limit, upper_limit, 2);
 
       downloadData.push(paramValue);
       pingData.push(paramValue);
       updateData("download", downloadData, paramValue, count);
     } else if (count > 150 && count <= 300) {
-      paramValue = Math.floor(
-        Math.random() * (upper_limit - lower_limit) + lower_limit
-      );
+      paramValue = getRandomFloat(lower_limit, upper_limit, 2);
 
       if (count === 151) {
         // fill average value to 'DOWNLOAD Mbps' after download test finish
@@ -313,6 +306,9 @@ function draw_chart(lower_limit, upper_limit, stopSignal) {
       document.getElementById("stopBtn").classList.add("ng-hide");
       document.getElementById("restartBtn").classList.remove("ng-hide");
     }
+
+    console.log(`Count: ${count} --- ${paramValue}`);
+    count += 1;
   }
 
   intervalID = setInterval(getData, INTERVAL);

@@ -137,6 +137,7 @@
         opacity: 0.5;
       }
     </style>
+
     <!-- Add other stylesheets and scripts as needed -->
     <script src="./js/storage.js"></script>
     <script src="./js/template.js"></script>
@@ -206,7 +207,10 @@
       f.style.display = "none";
 
       function login() {
-        if (username.value === userNamefromLS && password.value === passwordFromLS) {
+        if (
+          username.value === userNamefromLS &&
+          password.value === passwordFromLS
+        ) {
           window.location = "main.html";
         } else {
           f.style.display = "block";
