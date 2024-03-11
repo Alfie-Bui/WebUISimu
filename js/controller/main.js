@@ -50,7 +50,7 @@ function loadPage(page, options) {
             var fillData = () => {
                 manufacturer.textContent = Status.Status.Manufacturer;
                 serialNumber.textContent = Status.Status.SerialNumber;
-                softwareVersion.textContent = Status.Status.SoftwareVersion;
+                softwareVersion.textContent = SIMULATOR_VERSION;
                 modelName.textContent = Status.Status.ModelName;
                 hardwareVersion.textContent = Status.Status.HardwareVersion;
                 protocol.textContent = Basic.WAN.Interfaces[0].ConnectionType;

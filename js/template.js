@@ -380,7 +380,7 @@ const template = {
   },
   Account: {
     UserName: "admin",
-    Password: "Gemtek@123",
+    Password: "Gemtek@SimulateDemo886+84!",
   },
 };
 

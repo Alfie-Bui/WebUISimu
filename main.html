@@ -1147,6 +1147,16 @@
                         ng-repeat="obj in objects track by $index"
                         class="ng-scope"
                       >
+                        <li class="ng-scope">
+                          <label>
+                            <span class="ng-binding">Software Version</span>
+                            <span
+                              class="ng-binding"
+                              id="SoftwareVersion"
+                            ></span>
+                          </label>
+                        </li>
+                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
                         <!-- ngRepeat: key in obj| keys1 track by $index -->
                         <li
                           ng-repeat="key in obj| keys1 track by $index"
@@ -1162,16 +1172,6 @@
                           <label>
                             <span class="ng-binding">Serial Number</span>
                             <span class="ng-binding" id="SerialNumber"></span>
-                          </label>
-                        </li>
-                        <!-- end ngRepeat: key in obj| keys1 track by $index -->
-                        <li class="ng-scope">
-                          <label>
-                            <span class="ng-binding">Software Version</span>
-                            <span
-                              class="ng-binding"
-                              id="SoftwareVersion"
-                            ></span>
                           </label>
                         </li>
                         <!-- end ngRepeat: key in obj| keys1 track by $index -->

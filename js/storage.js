@@ -25,11 +25,17 @@ function checkVersion() {
   if (
     localStorage.length === 0 ||
     localStorage.getItem("VERSION") === null ||
-    localStorage.getItem("VERSION") !== SIMULATOR_VERSION
+    localStorage.getItem("VERSION") === undefined
   ) {
-    console.log(`Update DB to newest version: ${SIMULATOR_VERSION}`);
+    console.log(`Load DB at new device. Version: ${SIMULATOR_VERSION}`);
     initLS();
     localStorage.setItem("VERSION", SIMULATOR_VERSION);
+  } else  {
+    console.log(
+      `Version: ${SIMULATOR_VERSION}`
+    );
+    localStorage.setItem("VERSION", SIMULATOR_VERSION);
+    localStorage.setItem("Account", JSON.stringify(template.Account));
   }
 }
 
@@ -250,39 +256,41 @@ function applyThenStoreToLS(page, option, change_entity) {
 }
 
 function manageJSONData(keyJSON, jsonPath, data, option) {
-  const pathArray = jsonPath.split('.');
+  const pathArray = jsonPath.split(".");
   let currentObject = keyJSON;
 
   for (let i = 0; i < pathArray.length - 1; i++) {
-      const key = pathArray[i];
-      currentObject[key] = currentObject[key] ?? {};
-      currentObject = currentObject[key];
+    const key = pathArray[i];
+    currentObject[key] = currentObject[key] ?? {};
+    currentObject = currentObject[key];
   }
 
-  if (option === 'add') {
-      // Add new data
-      currentObject[pathArray[pathArray.length - 1]] = data;
-  } else if (option === 'delete') {
-      // Delete data and update indexes
-      const deletedIndex = pathArray[pathArray.length - 1];
-      delete currentObject[deletedIndex];
+  if (option === "add") {
+    // Add new data
+    currentObject[pathArray[pathArray.length - 1]] = data;
+  } else if (option === "delete") {
+    // Delete data and update indexes
+    const deletedIndex = pathArray[pathArray.length - 1];
+    delete currentObject[deletedIndex];
 
-      // Update indexes if the deleted entry was not the last one
-      const remainingIndexes = Object.keys(currentObject).map(Number).sort((a, b) => a - b);
-      for (let i = 0; i < remainingIndexes.length; i++) {
-          const currentIndex = remainingIndexes[i];
-          if (currentIndex !== i) {
-              currentObject[i] = currentObject[currentIndex];
-              delete currentObject[currentIndex];
-          }
+    // Update indexes if the deleted entry was not the last one
+    const remainingIndexes = Object.keys(currentObject)
+      .map(Number)
+      .sort((a, b) => a - b);
+    for (let i = 0; i < remainingIndexes.length; i++) {
+      const currentIndex = remainingIndexes[i];
+      if (currentIndex !== i) {
+        currentObject[i] = currentObject[currentIndex];
+        delete currentObject[currentIndex];
       }
+    }
 
-      // Update the NumberOfEntries property if it exists
-      if (currentObject.NumberOfEntries !== undefined) {
-          currentObject.NumberOfEntries = Object.keys(currentObject).length - 1;
-      }
+    // Update the NumberOfEntries property if it exists
+    if (currentObject.NumberOfEntries !== undefined) {
+      currentObject.NumberOfEntries = Object.keys(currentObject).length - 1;
+    }
   } else {
-      // Handle invalid option
-      console.error('Invalid option. Use "add" or "delete".');
+    // Handle invalid option
+    console.error('Invalid option. Use "add" or "delete".');
   }
 }
