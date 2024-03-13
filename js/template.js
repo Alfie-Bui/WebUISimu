@@ -82,7 +82,7 @@ const template = {
       IPv4Configuration: {
         DeviceIPAddress: "192.168.1.1",
         SubnetMask: "255.255.255.0",
-        DHCPMode: 1,
+        DHCPMode: 0,
         BeginAddress: "192.168.1.2",
         EndAddress: "192.168.1.254",
         LeaseTime: 1,
