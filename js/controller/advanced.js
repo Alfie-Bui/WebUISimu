@@ -227,7 +227,7 @@ function loadPage(page, options) {
 
         // if Enable --> take IP of WAN interface
         if (enaCWMP.checked === true) {
-          connectionRequestURL.value =  Basic.WAN.Interfaces[parseInt(localWANInterfaceSelect.value)].IPAddress;
+          connectionRequestURL.value =  `http://${Basic.WAN.Interfaces[parseInt(localWANInterfaceSelect.value)].IPAddress}:7547/`
         }
 
         acsUrl.value = Advanced.DeviceManagement.ACSURL;
