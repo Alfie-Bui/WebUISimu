@@ -1552,13 +1552,28 @@ function loadPage(page, options) {
               // v6 fill
               elemAfterChange.EnableIPv6 = enablev6.checked;
               if (enablev6.checked === true) {
-                elemAfterChange.IPv6.IPv6Address = ipaddressStaticv6.value;
-                //
-                elemAfterChange.IPv6.IPv6AddressStatic =
-                  ipaddressStaticv6.value;
-                elemAfterChange.IPv6.Prefix = parseInt(prefixStaticv6.value);
-                elemAfterChange.IPv6.v6GatewayAddressStatic =
-                  gatewayStaticv6.value;
+                // validate IPv6, at case Multicast or 0::0
+                if (
+                  INVALID_IPv6_MULTICAST.test(ipaddressStaticv6.value) ||
+                  INVALID_IPv6_NOIP.test(ipaddressStaticv6.value) ||
+                  INVALID_IPv6_MULTICAST.test(gatewayStaticv6.value) ||
+                  INVALID_IPv6_NOIP.test(gatewayStaticv6.value)
+                ) {
+                  console.log(
+                    "Invalid IPv6 address, not accept 0::0 or Multicast"
+                  );
+                  elemAfterChange.IPv6.IPv6Address = "";
+                  elemAfterChange.IPv6.IPv6AddressStatic = "";
+                  elemAfterChange.IPv6.Prefix = "";
+                  elemAfterChange.IPv6.v6GatewayAddressStatic = "";
+                } else {
+                  elemAfterChange.IPv6.IPv6Address = ipaddressStaticv6.value;
+                  elemAfterChange.IPv6.IPv6AddressStatic =
+                    ipaddressStaticv6.value;
+                  elemAfterChange.IPv6.Prefix = parseInt(prefixStaticv6.value);
+                  elemAfterChange.IPv6.v6GatewayAddressStatic =
+                    gatewayStaticv6.value;
+                }
                 elemAfterChange.IPv6.IPv6DNSServer = [];
                 for (const elem of v6DNSlist.querySelectorAll(".DNSServerv6")) {
                   elemAfterChange.IPv6.IPv6DNSServer.push(elem.value);
@@ -1571,7 +1586,8 @@ function loadPage(page, options) {
                 elemAfterChange.DefaultGateway = ipComponents.join("."); // <3 first octets>.1
 
                 // v6 Default GW
-                elemAfterChange.IPv6.v6DefaultGateway = "fe80::e0:92ff:fe00:141";
+                elemAfterChange.IPv6.v6DefaultGateway =
+                  "fe80::e0:92ff:fe00:141";
               } else {
                 elemAfterChange.DefaultGateway = "";
                 elemAfterChange.IPv6.v6DefaultGateway = "";
