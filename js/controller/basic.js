@@ -1538,6 +1538,19 @@ function loadPage(page, options) {
             );
 
             if (common_apply_flag && static_apply_flag) {
+              //check if Static IP address already use
+              for (const elem of Basic.WAN.Interfaces) {
+                if (
+                  elem.IPAddress === ipaddressStatic.value &&
+                  elem.VLAN === vlan_input.value
+                ) {
+                  alertDialogHandle(
+                    "IP address has already existed on other WAN interface. Please try a new one !"
+                  );
+                  return;
+                }
+              }
+
               // if no error --> wrap data in the page to store
               elemAfterChange.IPAddress = ipaddressStatic.value;
               elemAfterChange.IPAddressStatic = ipaddressStatic.value;
@@ -1664,26 +1677,49 @@ function loadPage(page, options) {
             );
 
             if (common_apply_flag && dhcp_apply_flag) {
-              // if no error --> wrap data in the page to store
-              var hostPart = Math.floor(Math.random() * 254) + 1; // Generates a random integer between 1 and 254
-              elemAfterChange.IPAddress = `192.168.99.${hostPart.toString()}`;
-              elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
+              // if add new interface --> create new IP, else on Edit, no change IP address
+              if (addNew_flag || vlan_input.value !== elemAfterChange.VLAN) {
+                function genIPv4() {
+                  // if no error --> wrap data in the page to store
+                  var hostPart = Math.floor(Math.random() * 254) + 1; // Generates a random integer between 1 and 254
+                  if (enableVLAN.checked === true)
+                    // gen IP address by hash VLAN
+                    return (elemAfterChange.IPAddress = `${
+                      parseInt(vlan_input.value / 1024) + 172
+                    }.${parseInt(vlan_input.value / 254) + 168}.${
+                      vlan_input.value % 254
+                    }.${hostPart}`); // IP at C class
+                  return `192.168.99.${hostPart.toString()}`;
+                }
+                var valid_IPv4 = "";
+                var dupCount = 0; // count duplicate, (dupCount = 1 mean it duplicate to itself, so actual duplicate when dupCount = 2)
 
-              console.log(`${elemAfterChange.VLAN} --- ${vlan_input.value}`);
-              if (enableVLAN.checked === true)
-                // try to gen unique IP address (but relate to VLAN as a hash)
-                elemAfterChange.IPAddress = `${
-                  parseInt(vlan_input.value / 1024) + 172
-                }.${parseInt(vlan_input.value / 254) + 168}.${
-                  vlan_input.value % 254
-                }.${hostPart}`;
+                do {
+                  valid_IPv4 = genIPv4();
+                  dupCount = 0;
+                  //check if IP address already use
+                  for (const elem of Basic.WAN.Interfaces) {
+                    // check duplicate IP on same VLAN
+                    if (
+                      elem.IPAddress === valid_IPv4 &&
+                      elem.VLAN === vlan_input.value
+                    ) {
+                      dupCount += 1;
+                    }
+                  }
+                } while (2 === dupCount);
+
+                elemAfterChange.IPAddress = valid_IPv4;
+                elemAfterChange.IPv6.IPv6Address = generateIPv6WANAddress();
+              }
 
               if (enableDefaultGW.checked === true) {
                 // if default gateway v4
                 elemAfterChange.DefaultGateway = "192.168.99.1";
                 if (enableVLAN.checked === true)
-                  elemAfterChange.DefaultGateway =
-                    elemAfterChange.IPAddress.replace(`${hostPart}`, "1");
+                  var currentIP = elemAfterChange.IPAddress.split(".");
+                currentIP[3] = "1"; // because we create IP of VLAN at C class
+                elemAfterChange.DefaultGateway = currentIP.join(".");
 
                 // v6
                 elemAfterChange.IPv6.v6DefaultGateway =
