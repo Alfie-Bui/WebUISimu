@@ -1081,7 +1081,6 @@ function loadPage(page, options) {
       break;
     case "advanced-static_routing.html":
       console.log(`Load ${page}`, Advanced.StaticRouting);
-
       // Function to create a new table row with the provided data
       function createNewRow(data, option, idx) {
         // Create a new table row
@@ -1177,6 +1176,7 @@ function loadPage(page, options) {
 
       break;
     case "advanced-static_routing-add.html":
+      loadWanInterfaceToSelect(document.querySelector('#Interface'));
       console.log(`Load ${page}`, Advanced.StaticRouting);
 
       let destIPValid = false;
@@ -1335,6 +1335,7 @@ function loadPage(page, options) {
       break;
     case "advanced-static_routing-ipv6Config-add.html":
       console.log(`Load ${page}`, Advanced.StaticRouting);
+      loadWanInterfaceToSelect(document.querySelector('#Interface'));
 
       let destIPValidv6 = false;
       let destGWValidv6 = false;
@@ -1560,7 +1561,7 @@ function loadPage(page, options) {
       break;
     case "advanced-vpn-add.html":
       console.log(`Load ${page}`, Advanced.vpn);
-
+      loadWanInterfaceToSelect(document.querySelector('#conn_ifname'));
       let is_tunnel_name_valid = false;
       let is_openwrtipsecremotepre_shared_key_valid = false;
       let is_acceptable_kmp_valid = false;

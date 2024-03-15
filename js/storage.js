@@ -30,10 +30,9 @@ function checkVersion() {
     console.log(`Load DB at new device. Version: ${SIMULATOR_VERSION}`);
     initLS();
     localStorage.setItem("VERSION", SIMULATOR_VERSION);
-  } else  {
-    console.log(
-      `Version: ${SIMULATOR_VERSION}`
-    );
+  } else {
+    console.log(`Version: ${SIMULATOR_VERSION}`);
+    // initLS();
     localStorage.setItem("VERSION", SIMULATOR_VERSION);
     localStorage.setItem("Account", JSON.stringify(template.Account));
   }

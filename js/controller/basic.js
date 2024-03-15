@@ -539,12 +539,12 @@ function loadPage(page, options) {
       } else {
         // if add New interface --> make prototype
         addNew_flag = true;
-        var current_wan_interfaces = Basic.WAN.Interfaces.map(
-          (obj) => obj.Name
+        var current_wan_interfaces = Basic.WAN.Interfaces.map((obj) =>
+          obj.Name.replace(/_.*_/, "_")
         );
         var remain_in_pool = WAN_INTERFACE_POOL.filter(
           (cinterface) => !current_wan_interfaces.includes(cinterface)
-        ); // make new interface name
+        ); // retrieve available interfaces name
         filledData = {
           Name: remain_in_pool[0],
           SelectionMode: "ETH",
@@ -1469,6 +1469,11 @@ function loadPage(page, options) {
         /** Check Error at common field */
         if (enableVLAN.checked === true) {
           elemAfterChange.VLAN = vlan_input.value;
+          if (/_.*_/.test(elemAfterChange.Name)){
+            elemAfterChange.Name = filledData.Name.replace(/_.*_/, `_${vlan_input.value}_`);
+          } else {
+            elemAfterChange.Name = filledData.Name.replace("_", `_${vlan_input.value}_`);
+          }
           common_apply_flag &= checkError_show(
             document.querySelectorAll(".vlan_error")
           );
@@ -1777,13 +1782,13 @@ function loadPage(page, options) {
             return;
         }
         if (addNew_flag) {
-          // if Add button --> push new element instead off modify
+          // if Add button --> push new element instead of modify
           const oldLength = Basic.WAN.Interfaces.length;
           var tempIndex = -1;
           for (var i = 0; i < Basic.WAN.Interfaces.length; i++) {
             if (
-              parseInt(elemAfterChange.Name.match(/\d+/g)[1]) >
-              parseInt(Basic.WAN.Interfaces[i].Name.match(/\d+/g)[1])
+              parseInt(elemAfterChange.Name.match(/\d+$/g)[0]) >
+              parseInt(Basic.WAN.Interfaces[i].Name.match(/\d+$/g)[0])
             ) {
               tempIndex = i;
             }
@@ -1831,7 +1836,7 @@ function loadPage(page, options) {
         const deleteBtn = tr.querySelector(".DeleteBtn");
 
         // fill data
-        nameCell.textContent = elem.Name.replace("_", `_${elem.VLAN}_`);
+        nameCell.textContent = elem.Name;
         connectiomTypeCell.textContent = elem.SelectionMode;
         iPAddressCell.textContent = elem.IPAddress;
         if (elem.Actions === false) {

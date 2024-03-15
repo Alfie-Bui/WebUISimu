@@ -5,7 +5,7 @@
  */
 
 const SIMULATOR_VERSION =
-  "GemtekWeb_t03_08Mar24"; /* Release version and tag tracking */
+  "GemtekWeb_v01_15Mar24"; /* Release version and tag tracking */
 
 /**
  *
@@ -17,7 +17,6 @@ const template = {
     Status: {
       Manufacturer: "Gemtek",
       SerialNumber: "BWT230512002202",
-      SoftwareVersion: "GemtekSW-v0.8.6-0854-14Nov23",
       ModelName: "TB-362",
       HardwareVersion: "PRX300 rev 1.2, PRX321-HGU-11AX",
       SubnetMask: "255.255.255.0",
@@ -152,39 +151,6 @@ const template = {
             MACAddressFilter: [],
           },
         },
-
-        {
-          WPSEnabled: false,
-          RekeyInterval: "3600",
-          Maxconnected: "255",
-          BridgeName: "br-lan",
-          Configuration: {
-            EnableRadio: true,
-            AutoChannel: true,
-            OperationMode: 4,
-            Channel: 1,
-            ChannelBandwidth: 2,
-            AdvertiseSSID: true,
-            WMM: true,
-            WMMPS: true,
-            APIsolation: false,
-            SSID: "GEMTEK2",
-            SecurityType: 1,
-            Passphrase: "wifi_password2",
-            DTIM: 2,
-            BeaconInterval: 100,
-            PowerScale: 12,
-            EnableCoExistence: true,
-          },
-          WDS: {
-            WDSMode: 0,
-            MACAddress: [],
-          },
-          MACFiltering: {
-            ACLMode: 0,
-            MACAddressFilter: [],
-          },
-        },
       ],
     },
     "5G": {
@@ -205,7 +171,7 @@ const template = {
             WMM: true,
             WMMPS: true,
             APIsolation: false,
-            SSID: "GEMTEK5_1",
+            SSID: "GEMTEK5G",
             SecurityType: 3,
             Passphrase: "wifi_password2",
             DTIM: 2,
@@ -255,7 +221,7 @@ const template = {
     DeviceManagement: {
       EnaCWMP: true,
       LocalWANInterface: 0,
-      ACSURL: "http://192.168.99.100:3000",
+      ACSURL: "http://192.168.99.100:7547",
       ACSUsername: "admin",
       ACSPassword: "admin",
       ConnectionReqUsername: "admin",

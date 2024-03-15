@@ -435,3 +435,47 @@ function notifyErrorForSelectElement(selectElement) {
   }
   errorSpan.innerHTML = (selectElement.value === '?') ? "* This field is required!" : "";
 }
+
+function loadWanInterfaceToSelect(selectElement) {
+  // Get WAN interfaces from Local Storage
+  const localStorageData = localStorage.getItem('Basic');
+  if (!localStorageData) {
+      console.error("No WAN interfaces found in Local Storage");
+      return;
+  }
+
+  try {
+      const jsonData = JSON.parse(localStorageData);
+      const wanInterfaces = jsonData.WAN.Interfaces;
+
+      // Clear select element before populating with options
+      selectElement.innerHTML = '';
+
+      // Create default option
+      let defaultOption = document.createElement('option');
+      defaultOption.value = "?";
+      defaultOption.selected = true;
+      defaultOption.label = "Select";
+      defaultOption.textContent = "Select";
+      selectElement.appendChild(defaultOption);
+
+      if (selectElement.id === 'Interface') {
+        defaultOption = document.createElement('option');
+        defaultOption.value = "br-lan";
+        defaultOption.selected = false;
+        defaultOption.label = "br-lan";
+        defaultOption.textContent = "br-lan";
+        selectElement.appendChild(defaultOption);
+      }
+      // Create and append options for each WAN interface
+      wanInterfaces.forEach(interface => {
+          const option = document.createElement('option');
+          option.value = interface.Name;
+          option.label = interface.Name;
+          option.textContent = interface.Name;
+          selectElement.appendChild(option);
+      });
+  } catch (error) {
+      console.error("Error parsing WAN interface data from Local Storage:", error);
+  }
+}
