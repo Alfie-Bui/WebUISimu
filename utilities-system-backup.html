@@ -697,6 +697,20 @@
                   <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-qos.html"
+                    type="tableform"
+                    title="QoS"
+                  >
+                    <span class="mm-text ng-binding">QoS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
               </ul>
             </li>
             <!-- end ngRepeat: post in posts.menu -->
@@ -871,12 +885,7 @@
 
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
-        <div
-          data-ng-view="true"
-          id="dataView"
-          translate-cloak=""
-          class="ng-scope"
-        >
+        <div id="dataView" class="ng-scope">
           <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -978,10 +987,7 @@ and open the template in the editor.
           </div>
           <!--Breadscrumbs ends here -->
           <div class="subheader ng-scope">
-            <p
-              ng-bind="&#39;adminactions.backupheaderdescription&#39;| translate"
-              class="ng-binding"
-            >
+            <p class="ng-binding">
               It allows you to manage user accounts, enable your device to
               synchronize the system time with time servers, customize logging
               the messages to file/remote, backup system’s configurations, and
@@ -990,13 +996,13 @@ and open the template in the editor.
           </div>
           <div class="panel ng-scope">
             <ul class="nav nav-tabs gemtek-tab">
-              <li ng-class='{&#39;active&#39;: currentTab === "userview"}'>
+              <li>
                 <a href="utilities-system-user_mgnt.html">User Management</a>
               </li>
-              <li ng-class='{&#39;active&#39;: currentTab === "ntpviewform"}'>
+              <li>
                 <a href="utilities-system-time.html">System Time</a>
               </li>
-              <li ng-class='{&#39;active&#39;: currentTab === "logdview"}'>
+              <li>
                 <a href="utilities-system-log_rule.html">System Log Rule</a>
               </li>
               <li class="active">
@@ -1004,101 +1010,47 @@ and open the template in the editor.
               </li>
             </ul>
 
-            <div
-              class="backuprestore ng-scope"
-              ng-controller="backupRestoreController"
-            >
-              <div class="row ng-hide" ng-show="backupformnamepopup">
+            <div class="backuprestore ng-scope">
+              <div class="row ng-hide">
                 <div class="alert alert-danger">
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click="popupclose(&#39;backupformnamepopup&#39;)"
-                    >×</a
-                  >
+                  <a class="close" aria-label="close">×</a>
                   <strong class="ng-binding">Warning!</strong
-                  ><span
-                    ng-bind="backupformnamepopupval"
-                    class="ng-binding"
-                  ></span>
+                  ><span class="ng-binding"></span>
                 </div>
               </div>
-              <div
-                class="row ng-hide"
-                ng-show="DeviceX_LANTIQ_COM_Upgradepopup"
-              >
+              <div class="row ng-hide">
                 <div class="alert alert-danger">
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click="popupclose(&#39;DeviceX_LANTIQ_COM_Upgradepopup&#39;)"
-                    >×</a
-                  >
+                  <a class="close" aria-label="close">×</a>
                   <strong class="ng-binding">Warning!</strong
-                  ><span
-                    ng-bind="DeviceX_LANTIQ_COM_Upgradepopupval"
-                    class="ng-binding"
-                  ></span>
+                  ><span class="ng-binding"></span>
                 </div>
               </div>
-              <div
-                class="row ng-hide"
-                ng-show="DeviceX_LANTIQ_COM_UpgradeUpgradeLatestUpgrade1popup"
-              >
+              <div class="row ng-hide">
                 <div class="alert alert-danger">
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click="popupclose(&#39;DeviceX_LANTIQ_COM_UpgradeUpgradeLatestUpgrade1popup&#39;)"
-                    >×</a
-                  >
+                  <a class="close" aria-label="close">×</a>
                   <strong class="ng-binding">Warning!</strong
-                  ><span
-                    ng-bind="DeviceX_LANTIQ_COM_UpgradeUpgradeLatestUpgrade1popupval"
-                    class="ng-binding"
-                  ></span>
+                  ><span class="ng-binding"></span>
                 </div>
               </div>
-              <div class="row ng-hide" ng-show="fileuploadformnamepopup">
+              <div class="row ng-hide">
                 <div class="alert alert-danger">
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click="popupclose(&#39;fileuploadformnamepopup&#39;)"
-                    >×</a
-                  >
+                  <a class="close" aria-label="close">×</a>
                   <strong class="ng-binding">Warning!</strong
-                  ><span
-                    ng-bind="fileuploadformnamepopupval"
-                    class="ng-binding"
-                  ></span>
+                  ><span class="ng-binding"></span>
                 </div>
               </div>
-              <div class="row ng-hide" ng-show="checkforupdatepopup">
+              <div class="row ng-hide">
                 <div class="alert alert-danger">
-                  <a
-                    class="close"
-                    aria-label="close"
-                    ng-click="popupclose(&#39;checkforupdatepopup&#39;)"
-                    >×</a
-                  >
+                  <a class="close" aria-label="close">×</a>
                   <strong class="ng-binding">Warning!</strong
-                  ><span ng-bind="checkforupdateval" class="ng-binding"></span>
+                  ><span class="ng-binding"></span>
                 </div>
               </div>
               <div class="no-padding-hr">
-                <div
-                  class="rebootandfactoryreset ng-scope"
-                  ng-controller="rebootFactoryResetController"
-                >
+                <div class="rebootandfactoryreset ng-scope">
                   <div class="row ng-hide" ng-show="rebootformnamepopup">
                     <div class="alert alert-danger">
-                      <a
-                        class="close"
-                        aria-label="close"
-                        ng-click="popupclose(&#39;rebootformnamepopup&#39;)"
-                        >×</a
-                      >
+                      <a class="close" aria-label="close">×</a>
                       <strong class="ng-binding">Warning!</strong
                       ><span
                         ng-bind="rebootformnamepopupval"
@@ -1106,19 +1058,11 @@ and open the template in the editor.
                       ></span>
                     </div>
                   </div>
-                  <div class="row ng-hide" ng-show="factoryresetformnamepopup">
+                  <div class="row ng-hide">
                     <div class="alert alert-danger">
-                      <a
-                        class="close"
-                        aria-label="close"
-                        ng-click="popupclose(&#39;factoryresetformnamepopup&#39;)"
-                        >×</a
-                      >
+                      <a class="close" aria-label="close">×</a>
                       <strong class="ng-binding">Warning!</strong
-                      ><span
-                        ng-bind="factoryresetformnamepopupval"
-                        class="ng-binding"
-                      ></span>
+                      ><span class="ng-binding"></span>
                     </div>
                   </div>
                   <div class="backup-panel">
@@ -1136,11 +1080,7 @@ and open the template in the editor.
                             value="Reboot"
                             ng-click="Reboot($event)"
                           >
-                            <span
-                              class="ng-binding"
-                              ng-bind="&#39;adminactions.Reboot&#39; | translate"
-                              >Reboot</span
-                            >
+                            <span class="ng-binding">Reboot</span>
                           </button>
                           <button
                             class="waves-effect waves-light"
@@ -1150,17 +1090,10 @@ and open the template in the editor.
                             value="FactoryReset"
                             ng-click="factoryReset($event)"
                           >
-                            <span
-                              class="ng-binding"
-                              ng-bind="&#39;adminactions.FactoryReset&#39; | translate"
-                              >Factory Reset</span
-                            >
+                            <span class="ng-binding">Factory Reset</span>
                           </button>
                         </div>
-                        <p
-                          ng-bind="&#39;adminactions.Factoryrestdesc&#39; | translate"
-                          class="ng-binding"
-                        >
+                        <p class="ng-binding">
                           Restore Factory configuration of the device and Reboot
                         </p>
                       </div>
@@ -1182,17 +1115,10 @@ and open the template in the editor.
                           ng-click="backUp()"
                           title="Backup"
                         >
-                          <span
-                            class="ng-binding"
-                            ng-bind="&#39;Backup&#39; | translate"
-                            >Backup</span
-                          >
+                          <span class="ng-binding">Backup</span>
                         </button>
                       </div>
-                      <p
-                        ng-bind="&#39;adminactions.Backupdesc&#39; | translate"
-                        class="ng-binding"
-                      >
+                      <p class="ng-binding">
                         Back Up current configuration file to your local machine
                       </p>
                     </div>
@@ -1234,10 +1160,7 @@ and open the template in the editor.
                     <p style="font-weight: bold; margin-bottom: 20px">
                       Restore
                     </p>
-                    <p
-                      ng-bind="&#39;adminactions.Restoredesc&#39; | translate"
-                      class="ng-binding"
-                    >
+                    <p class="ng-binding">
                       Restore the current configuration file
                     </p>
                     <div
@@ -1248,19 +1171,11 @@ and open the template in the editor.
                     >
                       <div class="ng-scope">
                         <img src="images/icons/icon-1/drag-drop.svg" />
-                        <p
-                          ng-bind="&#39;adminactions.Dragdropfiledesc&#39; | translate"
-                          class="ng-binding"
-                        >
-                          Drag and Drop files here
-                        </p>
+                        <p class="ng-binding">Drag and Drop files here</p>
                       </div>
                     </div>
                     <!-- ngRepeat: f in fileList3 -->
-                    <p
-                      ng-bind="&#39;adminactions.Selectfiledesc&#39; | translate"
-                      class="ng-binding"
-                    >
+                    <p class="ng-binding">
                       (or) Select files from your computer
                     </p>
                     <form
@@ -1295,11 +1210,7 @@ and open the template in the editor.
                             ng-click="Restore()"
                             title="Restore"
                           >
-                            <span
-                              class="ng-binding"
-                              ng-bind="&#39;Restore&#39; | translate"
-                              >Restore</span
-                            >
+                            <span class="ng-binding">Restore</span>
                           </button>
                         </div>
                       </div>
@@ -1312,11 +1223,11 @@ and open the template in the editor.
 
           <script type="text/ng-template" id="templateRestore" class="ng-scope">
             <div class="ngdialog-message">
-                        <h4 ng-bind="'adminactions.You might loose current configuration . Do you want to proceed with restore?' | translate"></h4>
+                        <h4 ></h4>
                     </div>
                     <div class="ngdialog-buttons">
-                        <button type="button" class="ngdialog-button gemtek-btn-normal"  ng-bind="'Cancel' | translate" id="Cancel"></button>
-                        <button type="button" class="ngdialog-button gemtek-btn-primary" ng-click="confirm('OK')" ng-bind="'Ok' | translate" id="OK"></button>
+                        <button type="button" class="ngdialog-button gemtek-btn-normal"   id="Cancel"></button>
+                        <button type="button" class="ngdialog-button gemtek-btn-primary"  id="OK"></button>
                     </div>
           </script>
           <script
@@ -1325,20 +1236,20 @@ and open the template in the editor.
             class="ng-scope"
           >
             <div class="ngdialog-message">
-                        <h4 ng-bind="'adminactions.Device will go for factory reset.' | translate"></h4>
+                        <h4></h4>
                     </div>
                     <div class="ngdialog-buttons">
-                        <button type="button" class="ngdialog-button gemtek-btn-normal"  ng-bind="'Cancel' | translate" id="Cancel"></button>
-                        <button type="button" class="ngdialog-button gemtek-btn-primary" ng-click="confirm('OK')" ng-bind="'Ok' | translate" id="OK"></button>
+                        <button type="button" class="ngdialog-button gemtek-btn-normal"   id="Cancel"></button>
+                        <button type="button" class="ngdialog-button gemtek-btn-primary"  id="OK"></button>
                     </div>
           </script>
           <script type="text/ng-template" id="templateReboot" class="ng-scope">
             <div class="ngdialog-message">
-                        <h4 ng-bind="'adminactions.Device will go for reboot.' | translate"></h4>
+                        <h4 ></h4>
                     </div>
                     <div class="ngdialog-buttons">
-                        <button type="button" class="ngdialog-button gemtek-btn-normal"  ng-bind="'Cancel' | translate" id="Cancel"></button>
-                        <button type="button" class="ngdialog-button gemtek-btn-primary" ng-click="confirm('OK')" ng-bind="'Ok' | translate" id="OK"></button>
+                        <button type="button" class="ngdialog-button gemtek-btn-normal"   id="Cancel"></button>
+                        <button type="button" class="ngdialog-button gemtek-btn-primary"  id="OK"></button>
                     </div>
           </script>
         </div>

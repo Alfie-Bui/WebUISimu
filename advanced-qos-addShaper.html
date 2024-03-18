@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)#/tableform/multicast_mcsettings -->
+<!-- saved from url=(0046)#/tableform/qosshaperform -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,7 +51,6 @@
       rel="stylesheet"
       type="text/css"
     />
-
     <style type="text/css">
       /* Chart.js */
       @-webkit-keyframes chartjs-render-animation {
@@ -75,11 +74,9 @@
         animation: chartjs-render-animation 0.001s;
       }
     </style>
-
     <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
     <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
     <link rel="stylesheet" href="css/Custom/gemtek.css" />
-
     <script type="text/ng-template" id="firstDialogId">
       <div class="ngdialog-message">
       <form class="form-horizontal" role="form">
@@ -130,15 +127,15 @@
     </script>
 
     <!-- Add other stylesheets and scripts as needed -->
-    <script src="./js/template.js"></script>
     <script src="./js/storage.js"></script>
+    <script src="./js/template.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
 
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("advanced-multicast-ipv4Setting.html");
+        loadPage("advanced-qos-addShaper.html");
       };
     </script>
   </head>
@@ -196,7 +193,7 @@
               </g>
             </g>
             <g
-              transform="matrix(-0.760340690612793,-0.6495245099067688,0.6495245099067688,-0.760340690612793,69.05873107910156,56.17917251586914)"
+              transform="matrix(0.3821028769016266,0.924119770526886,-0.924119770526886,0.3821028769016266,50.194366455078125,59.28662872314453)"
               opacity="1"
               style="display: block"
             >
@@ -211,7 +208,7 @@
                   stroke="rgb(179,235,247)"
                   stroke-opacity="1"
                   stroke-width="12"
-                  d=" M33.39699935913086,-34.4630012512207 C41.229000091552734,-26.871999740600586 46.48500061035156,-16.638999938964844 47.720001220703125,-5.208000183105469"
+                  d=" M11.206999778747559,-46.68199920654297 C24.989999771118164,-43.380001068115234 36.47100067138672,-34.125 42.77199935913086,-21.791000366210938"
                 ></path>
               </g>
             </g>
@@ -309,13 +306,13 @@
                   <!-- ngIf: showMenu -->
                 </li>
                 <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
-                                    <div class="no-padding-vr">
-                                        <ul class="notificationdiv">
-                                            <li class="theme1">Theme-1</li>
-                                            <li class="theme2">Theme-2</li>
-                                        </ul>
-                                    </div>
-                                </li> -->
+                                <div class="no-padding-vr">
+                                    <ul class="notificationdiv">
+                                        <li class="theme1">Theme-1</li>
+                                        <li class="theme2">Theme-2</li>
+                                    </ul>
+                                </div>
+                            </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/language.svg" /><span
@@ -327,10 +324,10 @@
                   </div>
                 </li>
                 <!-- <li>
-                                    <a style="overflow: hidden;white-space: nowrap;">
-                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
-                                    </a>
-                                </li> -->
+                                <a style="overflow: hidden;white-space: nowrap;">
+                                    <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                </a>
+                            </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/user.svg" />
@@ -660,7 +657,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  class="no-padding-hr no-margin-vr ng-scope"
                   id="multicast_mcconfiguration-7"
                 >
                   <a
@@ -705,7 +702,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope"
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
                   id="ddnsform-10"
                 >
                   <a
@@ -887,14 +884,9 @@
         </div>
       </div>
 
-      <div id="content-wrapper" style="min-height: 606px">
+      <div id="content-wrapper" style="min-height: 944px">
         <!-- ngView: true -->
-        <div
-          
-          id="dataView"
-          
-          class="ng-scope"
-        >
+        <div id="dataView" class="ng-scope">
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             class="row ltq_breadcrumbs ng-scope"
@@ -909,7 +901,7 @@
             <div class="ng-scope">
               <ng-switch on="$index === 1"
                 ><!-- ngSwitchWhen: true -->
-                <h4 class="ng-binding ng-scope">Multicast</h4>
+                <h4 ng-switch-when="true" class="ng-binding ng-scope">QoS</h4>
                 <!-- end ngSwitchWhen: --></ng-switch
               >
             </div>
@@ -924,7 +916,10 @@
             <div class="ng-scope">
               <ng-switch on="$first"
                 ><!-- ngSwitchWhen: true -->
-                <div class="btn-group btn-breadcrumb1 ng-scope">
+                <div
+                  class="btn-group btn-breadcrumb1 ng-scope"
+                  ng-switch-when="true"
+                >
                   <div class="ltq_brd_home">
                     <a class="btn ng-binding" href="main.html"> Advanced </a>
                   </div>
@@ -938,12 +933,17 @@
               <ng-switch on="$first"
                 ><!-- ngSwitchWhen: true -->
                 <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope"
-                  >
-                    Multicast </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                <div
+                  class="btn-group btn-breadcrumb ng-scope"
+                  ng-switch-when="false"
+                >
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false --><span
+                    class="ng-scope"
+                    ><a class="btn ng-binding" href="advanced-qos.html"
+                      ><i></i>
+                      QoS
+                    </a></span
+                  ><!-- end ngIf: breadcrumb.path!='nothing' && $last==false -->
                 </div>
                 <!-- end ngSwitchWhen: --></ng-switch
               >
@@ -953,11 +953,14 @@
               <ng-switch on="$first"
                 ><!-- ngSwitchWhen: true -->
                 <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
+                <div
+                  class="btn-group btn-breadcrumb ng-scope"
+                  ng-switch-when="false"
+                >
                   <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
                     class="btn btn-default not-active ng-binding ng-scope"
                   >
-                    IPv4 Advanced Settings </span
+                    Add </span
                   ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
                 </div>
                 <!-- end ngSwitchWhen: --></ng-switch
@@ -970,27 +973,38 @@
             id="translation"
             class="ng-hide ng-scope"
           >
-            multicastsettings
+            qosshaper
           </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="headername"
             class="ng-hide ng-scope"
           >
-            Multicast Advanced Settings
+            Shaper Configuration
           </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="headerdescription"
             class="ng-hide ng-scope"
           >
-            It allows you to configure the CPE to provide multicast
-            functionality
+            It allows you to configure egress shapers on any of available
+            interfaces.
           </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="help_toggle helpshow ng-scope"
+          >
+            <div class="help_txtcontent">
+              <a href="" helpfile="languages/*/qosshaperhelp_english.html"
+                ><i class="fa fa-info circle_bg"></i></a
+              ><!-- ngInclude: helpfile -->
+            </div>
+          </div>
+
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
             <p id="headerdescriptiondata" class="ng-binding">
-              It allows you to configure the CPE to provide multicast
-              functionality
+              It allows you to configure egress shapers on any of available
+              interfaces.
             </p>
           </div>
           <h4
@@ -1001,166 +1015,217 @@
             xmlns="http://www.w3.org/1999/xhtml"
             class="panel panel-default panel-bg1 ng-scope"
           >
-            <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcconfiguration"}'
-              >
-                <a href="advanced-multicast.html">Basic Settings</a>
-              </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcsettings"}'
-                class="active"
-              >
-                <a href="advanced-multicast-ipv4Setting.html"
-                  >IPv4 Advanced Settings</a
-                >
-              </li>
-            </ul>
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceX_GTK_McastIGMPParameterspopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceX_GTK_McastIGMPParameterspopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceX_GTK_McastIGMPParameterspopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
-
-              <div>
-                <div class="wrapperdiv">
-                  <div class="panel-body">
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row checkbox-top-align">
+              <form
+                class="form-horizontal formCount lantiq-form-text ng-invalid ng-invalid-required ng-valid-maxlength ng-dirty ng-valid-parse"
+                id="DeviceQoSShaper"
+              >
+                <div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
                         <div
-                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                          class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
                         >
-                          <div class="checkbox1">
+                          <label for="Enable" class="control-label ng-binding"
+                            >Enable Shaper</label
+                          >
+                          <div class="text-left">
+                            <span
+                              class="switch hidden-dom-removal ng-valid"
+                              id="Enable"
+                              name="DeviceQoSShaper.Enable"
+                              ><small></small
+                              ><input
+                                type="checkbox"
+                                id="Enable"
+                                name="DeviceQoSShaper.Enable"
+                                style="display: none"
+                                class="ng-pristine ng-untouched ng-valid"
+                              /><span class="switch-text"
+                                ><span class="off">OFF</span></span
+                              ></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
                             <input
-                              type="checkbox"
-                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
-                              id="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              checked
+                              type="text"
+                              id="Alias"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength"
+                              placeholder="Please input shaper name"
+                              maxlength="64"
+                              name="DeviceQoSShaper_Alias"
+                              required="required"
                             /><label
-                              class="checkbox1_left_align"
-                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              >Fast Leave</label
-                            ><label
-                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                            ></label>
+                              for="Alias"
+                              class="required row active ng-binding"
+                              >Shaper Name</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_name"
+                              >* This Field is Required</span
+                            ><span class="error ng-hide"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="number"
+                              id="ShapingRate"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                              placeholder="Please input peak rate"
+                              name="DeviceQoSShaper_ShapingRate"
+                              required="required"
+                            /><label
+                              for="ShapingRate"
+                              class="required row active ng-binding"
+                              >Peak Rate(kbps)</label
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="invalid_error_peak"
+                            >
+                              Please enter a valid number
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="X_GTK_LowerLayers"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Interface</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
+                              id="X_GTK_LowerLayers"
+                              name="DeviceQoSShaper_X_GTK_LowerLayers"
+                              required="required"
+                            >
+                              <option
+                                value="?"
+                                selected="selected"
+                                label="Select"
+                              >
+                                Select
+                              </option>
+                              <option value="br-lan" label="br-lan">br-lan</option>
+                              <option value="VANI0" label="VANI0">VANI0</option>
+                              <option value="eth0_0" label="eth0_0">eth0_0</option>
+                              <option value="eth0_1" label="eth0_1">
+                                eth0_1
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="select_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <label
+                            for="X_GTK_Location"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Location</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-valid ng-dirty ng-valid-parse ng-touched"
+                              id="X_GTK_Location"
+                              name="DeviceQoSShaper_X_GTK_Location"
+                            >
+                              <option value="?" class="form-control1">
+                                Select
+                              </option>
+                              <option class="form-control1" value="Egress">
+                                Egress
+                              </option>
+                              <option class="form-control1" value="Ingress">
+                                Ingress
+                              </option>
+                              <option class="form-control1" value="WiFi VAP">
+                                WiFi VAP
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="QueryRespInterval"
-                            placeholder="Please enter group query response interval"
-                            required="required"
-                          /><label
-                            for="QueryRespInterval"
-                            class="required row active ng-binding"
-                            >Group Query Response Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupQInterval_error"
-                          >
-                            Please enter a valid number
-                          </span>
-                        </div>
-                      </div>
+                  </div>
+                  <div class="text-center gemtek-button-outside-panel">
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Cancel"
+                        class="gemtek-btn-normal"
+                        value="Cancel"
+                      />
                     </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="LastMemQueryInterval"
-                            placeholder="Please enter group last member query interval"
-                            required="required"
-                          /><label
-                            for="LastMemQueryInterval"
-                            class="required row active ng-binding"
-                            >Group Last Member Query Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupLInterval_error"
-                          >
-                            Please enter a valid number
-                          </span>
-                        </div>
-                      </div>
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Apply"
+                        class="gemtek-btn-primary"
+                        value="Apply"
+                      />
                     </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="LastMemQueryCount"
-                            placeholder="Please enter group last member query count"
-                            required="required"
-                          /><label
-                            for="LastMemQueryCount"
-                            class="required row active ng-binding"
-                            >Group Last Member Query Count</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupLCount_error"
+                  </div>
+                  <div>
+                    <div
+                      id="alertDialog"
+                      class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                    >
+                      <div class="ngdialog-overlay"></div>
+                      <div class="ngdialog-content">
+                        <div class="ngdialog-message">
+                          <img src="images/icons/icon-1/ico-notice.svg" />
+                          <h3>Notice</h3>
+                          <p id="alertDialog_msg">
+                            Maximun settings limit has been exceeded
+                          </p>
+                        </div>
+                        <div class="ngdialog-buttons">
+                          <button
+                            type="button"
+                            class="gemtek-btn-primary ng-binding"
                           >
-                            Please enter a valid number
-                          </span>
+                            Close
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="text-center gemtek-button-inside-panel">
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Cancel"
-                      class="gemtek-btn-normal"
-                      value="Cancel"
-                    />
-                  </div>
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Modify"
-                      class="gemtek-btn-primary"
-                      value="Apply"
-                    />
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1231,7 +1296,9 @@
                       style="width: 100%"
                     >
                       <span class="ng-binding ng-scope"> </span
-                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                      ><i ng-show="showWarning" class="ng-scope ng-hide"
+                        >!!! Watch out !!!</i
+                      >
                     </div>
                   </div>
                 </div>
@@ -1255,12 +1322,7 @@
           </div>
           <!-- Modal Footer -->
           <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
+            <button type="button" data-dismiss="modal" class="btn btn-info">
               Abort WPS
             </button>
           </div>
@@ -1268,9 +1330,8 @@
       </div>
     </div>
     <!--Modal End-->
-    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-    <!--[if !IE]> -->
-    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <link href="css/Custom/xeditable.css" rel="stylesheet" type="text/css" />
 
     <div class="hiddendiv common"></div>
   </body>

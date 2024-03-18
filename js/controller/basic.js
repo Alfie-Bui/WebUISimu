@@ -180,6 +180,7 @@ function loadPage(page, options) {
           ipEdit.removeEventListener("input", ipEditHandler);
         });
 
+        console.log(tr);
         tbody.appendChild(tr);
       };
 
@@ -380,7 +381,6 @@ function loadPage(page, options) {
               IP: value[1],
             });
           }
-          console.log("Basic.LAN.IPv4", filledData);
           applyThenStoreToLS(page, "Apply", Basic);
         } else {
           console.log("Apply fail");
@@ -1469,10 +1469,16 @@ function loadPage(page, options) {
         /** Check Error at common field */
         if (enableVLAN.checked === true) {
           elemAfterChange.VLAN = vlan_input.value;
-          if (/_.*_/.test(elemAfterChange.Name)){
-            elemAfterChange.Name = filledData.Name.replace(/_.*_/, `_${vlan_input.value}_`);
+          if (/_.*_/.test(elemAfterChange.Name)) {
+            elemAfterChange.Name = filledData.Name.replace(
+              /_.*_/,
+              `_${vlan_input.value}_`
+            );
           } else {
-            elemAfterChange.Name = filledData.Name.replace("_", `_${vlan_input.value}_`);
+            elemAfterChange.Name = filledData.Name.replace(
+              "_",
+              `_${vlan_input.value}_`
+            );
           }
           common_apply_flag &= checkError_show(
             document.querySelectorAll(".vlan_error")

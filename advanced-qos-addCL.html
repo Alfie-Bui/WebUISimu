@@ -1,0 +1,3025 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)#/custom/qosconfigform -->
+<html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+      }
+      ng\:form {
+        display: block;
+      }
+    </style>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
+
+    <script src="js/Echart/echarts.min.js"></script>
+
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
+    <script type="text/ng-template" id="firstDialogId">
+      <div class="ngdialog-message">
+      <form class="form-horizontal" role="form">
+      <!-- Modify: In Process Feature -->
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12" style="text-align:center;font-weight: bold;">
+      <!-- <input type="text" ng-model="$root.status" class="form-control" id="Status" placeholder="WPS Session Start" readonly/> -->
+          {{$root.status}}
+      </div>
+      </div>
+
+      <div class="form-group">
+      <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></progressbar>
+      </div>
+      </div>
+      <!-- Modify -->
+      </form>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message">
+      <div>
+      {{$root.notifymessage}}
+      <div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      </div>
+    </script>
+    <script type="text/ng-template" id="sessionTimeout">
+      <div class="ngdialog-message">
+      <div>
+      You have been logged out. Do you wish to continue?
+      </div>
+      <div>You will automatically be logged off in {{$root.time}} seconds.</div>
+      </div>
+      <div class="ngdialog-buttons">
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      </div>
+    </script>
+
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/storage.js"></script>
+    <script src="./js/template.js"></script>
+    <script src="./js/commonFunction.js"></script>
+    <script src="./js/controller/advanced.js"></script>
+
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("advanced-qos-addCL.html");
+      };
+    </script>
+  </head>
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0px, 0px, 0px);
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(0.30722373723983765,0.951637327671051,-0.951637327671051,0.30722373723983765,50.282432556152344,58.50727462768555)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M11.968000411987305,-46.49300003051758 C25.909000396728516,-42.90999984741211 37.409000396728516,-33.2140007019043 43.4370002746582,-20.437999725341797"
+                ></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span>Please wait...</span>
+    </div>
+    <div
+      id="main-wrapper"
+      ng-controller="menuController"
+      ng-init="menuOptions()"
+      class="ng-scope"
+    >
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
+          </div>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+                            <div class="no-padding-vr">
+                                <ul class="notificationdiv">
+                                    <li class="theme1">Theme-1</li>
+                                    <li class="theme2">Theme-2</li>
+                                </ul>
+                            </div>
+                        </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
+                            <a style="overflow: hidden;white-space: nowrap;">
+                                <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                            </a>
+                        </li> -->
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="index.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span>Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope open"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-qos.html"
+                    type="tableform"
+                    title="QoS"
+                  >
+                    <span class="mm-text ng-binding">QoS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
+      </div>
+
+      <div id="content-wrapper" style="min-height: 932px">
+        <!-- ngView: true -->
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
+          <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+          <title class="ng-scope">TODO supply a title</title>
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
+
+          <div id="translation" class="hide ng-scope">qosclassifiers</div>
+          <div ng-controller="qosClassifiersController" class="ng-scope">
+            <!--Breadscrumbs starts here -->
+            <!-- ngInclude: 'templates/breadcrumbs.html' -->
+            <div class="ng-scope">
+              <div class="row ltq_breadcrumbs ng-scope">
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                    <h4 ng-switch-when="true" class="ng-binding ng-scope">
+                      QoS
+                    </h4>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+                    <div
+                      class="btn-group btn-breadcrumb1 ng-scope"
+                      ng-switch-when="true"
+                    >
+                      <div class="ltq_brd_home">
+                        <a class="btn ng-binding" href="main.html">
+                          Advanced
+                        </a>
+                      </div>
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+
+                    <!-- ngSwitchWhen: false -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false --><span
+                        class="ng-scope"
+                      >
+                        <a class="btn ng-binding" href="advanced-qos.html">
+                          <i></i>
+                          QoS
+                        </a> </span
+                      ><!-- end ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                        class="btn btn-default not-active ng-binding ng-scope"
+                      >
+                        Add </span
+                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              </div>
+            </div>
+            <!--Breadscrumbs ends here -->
+            <div class="subheader">
+              <p class="ng-binding">
+                It allows you to organize network traffic into traffic classes.
+              </p>
+            </div>
+
+            <div class="help_toggle helpshow">
+              <div class="help_txtcontent">
+                <a helpfile="languages/*/classifiershelp_english.html" href="">
+                  <i class="fa fa-info circle_bg"></i>
+                </a>
+                <!-- ngInclude: $root.helpfile -->
+              </div>
+            </div>
+            <div class="row no-margin-hr">
+              <form
+                class="form-horizontal lantiq-form-text row ng-pristine ng-invalid ng-invalid-required ng-valid-min ng-valid-pattern ng-valid-max"
+                role="form"
+                name="classfierform"
+                novalidate=""
+              >
+                <div class="wrapperdiv">
+                  <div class="panel">
+                    <div class="panel-body no-padding-hr">
+                      <div class="top gemtek-panel-p20 no-padding-vr">
+                        <div class="row 1">
+                          <div
+                            class="form-group switchblock"
+                            style="padding: 0px !important"
+                          >
+                            <label class="control-label ng-binding"
+                              >Enable Classifier</label
+                            >
+                            <div class="text-left">
+                              <span
+                                class="switch ng-pristine ng-untouched ng-valid"
+                                name="DeviceQoSClassification.Enable"
+                                id="Enable"
+                              >
+                                <small></small
+                                ><input
+                                  type="checkbox"
+                                  style="display: none"
+                                  name="DeviceQoSClassification.Enable"
+                                  id="Enable"
+                                  class="ng-pristine ng-untouched ng-valid"
+                                />
+                                <span class="switch-text"
+                                  ><span class="on">On</span
+                                  ><span class="off">Off</span></span
+                                >
+                              </span>
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row 2">
+                          <div
+                            class="form-group required col-xs-12 col-sm-5 no-padding-hr"
+                          >
+                            <div class="input-field col-sm-12 no-padding-hr-l">
+                              <input
+                                id="DeviceQoSClassification_Alias"
+                                type="text"
+                                class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                                name="classifiername"
+                                placeholder="Please input classifier name"
+                                required="required"
+                              />
+                              <label class="required active ng-binding"
+                                >Classifier Name</label
+                              >
+                              <span
+                                class="error ng-binding clerror"
+                                id="empty_CLname_error"
+                                >* Classifier Name is required</span
+                              >
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+                          <div
+                            class="form-group required col-xs-12 col-sm-5 no-padding-hr"
+                          >
+                            <div class="input-field col-sm-12 no-padding-hr-l">
+                              <input
+                                id="DeviceQoSClassification_Order"
+                                type="text"
+                                class="form-control string-to-number ng-pristine ng-untouched ng-valid-min ng-invalid ng-invalid-required"
+                                name="order"
+                                placeholder="Please input order value"
+                                min="0"
+                                required="required"
+                              />
+                              <label class="required active ng-binding"
+                                >Order</label
+                              >
+                              <span
+                                class="error ng-binding clerror"
+                                id="empty_order_error"
+                                >* Order is required</span
+                              >
+                              <span
+                                class="error ng-binding ng-hide clerror"
+                                id="invalid_order_error"
+                                >* Not a valid order</span
+                              >
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row 3">
+                          <div
+                            class="form-group required col-xs-12 col-sm-5 no-padding-hr"
+                          >
+                            <label
+                              class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                              >Classifier Interface</label
+                            >
+                            <div class="col-xs-12 no-padding-hr-l gemtek-mt-20">
+                              <!--<input ng-required="true" type="text" class="form-control" name='classifierinterface' ng-model="DeviceQoSClassification.X_GTK_LowerLayers" ng-change="textChange('DeviceQoSClassificationX_GTK_LowerLayers')">-->
+                              <select
+                                id="DeviceQoSClassification_X_GTK_LowerLayers"
+                                class="form-control1 ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                                name="classifierinterface"
+                                required="required"
+                              >
+                                <option
+                                  value="?"
+                                  selected="selected"
+                                  label="Select"
+                                >
+                                  Select
+                                </option>
+                                <option value="br-lan" label="br-lan">
+                                  br-lan
+                                </option>
+                              </select>
+                              <span
+                                class="error ng-binding clerror"
+                                id="select_CLinterface_error"
+                                >* Classifier Interface is required</span
+                              >
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+                          <div
+                            class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                          >
+                            <label
+                              class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                              >Queuing Interface</label
+                            >
+                            <div class="col-xs-12 no-padding-hr-l gemtek-mt-20">
+                              <!--<input ng-required="true" type="text" class="form-control" name='queuinginterface' ng-model="DeviceQoSClassification.X_GTK_OutInterface" ng-change="textChange('DeviceQoSClassificationX_GTK_OutInterface')">-->
+                              <select
+                                id="DeviceQoSClassification_X_GTK_OutInterface"
+                                class="form-control1 ng-pristine ng-untouched ng-valid"
+                                name="queuinginterface"
+                              >
+                                <option
+                                  value="?"
+                                  selected="selected"
+                                  label="Select"
+                                >
+                                  Select
+                                </option>
+                                <option value="br-lan" label="br-lan">
+                                  br-lan
+                                </option>
+                              </select>
+
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row 4">
+                          <div
+                            class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                          >
+                            <div>
+                              <div class="text-left">
+                                <input
+                                  type="checkbox"
+                                  style="display: none"
+                                  name="DeviceQoSClassification.X_GTK_MPTCP"
+                                  id="DeviceQoSClassification.X_GTK_MPTCP"
+                                  class="ng-pristine ng-untouched ng-valid"
+                                />
+                                <label
+                                  class="checkbox1_left_align ng-binding"
+                                  for="DeviceQoSClassification.X_GTK_MPTCP"
+                                  >Enable MPTCP</label
+                                >
+                              </div>
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+
+                          <div
+                            class="form-group required col-xs-12 col-sm-5 no-padding-hr"
+                          >
+                            <label
+                              class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                              >Queue ID</label
+                            >
+                            <div class="col-xs-12 no-padding-hr-l gemtek-mt-20">
+                              <select
+                                id="DeviceQoSClassification_TrafficClass"
+                                class="form-control1 ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                                name="queueid"
+                                required="required"
+                              >
+                                <option
+                                  value="?"
+                                  selected="selected"
+                                  label="Select"
+                                >
+                                  Select
+                                </option>
+                              </select>
+                              <span
+                                class="error ng-binding clerror"
+                                id="select_queueID_error"
+                                >* Queue ID is required</span
+                              >
+                              <span class="error ng-binding ng-hide"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bottom tabform">
+                        <ul class="nav nav-tabs gemtek-tab">
+                          <li class="" id="layer2">
+                            <a herf="">Layer-2</a>
+                          </li>
+                          <li class="" id="layer3">
+                            <a herf="">Layer-3</a>
+                          </li>
+                          <li class="" id="layer4">
+                            <a herf="">Layer-4</a>
+                          </li>
+                          <!-- <li ng-class="{'active': currentTab === 'Layer-7'}">
+										<a ng-click="switchTab('Layer-7')" herf>Layer-7</a>
+									</li> -->
+                          <li class="" id="actions">
+                            <a herf="">Actions</a>
+                          </li>
+                        </ul>
+                        <div class="ng-hide" id="layer2panel">
+                          <div>
+                            <div class="panel-body classifier_body">
+                              <div
+                                class="form-horizontal lantiq-form-text"
+                                role="form"
+                              >
+                                <div class="row 1">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Source MAC</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.SourceMACExclude"
+                                        id="SourceMACExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.SourceMACExclude"
+                                          id="SourceMACExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        ng-bind="DeviceQoSClassification_SourceMACExcludeval"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 2">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_SourceMACAddress"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                                        pattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+                                        name="clsourcemacaddress"
+                                        value=""
+                                        placeholder="Please input MAC address"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Source MAC Address</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l2error"
+                                        id="invalid_source_MAC"
+                                        >* Invalid MAC address</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_SourceMACMask"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                                        pattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+                                        name="clsourcemacmask"
+                                        value=""
+                                        placeholder="Please input MAC address"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Source MAC Mask</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l2error"
+                                        id="invalid_source_MACmask"
+                                        >* Invalid MAC address</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 3">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Dest MAC</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.DestMACExclude"
+                                        id="DestMACExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.DestMACExclude"
+                                          id="DestMACExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 4">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_DestMACAddress"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                                        pattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+                                        name="cldestmac"
+                                        value=""
+                                        placeholder="Please input MAC address"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Dest MAC Address</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l2error"
+                                        id="invalid_dest_MAC"
+                                        >* Invalid MAC address</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_DestMACMask"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                                        pattern="^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+                                        name="cldestmacmask"
+                                        value=""
+                                        placeholder="Please input MAC address"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Dest MAC Mask</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l2error"
+                                        id="invalid_dest_MACmask"
+                                        >* Invalid MAC address</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 5">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Exclude VLAN ID</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.VLANIDExclude"
+                                        id="VLANIDExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.VLANIDExclude"
+                                          id="VLANIDExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 6">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_VLANIDCheck"
+                                        type="text"
+                                        max="4095"
+                                        min="2"
+                                        class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-max"
+                                        name="vlanidrange"
+                                        placeholder="Please input number"
+                                      />
+                                      <label class="active ng-binding"
+                                        >VLAN Id Range[2-4095]</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l2error"
+                                        id="rangeVLAN_error"
+                                        >* VLAN Id Range value should be from 2
+                                        to 4095</span
+                                      >
+                                      <!--<span class="error" forname="DeviceQoSClassification_VLANIDCheck" ng-show="qosclassifiersformstatus && classfierform.vlanidrange.$error.min" ng-bind="'Device.QoS.Classification.*.VLANIDCheck.$error.min' | translate">
+
+														</span>-->
+                                      <span
+                                        class="error ng-binding ng-hide l2error"
+                                        id="invalidVLAN_error"
+                                        >* Not a valid number</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 7">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Exclude</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.EthernetPriorityExclude"
+                                        id="EthernetPriorityExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.EthernetPriorityExclude"
+                                          id="EthernetPriorityExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 8">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <label
+                                      class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                                      >Incoming 802.1P</label
+                                    >
+                                    <div
+                                      class="col-xs-12 no-padding-hr-l gemtek-mt-20"
+                                    >
+                                      <select
+                                        id="DeviceQoSClassification_EthernetPriorityCheck"
+                                        name="EthernetPriorityCheck"
+                                        class="form-control1 ng-pristine ng-untouched ng-valid"
+                                      >
+                                        <option
+                                          value="?"
+                                          selected="selected"
+                                          label="Select"
+                                        >
+                                          Select
+                                        </option>
+                                        <option value="1" label="0">0</option>
+                                        <option value="2" label="1">1</option>
+                                        <option value="3" label="2">2</option>
+                                        <option value="4" label="3">3</option>
+                                        <option value="5" label="4">4</option>
+                                        <option value="6" label="5">5</option>
+                                        <option value="7" label="6">6</option>
+                                        <option value="8" label="7">7</option>
+                                      </select>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ng-hide" id="layer3panel">
+                          <div>
+                            <div
+                              class="panel-body gemtek-pt-30 classifier_body"
+                            >
+                              <div
+                                class="form-horizontal lantiq-form-text"
+                                role="form"
+                              >
+                                <div class="row 1">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <label
+                                      class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                                      >Incoming DSCP</label
+                                    >
+                                    <div
+                                      class="col-xs-12 no-padding-hr-l gemtek-mt-20"
+                                    >
+                                      <select
+                                        id="DeviceQoSClassification_DSCPCheck"
+                                        name="DSCPCheck"
+                                        class="form-control1 ng-pristine ng-untouched ng-valid"
+                                      >
+                                        <option
+                                          value="?"
+                                          selected="selected"
+                                          label="Select"
+                                        >
+                                          Select
+                                        </option>
+                                        <option
+                                          value="1"
+                                          label="Best Effort (CS0)"
+                                        >
+                                          Best Effort (CS0)
+                                        </option>
+                                        <option value="2" label="AF11">
+                                          AF11
+                                        </option>
+                                        <option value="3" label="AF12">
+                                          AF12
+                                        </option>
+                                        <option value="4" label="AF13">
+                                          AF13
+                                        </option>
+                                        <option value="5" label="AF21">
+                                          AF21
+                                        </option>
+                                        <option value="6" label="AF22">
+                                          AF22
+                                        </option>
+                                        <option value="7" label="AF23">
+                                          AF23
+                                        </option>
+                                        <option value="8" label="AF31">
+                                          AF31
+                                        </option>
+                                        <option value="9" label="AF32">
+                                          AF32
+                                        </option>
+                                        <option value="10" label="AF33">
+                                          AF33
+                                        </option>
+                                        <option value="11" label="AF41">
+                                          AF41
+                                        </option>
+                                        <option value="12" label="AF42">
+                                          AF42
+                                        </option>
+                                        <option value="13" label="AF43">
+                                          AF43
+                                        </option>
+                                        <option value="14" label="CS1">
+                                          CS1
+                                        </option>
+                                        <option value="15" label="CS2">
+                                          CS2
+                                        </option>
+                                        <option value="16" label="CS3">
+                                          CS3
+                                        </option>
+                                        <option value="17" label="CS4">
+                                          CS4
+                                        </option>
+                                        <option value="18" label="CS5">
+                                          CS5
+                                        </option>
+                                        <option value="19" label="CS6">
+                                          CS6
+                                        </option>
+                                        <option value="20" label="CS7">
+                                          CS7
+                                        </option>
+                                        <option
+                                          value="21"
+                                          label="High Priority/EF"
+                                        >
+                                          High Priority/EF
+                                        </option>
+                                      </select>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 2">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Destination IP</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.DestIPExclude"
+                                        id="DestIPExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.DestIPExclude"
+                                          id="DestIPExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 3">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_DestIP"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                                        name="destip"
+                                        value=""
+                                        placeholder="Please input IPv4/IPv6 address"
+                                        pattern="^((\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*)|((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)))$"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Destination IPv4/IPv6 Address</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                      <span
+                                        class="error ng-binding ng-hide l3error"
+                                        id="invalid_dest_addr"
+                                        >* Invalid IP address</span
+                                      >
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_DestMask"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid"
+                                        name="destiationmask"
+                                        value=""
+                                        placeholder="Please input netmask address"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Destination Mask</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 4">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Source IP</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.SourceIPExclude"
+                                        id="SourceIPExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.SourceIPExclude"
+                                          id="SourceIPExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 5">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-margin-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_SourceIP"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern"
+                                        name="sourceip"
+                                        value=""
+                                        placeholder="Please input IP address"
+                                        pattern="^((\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*)|((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)))$"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Source IPv4/IPv6 Address</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                      <span
+                                        class="error ng-binding ng-hide l3error"
+                                        id="invalid_source_addr"
+                                        >* Invalid IP address</span
+                                      >
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-margin-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_SourceMask"
+                                        type="text"
+                                        class="form-control ng-pristine ng-untouched ng-valid"
+                                        name="sourcemask"
+                                        value=""
+                                        placeholder="Please input netmask address"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Source Mask</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ng-hide" id="layer4panel">
+                          <div>
+                            <div class="panel-body classifier_body">
+                              <div
+                                class="form-horizontal lantiq-form-text"
+                                role="form"
+                              >
+                                <div class="row 1">
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div class="form-group switchblock ng-scope">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Protocol</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.ProtocolExclude"
+                                        off="Off"
+                                        on="On"
+                                        id="ProtocolExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.ProtocolExclude"
+                                          id="ProtocolExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                </div>
+                                <div class="row 2">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <label
+                                      class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                                      >L4 Protocol</label
+                                    >
+                                    <div
+                                      class="col-xs-12 no-padding-hr-l gemtek-mt-20"
+                                    >
+                                      <select
+                                        id="DeviceQoSClassification_Protocol"
+                                        name="Protocol"
+                                        class="form-contro1 ng-pristine ng-untouched ng-valid"
+                                      >
+                                        <option
+                                          value="?"
+                                          selected="selected"
+                                          label="Select"
+                                        >
+                                          Select
+                                        </option>
+                                        <option value="1" label="ICMP">
+                                          ICMP
+                                        </option>
+                                        <option value="2" label="TCP">
+                                          TCP
+                                        </option>
+                                        <option value="3" label="UDP">
+                                          UDP
+                                        </option>
+                                      </select>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row 3">
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div class="form-group switchblock ng-scope">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Dest Port</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.DestPortExclude"
+                                        id="DestPortExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.DestPortExclude"
+                                          id="DestPortExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                </div>
+                                <div class="row 4">
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr ng-scope"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_DestPort"
+                                        type="text"
+                                        min="-1"
+                                        max="65535"
+                                        class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                                        name="destportstartrange"
+                                        value=""
+                                        placeholder="Please input valid port number"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Dest Port Start Range(-1-65535)</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="max_sdest_port_error"
+                                        >* Dest Port Start Range Max value
+                                        should be 65535</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="min_sdest_port_error"
+                                        >* Dest Port Start Range Min value
+                                        should be -1</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="invalid_sdest_port_error"
+                                        >* Not a valid number</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr ng-scope"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_DestPortRangeMax"
+                                        type="text"
+                                        min="-1"
+                                        max="65535"
+                                        class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                                        name="destportendrange"
+                                        value=""
+                                        placeholder="Please input port number"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Dest Port end Range(-1-65535)</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="max_edest_port_error"
+                                        >* Dest Port End Range Max value should
+                                        be 65535</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="min_edest_port_error"
+                                        >* Dest Port End Range Min value should
+                                        be -1</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="invalid_edest_port_error"
+                                        >* Not a valid number</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                </div>
+                                <div class="row 5">
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div class="form-group switchblock ng-scope">
+                                    <label class="control-label ng-binding"
+                                      >Exclude Source Port</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.SourcePortExclude"
+                                        id="SourcePortExclude"
+                                      >
+                                        <small></small
+                                        ><input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.SourcePortExclude"
+                                          id="SourcePortExclude"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text"
+                                          ><span class="on">On</span
+                                          ><span class="off">Off</span></span
+                                        >
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                </div>
+                                <div class="row 6">
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr ng-scope"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_SourcePort"
+                                        type="text"
+                                        min="-1"
+                                        max="65535"
+                                        class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                                        name="sourceportstartrange"
+                                        value=""
+                                        placeholder="Please input port number"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Source Port Start
+                                        Range(-1-65535)</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="max_ssource_port_error"
+                                        >* Source Port Start Range Max value
+                                        should be 65535</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="min_ssource_port_error"
+                                        >* Source Port Start Range Min value
+                                        should be -1</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        id="invalid_ssource_port_error"
+                                        >* Not a valid number</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <!-- ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr ng-scope"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_SourcePortRangeMax"
+                                        type="text"
+                                        min="-1"
+                                        max="65535"
+                                        class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                                        name="sourceportendrange"
+                                        value=""
+                                        placeholder="Please input port number"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Source Port End Range(-1-65535)</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="max_esource_port_error"
+                                        >* Source Port End Range Max value
+                                        should be 65535</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="min_esource_port_error"
+                                        >* Source Port End Range Min value
+                                        should be -1</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide l4error"
+                                        id="invalid_esource_port_error"
+                                        >* Not a valid number</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <!-- end ngIf: DeviceQoSClassification.Protocol !== '' -->
+                                </div>
+                                <div class="row 7">
+                                  <div class="form-group switchblock">
+                                    <label class="control-label ng-binding"
+                                      >Enable TCP Ack</label
+                                    >
+                                    <div class="text-left">
+                                      <span
+                                        class="switch ng-pristine ng-untouched ng-valid"
+                                        name="DeviceQoSClassification.TCPACK"
+                                        id="TCPACK"
+                                      >
+                                        <small></small>
+                                        <input
+                                          type="checkbox"
+                                          style="display: none"
+                                          name="DeviceQoSClassification.TCPACK"
+                                          id="TCPACK"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <span class="switch-text">
+                                          <span class="on">On</span>
+                                          <span class="off">Off</span>
+                                        </span>
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ng-hide" id="layer7panel">
+                          <div>
+                            <div
+                              class="panel-body gemtek-pt-30 classifier_body"
+                            >
+                              <div
+                                class="form-horizontal lantiq-form-text"
+                                role="form"
+                              >
+                                <div
+                                  class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                >
+                                  <label
+                                    class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                                    >Application Name</label
+                                  >
+                                  <div
+                                    class="col-xs-12 no-padding-hr-l gemtek-mt-20"
+                                  >
+                                    <select
+                                      id="DeviceQoSClassification_X_GTK_L7Protocol"
+                                      name="X_GTK_L7Protocol"
+                                      class="form-control1 ng-pristine ng-untouched ng-valid"
+                                    >
+                                      <option
+                                        value="0"
+                                        selected="selected"
+                                        label="Select"
+                                      >
+                                        Select
+                                      </option>
+                                      <option value="1" label="100bao">
+                                        100bao
+                                      </option>
+                                      <option value="2" label="aim">aim</option>
+                                      <option value="3" label="aimwebcontent">
+                                        aimwebcontent
+                                      </option>
+                                      <option value="4" label="applejuice">
+                                        applejuice
+                                      </option>
+                                      <option value="5" label="ares">
+                                        ares
+                                      </option>
+                                      <option value="6" label="armagetron">
+                                        armagetron
+                                      </option>
+                                      <option value="7" label="battlefield1942">
+                                        battlefield1942
+                                      </option>
+                                      <option value="8" label="battlefield2">
+                                        battlefield2
+                                      </option>
+                                      <option value="9" label="battlefield2142">
+                                        battlefield2142
+                                      </option>
+                                      <option value="10" label="bgp">
+                                        bgp
+                                      </option>
+                                      <option value="11" label="biff">
+                                        biff
+                                      </option>
+                                      <option value="12" label="bittorrent">
+                                        bittorrent
+                                      </option>
+                                      <option value="13" label="chikka">
+                                        chikka
+                                      </option>
+                                      <option value="14" label="cimd">
+                                        cimd
+                                      </option>
+                                      <option value="15" label="ciscovpn">
+                                        ciscovpn
+                                      </option>
+                                      <option value="16" label="citrix">
+                                        citrix
+                                      </option>
+                                      <option
+                                        value="17"
+                                        label="counterstrike-source"
+                                      >
+                                        counterstrike-source
+                                      </option>
+                                      <option value="18" label="cvs">
+                                        cvs
+                                      </option>
+                                      <option
+                                        value="19"
+                                        label="dayofdefeat-source"
+                                      >
+                                        dayofdefeat-source
+                                      </option>
+                                      <option value="20" label="dazhihui">
+                                        dazhihui
+                                      </option>
+                                      <option value="21" label="dhcp">
+                                        dhcp
+                                      </option>
+                                      <option value="22" label="directconnect">
+                                        directconnect
+                                      </option>
+                                      <option value="23" label="dns">
+                                        dns
+                                      </option>
+                                      <option value="24" label="doom3">
+                                        doom3
+                                      </option>
+                                      <option value="25" label="edonkey">
+                                        edonkey
+                                      </option>
+                                      <option value="26" label="fasttrack">
+                                        fasttrack
+                                      </option>
+                                      <option value="27" label="finger">
+                                        finger
+                                      </option>
+                                      <option value="28" label="freenet">
+                                        freenet
+                                      </option>
+                                      <option value="29" label="ftp">
+                                        ftp
+                                      </option>
+                                      <option value="30" label="gkrellm">
+                                        gkrellm
+                                      </option>
+                                      <option value="31" label="gnucleuslan">
+                                        gnucleuslan
+                                      </option>
+                                      <option value="32" label="gnutella">
+                                        gnutella
+                                      </option>
+                                      <option value="33" label="goboogy">
+                                        goboogy
+                                      </option>
+                                      <option value="34" label="gopher">
+                                        gopher
+                                      </option>
+                                      <option value="35" label="guildwars">
+                                        guildwars
+                                      </option>
+                                      <option value="36" label="h323">
+                                        h323
+                                      </option>
+                                      <option
+                                        value="37"
+                                        label="halflife2-deathmatch"
+                                      >
+                                        halflife2-deathmatch
+                                      </option>
+                                      <option value="38" label="hddtemp">
+                                        hddtemp
+                                      </option>
+                                      <option value="39" label="hotline">
+                                        hotline
+                                      </option>
+                                      <option value="40" label="http-rtsp">
+                                        http-rtsp
+                                      </option>
+                                      <option value="41" label="http">
+                                        http
+                                      </option>
+                                      <option value="42" label="ident">
+                                        ident
+                                      </option>
+                                      <option value="43" label="imap">
+                                        imap
+                                      </option>
+                                      <option value="44" label="imesh">
+                                        imesh
+                                      </option>
+                                      <option value="45" label="ipp">
+                                        ipp
+                                      </option>
+                                      <option value="46" label="irc">
+                                        irc
+                                      </option>
+                                      <option value="47" label="jabber">
+                                        jabber
+                                      </option>
+                                      <option value="48" label="kugoo">
+                                        kugoo
+                                      </option>
+                                      <option value="49" label="live365">
+                                        live365
+                                      </option>
+                                      <option value="50" label="liveforspeed">
+                                        liveforspeed
+                                      </option>
+                                      <option value="51" label="lpd">
+                                        lpd
+                                      </option>
+                                      <option value="52" label="mohaa">
+                                        mohaa
+                                      </option>
+                                      <option
+                                        value="53"
+                                        label="msn-filetransfer"
+                                      >
+                                        msn-filetransfer
+                                      </option>
+                                      <option value="54" label="msnmessenger">
+                                        msnmessenger
+                                      </option>
+                                      <option value="55" label="mute">
+                                        mute
+                                      </option>
+                                      <option value="56" label="napster">
+                                        napster
+                                      </option>
+                                      <option value="57" label="nbns">
+                                        nbns
+                                      </option>
+                                      <option value="58" label="ncp">
+                                        ncp
+                                      </option>
+                                      <option value="59" label="netbios">
+                                        netbios
+                                      </option>
+                                      <option value="60" label="netflix">
+                                        netflix
+                                      </option>
+                                      <option value="61" label="nntp">
+                                        nntp
+                                      </option>
+                                      <option value="62" label="ntp">
+                                        ntp
+                                      </option>
+                                      <option value="63" label="openft">
+                                        openft
+                                      </option>
+                                      <option value="64" label="pcanywhere">
+                                        pcanywhere
+                                      </option>
+                                      <option value="65" label="poco">
+                                        poco
+                                      </option>
+                                      <option value="66" label="pop3">
+                                        pop3
+                                      </option>
+                                      <option value="67" label="pplive">
+                                        pplive
+                                      </option>
+                                      <option value="68" label="qq">qq</option>
+                                      <option value="69" label="quake-halflife">
+                                        quake-halflife
+                                      </option>
+                                      <option value="70" label="quake1">
+                                        quake1
+                                      </option>
+                                      <option value="71" label="radmin">
+                                        radmin
+                                      </option>
+                                      <option value="72" label="rdp">
+                                        rdp
+                                      </option>
+                                      <option value="73" label="replaytv-ivs">
+                                        replaytv-ivs
+                                      </option>
+                                      <option value="74" label="rlogin">
+                                        rlogin
+                                      </option>
+                                      <option value="75" label="rtp">
+                                        rtp
+                                      </option>
+                                      <option value="76" label="rtsp">
+                                        rtsp
+                                      </option>
+                                      <option value="77" label="runesofmagic">
+                                        runesofmagic
+                                      </option>
+                                      <option value="78" label="shoutcast">
+                                        shoutcast
+                                      </option>
+                                      <option value="79" label="sip">
+                                        sip
+                                      </option>
+                                      <option value="80" label="skypeout">
+                                        skypeout
+                                      </option>
+                                      <option value="81" label="skypetoskype">
+                                        skypetoskype
+                                      </option>
+                                      <option value="82" label="smb">
+                                        smb
+                                      </option>
+                                      <option value="83" label="smtp">
+                                        smtp
+                                      </option>
+                                      <option value="84" label="snmp">
+                                        snmp
+                                      </option>
+                                      <option value="85" label="socks">
+                                        socks
+                                      </option>
+                                      <option value="86" label="soribada">
+                                        soribada
+                                      </option>
+                                      <option value="87" label="soulseek">
+                                        soulseek
+                                      </option>
+                                      <option value="88" label="ssdp">
+                                        ssdp
+                                      </option>
+                                      <option value="89" label="ssh">
+                                        ssh
+                                      </option>
+                                      <option value="90" label="ssl">
+                                        ssl
+                                      </option>
+                                      <option value="91" label="stun">
+                                        stun
+                                      </option>
+                                      <option value="92" label="subspace">
+                                        subspace
+                                      </option>
+                                      <option value="93" label="subversion">
+                                        subversion
+                                      </option>
+                                      <option value="94" label="teamfortress2">
+                                        teamfortress2
+                                      </option>
+                                      <option value="95" label="teamspeak">
+                                        teamspeak
+                                      </option>
+                                      <option value="96" label="telnet">
+                                        telnet
+                                      </option>
+                                      <option value="97" label="tesla">
+                                        tesla
+                                      </option>
+                                      <option value="98" label="tftp">
+                                        tftp
+                                      </option>
+                                      <option value="99" label="thecircle">
+                                        thecircle
+                                      </option>
+                                      <option value="100" label="tonghuashun">
+                                        tonghuashun
+                                      </option>
+                                      <option value="101" label="tor">
+                                        tor
+                                      </option>
+                                      <option value="102" label="tsp">
+                                        tsp
+                                      </option>
+                                      <option value="103" label="unknown">
+                                        unknown
+                                      </option>
+                                      <option value="104" label="unset">
+                                        unset
+                                      </option>
+                                      <option value="105" label="uucp">
+                                        uucp
+                                      </option>
+                                      <option value="106" label="validcertssl">
+                                        validcertssl
+                                      </option>
+                                      <option value="107" label="ventrilo">
+                                        ventrilo
+                                      </option>
+                                      <option value="108" label="vnc">
+                                        vnc
+                                      </option>
+                                      <option value="109" label="whois">
+                                        whois
+                                      </option>
+                                      <option
+                                        value="110"
+                                        label="worldofwarcraft"
+                                      >
+                                        worldofwarcraft
+                                      </option>
+                                      <option value="111" label="x11">
+                                        x11
+                                      </option>
+                                      <option value="112" label="xboxlive">
+                                        xboxlive
+                                      </option>
+                                      <option value="113" label="xunlei">
+                                        xunlei
+                                      </option>
+                                      <option value="114" label="yahoo">
+                                        yahoo
+                                      </option>
+                                      <option value="115" label="youtube">
+                                        youtube
+                                      </option>
+                                      <option value="116" label="zmaap">
+                                        zmaap
+                                      </option>
+                                    </select>
+                                    <span
+                                      class="error ng-binding ng-hide"
+                                    ></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ng-hide" id="actionspanel">
+                          <div>
+                            <div
+                              class="panel-body gemtek-pt-30 classifier_body"
+                            >
+                              <div
+                                class="form-horizontal lantiq-form-text"
+                                role="form"
+                              >
+                                <!--
+													<div class="form-group required">
+														<label class="control-label col-sm-6">Queue ID</label>
+														<div class="col-sm-6">
+															<select class="form-control" ng-required="true" name="queueid" ng-model="DeviceQoSClassification.TrafficClass" ng-change="textChange('DeviceQoSClassificationTrafficClass')" ng-options="obj.id as obj.name for obj in TrafficClass" ng-init="dropdownUrlRequest('DeviceQoSClassification', 'TrafficClass', 'cgi_get_fillparams?Object=Device.QoS.Queue&amp;Alias=')">
+															</select>
+															<span class="error" forname="DeviceQoSClassification_TrafficClass" ng-show="qosclassifiersformstatus && classfierform.queueid.$error.required">
+																Queue ID is required
+															</span>
+														</div>
+													</div>
+												-->
+                                <div class="row 1">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <label
+                                      class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                                      >Outgoing DSCP</label
+                                    >
+                                    <div
+                                      class="col-xs-12 no-padding-hr-l gemtek-mt-20"
+                                    >
+                                      <select
+                                        id="DeviceQoSClassification_DSCPMark"
+                                        name="DSCPMark"
+                                        class="form-control1 ng-pristine ng-untouched ng-valid"
+                                      >
+                                        <option
+                                          value="?"
+                                          selected="selected"
+                                          label="Select"
+                                        >
+                                          Select
+                                        </option>
+                                        <option
+                                          value="1"
+                                          label="Best Effort (CS0)"
+                                        >
+                                          Best Effort (CS0)
+                                        </option>
+                                        <option value="2" label="AF11">
+                                          AF11
+                                        </option>
+                                        <option value="3" label="AF12">
+                                          AF12
+                                        </option>
+                                        <option value="4" label="AF13">
+                                          AF13
+                                        </option>
+                                        <option value="5" label="AF21">
+                                          AF21
+                                        </option>
+                                        <option value="6" label="AF22">
+                                          AF22
+                                        </option>
+                                        <option value="7" label="AF23">
+                                          AF23
+                                        </option>
+                                        <option value="8" label="AF31">
+                                          AF31
+                                        </option>
+                                        <option value="9" label="AF32">
+                                          AF32
+                                        </option>
+                                        <option value="10" label="AF33">
+                                          AF33
+                                        </option>
+                                        <option value="11" label="AF41">
+                                          AF41
+                                        </option>
+                                        <option value="12" label="AF42">
+                                          AF42
+                                        </option>
+                                        <option value="13" label="AF43">
+                                          AF43
+                                        </option>
+                                        <option value="14" label="CS1">
+                                          CS1
+                                        </option>
+                                        <option value="15" label="CS2">
+                                          CS2
+                                        </option>
+                                        <option value="16" label="CS3">
+                                          CS3
+                                        </option>
+                                        <option value="17" label="CS4">
+                                          CS4
+                                        </option>
+                                        <option value="18" label="CS5">
+                                          CS5
+                                        </option>
+                                        <option value="19" label="CS6">
+                                          CS6
+                                        </option>
+                                        <option value="20" label="CS7">
+                                          CS7
+                                        </option>
+                                        <option
+                                          value="21"
+                                          label="High Priority/EF"
+                                        >
+                                          High Priority/EF
+                                        </option>
+                                      </select>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <label
+                                      class="control-label col-xs-12 no-padding-hr-l gemtek-dropdown-label ng-binding"
+                                      >Outgoing 802.1P</label
+                                    >
+                                    <div
+                                      class="col-xs-12 no-padding-hr-l gemtek-mt-20"
+                                    >
+                                      <select
+                                        id="DeviceQoSClassification_EthernetPriorityMark"
+                                        name="EthernetPriorityMark"
+                                        class="form-control1 ng-pristine ng-untouched ng-valid"
+                                      >
+                                        <option
+                                          value="?"
+                                          selected="selected"
+                                          label="Select"
+                                        >
+                                          Select
+                                        </option>
+                                        <option value="1" label="0">0</option>
+                                        <option value="2" label="1">1</option>
+                                        <option value="3" label="2">2</option>
+                                        <option value="4" label="3">3</option>
+                                        <option value="5" label="4">4</option>
+                                        <option value="6" label="5">5</option>
+                                        <option value="7" label="6">6</option>
+                                        <option value="8" label="7">7</option>
+                                      </select>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row 2">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-12 no-padding-hr"
+                                  >
+                                    <div>
+                                      <div class="text-left">
+                                        <input
+                                          type="checkbox"
+                                          name="DeviceQoSClassification.X_GTK_DisableAcceleration"
+                                          id="DeviceQoSClassification.X_GTK_DisableAcceleration"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        />
+                                        <label
+                                          class="checkbox1_left_align ng-binding"
+                                          for="DeviceQoSClassification.X_GTK_DisableAcceleration"
+                                          >Disable Acceleration</label
+                                        >
+                                      </div>
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row 3">
+                                  <div
+                                    class="form-group col-xs-12 col-sm-5 no-padding-hr"
+                                  >
+                                    <div
+                                      class="input-field col-xs-12 col-sm-12 no-padding-hr-l"
+                                    >
+                                      <input
+                                        id="DeviceQoSClassification_X_GTK_LimitRate"
+                                        type="text"
+                                        class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min"
+                                        name="limitrange"
+                                        value=""
+                                        placeholder="Please input rate limit value"
+                                      />
+                                      <label class="active ng-binding"
+                                        >Rate Limit(In kbps)</label
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide actionserror"
+                                        id="invalid_rate_error"
+                                        >* Not a valid Rate</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                      ></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="gemtek-button-outside-panel">
+                          <div class="btn-align">
+                            <input
+                              type="button"
+                              class="gemtek-btn-normal"
+                              id="Cancel"
+                              value="Cancel"
+                              title="Cancel"
+                            />
+                          </div>
+                          <div class="btn-group">
+                            <input
+                              id="Apply"
+                              class="gemtek-btn-primary"
+                              type="button"
+                              value="Apply"
+                              title="Apply"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- ngInclude: 'templates/deletedialog.html' -->
+            <div class="ng-scope">
+              <div class="ng-scope">
+                <div
+                  id="deletedialog"
+                  class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                >
+                  <div class="ngdialog-overlay"></div>
+                  <div class="ngdialog-content">
+                    <div class="ngdialog-message">
+                      <img src="images/icons/icon-1/deletedialog.svg" />
+                      <h3 class="ng-binding"></h3>
+                      <p class="ng-binding"></p>
+                    </div>
+                    <div class="ngdialog-buttons">
+                      <button
+                        type="button"
+                        class="ngdialog-button gemtek-btn-normal ng-binding"
+                        id="Cancel"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        class="ngdialog-button gemtek-btn-danger ng-binding"
+                        id="OK"
+                      >
+                        Ok
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ngInclude: 'templates/alertdialog.html' -->
+            <div class="ng-scope">
+              <div class="ng-scope">
+                <div
+                  id="alertDialog"
+                  class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                >
+                  <div class="ngdialog-overlay"></div>
+                  <div class="ngdialog-content">
+                    <div class="ngdialog-message">
+                      <img src="images/icons/icon-1/ico-notice.svg" />
+                      <h3>Notice</h3>
+                      <p class="ng-binding"></p>
+                    </div>
+                    <div class="ngdialog-buttons">
+                      <button
+                        type="button"
+                        class="gemtek-btn-primary ng-binding"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
+					</div> -->
+
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
+                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
+                    </div>                         -->
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i ng-show="showWarning" class="ng-scope ng-hide"
+                        >!!! Watch out !!!</i
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <link href="css/Custom/xeditable.css" rel="stylesheet" type="text/css" />
+
+    <div class="hiddendiv common"></div>
+  </body>
+</html>

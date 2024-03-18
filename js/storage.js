@@ -30,9 +30,11 @@ function checkVersion() {
     console.log(`Load DB at new device. Version: ${SIMULATOR_VERSION}`);
     initLS();
     localStorage.setItem("VERSION", SIMULATOR_VERSION);
+  } else if (localStorage.getItem("VERSION") !== SIMULATOR_VERSION) {
+    console.log(`Update DB. Version: ${SIMULATOR_VERSION}`);
+    initLS();
   } else {
     console.log(`Version: ${SIMULATOR_VERSION}`);
-    // initLS();
     localStorage.setItem("VERSION", SIMULATOR_VERSION);
     localStorage.setItem("Account", JSON.stringify(template.Account));
   }
@@ -233,6 +235,21 @@ function applyThenStoreToLS(page, option, change_entity) {
         break;
       case "wifi-guest_access.html":
         Wifi = change_entity;
+        break;
+      case "advanced-qos.html":
+        Advanced = change_entity;
+        break;
+      case "advanced-qos-edit.html":
+        Advanced = change_entity;
+        break;
+      case "advanced-qos-addQ.html":
+        Advanced = change_entity;
+        break;
+      case "advanced-qos-addCL.html":
+        Advanced = change_entity;
+        break;
+      case "advanced-qos-addShaper.html":
+        Advanced = change_entity;
         break;
       default:
         console.log(`Load ${page} fail --- no available page`);

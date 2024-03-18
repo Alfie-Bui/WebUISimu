@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <!-- saved from url=(0048)#/custom/parentalcontrolform -->
 <html data-ng-app="routerapp" class="ng-scope">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      @charset "UTF-8";
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <style type="text/css">
-    @charset "UTF-8";
-
-    [ng\:cloak],
-    [ng-cloak],
-    [data-ng-cloak],
-    [x-ng-cloak],
-    .ng-cloak,
-    .x-ng-cloak,
-    .ng-hide:not(.ng-hide-animate) {
-      display: none !important;
-    }
-
-    ng\:form {
-      display: block;
-    }
-  </style>
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Broadband Router</title>
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
-  <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" type="text/css" href="css/datetimepicker/DateTimePicker.css" />
-  <link id="themechange" href="css/Custom/lantiq_custom-1.css" rel="stylesheet" type="text/css" />
-  <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="css/Custom/animate.css" />
-
-  <link href="css/Custom/angular-ui-switch.min.css" rel="stylesheet" type="text/css" />
-  <link href="css/Bootstrap/bootstrap-tour.css" rel="stylesheet" type="text/css" />
-
-  <style type="text/css">
-    /* Chart.js */
-    @-webkit-keyframes chartjs-render-animation {
-      from {
-        opacity: 0.99;
+      [ng\:cloak],
+      [ng-cloak],
+      [data-ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak,
+      .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
       }
 
-      to {
-        opacity: 1;
+      ng\:form {
+        display: block;
       }
-    }
+    </style>
 
-    @keyframes chartjs-render-animation {
-      from {
-        opacity: 0.99;
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Broadband Router</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link href="css/Bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/Custom/fonticons.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/datetimepicker/DateTimePicker.css"
+    />
+    <link
+      id="themechange"
+      href="css/Custom/lantiq_custom-1.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/Custom/animate.css" />
+
+    <link
+      href="css/Custom/angular-ui-switch.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="css/Bootstrap/bootstrap-tour.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      /* Chart.js */
+      @-webkit-keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+
+        to {
+          opacity: 1;
+        }
       }
 
-      to {
-        opacity: 1;
+      @keyframes chartjs-render-animation {
+        from {
+          opacity: 0.99;
+        }
+
+        to {
+          opacity: 1;
+        }
       }
-    }
 
-    .chartjs-render-monitor {
-      -webkit-animation: chartjs-render-animation 0.001s;
-      animation: chartjs-render-animation 0.001s;
-    }
-  </style>
+      .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+      }
+    </style>
 
-  <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
-  <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
-  <link rel="stylesheet" href="css/Custom/gemtek.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
+    <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
+    <link rel="stylesheet" href="css/Custom/gemtek.css" />
 
-  <script type="text/ng-template" id="firstDialogId">
+    <script type="text/ng-template" id="firstDialogId">
       <div class="ngdialog-message">
       <form class="form-horizontal" role="form">
       <!-- Modify: In Process Feature -->
@@ -93,7 +111,7 @@
       <button type="button" class="btn btn-info pull-right" >Cancel</button>
       </div>
     </script>
-  <script type="text/ng-template" id="modalDialogId">
+    <script type="text/ng-template" id="modalDialogId">
       <div class="ngdialog-message">
       <div>
       {{$root.notifymessage}}
@@ -104,7 +122,7 @@
       <button type="button" class="ngdialog-button ngdialog-button-secondary" >Cancel</button>
       </div>
     </script>
-  <script type="text/ng-template" id="sessionTimeout">
+    <script type="text/ng-template" id="sessionTimeout">
       <div class="ngdialog-message">
       <div>
       You have been logged out. Do you wish to continue?
@@ -117,153 +135,218 @@
       </div>
     </script>
 
-  <!-- Add other stylesheets and scripts as needed -->
-  <script src="./js/template.js"></script>
-  <script src="./js/storage.js"></script>
-  <script src="./js/commonFunction.js"></script>
-  <script src="./js/controller/security.js"></script>
-  <script>
-    window.onload = () => {
-      checkVersion();
-      loadPage("security-parental_control-devControl-add.html");
-    };
-  </script>
-  <script>
-    function show_delete_dialog(button) {
-      var row = button.closest("tr"); // Find the closest row to the button clicked
-      row.remove(); // Remove the entire row
-    }
+    <!-- Add other stylesheets and scripts as needed -->
+    <script src="./js/template.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/commonFunction.js"></script>
+    <script src="./js/controller/security.js"></script>
+    <script>
+      window.onload = () => {
+        checkVersion();
+        loadPage("security-parental_control-devControl-add.html");
+      };
+    </script>
+    <script>
+      function show_delete_dialog(button) {
+        var row = button.closest("tr"); // Find the closest row to the button clicked
+        row.remove(); // Remove the entire row
+      }
 
-    function hide_delete_dialog() {
-      const deleteDialog = document.getElementById("deletedialog");
-      deleteDialog.classList.add("hide");
-    }
-    function delete_elem_url_list() {
-      // get tbody
-      const tbody = document.getElementById("bodyData");
-      // add child
-      tbody.removeChild(tbody.lastElementChild);
+      function hide_delete_dialog() {
+        const deleteDialog = document.getElementById("deletedialog");
+        deleteDialog.classList.add("hide");
+      }
+      function delete_elem_url_list() {
+        // get tbody
+        const tbody = document.getElementById("bodyData");
+        // add child
+        tbody.removeChild(tbody.lastElementChild);
 
-      // hide dialog
-      const deleteDialog = document.getElementById("deletedialog");
+        // hide dialog
+        const deleteDialog = document.getElementById("deletedialog");
 
-      deleteDialog.classList.add("hide");
-    }
+        deleteDialog.classList.add("hide");
+      }
 
-    function open_dtBox() {
-      const dtpicker = document.getElementById("dtBox");
-      dtpicker.style.display = "block";
-    }
+      function open_dtBox() {
+        const dtpicker = document.getElementById("dtBox");
+        dtpicker.style.display = "block";
+      }
 
-    function hide_dtBox() {
-      const dtpicker = document.getElementById("dtBox");
-      dtpicker.style.display = "none";
-    }
-  </script>
-</head>
+      function hide_dtBox() {
+        const dtpicker = document.getElementById("dtBox");
+        dtpicker.style.display = "none";
+      }
+    </script>
+  </head>
 
-<body class="theme-default animate">
-  <noscript>
-    <div class="panel-heading mantis" style="background-color: red; text-align: center; font-size: 18px">
-      Please enable Javascript in your browser.
-    </div>
-  </noscript>
-  <div id="ajaxLoaderSection" raw-ajax-busy-indicator="" style="display: none">
-    <div id="ajaxLoaderIcon">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"
-        preserveAspectRatio="xMidYMid meet" style="
+  <body class="theme-default animate">
+    <noscript>
+      <div
+        class="panel-heading mantis"
+        style="background-color: red; text-align: center; font-size: 18px"
+      >
+        Please enable Javascript in your browser.
+      </div>
+    </noscript>
+    <div
+      id="ajaxLoaderSection"
+      raw-ajax-busy-indicator=""
+      style="display: none"
+    >
+      <div id="ajaxLoaderIcon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          preserveAspectRatio="xMidYMid meet"
+          style="
             width: 100%;
             height: 100%;
             transform: translate3d(0px, 0px, 0px);
-          ">
-        <defs>
-          <clippath id="__lottie_element_2">
-            <rect width="120" height="120" x="0" y="0"></rect>
-          </clippath>
-        </defs>
-        <g clip-path="url(#__lottie_element_2)">
-          <g transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)" opacity="1" style="display: block">
-            <g opacity="1" transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)">
-              <path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(179,235,247)"
-                stroke-opacity="0.5" stroke-width="12"
-                d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z">
-              </path>
+          "
+        >
+          <defs>
+            <clippath id="__lottie_element_2">
+              <rect width="120" height="120" x="0" y="0"></rect>
+            </clippath>
+          </defs>
+          <g clip-path="url(#__lottie_element_2)">
+            <g
+              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="0.5"
+                  stroke-width="12"
+                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
+                ></path>
+              </g>
+            </g>
+            <g
+              transform="matrix(-0.16572992503643036,0.9861711859703064,-0.9861711859703064,-0.16572992503643036,52.062747955322266,54.19832992553711)"
+              opacity="1"
+              style="display: block"
+            >
+              <g
+                opacity="1"
+                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill-opacity="0"
+                  stroke="rgb(179,235,247)"
+                  stroke-opacity="1"
+                  stroke-width="12"
+                  d=" M16.34600067138672,-45.13999938964844 C31.183000564575195,-39.7599983215332 42.62300109863281,-27.26799964904785 46.53799819946289,-11.793000221252441"
+                ></path>
+              </g>
             </g>
           </g>
-          <g transform="matrix(-0.16572992503643036,0.9861711859703064,-0.9861711859703064,-0.16572992503643036,52.062747955322266,54.19832992553711)"
-            opacity="1" style="display: block">
-            <g opacity="1" transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)">
-              <path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" stroke="rgb(179,235,247)"
-                stroke-opacity="1" stroke-width="12"
-                d=" M16.34600067138672,-45.13999938964844 C31.183000564575195,-39.7599983215332 42.62300109863281,-27.26799964904785 46.53799819946289,-11.793000221252441">
-              </path>
-            </g>
-          </g>
-        </g>
-      </svg>
+        </svg>
+      </div>
+      <span>Please wait...</span>
     </div>
-    <span>Please wait...</span>
-  </div>
-  <div id="main-wrapper" class="ng-scope">
-    <div id="main-navbar" class="navbar navbar-inverse ng-scope" role="navigation">
-      <button type="button" id="main-menu-toggle" onclick="main_menu_toggle()">
-        <i class="navbar-icon fa fa-bars icon"></i>
-      </button>
-      <div class="navbar-inner">
-        <div class="navbar-header">
-          <button onclick="home()" class="navbar-brand">
-            <img src="images/logo.svg" style="width: 100%" />
-          </button>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-            data-target="#main-navbar-collapse">
-            <i class="navbar-icon fa fa-bars"></i>
-          </button>
-        </div>
-        <div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
-          <div class="right clearfix theme-2-menu1 hide">
-            <ul class="nav nav-tabs" id="myTab">
-              <!-- ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#adv_status" data-toggle="tab" class="fa"><span
-                    class="mm-text ng-binding">Status</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#home" data-toggle="tab" class="fa"><span class="mm-text ng-binding">Basic</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#wifi" data-toggle="tab" class="fa"><span class="mm-text ng-binding">Wi-Fi</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#profile" data-toggle="tab" class="fa"><span
-                    class="mm-text ng-binding">Advanced</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#security" data-toggle="tab" class="fa"><span
-                    class="mm-text ng-binding">Security</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#utilities" data-toggle="tab" class="fa"><span
-                    class="mm-text ng-binding">Utilities</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-              <li class="ng-scope">
-                <a data-target="#voip" data-toggle="tab" class="fa"><span class="mm-text ng-binding">VoIP</span></a>
-              </li>
-              <!-- end ngRepeat: post in posts.menu -->
-            </ul>
+    <div id="main-wrapper" class="ng-scope">
+      <div
+        id="main-navbar"
+        class="navbar navbar-inverse ng-scope"
+        role="navigation"
+      >
+        <button
+          type="button"
+          id="main-menu-toggle"
+          onclick="main_menu_toggle()"
+        >
+          <i class="navbar-icon fa fa-bars icon"></i>
+        </button>
+        <div class="navbar-inner">
+          <div class="navbar-header">
+            <button onclick="home()" class="navbar-brand">
+              <img src="images/logo.svg" style="width: 100%" />
+            </button>
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-navbar-collapse"
+            >
+              <i class="navbar-icon fa fa-bars"></i>
+            </button>
           </div>
-          <div class="right clearfix">
-            <ul class="nav navbar-nav headersec">
-              <li>
-                <a id="switchwidget"><img src="images/icons/icon-1/system-white.svg" /><span>Quick Set</span></a>
-                <!-- ngIf: showMenu -->
-              </li>
-              <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
+          <div
+            id="main-navbar-collapse"
+            class="collapse navbar-collapse main-navbar-collapse"
+          >
+            <div class="right clearfix theme-2-menu1 hide">
+              <ul class="nav nav-tabs" id="myTab">
+                <!-- ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#adv_status" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Status</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#home" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Basic</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#wifi" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Wi-Fi</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#profile" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Advanced</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#security" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Security</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#utilities" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">Utilities</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+                <li class="ng-scope">
+                  <a data-target="#voip" data-toggle="tab" class="fa"
+                    ><span class="mm-text ng-binding">VoIP</span></a
+                  >
+                </li>
+                <!-- end ngRepeat: post in posts.menu -->
+              </ul>
+            </div>
+            <div class="right clearfix">
+              <ul class="nav navbar-nav headersec">
+                <li>
+                  <a id="switchwidget"
+                    ><img src="images/icons/icon-1/system-white.svg" /><span
+                      >Quick Set</span
+                    ></a
+                  >
+                  <!-- ngIf: showMenu -->
+                </li>
+                <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
                                     <div class="no-padding-vr">
                                         <ul class="notificationdiv">
                                             <li class="theme1">Theme-1</li>
@@ -271,793 +354,1351 @@
                                         </ul>
                                     </div>
                                 </li> -->
-              <li>
-                <div class="no-padding-vr">
-                  <img src="images/icons/icon-1/language.svg" /><span id="header_home"
-                    style="padding-right: 15px; padding-left: 3px" class="ng-binding">English</span>
-                </div>
-              </li>
-              <!-- <li>
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/language.svg" /><span
+                      id="header_home"
+                      style="padding-right: 15px; padding-left: 3px"
+                      class="ng-binding"
+                      >English</span
+                    >
+                  </div>
+                </li>
+                <!-- <li>
                                     <a style="overflow: hidden;white-space: nowrap;">
                                         <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
                                     </a>
                                 </li> -->
-              <li>
-                <div class="no-padding-vr">
-                  <img src="images/icons/icon-1/user.svg" />
-                  <span style="padding-right: 15px" class="ng-binding">admin</span>
-                </div>
-              </li>
-              <li>
-                <a title="Logout" href="index.html">
-                  <img src="images/icons/icon-1/logout.svg" style="cursor: pointer" />
-                  <span>Logout</span>
-                </a>
-              </li>
-            </ul>
+                <li>
+                  <div class="no-padding-vr">
+                    <img src="images/icons/icon-1/user.svg" />
+                    <span style="padding-right: 15px" class="ng-binding"
+                      >admin</span
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a title="Logout" href="index.html">
+                    <img
+                      src="images/icons/icon-1/logout.svg"
+                      style="cursor: pointer"
+                    />
+                    <span>Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="main-menu" role="navigation">
-      <div id="main-menu-inner">
-        <ul class="nav nav-tabs theme-1-menu1" id="myTab">
-          <li name="Status" class="sidebarItem ng-scope" onclick="toggleOpenClass(this)">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-status.svg" />
-              <span class="mm-text menu-title ng-binding">Status</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <li class="no-padding-hr no-margin-vr ng-scope" id="adv_homepage-0">
-                <a tabindex="-1" href="status-overview.html" type="custom" title="Status">
-                  <span class="mm-text ng-binding">Status</span>
-                </a>
-              </li>
-              <li class="no-padding-hr no-margin-vr ng-scope" id="pon_status-1">
-                <a tabindex="-1" href="status-pon_status.html" type="custom" title="PON Status">
-                  <span class="mm-text ng-binding">PON Status</span>
-                </a>
-              </li>
-              <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
-                <a tabindex="-1" href="status-system_stats-wan_thr.html" type="custom" title="System Stats">
-                  <span class="mm-text ng-binding">System Stats</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-            </ul>
-          </li>
-          <li name="Basic" class="sidebarItem ng-scope" onclick="toggleOpenClass(this)">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-basic.svg" />
-              <span class="mm-text menu-title ng-binding">Basic</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="wan_ipv4wanconnections-0">
-                <a tabindex="-1" href="basic-wan-ipv4.html" type="tableform" title="WAN">
-                  <span class="mm-text ng-binding">WAN</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="lan_ipaddressconfig-1">
-                <a tabindex="-1" type="tableform" href="basic-lan-ipv4Config.html" title="LAN">
-                  <span class="mm-text ng-binding">LAN</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
-                <a tabindex="-1" href="basic-registration_ID.html" type="custom" title="Registration ID">
-                  <span class="mm-text ng-binding">Registration ID</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
-            </ul>
-          </li>
-          <li name="Wi-Fi" class="sidebarItem ng-scope" onclick="toggleOpenClass(this)">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-wifi.svg" />
-              <span class="mm-text menu-title ng-binding">Wi-Fi</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
-                <a tabindex="-1" href="wifi-2_4G-ssids.html" type="tableform" title="2.4G">
-                  <span class="mm-text ng-binding">2.4G</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="adv5_ssid-1">
-                <a tabindex="-1" href="wifi-5G-ssids.html" type="tableform" title="5G">
-                  <span class="mm-text ng-binding">5G</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="guestaccessview-2">
-                <a tabindex="-1" href="wifi-guest_access.html" type="tableform" title="Guest Access">
-                  <span class="mm-text ng-binding">Guest Access</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
-            </ul>
-          </li>
-          <!-- end ngRepeat: post in posts.menu -->
-          <li onclick="toggleOpenClass(this)" name="Advanced" class="sidebarItem ng-scope">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-advanced.svg" />
-              <span class="mm-text menu-title ng-binding">Advanced</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="NAT_DMZviewform-0">
-                <a tabindex="-1" href="advanced-dmz.html" type="tableform" title="DMZ">
-                  <span class="mm-text ng-binding">DMZ</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="virtualserver-1">
-                <a tabindex="-1" href="advanced-port_mapping.html" type="tableform" title="Port Mapping">
-                  <span class="mm-text ng-binding">Port Mapping</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="porttriggerview-2">
-                <a tabindex="-1" href="advanced-port_triggering.html" type="tableform" title="Port Triggering">
-                  <span class="mm-text ng-binding">Port Triggering</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="staticrouteview-3">
-                <a tabindex="-1" href="advanced-static_routing.html" type="tableform" title="Static Routing">
-                  <span class="mm-text ng-binding">Static Routing</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="managementserverview-4">
-                <a tabindex="-1" href="advanced-device_management.html" type="tableform" title="Device Management">
-                  <span class="mm-text ng-binding">Device Management</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
-                <a tabindex="-1" href="advanced-alg.html" type="tableform" title="ALG">
-                  <span class="mm-text ng-binding">ALG</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
-                <a tabindex="-1" href="advanced-upnp.html" type="custom" title="UPnP">
-                  <span class="mm-text ng-binding">UPnP</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="multicast_mcconfiguration-7">
-                <a tabindex="-1" href="advanced-multicast.html" type="tableform" title="Multicast">
-                  <span class="mm-text ng-binding">Multicast</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="ipsecview-9">
-                <a tabindex="-1" href="advanced-vpn.html" type="tableform" title="VPN">
-                  <span class="mm-text ng-binding">VPN</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="ddnsform-10">
-                <a tabindex="-1" href="advanced-ddns.html" type="tableform" title="DDNS">
-                  <span class="mm-text ng-binding">DDNS</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
-            </ul>
-          </li>
-          <!-- end ngRepeat: post in posts.menu -->
-          <li name="Security" class="sidebarItem ng-scope open" onclick="toggleOpenClass(this)">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-security.svg" />
-              <span class="mm-text menu-title ng-binding">Security</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
-                <a tabindex="-1" href="security-firewall.html" type="custom" title="Firewall">
-                  <span class="mm-text ng-binding">Firewall</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope menuitem-highlight" id="parentalcontrol-1">
-                <a tabindex="-1" href="security-parental_control_settings.html" type="custom" title="Parental Control">
-                  <span class="mm-text ng-binding">Parental Control</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
-            </ul>
-          </li>
-          <!-- end ngRepeat: post in posts.menu -->
-          <li name="Utilities" class="sidebarItem ng-scope" onclick="toggleOpenClass(this)">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-utilities.svg" />
-              <span class="mm-text menu-title ng-binding">Utilities</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
-                <a tabindex="-1" href="utilities-system-user_mgnt.html" type="tableform" title="System">
-                  <span class="mm-text ng-binding">System</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="adminactions-1">
-                <a tabindex="-1" href="utilities-update_fw.html" type="custom" title="Upgrade Firmware">
-                  <span class="mm-text ng-binding">Upgrade Firmware</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
-                <a tabindex="-1" href="utilities-diagnostics.html" type="custom" title="Diagnostics">
-                  <span class="mm-text ng-binding">Diagnostics</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="speedtest-3">
-                <a tabindex="-1" href="utilities-speed_test.html" type="custom" title="Speed Test">
-                  <span class="mm-text ng-binding">Speed Test</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
-            </ul>
-          </li>
-          <!-- end ngRepeat: post in posts.menu -->
-          <li name="VoIP" class="sidebarItem ng-scope" onclick="toggleOpenClass(this)">
-            <button class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle">
-              <img class="menu-icon ltq-icon t1" src="images/icons/icon-1/menu-voip.svg" />
-              <span class="mm-text menu-title ng-binding">VoIP</span>
-            </button>
-            <ul
-              class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
-              href="#">
-              <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
-              <li class="no-padding-hr no-margin-vr ng-scope" id="voip_config-0">
-                <a tabindex="-1" href="voip-config.html" type="tableform" title="Configuration">
-                  <span class="mm-text ng-binding">Configuration</span>
-                </a>
-                <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
-              </li>
-              <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
-            </ul>
-          </li>
-          <!-- end ngRepeat: post in posts.menu -->
-        </ul>
+      <div id="main-menu" role="navigation">
+        <div id="main-menu-inner">
+          <ul class="nav nav-tabs theme-1-menu1" id="myTab">
+            <li
+              name="Status"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-status.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Status</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv_homepage-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-overview.html"
+                    type="custom"
+                    title="Status"
+                  >
+                    <span class="mm-text ng-binding">Status</span>
+                  </a>
+                </li>
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="pon_status-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="status-pon_status.html"
+                    type="custom"
+                    title="PON Status"
+                  >
+                    <span class="mm-text ng-binding">PON Status</span>
+                  </a>
+                </li>
+                <li class="no-padding-hr no-margin-vr ng-scope" id="stats-2">
+                  <a
+                    tabindex="-1"
+                    href="status-system_stats-wan_thr.html"
+                    type="custom"
+                    title="System Stats"
+                  >
+                    <span class="mm-text ng-binding">System Stats</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <li
+              name="Basic"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-basic.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Basic</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="wan_ipv4wanconnections-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="basic-wan-ipv4.html"
+                    type="tableform"
+                    title="WAN"
+                  >
+                    <span class="mm-text ng-binding">WAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="lan_ipaddressconfig-1"
+                >
+                  <a
+                    tabindex="-1"
+                    type="tableform"
+                    href="basic-lan-ipv4Config.html"
+                    title="LAN"
+                  >
+                    <span class="mm-text ng-binding">LAN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="regid-2">
+                  <a
+                    tabindex="-1"
+                    href="basic-registration_ID.html"
+                    type="custom"
+                    title="Registration ID"
+                  >
+                    <span class="mm-text ng-binding">Registration ID</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <li
+              name="Wi-Fi"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-wifi.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Wi-Fi</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="adv_ssid-0">
+                  <a
+                    tabindex="-1"
+                    href="wifi-2_4G-ssids.html"
+                    type="tableform"
+                    title="2.4G"
+                  >
+                    <span class="mm-text ng-binding">2.4G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adv5_ssid-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-5G-ssids.html"
+                    type="tableform"
+                    title="5G"
+                  >
+                    <span class="mm-text ng-binding">5G</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="guestaccessview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="wifi-guest_access.html"
+                    type="tableform"
+                    title="Guest Access"
+                  >
+                    <span class="mm-text ng-binding">Guest Access</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              onclick="toggleOpenClass(this)"
+              name="Advanced"
+              class="sidebarItem ng-scope"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-advanced.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Advanced</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="NAT_DMZviewform-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-dmz.html"
+                    type="tableform"
+                    title="DMZ"
+                  >
+                    <span class="mm-text ng-binding">DMZ</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="virtualserver-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_mapping.html"
+                    type="tableform"
+                    title="Port Mapping"
+                  >
+                    <span class="mm-text ng-binding">Port Mapping</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="porttriggerview-2"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-port_triggering.html"
+                    type="tableform"
+                    title="Port Triggering"
+                  >
+                    <span class="mm-text ng-binding">Port Triggering</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="staticrouteview-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-static_routing.html"
+                    type="tableform"
+                    title="Static Routing"
+                  >
+                    <span class="mm-text ng-binding">Static Routing</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="managementserverview-4"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-device_management.html"
+                    type="tableform"
+                    title="Device Management"
+                  >
+                    <span class="mm-text ng-binding">Device Management</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="algview-5">
+                  <a
+                    tabindex="-1"
+                    href="advanced-alg.html"
+                    type="tableform"
+                    title="ALG"
+                  >
+                    <span class="mm-text ng-binding">ALG</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="upnp-6">
+                  <a
+                    tabindex="-1"
+                    href="advanced-upnp.html"
+                    type="custom"
+                    title="UPnP"
+                  >
+                    <span class="mm-text ng-binding">UPnP</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="multicast_mcconfiguration-7"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-multicast.html"
+                    type="tableform"
+                    title="Multicast"
+                  >
+                    <span class="mm-text ng-binding">Multicast</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ipsecview-9"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-vpn.html"
+                    type="tableform"
+                    title="VPN"
+                  >
+                    <span class="mm-text ng-binding">VPN</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-ddns.html"
+                    type="tableform"
+                    title="DDNS"
+                  >
+                    <span class="mm-text ng-binding">DDNS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-qos.html"
+                    type="tableform"
+                    title="QoS"
+                  >
+                    <span class="mm-text ng-binding">QoS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Security"
+              class="sidebarItem ng-scope open"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-security.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Security</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="firewall-0">
+                  <a
+                    tabindex="-1"
+                    href="security-firewall.html"
+                    type="custom"
+                    title="Firewall"
+                  >
+                    <span class="mm-text ng-binding">Firewall</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  id="parentalcontrol-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="security-parental_control_settings.html"
+                    type="custom"
+                    title="Parental Control"
+                  >
+                    <span class="mm-text ng-binding">Parental Control</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="Utilities"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-utilities.svg"
+                />
+                <span class="mm-text menu-title ng-binding">Utilities</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="userview-0">
+                  <a
+                    tabindex="-1"
+                    href="utilities-system-user_mgnt.html"
+                    type="tableform"
+                    title="System"
+                  >
+                    <span class="mm-text ng-binding">System</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="adminactions-1"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-update_fw.html"
+                    type="custom"
+                    title="Upgrade Firmware"
+                  >
+                    <span class="mm-text ng-binding">Upgrade Firmware</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li class="no-padding-hr no-margin-vr ng-scope" id="diagnose-2">
+                  <a
+                    tabindex="-1"
+                    href="utilities-diagnostics.html"
+                    type="custom"
+                    title="Diagnostics"
+                  >
+                    <span class="mm-text ng-binding">Diagnostics</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="speedtest-3"
+                >
+                  <a
+                    tabindex="-1"
+                    href="utilities-speed_test.html"
+                    type="custom"
+                    title="Speed Test"
+                  >
+                    <span class="mm-text ng-binding">Speed Test</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+            <li
+              name="VoIP"
+              class="sidebarItem ng-scope"
+              onclick="toggleOpenClass(this)"
+            >
+              <button
+                class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
+              >
+                <img
+                  class="menu-icon ltq-icon t1"
+                  src="images/icons/icon-1/menu-voip.svg"
+                />
+                <span class="mm-text menu-title ng-binding">VoIP</span>
+              </button>
+              <ul
+                class="mmc-dropdown-delay animated fadeInLeft navigation ltq_submenu dropdown-menu dropdown-side-menu no-padding-vr"
+                href="#"
+              >
+                <!-- ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="voip_config-0"
+                >
+                  <a
+                    tabindex="-1"
+                    href="voip-config.html"
+                    type="tableform"
+                    title="Configuration"
+                  >
+                    <span class="mm-text ng-binding">Configuration</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
+                <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+              </ul>
+            </li>
+            <!-- end ngRepeat: post in posts.menu -->
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div id="content-wrapper" style="min-height: 606px">
-      <!-- ngView: true -->
-      <div data-ng-view="true" id="dataView" translate-cloak="" class="ng-scope">
-        <!--
+      <div id="content-wrapper" style="min-height: 606px">
+        <!-- ngView: true -->
+        <div
+          
+          id="dataView"
+          
+          class="ng-scope"
+        >
+          <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-        <title class="ng-scope">TODO supply a title</title>
+          <title class="ng-scope">TODO supply a title</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" class="ng-scope" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
 
-        <div id="translation" class="hide ng-scope">parentalcontrolform</div>
-        <div ng-controller="parentalFormController" class="ng-scope">
-          <!-- ngInclude: 'templates/breadcrumbs.html' -->
-          <div class="ng-scope">
-            <div class="row ltq_breadcrumbs ng-scope">
-              <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$index === 1">
-                  <!-- ngSwitchWhen: true -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$index === 1">
-                  <!-- ngSwitchWhen: true -->
-                  <h4 class="ng-binding ng-scope">Parental Control</h4>
-                  <!-- end ngSwitchWhen: -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$index === 1">
-                  <!-- ngSwitchWhen: true -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$index === 1">
-                  <!-- ngSwitchWhen: true -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$first">
-                  <!-- ngSwitchWhen: true -->
-                  <div class="btn-group btn-breadcrumb1 ng-scope">
-                    <div class="ltq_brd_home">
-                      <a class="btn ng-binding" href="main.html">
-                        Security
-                      </a>
-                    </div>
-                  </div>
-                  <!-- end ngSwitchWhen: -->
-
-                  <!-- ngSwitchWhen: false -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$first">
-                  <!-- ngSwitchWhen: true -->
-
-                  <!-- ngSwitchWhen: false -->
-                  <div class="btn-group btn-breadcrumb ng-scope">
-                    <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
-                      class="btn btn-default not-active ng-binding ng-scope">
-                      Parental Control </span><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
-                    <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
-                  </div>
-                  <!-- end ngSwitchWhen: -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$first">
-                  <!-- ngSwitchWhen: true -->
-
-                  <!-- ngSwitchWhen: false -->
-                  <div class="btn-group btn-breadcrumb ng-scope">
-                    <!-- ngIf: breadcrumb.path == 'nothing' || $last == true -->
-                    <!-- ngIf: breadcrumb.path != 'nothing' && $last == false --><span class="ng-scope">
-                      <a class="btn ng-binding" href="security-parental_control-devControl.html">
-                        <i></i>
-                        Device Under Parental Control
-                      </a> </span><!-- end ngIf: breadcrumb.path != 'nothing' && $last == false -->
-                  </div>
-                  <!-- end ngSwitchWhen: -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              <div class="ng-scope">
-                <ng-switch on="$first">
-                  <!-- ngSwitchWhen: true -->
-
-                  <!-- ngSwitchWhen: false -->
-                  <div class="btn-group btn-breadcrumb ng-scope">
-                    <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
-                      class="btn btn-default not-active ng-binding ng-scope">
-                      Add </span><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
-                    <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
-                  </div>
-                  <!-- end ngSwitchWhen: -->
-                </ng-switch>
-              </div>
-              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            </div>
-          </div>
-
-          <div class="subheader">
-            <p class="ng-binding">
-              It allows you to control the home network users to access the
-              Internet by setting certain times of the day.
-            </p>
-          </div>
-
-          <div class="row ng-hide" ng-show="getformnamepopup">
-            <div class="alert alert-danger">
-              <a class="close" aria-label="close">×</a>
-              <strong class="ng-binding">Warning!</strong><span class="ng-binding"></span>
-            </div>
-          </div>
-          <div class="row ng-hide" ng-show="postformnamepopup">
-            <div class="alert alert-danger">
-              <a class="close" aria-label="close">×</a>
-              <strong class="ng-binding">Warning!</strong><span ng-bind="postformnamepopupval"
-                class="ng-binding"></span>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="wrapperdiv">
-              <div class="panel-body gemtek-panel-body-form">
-                <div>
-                  <form class="form-horizontal lantiq-form-text ng-invalid ng-invalid-required ng-dirty ng-valid-parse"
-                    name="parentalcontrolform">
-                    <div class="form-group">
-                      <span ng-bind="&#39;Device.Firewall.X_GTK_ParentalControl.Rule.*.Enable&#39; | translate"
-                        class="ng-binding">Enable Parental Control Rule</span>
-                      <input id="props_Enable" name="Enable" type="checkbox"
-                        class="form-control ng-untouched ng-valid ng-dirty ng-valid-parse" />
-                      <label class="checkbox_left_align no-padding-hr" for="props_Enable"></label>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-5 no-padding-hr-l gemtek-mr-20 gemtek-mb-30 required">
-                        <label for="PolicyName" class="active">Policy Name</label>
-                        <input type="text" id="PolicyName" name="PolicyName"
-                          class="form-control no-margin ng-pristine ng-invalid ng-invalid-required ng-touched"
-                          placeholder="Please enter policy name" required="" />
-                        <span class="error ng-binding ng-hide commonError" id="empty_policy_name_error">* This Field is
-                          Required</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-xs-12 col-sm-5 no-padding-hr-l required">
-                        <label for="type">Type</label>
-                        <select name="type" id="ParentalControlType" class="ng-pristine ng-untouched ng-valid">
-                          <option value="url" selected="selected">URL</option>
-                          <option value="ipaddress">IP Address</option>
-                          <option value="port">Port</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-xs-12 col-sm-5 no-padding-hr-l">
-                        <div class="input-field col-xs-12 col-sm-12 no-padding-hr">
-                          <input type="text" id="MACAddress" name="MACAddress" placeholder="Enter valid MAC address"
-                            class="ng-pristine ng-untouched ng-valid" />
-                          <label class="active ng-binding" for="MACAddress">MAC Address (If MAC Address is not set, it
-                            means
-                            that it applies to all.)</label>
-                          <span class="error ng-hide" id="mac_address_format_error">* Invalid MAC address</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row timepicker">
-                      <div class="form-group required col-xs-12 col-sm-5 text-left custom_formgroup no-padding-hr-l">
-                        <div class="input-field col-xs-12 col-sm-12 no-padding-hr">
-                          <label class="inline active ng-binding">Start Time</label>
-                          <input name="TimeStart" id="TimeStart"
-                            class="startTime1 gemtek-timepick ng-pristine ng-untouched ng-invalid ng-invalid-required"
-                            trigger-event="" placeholder="" type="text" data-field="time" data-startend="start"
-                            data-format="HH:mm" data-startendelem=".endTime1" required="" readonly="" />
-                          <span class="error ng-hide commonError" id="empty_start_time_error">* This Field is Required</span>
-                        </div>
-                      </div>
-                      <div class="form-group required col-xs-12 col-sm-5 text-left custom_formgroup no-padding-hr-l">
-                        <div class="input-field col-xs-12 col-sm-12 no-padding-hr">
-                          <label class="inline active ng-binding">End Time</label>
-                          <input
-                            class="endTime1 gemtek-timepick ng-pristine ng-untouched ng-invalid ng-invalid-required"
-                            name="TimeEnd" id="TimeEnd" trigger-event="" placeholder="" type="text" data-field="time"
-                            data-startend="end" data-format="HH:mm" data-startendelem=".startTime1" required=""
-                            readonly="" />
-                          <span class="error ng-hide commonError" id="empty_end_time_error">* This Field is
-                            Required</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group required weekdayslistdiv no-padding-hr-l col-xs-12 col-sm-5">
-                        <div>
-                          <label class="ng-binding">Days Of The Week</label>
-                        </div>
-                        <div class="gemtek-mt-30">
-                          <ul class="weekdayslist">
-                            <li class="">
-                              <a><span>Su</span></a>
-                            </li>
-                            <li class="">
-                              <a><span>Mo</span></a>
-                            </li>
-                            <li class="">
-                              <a><span>Tu</span></a>
-                            </li>
-                            <li class="">
-                              <a><span>We</span></a>
-                            </li>
-                            <li class="">
-                              <a><span>Th</span></a>
-                            </li>
-                            <li class="">
-                              <a><span>Fr</span></a>
-                            </li>
-                            <li class="">
-                              <a><span>Sa</span></a>
-                            </li>
-                          </ul>
-                          <input type="hidden" id="ParentalControlDaysOfTheWeek" name="DaysOfTheWeek" required=""
-                            class="ng-pristine ng-untouched ng-valid ng-valid-required" />
-                          <span class="error weekdayslist-error ng-hide commonError" id="empty_weekdays_list">* This Field is
-                            Required</span>
-                        </div>
-                      </div>
-
-                      <div class="form-group required col-xs-12 col-sm-5 no-padding-hr-l">
-                        <label for="Target" class="control-label gemtek-dropdown-label ng-binding">Access</label>
-                        <div class="gemtek-mt-20">
-                          <select name="Target" id="Target"
-                            class="dropdown-toggle ng-pristine ng-valid ng-valid-required ng-touched" required="">
-                            <option class="form-control1" value="Accept">
-                              Accept
-                            </option>
-                            <option class="form-control1" value="Drop">
-                              Drop
-                            </option>
-                          </select>
-                          <span class="error ng-hide">* This Field is Required</span>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
+          <div id="translation" class="hide ng-scope">parentalcontrolform</div>
+          <div ng-controller="parentalFormController" class="ng-scope">
+            <!-- ngInclude: 'templates/breadcrumbs.html' -->
+            <div class="ng-scope">
+              <div class="row ltq_breadcrumbs ng-scope">
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                  </ng-switch>
                 </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                    <h4 class="ng-binding ng-scope">Parental Control</h4>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+                    <div class="btn-group btn-breadcrumb1 ng-scope">
+                      <div class="ltq_brd_home">
+                        <a class="btn ng-binding" href="main.html">
+                          Security
+                        </a>
+                      </div>
+                    </div>
+                    <!-- end ngSwitchWhen: -->
 
-                <div>
-                  <!-- url  -->
-                  <div id="urlForm" class="form-section">
-                    <form name="urlForm" class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern">
-                      <div class="panel-table-plus">
-                        <div class="ip-panel-heading gemtek-mb-0">
-                          <span>URL List</span>
-                          <label for="URL" class="active" label="">
-                            <a class="gemtek-btn-normal gemtek-btn-addplus" id="AddUrlList">
+                    <!-- ngSwitchWhen: false -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                        class="btn btn-default not-active ng-binding ng-scope"
+                      >
+                        Parental Control </span
+                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false --><span
+                        class="ng-scope"
+                      >
+                        <a
+                          class="btn ng-binding"
+                          href="security-parental_control-devControl.html"
+                        >
+                          <i></i>
+                          Device Under Parental Control
+                        </a> </span
+                      ><!-- end ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div class="btn-group btn-breadcrumb ng-scope">
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                        class="btn btn-default not-active ng-binding ng-scope"
+                      >
+                        Add </span
+                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              </div>
+            </div>
+
+            <div class="subheader">
+              <p class="ng-binding">
+                It allows you to control the home network users to access the
+                Internet by setting certain times of the day.
+              </p>
+            </div>
+
+            <div class="row ng-hide" >
+              <div class="alert alert-danger">
+                <a class="close" aria-label="close">×</a>
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" >
+              <div class="alert alert-danger">
+                <a class="close" aria-label="close">×</a>
+                <strong class="ng-binding">Warning!</strong
+                ><span  class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="wrapperdiv">
+                <div class="panel-body gemtek-panel-body-form">
+                  <div>
+                    <form
+                      class="form-horizontal lantiq-form-text ng-invalid ng-invalid-required ng-dirty ng-valid-parse"
+                      name="parentalcontrolform"
+                    >
+                      <div class="form-group">
+                        <span
+                          ng-bind="&#39;Device.Firewall.X_GTK_ParentalControl.Rule.*.Enable&#39; | translate"
+                          class="ng-binding"
+                          >Enable Parental Control Rule</span
+                        >
+                        <input
+                          id="props_Enable"
+                          name="Enable"
+                          type="checkbox"
+                          class="form-control ng-untouched ng-valid ng-dirty ng-valid-parse"
+                        />
+                        <label
+                          class="checkbox_left_align no-padding-hr"
+                          for="props_Enable"
+                        ></label>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="col-xs-12 col-sm-5 no-padding-hr-l gemtek-mr-20 gemtek-mb-30 required"
+                        >
+                          <label for="PolicyName" class="active"
+                            >Policy Name</label
+                          >
+                          <input
+                            type="text"
+                            id="PolicyName"
+                            name="PolicyName"
+                            class="form-control no-margin ng-pristine ng-invalid ng-invalid-required ng-touched"
+                            placeholder="Please enter policy name"
+                            required=""
+                          />
+                          <span
+                            class="error ng-binding ng-hide commonError"
+                            id="empty_policy_name_error"
+                            >* This Field is Required</span
+                          >
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="form-group col-xs-12 col-sm-5 no-padding-hr-l required"
+                        >
+                          <label for="type">Type</label>
+                          <select
+                            name="type"
+                            id="ParentalControlType"
+                            class="ng-pristine ng-untouched ng-valid"
+                          >
+                            <option value="url" selected="selected">URL</option>
+                            <option value="ipaddress">IP Address</option>
+                            <option value="port">Port</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="form-group col-xs-12 col-sm-5 no-padding-hr-l"
+                        >
+                          <div
+                            class="input-field col-xs-12 col-sm-12 no-padding-hr"
+                          >
+                            <input
+                              type="text"
+                              id="MACAddress"
+                              name="MACAddress"
+                              placeholder="Enter valid MAC address"
+                              class="ng-pristine ng-untouched ng-valid"
+                            />
+                            <label class="active ng-binding" for="MACAddress"
+                              >MAC Address (If MAC Address is not set, it means
+                              that it applies to all.)</label
+                            >
+                            <span
+                              class="error ng-hide"
+                              id="mac_address_format_error"
+                              >* Invalid MAC address</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row timepicker">
+                        <div
+                          class="form-group required col-xs-12 col-sm-5 text-left custom_formgroup no-padding-hr-l"
+                        >
+                          <div
+                            class="input-field col-xs-12 col-sm-12 no-padding-hr"
+                          >
+                            <label class="inline active ng-binding"
+                              >Start Time</label
+                            >
+                            <input
+                              name="TimeStart"
+                              id="TimeStart"
+                              class="startTime1 gemtek-timepick ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                              trigger-event=""
+                              placeholder=""
+                              type="text"
+                              data-field="time"
+                              data-startend="start"
+                              data-format="HH:mm"
+                              data-startendelem=".endTime1"
+                              required=""
+                              readonly=""
+                            />
+                            <span
+                              class="error ng-hide commonError"
+                              id="empty_start_time_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                        <div
+                          class="form-group required col-xs-12 col-sm-5 text-left custom_formgroup no-padding-hr-l"
+                        >
+                          <div
+                            class="input-field col-xs-12 col-sm-12 no-padding-hr"
+                          >
+                            <label class="inline active ng-binding"
+                              >End Time</label
+                            >
+                            <input
+                              class="endTime1 gemtek-timepick ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                              name="TimeEnd"
+                              id="TimeEnd"
+                              trigger-event=""
+                              placeholder=""
+                              type="text"
+                              data-field="time"
+                              data-startend="end"
+                              data-format="HH:mm"
+                              data-startendelem=".startTime1"
+                              required=""
+                              readonly=""
+                            />
+                            <span
+                              class="error ng-hide commonError"
+                              id="empty_end_time_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div
+                          class="form-group required weekdayslistdiv no-padding-hr-l col-xs-12 col-sm-5"
+                        >
+                          <div>
+                            <label class="ng-binding">Days Of The Week</label>
+                          </div>
+                          <div class="gemtek-mt-30">
+                            <ul class="weekdayslist">
+                              <li class="">
+                                <a><span>Su</span></a>
+                              </li>
+                              <li class="">
+                                <a><span>Mo</span></a>
+                              </li>
+                              <li class="">
+                                <a><span>Tu</span></a>
+                              </li>
+                              <li class="">
+                                <a><span>We</span></a>
+                              </li>
+                              <li class="">
+                                <a><span>Th</span></a>
+                              </li>
+                              <li class="">
+                                <a><span>Fr</span></a>
+                              </li>
+                              <li class="">
+                                <a><span>Sa</span></a>
+                              </li>
+                            </ul>
+                            <input
+                              type="hidden"
+                              id="ParentalControlDaysOfTheWeek"
+                              name="DaysOfTheWeek"
+                              required=""
+                              class="ng-pristine ng-untouched ng-valid ng-valid-required"
+                            />
+                            <span
+                              class="error weekdayslist-error ng-hide commonError"
+                              id="empty_weekdays_list"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+
+                        <div
+                          class="form-group required col-xs-12 col-sm-5 no-padding-hr-l"
+                        >
+                          <label
+                            for="Target"
+                            class="control-label gemtek-dropdown-label ng-binding"
+                            >Access</label
+                          >
+                          <div class="gemtek-mt-20">
+                            <select
+                              name="Target"
+                              id="Target"
+                              class="dropdown-toggle ng-pristine ng-valid ng-valid-required ng-touched"
+                              required=""
+                            >
+                              <option class="form-control1" value="Accept">
+                                Accept
+                              </option>
+                              <option class="form-control1" value="Drop">
+                                Drop
+                              </option>
+                            </select>
+                            <span class="error ng-hide"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div>
+                    <!-- url  -->
+                    <div id="urlForm" class="form-section">
+                      <form
+                        name="urlForm"
+                        class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
+                      >
+                        <div class="panel-table-plus">
+                          <div class="ip-panel-heading gemtek-mb-0">
+                            <span>URL List</span>
+                            <label for="URL" class="active" label="">
+                              <a
+                                class="gemtek-btn-normal gemtek-btn-addplus"
+                                id="AddUrlList"
+                              >
+                                <i class="fa fa-plus icontxtgap"></i>
+                                <span>Add</span>
+                              </a>
+                            </label>
+                          </div>
+
+                          <template
+                            id="input_field_url_list"
+                            style="display: none"
+                          >
+                            <tr
+                              ng-repeat="url in parentalControl.url.List track by $index"
+                              class="ng-scope"
+                            >
+                              <td style="padding-right: 10px">
+                                <ng-form
+                                  name="urlListForm0"
+                                  class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
+                                >
+                                  <input
+                                    type="text"
+                                    name="url"
+                                    class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern url_input"
+                                    pattern="/^[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&amp;&#39;\*\+,;=.]+$/"
+                                    required=""
+                                  />
+                                  <span
+                                    class="error commonErrorUrl ng-hide empty_url_error"
+                                    >* This Field is Required</span
+                                  >
+                                  <span
+                                    class="error commonErrorUrl ng-hide format_url_error"
+                                    >* Allowed domain name only</span
+                                  >
+                                  <span
+                                    class="error commonErrorUrl gemtek-d-block ng-hide"
+                                    >* This value already exists. Please input
+                                    again.</span
+                                  >
+                                </ng-form>
+                              </td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-xs table-btn no-margin Delete"
+                                  name="delete"
+                                >
+                                  <span class="gemtek-delete-icon"></span>
+                                </button>
+                              </td>
+                            </tr>
+                          </template>
+
+                          <div class="gemtek-panel-p20 no-padding-hr">
+                            <div class="table-responsive table-scroll-vr">
+                              <table
+                                class="table_txt_align_v theme_intel no-margin-vr"
+                              >
+                                <tbody id="bodyUrlData"></tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- IP Address Form -->
+                    <div
+                      id="ipaddressForm"
+                      class="form-section"
+                      style="display: none"
+                    >
+                      <form name="ipaddressForm" class="ng-pristine ng-valid">
+                        <div class="panel-table-plus">
+                          <div class="ip-panel-heading gemtek-mb-0">
+                            <span>IP Address List</span>
+                            <label for="IP" class="active" label=""></label>
+                            <a
+                              class="gemtek-btn-normal gemtek-btn-addplus"
+                              id="AddIpAddressList"
+                            >
                               <i class="fa fa-plus icontxtgap"></i>
                               <span>Add</span>
                             </a>
-                          </label>
-                        </div>
-
-                        <template id="input_field_url_list" style="display: none">
-                          <tr ng-repeat="url in parentalControl.url.List track by $index" class="ng-scope">
-                            <td style="padding-right: 10px">
-                              <ng-form name="urlListForm0"
-                                class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern">
-                                <input type="text" name="url"
-                                  class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern url_input"
-                                  pattern="/^[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&amp;&#39;\*\+,;=.]+$/"
-                                  required="" />
-                                <span class="error commonErrorUrl ng-hide empty_url_error">* This Field is Required</span>
-                                <span class="error commonErrorUrl ng-hide format_url_error">* Allowed domain name only</span>
-                                <span class="error commonErrorUrl gemtek-d-block ng-hide">* This value already exists. Please input
-                                  again.</span>
-                              </ng-form>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-xs table-btn no-margin Delete" name="delete">
-                                <span class="gemtek-delete-icon"></span>
-                              </button>
-                            </td>
-                          </tr>
-                        </template>
-
-                        <div class="gemtek-panel-p20 no-padding-hr">
-                          <div class="table-responsive table-scroll-vr">
-                            <table class="table_txt_align_v theme_intel no-margin-vr">
-                              <tbody id="bodyUrlData">
-                              </tbody>
-                            </table>
+                          </div>
+                          <template
+                            id="input_field_ipaddress_list"
+                            style="display: none"
+                          >
+                            <tr
+                              ng-repeat="ip in parentalControl.ipaddress.List track by $index"
+                              class="ng-scope"
+                            >
+                              <td style="padding-right: 10px">
+                                <ng-form
+                                  name="ipListForm0"
+                                  class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
+                                >
+                                  <input
+                                    type="text"
+                                    name="ip"
+                                    id="ip_address_input"
+                                    class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ip_address_input"
+                                    required=""
+                                  />
+                                  <span
+                                    class="error commonErrorIp ng-hide empty_ip_address_error"
+                                    >* This Field is Required</span
+                                  >
+                                  <span
+                                    class="error commonErrorIp ng-hide format_ip_address_error"
+                                    >* Allowed IP address only</span
+                                  >
+                                  <span
+                                    class="error commonErrorIp gemtek-d-block ng-hide"
+                                    >* This value already exists. Please input
+                                    again.</span
+                                  >
+                                </ng-form>
+                              </td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-xs table-btn no-margin DeleteIpAddressList"
+                                  name="delete"
+                                >
+                                  <span class="gemtek-delete-icon"></span>
+                                </button>
+                              </td>
+                            </tr>
+                          </template>
+                          <div class="gemtek-panel-p20 no-padding-hr">
+                            <div class="table-responsive table-scroll-vr">
+                              <table
+                                class="table_txt_align_v theme_intel no-margin-vr"
+                              >
+                                <tbody id="bodyIpAddressData">
+                                  <!-- ngRepeat: ip in parentalControl.ipaddress.List track by $index -->
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </form>
-                  </div>
+                      </form>
+                    </div>
 
-                  <!-- IP Address Form -->
-                  <div id="ipaddressForm" class="form-section" style="display:none;">
-                    <form name="ipaddressForm" class="ng-pristine ng-valid">
-                      <div class="panel-table-plus">
-                        <div class="ip-panel-heading gemtek-mb-0">
-                          <span>IP Address List</span>
-                          <label for="IP" class="active" label=""></label>
-                          <a class="gemtek-btn-normal gemtek-btn-addplus" id="AddIpAddressList">
-                            <i class="fa fa-plus icontxtgap"></i>
-                            <span>Add</span>
-                          </a>
-                        </div>
-                        <template id="input_field_ipaddress_list" style="display: none">
-                          <tr ng-repeat="ip in parentalControl.ipaddress.List track by $index" class="ng-scope">
-                            <td style="padding-right: 10px">
-                              <ng-form name="ipListForm0"
-                                class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern">
-                                <input type="text" name="ip" id="ip_address_input"
-                                  class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ip_address_input"
-                                  required="" />
-                                <span class="error commonErrorIp ng-hide empty_ip_address_error">* This Field is Required</span>
-                                <span class="error commonErrorIp ng-hide format_ip_address_error">* Allowed IP address only</span>
-                                <span class="error commonErrorIp gemtek-d-block ng-hide">* This value already exists. Please input
-                                  again.</span>
-                              </ng-form>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-xs table-btn no-margin DeleteIpAddressList"
-                                name="delete">
-                                <span class="gemtek-delete-icon"></span>
-                              </button>
-                            </td>
-                          </tr>
-                        </template>
-                        <div class="gemtek-panel-p20 no-padding-hr">
-                          <div class="table-responsive table-scroll-vr">
-                            <table class="table_txt_align_v theme_intel no-margin-vr">
-                              <tbody id="bodyIpAddressData">
-                                <!-- ngRepeat: ip in parentalControl.ipaddress.List track by $index -->
-                              </tbody>
-                            </table>
+                    <!-- Port Form -->
+                    <div
+                      id="portForm"
+                      class="form-section"
+                      style="display: none"
+                    >
+                      <form name="portForm" class="ng-pristine ng-valid">
+                        <div class="panel-table-plus">
+                          <div class="ip-panel-heading gemtek-mb-0">
+                            <span>Port List</span>
+                            <label for="PORT" class="active" label=""></label>
+                            <a
+                              class="gemtek-btn-normal gemtek-btn-addplus"
+                              id="AddPortList"
+                            >
+                              <i class="fa fa-plus icontxtgap"></i>
+                              <span>Add</span>
+                            </a>
+                          </div>
+                          <template
+                            id="input_field_port_list"
+                            style="display: none"
+                          >
+                            <tr
+                              ng-repeat="port in parentalControl.port.List track by $index"
+                              class="ng-scope"
+                            >
+                              <td style="padding-right: 10px">
+                                <ng-form
+                                  name="portListForm0"
+                                  class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
+                                >
+                                  <input
+                                    type="text"
+                                    name="port"
+                                    class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern port_input"
+                                    required=""
+                                  />
+                                  <span
+                                    class="error commonErrorPort ng-hide empty_port_error"
+                                    >* This Field is Required</span
+                                  >
+                                  <span
+                                    class="error commonErrorPort ng-hide format_port_error"
+                                    >* Enter a valid port number</span
+                                  >
+                                  <span
+                                    class="error commonErrorPort gemtek-d-block ng-hide"
+                                    >* This value already exists. Please input
+                                    again.</span
+                                  >
+                                </ng-form>
+                              </td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-xs table-btn no-margin DeletePortList"
+                                  name="delete"
+                                >
+                                  <span class="gemtek-delete-icon"></span>
+                                </button>
+                              </td>
+                            </tr>
+                          </template>
+                          <div class="gemtek-panel-p20 no-padding-hr">
+                            <div class="table-responsive table-scroll-vr">
+                              <table
+                                class="table_txt_align_v theme_intel no-margin-vr"
+                              >
+                                <tbody id="bodyPortData">
+                                  <!-- ngRepeat: port in parentalControl.port.List track by $index -->
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
-
-                  <!-- Port Form -->
-                  <div id="portForm" class="form-section" style="display:none;">
-                    <form name="portForm" class="ng-pristine ng-valid">
-                      <div class="panel-table-plus">
-                        <div class="ip-panel-heading gemtek-mb-0">
-                          <span>Port List</span>
-                          <label for="PORT" class="active" label=""></label>
-                          <a class="gemtek-btn-normal gemtek-btn-addplus" id="AddPortList">
-                            <i class="fa fa-plus icontxtgap"></i>
-                            <span>Add</span>
-                          </a>
-                        </div>
-                        <template id="input_field_port_list" style="display: none">
-                          <tr ng-repeat="port in parentalControl.port.List track by $index" class="ng-scope">
-                            <td style="padding-right: 10px">
-                              <ng-form name="portListForm0"
-                                class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern">
-                                <input type="text" name="port"
-                                  class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern port_input"
-                                  required="" />
-                                <span class="error commonErrorPort ng-hide empty_port_error">* This Field is Required</span>
-                                <span class="error commonErrorPort ng-hide format_port_error">* Enter a valid port number</span>
-                                <span class="error commonErrorPort gemtek-d-block ng-hide">* This value already exists. Please input
-                                  again.</span>
-                              </ng-form>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-xs table-btn no-margin DeletePortList" name="delete">
-                                <span class="gemtek-delete-icon"></span>
-                              </button>
-                            </td>
-                          </tr>
-                        </template>
-                        <div class="gemtek-panel-p20 no-padding-hr">
-                          <div class="table-responsive table-scroll-vr">
-                            <table class="table_txt_align_v theme_intel no-margin-vr">
-                              <tbody id="bodyPortData">
-                                <!-- ngRepeat: port in parentalControl.port.List track by $index -->
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <div class="gemtek-button-outside-panel">
-                  <div class="btn-align">
-                    <input class="gemtek-btn-normal" type="button" value="Cancel" id="Cancel" />
-                  </div>
-                  <div class="btn-group" ng-show="parentalControl.Type === &#39;url&#39;">
-                    <input class="gemtek-btn-primary" type="button" id="Apply" value="Apply" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="dtBox" class="dtpicker-overlay dtpicker-mobile" style="display: none">
-              <div class="dtpicker-bg">
-                <div class="dtpicker-cont">
-                  <div class="dtpicker-content">
-                    <div class="dtpicker-subcontent">
-                      <div class="dtpicker-header">
-                        <div class="dtpicker-title">Set Time</div>
-                        <a class="dtpicker-close" onclick="hide_dtBox()"></a>
-                      </div>
-                      <div class="dtpicker-value">00:00</div>
-                      <div class="dtpicker-components">
-                        <div class="dtpicker-compOutline dtpicker-comp2">
-                          <div class="dtpicker-comp hour">
-                            <a class="dtpicker-compButton increment uparrow dtpicker-compButtonEnable"
-                              id="hour_up"></a><input type="text" class="dtpicker-compValue" value="00" id="hour" /><a
-                              class="dtpicker-compButton decrement downarrow dtpicker-compButtonEnable"
-                              id="hour_down"></a>
-                          </div>
-                        </div>
-                        <div class="dtpicker-compOutline dtpicker-comp2">
-                          <div class="dtpicker-comp minutes">
-                            <a class="dtpicker-compButton increment uparrow dtpicker-compButtonEnable"
-                              id="minute_up"></a><input type="text" value="00" class="dtpicker-compValue"
-                              id="minute" /><a class="dtpicker-compButton decrement downarrow dtpicker-compButtonEnable"
-                              id="minute_down"></a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="dtpicker-buttonCont dtpicker-twoButtons">
-                        <a class="gemtek-btn-normal dtpicker-buttonClear" onclick="hide_dtBox(this.id)">Clear</a><a
-                          class="gemtek-btn-primary dtpicker-buttonSet" onclick="hide_dtBox(this.id)">Set</a>
-                      </div>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                  <div class="gemtek-button-outside-panel">
+                    <div class="btn-align">
+                      <input
+                        class="gemtek-btn-normal"
+                        type="button"
+                        value="Cancel"
+                        id="Cancel"
+                      />
+                    </div>
+                    <div
+                      class="btn-group"
+                      ng-show="parentalControl.Type === &#39;url&#39;"
+                    >
+                      <input
+                        class="gemtek-btn-primary"
+                        type="button"
+                        id="Apply"
+                        value="Apply"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
-              <script>
-                // Get references to the hour and minute input elements
-              </script>
-            </div>
-            <!-- ngInclude: 'templates/deletedialog.html' -->
-            <div class="ng-scope">
+
+              <div
+                id="dtBox"
+                class="dtpicker-overlay dtpicker-mobile"
+                style="display: none"
+              >
+                <div class="dtpicker-bg">
+                  <div class="dtpicker-cont">
+                    <div class="dtpicker-content">
+                      <div class="dtpicker-subcontent">
+                        <div class="dtpicker-header">
+                          <div class="dtpicker-title">Set Time</div>
+                          <a class="dtpicker-close" onclick="hide_dtBox()"></a>
+                        </div>
+                        <div class="dtpicker-value">00:00</div>
+                        <div class="dtpicker-components">
+                          <div class="dtpicker-compOutline dtpicker-comp2">
+                            <div class="dtpicker-comp hour">
+                              <a
+                                class="dtpicker-compButton increment uparrow dtpicker-compButtonEnable"
+                                id="hour_up"
+                              ></a
+                              ><input
+                                type="text"
+                                class="dtpicker-compValue"
+                                value="00"
+                                id="hour"
+                              /><a
+                                class="dtpicker-compButton decrement downarrow dtpicker-compButtonEnable"
+                                id="hour_down"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="dtpicker-compOutline dtpicker-comp2">
+                            <div class="dtpicker-comp minutes">
+                              <a
+                                class="dtpicker-compButton increment uparrow dtpicker-compButtonEnable"
+                                id="minute_up"
+                              ></a
+                              ><input
+                                type="text"
+                                value="00"
+                                class="dtpicker-compValue"
+                                id="minute"
+                              /><a
+                                class="dtpicker-compButton decrement downarrow dtpicker-compButtonEnable"
+                                id="minute_down"
+                              ></a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="dtpicker-buttonCont dtpicker-twoButtons">
+                          <a
+                            class="gemtek-btn-normal dtpicker-buttonClear"
+                            onclick="hide_dtBox(this.id)"
+                            >Clear</a
+                          ><a
+                            class="gemtek-btn-primary dtpicker-buttonSet"
+                            onclick="hide_dtBox(this.id)"
+                            >Set</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  // Get references to the hour and minute input elements
+                </script>
+              </div>
+              <!-- ngInclude: 'templates/deletedialog.html' -->
               <div class="ng-scope">
-                <div id="deletedialog" class="ngdialog ngdialog-theme-default dialogwidth800 hide">
-                  <div class="ngdialog-overlay"></div>
-                  <div class="ngdialog-content">
-                    <div class="ngdialog-message">
-                      <img src="images/icons/icon-1/deletedialog.svg" />
-                      <h3 class="ng-binding">Delete</h3>
-                      <p class="ng-binding">
-                        Are you sure you want to delete URL ?
-                      </p>
-                    </div>
-                    <div class="ngdialog-buttons">
-                      <button type="button" class="ngdialog-button gemtek-btn-normal ng-binding"
-                        onclick="hide_delete_dialog()" id="Cancel">
-                        Cancel
-                      </button>
-                      <button type="button" class="ngdialog-button gemtek-btn-danger ng-binding"
-                        onclick="delete_elem_url_list()" id="OK">
-                        Ok
-                      </button>
+                <div class="ng-scope">
+                  <div
+                    id="deletedialog"
+                    class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                  >
+                    <div class="ngdialog-overlay"></div>
+                    <div class="ngdialog-content">
+                      <div class="ngdialog-message">
+                        <img src="images/icons/icon-1/deletedialog.svg" />
+                        <h3 class="ng-binding">Delete</h3>
+                        <p class="ng-binding">
+                          Are you sure you want to delete URL ?
+                        </p>
+                      </div>
+                      <div class="ngdialog-buttons">
+                        <button
+                          type="button"
+                          class="ngdialog-button gemtek-btn-normal ng-binding"
+                          onclick="hide_delete_dialog()"
+                          id="Cancel"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          class="ngdialog-button gemtek-btn-danger ng-binding"
+                          onclick="delete_elem_url_list()"
+                          id="OK"
+                        >
+                          Ok
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- ngInclude: 'templates/alertdialog.html' -->
-            <div class="ng-scope">
+              <!-- ngInclude: 'templates/alertdialog.html' -->
               <div class="ng-scope">
-                <div id="alertDialog" class="ngdialog ngdialog-theme-default dialogwidth800 hide">
-                  <div class="ngdialog-overlay"></div>
-                  <div class="ngdialog-content">
-                    <div class="ngdialog-message">
-                      <img src="images/icons/icon-1/ico-notice.svg" />
-                      <h3>Notice</h3>
-                      <p class="ng-binding"></p>
-                    </div>
-                    <div class="ngdialog-buttons">
-                      <button type="button" class="gemtek-btn-primary ng-binding">
-                        Close
-                      </button>
+                <div class="ng-scope">
+                  <div
+                    id="alertDialog"
+                    class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                  >
+                    <div class="ngdialog-overlay"></div>
+                    <div class="ngdialog-content">
+                      <div class="ngdialog-message">
+                        <img src="images/icons/icon-1/ico-notice.svg" />
+                        <h3>Notice</h3>
+                        <p class="ng-binding"></p>
+                      </div>
+                      <div class="ngdialog-buttons">
+                        <button
+                          type="button"
+                          class="gemtek-btn-primary ng-binding"
+                        >
+                          Close
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1065,75 +1706,114 @@ and open the template in the editor.
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Footer section-->
-      <footer class="footer">
-        <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+        <!-- Footer section-->
+        <footer class="footer">
+          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
                         <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
 					</div> -->
 
-        <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
-        <!-- <div class="social_icon_group">
+          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+          <!-- <div class="social_icon_group">
                         <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
                         <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
                         <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
                         <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
                         <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
                     </div>                         -->
-      </footer>
+        </footer>
+      </div>
+      <div id="main-menu-bg"></div>
     </div>
-    <div id="main-menu-bg"></div>
-  </div>
 
-  <div class="modal fade" id="myModalHorizontal" aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1"
-    role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-        </div>
+    <div
+      class="modal fade"
+      id="myModalHorizontal"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
 
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <form class="form-horizontal ng-pristine ng-valid" role="form">
-            <div class="form-group">
-              <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status">Progress:</label>
-              <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                <div class="progress-striped active progress" value="" type="">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
-                    aria-valuetext="%" style="width: 100%">
-                    <span class="ng-binding ng-scope"> </span><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form class="form-horizontal ng-pristine ng-valid" role="form">
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Progress:</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <div
+                    class="progress-striped active progress"
+                    value=""
+                    type=""
+                  >
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuetext="%"
+                      style="width: 100%"
+                    >
+                      <span class="ng-binding ng-scope"> </span
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status">Status</label>
-              <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                <input type="text" class="form-control" id="Status" placeholder="WPS Session Start" />
+              <div class="form-group">
+                <label
+                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
+                  for="Status"
+                  >Status</label
+                >
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Status"
+                    placeholder="WPS Session Start"
+                  />
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" data-ng-click="cancelInterval()" data-dismiss="modal" class="btn btn-info">
-            Abort WPS
-          </button>
+            </form>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-ng-click="cancelInterval()"
+              data-dismiss="modal"
+              class="btn btn-info"
+            >
+              Abort WPS
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--Modal End-->
-  <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-  <!--[if !IE]> -->
-  <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+    <!--Modal End-->
+    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
+    <!--[if !IE]> -->
+    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
 
-  <div class="hiddendiv common"></div>
-</body>
-
+    <div class="hiddendiv common"></div>
+  </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)#/tableform/multicast_mcsettings -->
+<!-- saved from url=(0037)#/custom/qospage -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,7 +51,6 @@
       rel="stylesheet"
       type="text/css"
     />
-
     <style type="text/css">
       /* Chart.js */
       @-webkit-keyframes chartjs-render-animation {
@@ -75,11 +74,11 @@
         animation: chartjs-render-animation 0.001s;
       }
     </style>
-
+    <script src="js/Echart/echarts.min.js"></script>
+    <script type="text/javascript"></script>
     <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
     <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
     <link rel="stylesheet" href="css/Custom/gemtek.css" />
-
     <script type="text/ng-template" id="firstDialogId">
       <div class="ngdialog-message">
       <form class="form-horizontal" role="form">
@@ -95,14 +94,14 @@
       <div class="form-group">
       <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></progressbar>
       </div>
       </div>
       <!-- Modify -->
       </form>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="btn btn-info pull-right" >Cancel</button>
+      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="modalDialogId">
@@ -112,8 +111,8 @@
       <div>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" >Confirm</button>
-      <button type="button" class="ngdialog-button ngdialog-button-secondary" >Cancel</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="sessionTimeout">
@@ -124,21 +123,21 @@
       <div>You will automatically be logged off in {{$root.time}} seconds.</div>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" >Yes</button>
-      <button type="button" class="ngdialog-button ngdialog-button-primary" >No</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
       </div>
     </script>
 
     <!-- Add other stylesheets and scripts as needed -->
-    <script src="./js/template.js"></script>
     <script src="./js/storage.js"></script>
+    <script src="./js/template.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
 
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("advanced-multicast-ipv4Setting.html");
+        loadPage("advanced-qos.html");
       };
     </script>
   </head>
@@ -196,7 +195,7 @@
               </g>
             </g>
             <g
-              transform="matrix(-0.760340690612793,-0.6495245099067688,0.6495245099067688,-0.760340690612793,69.05873107910156,56.17917251586914)"
+              transform="matrix(0.9999840259552002,0.005654836539179087,-0.005654836539179087,0.9999840259552002,55.544368743896484,68.76394653320312)"
               opacity="1"
               style="display: block"
             >
@@ -211,7 +210,7 @@
                   stroke="rgb(179,235,247)"
                   stroke-opacity="1"
                   stroke-width="12"
-                  d=" M33.39699935913086,-34.4630012512207 C41.229000091552734,-26.871999740600586 46.48500061035156,-16.638999938964844 47.720001220703125,-5.208000183105469"
+                  d=" M0,-48 C10.581999778747559,-48 20.368000030517578,-44.56800079345703 28.30699920654297,-38.757999420166016"
                 ></path>
               </g>
             </g>
@@ -660,7 +659,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  class="no-padding-hr no-margin-vr ng-scope"
                   id="multicast_mcconfiguration-7"
                 >
                   <a
@@ -705,7 +704,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope"
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
                   id="ddnsform-10"
                 >
                   <a
@@ -887,320 +886,659 @@
         </div>
       </div>
 
-      <div id="content-wrapper" style="min-height: 606px">
+      <div id="content-wrapper" style="min-height: 932px">
         <!-- ngView: true -->
-        <div
-          
-          id="dataView"
-          
-          class="ng-scope"
-        >
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="row ltq_breadcrumbs ng-scope"
-          >
-            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true -->
-                <h4 class="ng-binding ng-scope">Multicast</h4>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <div class="btn-group btn-breadcrumb1 ng-scope">
-                  <div class="ltq_brd_home">
-                    <a class="btn ng-binding" href="main.html"> Advanced </a>
-                  </div>
-                </div>
-                <!-- end ngSwitchWhen: -->
-                <!-- ngSwitchWhen: false --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope"
-                  >
-                    Multicast </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
-                </div>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope"
-                  >
-                    IPv4 Advanced Settings </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
-                </div>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="translation"
-            class="ng-hide ng-scope"
-          >
-            multicastsettings
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="headername"
-            class="ng-hide ng-scope"
-          >
-            Multicast Advanced Settings
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="headerdescription"
-            class="ng-hide ng-scope"
-          >
-            It allows you to configure the CPE to provide multicast
-            functionality
-          </div>
-          <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p id="headerdescriptiondata" class="ng-binding">
-              It allows you to configure the CPE to provide multicast
-              functionality
-            </p>
-          </div>
-          <h4
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="panel_title hide ng-scope"
-          ></h4>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="panel panel-default panel-bg1 ng-scope"
-          >
-            <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcconfiguration"}'
-              >
-                <a href="advanced-multicast.html">Basic Settings</a>
-              </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcsettings"}'
-                class="active"
-              >
-                <a href="advanced-multicast-ipv4Setting.html"
-                  >IPv4 Advanced Settings</a
-                >
-              </li>
-            </ul>
-            <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceX_GTK_McastIGMPParameterspopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceX_GTK_McastIGMPParameterspopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceX_GTK_McastIGMPParameterspopupval | unsafe"
-                  class="ng-binding"
-                ></p>
-              </div>
+        <div data-ng-view="true" id="dataView" class="ng-scope">
+          <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 
-              <div>
-                <div class="wrapperdiv">
-                  <div class="panel-body">
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row checkbox-top-align">
-                        <div
-                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
-                        >
-                          <div class="checkbox1">
-                            <input
-                              type="checkbox"
-                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
-                              id="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              checked
-                            /><label
-                              class="checkbox1_left_align"
-                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              >Fast Leave</label
-                            ><label
-                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                            ></label>
+          <title class="ng-scope">QoS</title>
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
+
+          <div id="translation" class="hide ng-scope">qospage</div>
+          <div class="ng-scope">
+            <!--Breadscrumbs starts here -->
+            <!-- ngInclude: 'templates/breadcrumbs.html' -->
+            <div class="ng-scope">
+              <div class="row ltq_breadcrumbs ng-scope">
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$index === 1">
+                    <!-- ngSwitchWhen: true -->
+                    <h4 ng-switch-when="true" class="ng-binding ng-scope">
+                      QoS
+                    </h4>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+                    <div
+                      class="btn-group btn-breadcrumb1 ng-scope"
+                      ng-switch-when="true"
+                    >
+                      <div class="ltq_brd_home">
+                        <a class="btn ng-binding" onlick="home()"> Advanced </a>
+                      </div>
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+
+                    <!-- ngSwitchWhen: false -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+                <div class="ng-scope">
+                  <ng-switch on="$first">
+                    <!-- ngSwitchWhen: true -->
+
+                    <!-- ngSwitchWhen: false -->
+                    <div
+                      class="btn-group btn-breadcrumb ng-scope"
+                      ng-switch-when="false"
+                    >
+                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                        class="btn btn-default not-active ng-binding ng-scope"
+                      >
+                        QoS </span
+                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                    </div>
+                    <!-- end ngSwitchWhen: -->
+                  </ng-switch>
+                </div>
+                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              </div>
+            </div>
+            <!--Breadscrumbs ends here -->
+            <div class="subheader">
+              <p class="ng-binding">
+                Quality of Service(QoS) settings allows you to specify priority
+                of network traffic and optimize the performance of the
+                applications. It provides the efficient operation of the network
+                when the network connections overload or congest.
+              </p>
+            </div>
+          </div>
+
+          <!--QOS flow chart Form-->
+          <div class="panel">
+            <div class="panel-body">
+              <div class="qoscontainer">
+                <div class="box1 onactive">
+                  <img
+                    src="images/icons/icon-1/qos-router.svg"
+                    width="48"
+                    alt="router"
+                  />
+                  <p class="gemtek-font-bold">QoS</p>
+                </div>
+                <div class="line1">
+                  <div class="line-bar"></div>
+                </div>
+                <ul class="boxlistview">
+                  <li>
+                    <div class="boxlist">
+                      <span></span>
+                      <div class="devicelist">
+                        <div class="qos_box">
+                          <div class="qos_img">
+                            <img
+                              src="images/icons/icon-1/qos-lan.svg"
+                              alt="LAN"
+                            />
+                          </div>
+                          <div class="dropdown qosDropdown" id="LANdropdown">
+                            <button
+                              class="dropdown-toggle qosbutton"
+                              type="button"
+                              data-toggle="dropdown"
+                            >
+                              <span class="cart">
+                                <span class="text-center gemtek-font-bold"
+                                  >LAN: </span
+                                ><span class="ng-binding">Select</span
+                                ><i
+                                  class="fa fa-angle-down qosdropdownicon"
+                                ></i>
+                              </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li class="disabled">
+                                <img src="images/icons/icon-1/checked.svg" />
+                                <span>Ingress</span>
+                              </li>
+                              <li
+                                class="active"
+                                onclick="this.querySelector('img').classList.add('icon-visible')"
+                              >
+                                <img src="images/icons/icon-1/checked.svg" />
+                                <span>Egress</span>
+                              </li>
+                            </ul>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="QueryRespInterval"
-                            placeholder="Please enter group query response interval"
-                            required="required"
-                          /><label
-                            for="QueryRespInterval"
-                            class="required row active ng-binding"
-                            >Group Query Response Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupQInterval_error"
-                          >
-                            Please enter a valid number
-                          </span>
+                  </li>
+                  <li>
+                    <div class="boxlist">
+                      <span><span></span></span>
+                      <div class="devicelist">
+                        <div class="qos_box">
+                          <div class="qos_img">
+                            <img
+                              src="images/icons/icon-1/qos-wan.svg"
+                              alt="WLAN"
+                            />
+                          </div>
+                          <div class="dropdown qosDropdown" id="WLANdropdown">
+                            <button
+                              class="dropdown-toggle qosbutton"
+                              type="button"
+                              data-toggle="dropdown"
+                            >
+                              <span class="cart">
+                                <span class="text-center gemtek-font-bold"
+                                  >WLAN: </span
+                                ><span class="ng-binding">Select</span
+                                ><i
+                                  class="fa fa-angle-down qosdropdownicon"
+                                ></i>
+                              </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li class="disabled">
+                                <img src="images/icons/icon-1/checked.svg" />
+                                <span>Ingress</span>
+                              </li>
+                              <li
+                                class="inactive"
+                                onclick="this.querySelector('img').classList.add('icon-visible')"
+                              >
+                                <img src="images/icons/icon-1/checked.svg" />
+                                <span>Egress</span>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="LastMemQueryInterval"
-                            placeholder="Please enter group last member query interval"
-                            required="required"
-                          /><label
-                            for="LastMemQueryInterval"
-                            class="required row active ng-binding"
-                            >Group Last Member Query Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupLInterval_error"
-                          >
-                            Please enter a valid number
-                          </span>
+                  </li>
+                  <li class="ng-hide">
+                    <div class="boxlist">
+                      <span></span>
+                      <span></span>
+                      <div class="devicelist">
+                        <div class="qos_box">
+                          <div class="ingr_ebl ingr_dbl hide">
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <td>I</td>
+                                </tr>
+                                <tr>
+                                  <td>N</td>
+                                </tr>
+                                <tr>
+                                  <td>G</td>
+                                </tr>
+                                <tr>
+                                  <td>R</td>
+                                </tr>
+                                <tr>
+                                  <td>E</td>
+                                </tr>
+                                <tr>
+                                  <td>S</td>
+                                </tr>
+                                <tr>
+                                  <td>S</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="cont">
+                            <img
+                              src="images/icons/qos/qos-dsl.png"
+                              alt="wifi"
+                              height="44"
+                            />
+                            <!--<span>DSL WAN</span>-->
+                            <div class="dropdown">
+                              <button
+                                class="btn speechblue dropdown-toggle qosbutton"
+                                type="button"
+                                data-toggle="dropdown"
+                                style="width: 100%; border-radius: 0px"
+                              >
+                                <span class="cart"
+                                  ><span class="text-center">DSL WAN</span
+                                  ><i
+                                    class="fa fa-angle-down qosdropdownicon"
+                                  ></i
+                                ></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="disabled"><a>Ingress</a></li>
+                                <li class="inactive">
+                                  <a>Egress</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="egr_ebl hide inactive">
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <td>E</td>
+                                </tr>
+                                <tr>
+                                  <td>G</td>
+                                </tr>
+                                <tr>
+                                  <td>R</td>
+                                </tr>
+                                <tr>
+                                  <td>E</td>
+                                </tr>
+                                <tr>
+                                  <td>S</td>
+                                </tr>
+                                <tr>
+                                  <td>S</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="LastMemQueryCount"
-                            placeholder="Please enter group last member query count"
-                            required="required"
-                          /><label
-                            for="LastMemQueryCount"
-                            class="required row active ng-binding"
-                            >Group Last Member Query Count</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupLCount_error"
+                  </li>
+                  <li>
+                    <div class="boxlist">
+                      <span></span>
+                      <div class="devicelist">
+                        <div class="qos_box">
+                          <div class="qos_img">
+                            <img
+                              src="images/icons/icon-1/qos-eth-wan.svg"
+                              alt="eth-wan"
+                            />
+                          </div>
+                          <div
+                            class="dropdown qosDropdown"
+                            id="ethWLANdropdown"
                           >
-                            Please enter a valid number
-                          </span>
+                            <button
+                              class="dropdown-toggle qosbutton"
+                              type="button"
+                              data-toggle="dropdown"
+                            >
+                              <span class="cart">
+                                <span class="text-center gemtek-font-bold"
+                                  >Eth WLAN: </span
+                                ><span class="ng-binding">Select</span
+                                ><i
+                                  class="fa fa-angle-down qosdropdownicon"
+                                ></i>
+                              </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li class="disabled">
+                                <img src="images/icons/icon-1/checked.svg" />
+                                <span>Ingress</span>
+                              </li>
+                              <li
+                                class="inactive"
+                                onclick="this.querySelector('img').classList.add('icon-visible')"
+                              >
+                                <img src="images/icons/icon-1/checked.svg" />
+                                <span>Egress</span>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="row queue gemtek-border-top">
+                <p class="wps_txt no-margin-vr">Queue</p>
+                <div class="panel-heading-btn-align">
+                  <a
+                    class="gemtek-btn-normal gemtek-btn-normal-sm gemtek-btn-mr"
+                    id="AddQ"
+                  >
+                    <i class="fa fa-plus icontxtgap"></i>
+                    <span class="ng-binding">Add Q</span>
+                  </a>
+                  <a class="gemtek-btn-normal gemtek-btn-normal-sm" id="AddCL">
+                    <i class="fa fa-plus icontxtgap"></i>
+                    <span class="ng-binding">Add CL</span>
+                  </a>
+                </div>
+                <div>
+                  <div>
+                    <!-- ngRepeat: item in qosobjects -->
+                    <div class="ng-scope" id="queueList">
+                      <template id="queueRow">
+                        <div class="custom_heading" id="">
+                          <div>
+                            <img src="" class="enableStatus" />
+                            <span class="queue_txt ng-binding name"></span>
+                          </div>
+                          <button
+                            class="gemtek-more-btn pull-right moreBtn"
+                          ></button>
+                        </div>
+                        <div
+                          class="panel-grey gemtek-mb-30 ng-hide queueDetail"
+                          id=""
+                        >
+                          <table class="table custom_table theme_intel">
+                            <thead>
+                              <tr>
+                                <th class="col-sm-2 ng-binding">Interface</th>
+                                <th class="col-sm-3 ng-binding">Precedence</th>
+                                <th class="col-sm-5 ng-binding">
+                                  Scheduler Algorithm
+                                </th>
+                                <th class="col-sm-2 ng-binding">Actions Q</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class="ng-binding interfaceQueue"></td>
+                                <td class="ng-binding precedence"></td>
+                                <td class="ng-binding scheduler"></td>
+                                <td>
+                                  <button
+                                    class="btn btn-xs table-btn-txt editQ"
+                                    name="Device.QoS.Queue.1"
+                                    index=""
+                                  >
+                                    <img
+                                      src="images/icons/icon-1/edit.svg"
+                                      alt="edit"
+                                    />
+                                  </button>
+                                  <button
+                                    class="btn btn-xs table-btn-txt deleteQ"
+                                    name="Device.QoS.Queue.1"
+                                    index=""
+                                  >
+                                    <img
+                                      src="images/icons/icon-1/delete.svg"
+                                      alt="delete"
+                                    />
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <table class="table custom_table theme_intel">
+                            <thead>
+                              <tr>
+                                <th class="col-sm-2 ng-binding">
+                                  Enable Classifier
+                                </th>
+                                <th class="col-sm-3 ng-binding">
+                                  Classifier Name
+                                </th>
+                                <th class="col-sm-3 ng-binding">Interface</th>
+                                <th class="col-sm-2 ng-binding">Order</th>
+                                <th class="col-sm-2 ng-binding">Actions CL</th>
+                              </tr>
+                            </thead>
+                            <tbody class="classifierList">
+                              <!-- ngRepeat: tableCellData in item.classifiers -->
+
+                              <!-- end ngRepeat: tableCellData in item.classifiers -->
+                            </tbody>
+                          </table>
+                        </div>
+                      </template>
+                      <template id="CLrow">
+                        <tr class="ng-scope CLindex" index="">
+                          <td>
+                            <span class="enaCL"></span>
+                          </td>
+                          <td class="ng-binding CLname"></td>
+                          <td class="ng-binding CLinterface"></td>
+                          <td class="ng-binding CLorder"></td>
+                          <td>
+                            <button
+                              class="btn btn-xs table-btn-txt editCL"
+                              name="Device.QoS.Classification.1"
+                            >
+                              <img
+                                src="images/icons/icon-1/edit.svg"
+                                alt="edit"
+                              />
+                            </button>
+                            <button
+                              class="btn btn-xs table-btn-txt deleteCL"
+                              name="Device.QoS.Classification.1"
+                            >
+                              <img
+                                src="images/icons/icon-1/delete.svg"
+                                alt="delete"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                      </template>
+                    </div>
+
+                    <!-- end ngRepeat: item in qosobjects -->
                   </div>
                 </div>
-                <div class="text-center gemtek-button-inside-panel">
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Cancel"
-                      class="gemtek-btn-normal"
-                      value="Cancel"
-                    />
+              </div>
+
+              <div class="row shaper">
+                <div class="panel-heading-btn-align">
+                  <a
+                    class="gemtek-btn-normal gemtek-btn-normal-sm"
+                    id="AddShaper"
+                  >
+                    <i class="fa fa-plus icontxtgap"></i>
+                    <span class="ng-binding">Add Shaper</span>
+                  </a>
+                </div>
+                <p class="wps_txt no-margin-vr">Shaper</p>
+                <div class="table-responsive">
+                  <table class="table custom_table theme_intel">
+                    <thead>
+                      <tr>
+                        <th class="col-sm-2 ng-binding">Enable Shaper</th>
+                        <th class="col-sm-2 ng-binding">Shaping Rate</th>
+                        <th class="ng-binding">Interface</th>
+                        <th class="col-sm-2 ng-binding">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="shaperTable">
+                      <template id="shaperEntry">
+                        <!-- ngRepeat: tableCellData in tableArray1 -->
+                        <tr class="ng-scope" index="">
+                          <td>
+                            <span class="EnaShaper"></span>
+                          </td>
+                          <td class="ng-binding shapingRate"></td>
+                          <td class="ng-binding interface"></td>
+                          <td>
+                            <button
+                              class="btn btn-xs table-btn-txt editShaper"
+                              name="Device.QoS.Shaper.1"
+                            >
+                              <img
+                                src="images/icons/icon-1/edit.svg"
+                                alt="edit"
+                              />
+                            </button>
+                            <button
+                              class="btn btn-xs table-btn-txt deleteShaper"
+                              name="Device.QoS.Shaper.1"
+                            >
+                              <img
+                                src="images/icons/icon-1/delete.svg"
+                                alt="delete"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <!-- end ngRepeat: tableCellData in tableArray1 -->
+                      </template>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row qos_config">
+                <p class="wps_txt no-margin-vr">QoS Configuration</p>
+                <div class="table-responsive">
+                  <table class="table custom_table theme_intel">
+                    <thead>
+                      <tr>
+                        <th class="col-sm-2 ng-binding">Enable QoS</th>
+                        <th class="col-sm-2 ng-binding">Traffic Class</th>
+                        <th class="ng-binding">Default DSCP Mark</th>
+                        <th class="ng-binding">Eth Priority Mark</th>
+                        <th class="col-sm-2 ng-binding">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- ngRepeat: qosconfigsettings in qossettingsArray -->
+                      <tr class="ng-scope">
+                        <td>
+                          <span class="" id="EnaQoS"></span>
+                        </td>
+                        <td class="ng-binding" id="Traffic">0</td>
+                        <td class="ng-binding" id="DSCPMark">-1</td>
+                        <td class="ng-binding" id="PriorityMark">-1</td>
+                        <td>
+                          <button
+                            class="btn btn-xs table-btn-txt"
+                            name="Device.QoS"
+                            id="editConfiguration0"
+                            onclick="window.location.href='advanced-qos-edit.html'"
+                          >
+                            <img
+                              src="images/icons/icon-1/edit.svg"
+                              alt="edit"
+                            />
+                          </button>
+                        </td>
+                      </tr>
+                      <!-- end ngRepeat: qosconfigsettings in qossettingsArray -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ngInclude: 'templates/deletedialog.html' -->
+          <div class="ng-scope">
+            <div class="ng-scope">
+              <div
+                id="deletedialog"
+                class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+              >
+                <div class="ngdialog-overlay"></div>
+                <div class="ngdialog-content">
+                  <div class="ngdialog-message">
+                    <img src="images/icons/icon-1/deletedialog.svg" />
+                    <h3 class="ng-binding"></h3>
+                    <p class="ng-binding"></p>
                   </div>
-                  <div class="btn-align">
-                    <input
+                  <div class="ngdialog-buttons">
+                    <button
                       type="button"
-                      id="Modify"
-                      class="gemtek-btn-primary"
-                      value="Apply"
-                    />
+                      class="ngdialog-button gemtek-btn-normal ng-binding"
+                      id="Cancel"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      class="ngdialog-button gemtek-btn-danger ng-binding"
+                      id="OK"
+                    >
+                      Ok
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ngInclude: 'templates/alertdialog.html' -->
+          <div class="ng-scope">
+            <div class="ng-scope">
+              <div
+                id="alertDialog"
+                class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+              >
+                <div class="ngdialog-overlay"></div>
+                <div class="ngdialog-content">
+                  <div class="ngdialog-message">
+                    <img src="images/icons/icon-1/ico-notice.svg" />
+                    <h3>Notice</h3>
+                    <p class="ng-binding"></p>
+                  </div>
+                  <div class="ngdialog-buttons">
+                    <button type="button" class="gemtek-btn-primary ng-binding">
+                      Close
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Footer section-->
-        <footer class="footer">
-          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
+      <!-- Footer section-->
+      <footer class="footer">
+        <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
                         <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
 					</div> -->
 
-          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
-          <!-- <div class="social_icon_group">
+        <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
+        <!-- <div class="social_icon_group">
                         <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
                         <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
                         <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
                         <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
                         <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
                     </div>                         -->
-        </footer>
-      </div>
-      <div id="main-menu-bg"></div>
+      </footer>
     </div>
+    <div id="main-menu-bg"></div>
 
-    <div
-      class="modal fade"
-      id="myModalHorizontal"
-      aria-labelledby="myModalLabel"
-      aria-hidden="true"
-      tabindex="-1"
-      role="dialog"
-    >
+    <div class="modal fade" id="myModalHorizontal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
@@ -1224,10 +1562,6 @@
                     <div
                       class="progress-bar"
                       role="progressbar"
-                      aria-valuenow=""
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      aria-valuetext="%"
                       style="width: 100%"
                     >
                       <span class="ng-binding ng-scope"> </span
@@ -1255,14 +1589,7 @@
           </div>
           <!-- Modal Footer -->
           <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
-              Abort WPS
-            </button>
+            <button type="button" class="btn btn-info">Abort WPS</button>
           </div>
         </div>
       </div>
@@ -1271,6 +1598,18 @@
     <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
     <!--[if !IE]> -->
     <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+
+    <!-- <![endif]-->
+    <!--[if lte IE 9]>
+      <script type="text/javascript">
+        window.jQuery ||
+          document.write(
+            '<script src="js/Jquery/jquery1.9.1.min.js">' + "<" + "/script>"
+          );
+      </script>
+    <![endif]-->
+
+    <link href="css/Custom/xeditable.css" rel="stylesheet" type="text/css" />
 
     <div class="hiddendiv common"></div>
   </body>

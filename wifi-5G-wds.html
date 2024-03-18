@@ -704,6 +704,20 @@
                   <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
+                <li
+                  class="no-padding-hr no-margin-vr ng-scope"
+                  id="ddnsform-10"
+                >
+                  <a
+                    tabindex="-1"
+                    href="advanced-qos.html"
+                    type="tableform"
+                    title="QoS"
+                  >
+                    <span class="mm-text ng-binding">QoS</span>
+                  </a>
+                  <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
+                </li>
               </ul>
             </li>
             <!-- end ngRepeat: post in posts.menu -->
@@ -876,9 +890,9 @@
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
         <div
-          data-ng-view="true"
+          
           id="dataView"
-          translate-cloak=""
+          
           class="ng-scope"
         >
           <!--
@@ -977,18 +991,18 @@ and open the template in the editor.
                 devices.
               </p>
             </div>
-            <div class="row ng-hide" ng-show="getformnamepopup">
+            <div class="row ng-hide" >
               <div class="alert alert-danger">
                 <a class="close" aria-label="close">×</a>
                 <strong class="ng-binding">Warning!</strong
                 ><span class="ng-binding"></span>
               </div>
             </div>
-            <div class="row ng-hide" ng-show="postformnamepopup">
+            <div class="row ng-hide" >
               <div class="alert alert-danger">
                 <a class="close" aria-label="close">×</a>
                 <strong class="ng-binding">Warning!</strong
-                ><span ng-bind="postformnamepopupval" class="ng-binding"></span>
+                ><span  class="ng-binding"></span>
               </div>
             </div>
             <div class="row no-margin-hr">

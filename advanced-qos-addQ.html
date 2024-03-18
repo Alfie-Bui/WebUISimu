@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)#/tableform/multicast_mcsettings -->
+<!-- saved from url=(0042)#/tableform/queueform -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,7 +51,6 @@
       rel="stylesheet"
       type="text/css"
     />
-
     <style type="text/css">
       /* Chart.js */
       @-webkit-keyframes chartjs-render-animation {
@@ -75,11 +74,9 @@
         animation: chartjs-render-animation 0.001s;
       }
     </style>
-
     <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
     <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
     <link rel="stylesheet" href="css/Custom/gemtek.css" />
-
     <script type="text/ng-template" id="firstDialogId">
       <div class="ngdialog-message">
       <form class="form-horizontal" role="form">
@@ -130,15 +127,15 @@
     </script>
 
     <!-- Add other stylesheets and scripts as needed -->
-    <script src="./js/template.js"></script>
     <script src="./js/storage.js"></script>
+    <script src="./js/template.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
 
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("advanced-multicast-ipv4Setting.html");
+        loadPage("advanced-qos-addQ.html");
       };
     </script>
   </head>
@@ -196,8 +193,8 @@
               </g>
             </g>
             <g
-              transform="matrix(-0.760340690612793,-0.6495245099067688,0.6495245099067688,-0.760340690612793,69.05873107910156,56.17917251586914)"
-              opacity="1"
+              transform="matrix(0.31498652696609497,-0.949096143245697,0.949096143245697,0.31498652696609497,66.95377349853516,66.95013427734375)"
+              opacity="0.5970000000000077"
               style="display: block"
             >
               <g
@@ -211,7 +208,7 @@
                   stroke="rgb(179,235,247)"
                   stroke-opacity="1"
                   stroke-width="12"
-                  d=" M33.39699935913086,-34.4630012512207 C41.229000091552734,-26.871999740600586 46.48500061035156,-16.638999938964844 47.720001220703125,-5.208000183105469"
+                  d=" M32.74100112915039,-35.08700180053711 C35.729000091552734,-32.29800033569336 38.36000061035156,-29.131999969482422 40.558998107910156,-25.666000366210938"
                 ></path>
               </g>
             </g>
@@ -309,13 +306,13 @@
                   <!-- ngIf: showMenu -->
                 </li>
                 <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
-                                    <div class="no-padding-vr">
-                                        <ul class="notificationdiv">
-                                            <li class="theme1">Theme-1</li>
-                                            <li class="theme2">Theme-2</li>
-                                        </ul>
-                                    </div>
-                                </li> -->
+                                <div class="no-padding-vr">
+                                    <ul class="notificationdiv">
+                                        <li class="theme1">Theme-1</li>
+                                        <li class="theme2">Theme-2</li>
+                                    </ul>
+                                </div>
+                            </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/language.svg" /><span
@@ -327,10 +324,10 @@
                   </div>
                 </li>
                 <!-- <li>
-                                    <a style="overflow: hidden;white-space: nowrap;">
-                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
-                                    </a>
-                                </li> -->
+                                <a style="overflow: hidden;white-space: nowrap;">
+                                    <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                </a>
+                            </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/user.svg" />
@@ -660,7 +657,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  class="no-padding-hr no-margin-vr ng-scope"
                   id="multicast_mcconfiguration-7"
                 >
                   <a
@@ -705,7 +702,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope"
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
                   id="ddnsform-10"
                 >
                   <a
@@ -887,12 +884,12 @@
         </div>
       </div>
 
-      <div id="content-wrapper" style="min-height: 606px">
+      <div id="content-wrapper" style="min-height: 944px">
         <!-- ngView: true -->
         <div
-          
+          data-ng-view="true"
           id="dataView"
-          
+          translate-cloak=""
           class="ng-scope"
         >
           <div
@@ -909,7 +906,7 @@
             <div class="ng-scope">
               <ng-switch on="$index === 1"
                 ><!-- ngSwitchWhen: true -->
-                <h4 class="ng-binding ng-scope">Multicast</h4>
+                <h4 ng-switch-when="true" class="ng-binding ng-scope">QoS</h4>
                 <!-- end ngSwitchWhen: --></ng-switch
               >
             </div>
@@ -924,7 +921,10 @@
             <div class="ng-scope">
               <ng-switch on="$first"
                 ><!-- ngSwitchWhen: true -->
-                <div class="btn-group btn-breadcrumb1 ng-scope">
+                <div
+                  class="btn-group btn-breadcrumb1 ng-scope"
+                  ng-switch-when="true"
+                >
                   <div class="ltq_brd_home">
                     <a class="btn ng-binding" href="main.html"> Advanced </a>
                   </div>
@@ -938,12 +938,17 @@
               <ng-switch on="$first"
                 ><!-- ngSwitchWhen: true -->
                 <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope"
-                  >
-                    Multicast </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                <div
+                  class="btn-group btn-breadcrumb ng-scope"
+                  ng-switch-when="false"
+                >
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false --><span
+                    class="ng-scope"
+                    ><a class="btn ng-binding" href="advanced-qos.html"
+                      ><i></i>
+                      QoS
+                    </a></span
+                  ><!-- end ngIf: breadcrumb.path!='nothing' && $last==false -->
                 </div>
                 <!-- end ngSwitchWhen: --></ng-switch
               >
@@ -953,11 +958,14 @@
               <ng-switch on="$first"
                 ><!-- ngSwitchWhen: true -->
                 <!-- ngSwitchWhen: false -->
-                <div class="btn-group btn-breadcrumb ng-scope">
+                <div
+                  class="btn-group btn-breadcrumb ng-scope"
+                  ng-switch-when="false"
+                >
                   <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
                     class="btn btn-default not-active ng-binding ng-scope"
                   >
-                    IPv4 Advanced Settings </span
+                    Add </span
                   ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
                 </div>
                 <!-- end ngSwitchWhen: --></ng-switch
@@ -970,27 +978,38 @@
             id="translation"
             class="ng-hide ng-scope"
           >
-            multicastsettings
+            queueadd
           </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="headername"
             class="ng-hide ng-scope"
           >
-            Multicast Advanced Settings
+            Queue Configuration
           </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="headerdescription"
             class="ng-hide ng-scope"
           >
-            It allows you to configure the CPE to provide multicast
-            functionality
+            It allows you to add Queue settings to handle network traffic from
+            queue.
           </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="help_toggle helpshow ng-scope"
+          >
+            <div class="help_txtcontent">
+              <a href="" helpfile="languages/*/queuehelp_english.html"
+                ><i class="fa fa-info circle_bg"></i></a
+              ><!-- ngInclude: helpfile -->
+            </div>
+          </div>
+
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
             <p id="headerdescriptiondata" class="ng-binding">
-              It allows you to configure the CPE to provide multicast
-              functionality
+              It allows you to add Queue settings to handle network traffic from
+              queue.
             </p>
           </div>
           <h4
@@ -1001,166 +1020,716 @@
             xmlns="http://www.w3.org/1999/xhtml"
             class="panel panel-default panel-bg1 ng-scope"
           >
-            <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcconfiguration"}'
-              >
-                <a href="advanced-multicast.html">Basic Settings</a>
-              </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcsettings"}'
-                class="active"
-              >
-                <a href="advanced-multicast-ipv4Setting.html"
-                  >IPv4 Advanced Settings</a
-                >
-              </li>
-            </ul>
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceX_GTK_McastIGMPParameterspopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceX_GTK_McastIGMPParameterspopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceX_GTK_McastIGMPParameterspopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close" aria-label="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
-
-              <div>
-                <div class="wrapperdiv">
-                  <div class="panel-body">
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row checkbox-top-align">
+              <form
+                class="form-horizontal formCount lantiq-form-text ng-invalid ng-invalid-required ng-valid-maxlength ng-dirty ng-valid-parse ng-valid-min ng-valid-max"
+                id="DeviceQoSQueue"
+              >
+                <div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
                         <div
-                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                          class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
                         >
-                          <div class="checkbox1">
-                            <input
-                              type="checkbox"
-                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
-                              id="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              checked
-                            /><label
-                              class="checkbox1_left_align"
-                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                              >Fast Leave</label
-                            ><label
-                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
-                            ></label>
+                          <label for="Enable" class="control-label ng-binding"
+                            >Enable Queue</label
+                          >
+                          <div class="text-left">
+                            <span
+                              class="switch hidden-dom-removal ng-valid"
+                              id="Enable"
+                              name="DeviceQoSQueue.Enable"
+                              ><small></small
+                              ><input
+                                type="checkbox"
+                                id="Enable"
+                                name="DeviceQoSQueue.Enable"
+                                style="display: none"
+                                class="ng-pristine ng-untouched ng-valid"
+                              /><span class="switch-text"
+                                ><span class="off">OFF</span></span
+                              ></span
+                            >
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="QueryRespInterval"
-                            placeholder="Please enter group query response interval"
-                            required="required"
-                          /><label
-                            for="QueryRespInterval"
-                            class="required row active ng-binding"
-                            >Group Query Response Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupQInterval_error"
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
                           >
-                            Please enter a valid number
-                          </span>
+                            <input
+                              type="text"
+                              id="Alias"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength"
+                              placeholder="Please input queue name"
+                              maxlength="64"
+                              name="DeviceQoSQueue_Alias"
+                              required="required"
+                            /><label
+                              for="Alias"
+                              class="required row active ng-binding"
+                              >Queue Name</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="empty_error_name"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceQoSQueue_Alias"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            ><span class="error ng-hide"
+                              ><span class="ng-binding"></span
+                            ></span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="LastMemQueryInterval"
-                            placeholder="Please enter group last member query interval"
-                            required="required"
-                          /><label
-                            for="LastMemQueryInterval"
-                            class="required row active ng-binding"
-                            >Group Last Member Query Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupLInterval_error"
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="X_GTK_LowerLayers"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Interface</label
                           >
-                            Please enter a valid number
-                          </span>
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-invalid ng-invalid-required ng-touched"
+                              id="X_GTK_LowerLayers"
+                              name="DeviceQoSQueue_X_GTK_LowerLayers"
+                              required="required"
+                            >
+                              <option
+                                value="?"
+                                selected="selected"
+                                label="Select"
+                              >
+                                Select
+                              </option>
+                              <option value="br-lan" label="br-lan">
+                                br-lan
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="select_interface_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="LastMemQueryCount"
-                            placeholder="Please enter group last member query count"
-                            required="required"
-                          /><label
-                            for="LastMemQueryCount"
-                            class="required row active ng-binding"
-                            >Group Last Member Query Count</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span class="error ng-binding ng-hide"
-                            >* This Field is Required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_groupLCount_error"
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="Precedence"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Queue Precedence</label
                           >
-                            Please enter a valid number
-                          </span>
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-valid ng-valid-required ng-touched"
+                              id="Precedence"
+                              name="DeviceQoSQueue_Precedence"
+                              required="required"
+                            >
+                              <option
+                                value="0"
+                                selected="selected"
+                                label="High Priority"
+                              >
+                                High Priority
+                              </option>
+                              <option value="1" label="2">2</option>
+                              <option value="2" label="3">3</option>
+                              <option value="3" label="4">4</option>
+                              <option value="4" label="5">5</option>
+                              <option value="5" label="6">6</option>
+                              <option value="6" label="7">7</option>
+                              <option value="7" label="8">8</option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="select_precedence_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <label
+                            for="TrafficClasses"
+                            class="col-xs-12 no-padding-hr control-label multi-checkbox-label multi-checkbox-label-margin ng-binding"
+                            >Traffic Classes</label
+                          >
+                          <div class="no-padding-hr-l col-xs-12 col-sm-12">
+                            <div
+                              class="checkbox-scroll-vr"
+                              id="DeviceQoSQueue_TrafficClasses"
+                            >
+                              <!-- ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses1"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses1"
+                                >
+                                  1
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses2"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses2"
+                                >
+                                  2
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses3"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses3"
+                                >
+                                  3
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses4"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses4"
+                                >
+                                  4
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses5"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses5"
+                                >
+                                  5
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p
+                                class="no-margin-vr ng-scope"
+                                ng-repeat="
+                                        role in TrafficClasses"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses6"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses6"
+                                >
+                                  6
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses7"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses7"
+                                >
+                                  7
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses8"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses8"
+                                >
+                                  8
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses9"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses9"
+                                >
+                                  9
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses10"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses10"
+                                >
+                                  10
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses11"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses11"
+                                >
+                                  11
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses12"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses12"
+                                >
+                                  12
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p
+                                class="no-margin-vr ng-scope"
+                                ng-repeat="
+                                        role in TrafficClasses"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses13"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses13"
+                                >
+                                  13
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses14"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses14"
+                                >
+                                  14
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses15"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses15"
+                                >
+                                  15
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                              <p class="no-margin-vr ng-scope">
+                                <input
+                                  type="checkbox"
+                                  id="TrafficClasses16"
+                                  class="ng-scope ng-pristine ng-untouched ng-valid"
+                                /><label
+                                  class="checkbox1_left_align no-margin-vr ng-binding"
+                                  for="TrafficClasses16"
+                                >
+                                  16
+                                </label>
+                              </p>
+                              <!-- end ngRepeat: role in TrafficClasses -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="DropAlgorithm"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Drop Algorithm</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
+                              id="DropAlgorithm"
+                              name="DeviceQoSQueue_DropAlgorithm"
+                              required="required"
+                            >
+                              <option value="?" class="form-control1">
+                                Select
+                              </option>
+                              <option class="form-control1" value="RED">
+                                RED
+                              </option>
+                              <option class="form-control1" value="DT">
+                                DT
+                              </option>
+                              <option class="form-control1" value="WRED">
+                                WRED
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="select_drop_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="SchedulerAlgorithm"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Schedule Algorithm</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
+                              id="SchedulerAlgorithm"
+                              name="DeviceQoSQueue_SchedulerAlgorithm"
+                              required="required"
+                            >
+                              <option value="?" class="form-control1">
+                                Select
+                              </option>
+                              <option class="form-control1" value="WFQ">
+                                WFQ
+                              </option>
+                              <option class="form-control1" value="SP">
+                                SP
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide checkerror"
+                              id="select_schedule_error"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="ShapingRate"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-maxlength"
+                              placeholder="Please input peak shaping rate"
+                              maxlength="64"
+                              name="DeviceQoSQueue_ShapingRate"
+                            /><label for="ShapingRate" class="active ng-binding"
+                              >Peak Shaping Rate (In kbps)</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceQoSQueue_ShapingRate"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <label
+                            for="X_GTK_Location"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Location</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              id="X_GTK_Location"
+                              name="DeviceQoSQueue_X_GTK_Location"
+                            >
+                              <option value="?" class="form-control1">
+                                Select
+                              </option>
+                              <option class="form-control1" value="Egress">
+                                Egress
+                              </option>
+                              <option class="form-control1" value="Ingress">
+                                Ingress
+                              </option>
+                              <option class="form-control1" value="WiFi VAP">
+                                WiFi VAP
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- ngIf: DeviceQoSQueue.DropAlgorithm=='RED' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope RED"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="REDThreshold"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                              placeholder="Please input RED min threshold"
+                              name="DeviceQoSQueue_REDThreshold"
+                              required="required"
+                            /><label
+                              for="REDThreshold"
+                              class="required row active ng-binding"
+                              >RED Min Threshold</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide REDerror"
+                              id="empty_error_redmin"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope RED"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="REDPercentage"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
+                              placeholder="Please input RED max drop probability"
+                              name="DeviceQoSQueue_REDPercentage"
+                              required="required"
+                            /><label
+                              for="REDPercentage"
+                              class="required row active ng-binding"
+                              >RED Max Drop Probability</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide REDerror"
+                              id="empty_error_redmax"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceQoSQueue.DropAlgorithm=='RED' -->
+                      <!-- ngIf: DeviceQoSQueue.SchedulerAlgorithm=='WFQ' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope WFQ"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="Weight"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                              placeholder="Please input queue weight"
+                              name="DeviceQoSQueue_Weight"
+                            /><label for="Weight" class="active ng-binding"
+                              >Queue Weight</label
+                            ><span class="error ng-binding ng-hide"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope WFQ"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="X_GTK_CommittedRate"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-maxlength"
+                              placeholder="Please input commited rate"
+                              maxlength="64"
+                              name="DeviceQoSQueue_X_GTK_CommittedRate"
+                            /><label
+                              for="X_GTK_CommittedRate"
+                              class="active ng-binding"
+                              >Commited Rate (In kbps)</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-hide"
+                              forname="DeviceQoSQueue_X_GTK_CommittedRate"
+                              ><span class="ng-binding"
+                                >String length Exceeded the limit: </span
+                              ><span>64</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceQoSQueue.SchedulerAlgorithm=='WFQ' -->
+                      <!-- ngIf: DeviceQoSQueue.DropAlgorithm=='DT' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope DT"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
+                              id="X_GTK_GreenThreshold"
+                              placeholder="Please input queue length"
+                              min="0"
+                              max="2304"
+                              name="DeviceQoSQueue_X_GTK_GreenThreshold"
+                            /><label
+                              for="X_GTK_GreenThreshold"
+                              class="active ng-binding"
+                              >Queue Length (in packets)</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide DTerror"
+                              id="invalid_error_queueLength"
+                            >
+                              Please enter a valid number </span
+                            ><span
+                              class="error ng-hide DTerror"
+                              id="min_error_queueLength"
+                              ><span class="ng-binding"
+                                >Value must be greater than or equal to </span
+                              ><span>0</span></span
+                            ><span
+                              class="error ng-hide DTerror"
+                              id="max_error_queueLength"
+                              ><span class="ng-binding"
+                                >Value must be less than or equal to </span
+                              ><span>2304</span></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceQoSQueue.DropAlgorithm=='DT' -->
+                      <div class="form-group no-padding-hr"></div>
+                      <!-- ngIf: DeviceQoSQueue.X_GTK_Location=='Ingress' -->
+                      <div class="form-group no-padding-hr"></div>
+                    </div>
+                  </div>
+                  <div class="text-center gemtek-button-outside-panel">
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Cancel"
+                        class="gemtek-btn-normal"
+                        value="Cancel"
+                      />
+                    </div>
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Apply"
+                        class="gemtek-btn-primary"
+                        value="Apply"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      id="alertDialog"
+                      class="ngdialog ngdialog-theme-default dialogwidth800 hide"
+                    >
+                      <div class="ngdialog-overlay"></div>
+                      <div class="ngdialog-content">
+                        <div class="ngdialog-message">
+                          <img src="images/icons/icon-1/ico-notice.svg" />
+                          <h3>Notice</h3>
+                          <p id="alertDialog_msg">
+                            Maximun settings limit has been exceeded
+                          </p>
+                        </div>
+                        <div class="ngdialog-buttons">
+                          <button
+                            type="button"
+                            class="gemtek-btn-primary ng-binding"
+                          >
+                            Close
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="text-center gemtek-button-inside-panel">
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Cancel"
-                      class="gemtek-btn-normal"
-                      value="Cancel"
-                    />
-                  </div>
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Modify"
-                      class="gemtek-btn-primary"
-                      value="Apply"
-                    />
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1228,10 +1797,13 @@
                       aria-valuemin="0"
                       aria-valuemax="100"
                       aria-valuetext="%"
+                      ng-transclude=""
                       style="width: 100%"
                     >
                       <span class="ng-binding ng-scope"> </span
-                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
+                      ><i ng-show="showWarning" class="ng-scope ng-hide"
+                        >!!! Watch out !!!</i
+                      >
                     </div>
                   </div>
                 </div>
@@ -1255,22 +1827,11 @@
           </div>
           <!-- Modal Footer -->
           <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
-              Abort WPS
-            </button>
+            <button type="button" class="btn btn-info">Abort WPS</button>
           </div>
         </div>
       </div>
     </div>
-    <!--Modal End-->
-    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-    <!--[if !IE]> -->
-    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
 
     <div class="hiddendiv common"></div>
   </body>
