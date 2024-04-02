@@ -2505,6 +2505,10 @@ function loadPage(page, options) {
 
         peakShapingRate.value = specificQueue.PeakRate;
         location.value = specificQueue.Location;
+        if (specificQueue.Location != "?" && addFlag === false) {
+          // edit --> disable Location
+          location.disabled = true;
+        }
 
         REDthreshold.value = specificQueue.REDMin;
         REDPercent.value = specificQueue.REDMax;
