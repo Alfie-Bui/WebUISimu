@@ -2271,6 +2271,7 @@ function loadPage(page, options) {
           Location: "?",
         };
       } else {
+        document.getElementById("breadcrumb").textContent = "Edit";
         shaperElem = Advanced.QoS.Shapers[parseInt(Advanced.QoS.onEditShaper)];
       }
       console.log(
@@ -2396,6 +2397,7 @@ function loadPage(page, options) {
           Classifiers: [],
         };
       } else {
+        document.getElementById("breadcrumb").textContent = "Edit";
         specificQueue = Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)];
       }
 
@@ -2676,6 +2678,7 @@ function loadPage(page, options) {
 
       var specificClassifier;
       if (Advanced.QoS.onEditCL && Advanced.QoS.onEditQueue) {
+        document.getElementById("breadcrumb").textContent = "Edit";
         specificClassifier =
           Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)].Classifiers[
             parseInt(Advanced.QoS.onEditCL)
