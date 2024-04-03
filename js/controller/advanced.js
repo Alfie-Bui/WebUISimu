@@ -2060,6 +2060,17 @@ function loadPage(page, options) {
           editQ.setAttribute("index", index);
           deleteQ.setAttribute("index", index);
 
+          // disable Delete Queue
+          if (queue.Classifiers.length > 0) {
+            deleteQ.disabled = true;
+          }
+
+          for (const shaper of Advanced.QoS.Shapers) {
+            if (shaper.Interface == queue.Interface) {
+              deleteQ.disabled = true;
+            }
+          }
+
           // event on detail panel
           editQ.addEventListener("click", () => {
             Advanced.QoS.onEditQueue = editQ.getAttribute("index");
@@ -2077,9 +2088,11 @@ function loadPage(page, options) {
               ),
               "Delete",
               "Are you sure you want to Delete ?"
-            ).then(() => {
-              applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
-            });
+            )
+              .then(() => {
+                applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+              })
+              .catch(() => {});
           });
 
           // CL
@@ -2120,15 +2133,19 @@ function loadPage(page, options) {
                 deleteCL.closest("tr"),
                 "Delete",
                 "Are you sure you want to Delete ?"
-              ).then(() => {
-                Advanced.QoS.Queues[
-                  parseInt(moreOnPage[0].match(/\d/g).join(""))
-                ].Classifiers.splice(
-                  deleteCL.closest("tr").getAttribute("index"),
-                  1
-                );
-                applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
-              });
+              )
+                .then(() => {
+                  const listCL =
+                    Advanced.QoS.Queues[
+                      parseInt(moreOnPage[0].match(/\d/g).join(""))
+                    ].Classifiers;
+                  listCL.splice(
+                    deleteCL.closest("tr").getAttribute("index"),
+                    1
+                  );
+                  applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+                })
+                .catch(() => {});
             });
             tbody.appendChild(CLrow);
           }
