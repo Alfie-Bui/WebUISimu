@@ -2405,9 +2405,13 @@ function loadPage(page, options) {
       var queueName = document.getElementById("Alias");
       var interfaceSelect = document.getElementById("X_GTK_LowerLayers");
       var queuePrecedence = document.getElementById("Precedence");
+
       var trafficClasses = document.getElementById(
         "DeviceQoSQueue_TrafficClasses"
       );
+      const trafficList = document.querySelectorAll(".trafficList");
+      var beChecked = Array.from({ length: trafficList.length }, () => 0);
+
       var dropAlgorithmSelect = document.getElementById("DropAlgorithm");
       var scheduleAlgorithmSelect =
         document.getElementById("SchedulerAlgorithm");
@@ -2616,6 +2620,31 @@ function loadPage(page, options) {
             document.getElementById("empty_error_redmax")
           );
         });
+
+        for (const checkBox of trafficList) {
+          checkBox.addEventListener("click", () => {
+            if (checkBox.checked) {
+              beChecked[parseInt(checkBox.getAttribute("number")) - 1] = 1;
+
+              // disable the others
+              for (var i = 0; i < beChecked.length; i++) {
+                if (beChecked[i] == 0)
+                  document.getElementById(
+                    `TrafficClasses${i + 1}`
+                  ).disabled = true;
+              }
+
+              beChecked[parseInt(checkBox.getAttribute("number")) - 1] = 0;
+            } else {
+              // if not checked --> enable check all
+              for (var i = 0; i < beChecked.length; i++) {
+                document.getElementById(
+                  `TrafficClasses${i + 1}`
+                ).disabled = false;
+              }
+            }
+          });
+        }
       };
 
       fillData();
@@ -2646,8 +2675,17 @@ function loadPage(page, options) {
           specificQueue.Interface = interfaceSelect.value;
           specificQueue.QueuePrecedence = queuePrecedence.value;
 
-          for (const traffic of trafficClasses.getElementsByTagName("input")) {
+          specificQueue.TrafficClass = []; // reset, else at Edit it alway push new elem
+          for (const traffic of trafficClasses.querySelectorAll(
+            ".trafficList"
+          )) {
             if (traffic.checked) {
+              if (traffic.getAttribute("number") != queuePrecedence.value) {
+                alertDialogHandle(
+                  "Queue Precedence and Traffic Class must equal"
+                );
+                return;
+              }
               specificQueue.TrafficClass.push(traffic.getAttribute("id"));
             }
           }
