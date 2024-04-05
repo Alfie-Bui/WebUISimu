@@ -174,6 +174,23 @@ function checkEmpty_inputField(input, empty_error) {
   }
 }
 
+function checkEmptyNaN_inputField(input, empty_error, invalid_error) {
+  var regex = /^(-?\d+)*$/;
+  if (!regex.test(input.value)) {
+    invalid_error.classList.remove("ng-hide");
+    empty_error.classList.add("ng-hide");
+    return false;
+  } else if (input.value === "") {
+    invalid_error.classList.add("ng-hide");
+    empty_error.classList.remove("ng-hide");
+    return false;
+  } else {
+    invalid_error.classList.add("ng-hide");
+    empty_error.classList.add("ng-hide");
+    return true;
+  }
+}
+
 /**
  *
  * @param {*} input
@@ -202,6 +219,28 @@ function checkRange_inputField(input, range_error, empty_error) {
   } else {
     range_error.classList.add("ng-hide");
     empty_error.classList.add("ng-hide");
+    return true;
+  }
+}
+
+function checkRangeNaN_inputField(input, range_error, invalid_error) {
+  var regex = /^(-?\d+)*$/;
+  if (!regex.test(input.value)) {
+    // invalid (not a number)
+    invalid_error.classList.remove("ng-hide");
+    range_error.classList.add("ng-hide");
+    return false;
+  } else if (
+    // value --> check number range
+    parseInt(input.value) > parseInt(input.getAttribute("max")) ||
+    parseInt(input.value) < parseInt(input.getAttribute("min"))
+  ) {
+    range_error.classList.remove("ng-hide");
+    invalid_error.classList.add("ng-hide");
+    return false;
+  } else {
+    range_error.classList.add("ng-hide");
+    invalid_error.classList.add("ng-hide");
     return true;
   }
 }
@@ -328,6 +367,32 @@ function checkMinMaxError_inputField(input, min_error, max_error, empty_error) {
   }
 }
 
+function checkMinMaxErrorNaN_inputField(
+  input,
+  min_error,
+  max_error,
+  invalid_error
+) {
+  var regex = /^(-?\d+)*$/;
+  if (!regex.test(input.value)) {
+    invalid_error.classList.remove("ng-hide");
+    min_error.classList.add("ng-hide");
+    max_error.classList.add("ng-hide");
+  } else {
+    invalid_error.classList.add("ng-hide");
+    if (parseInt(input.value) < parseInt(input.getAttribute("min"))) {
+      min_error.classList.remove("ng-hide");
+    } else {
+      min_error.classList.add("ng-hide");
+    }
+    if (parseInt(input.value) > parseInt(input.getAttribute("max"))) {
+      max_error.classList.remove("ng-hide");
+    } else {
+      max_error.classList.add("ng-hide");
+    }
+  }
+}
+
 /**
  * Check local Storage function & print the capacity of it
  * */
@@ -410,72 +475,73 @@ function checkError_show() {
   return true;
 }
 
-
 /**
  * Generate a random float
  */
 function getRandomFloat(min, max, decimals) {
-  const str = (Math.random() * (max - min) + min).toFixed(
-    decimals,
-  );
+  const str = (Math.random() * (max - min) + min).toFixed(decimals);
 
   return parseFloat(str);
 }
 
 function notifyErrorForSelectElement(selectElement) {
-  let notifySuffix = '_notify';
+  let notifySuffix = "_notify";
   let errorSpan = document.getElementById(selectElement.id + notifySuffix);
   if (!errorSpan) {
-    console.log(selectElement.id + notifySuffix)
+    console.log(selectElement.id + notifySuffix);
     errorSpan = document.createElement("span");
     errorSpan.id = selectElement.id + "_notify";
     errorSpan.style.color = "#ff8b7c";
     // Create span element below select element
     selectElement.parentNode.insertBefore(errorSpan, selectElement.nextSibling);
   }
-  errorSpan.innerHTML = (selectElement.value === '?') ? "* This field is required!" : "";
+  errorSpan.innerHTML =
+    selectElement.value === "?" ? "* This field is required!" : "";
 }
 
 function loadWanInterfaceToSelect(selectElement) {
   // Get WAN interfaces from Local Storage
-  const localStorageData = localStorage.getItem('Basic');
+  const localStorageData = localStorage.getItem("Basic");
   if (!localStorageData) {
-      console.error("No WAN interfaces found in Local Storage");
-      return;
+    console.error("No WAN interfaces found in Local Storage");
+    return;
   }
 
   try {
-      const jsonData = JSON.parse(localStorageData);
-      const wanInterfaces = jsonData.WAN.Interfaces;
+    const jsonData = JSON.parse(localStorageData);
+    const wanInterfaces = jsonData.WAN.Interfaces;
 
-      // Clear select element before populating with options
-      selectElement.innerHTML = '';
+    // Clear select element before populating with options
+    selectElement.innerHTML = "";
 
-      // Create default option
-      let defaultOption = document.createElement('option');
-      defaultOption.value = "?";
-      defaultOption.selected = true;
-      defaultOption.label = "Select";
-      defaultOption.textContent = "Select";
+    // Create default option
+    let defaultOption = document.createElement("option");
+    defaultOption.value = "?";
+    defaultOption.selected = true;
+    defaultOption.label = "Select";
+    defaultOption.textContent = "Select";
+    selectElement.appendChild(defaultOption);
+
+    if (selectElement.id === "Interface") {
+      defaultOption = document.createElement("option");
+      defaultOption.value = "br-lan";
+      defaultOption.selected = false;
+      defaultOption.label = "br-lan";
+      defaultOption.textContent = "br-lan";
       selectElement.appendChild(defaultOption);
-
-      if (selectElement.id === 'Interface') {
-        defaultOption = document.createElement('option');
-        defaultOption.value = "br-lan";
-        defaultOption.selected = false;
-        defaultOption.label = "br-lan";
-        defaultOption.textContent = "br-lan";
-        selectElement.appendChild(defaultOption);
-      }
-      // Create and append options for each WAN interface
-      wanInterfaces.forEach(interface => {
-          const option = document.createElement('option');
-          option.value = interface.Name;
-          option.label = interface.Name;
-          option.textContent = interface.Name;
-          selectElement.appendChild(option);
-      });
+    }
+    // Create and append options for each WAN interface
+    wanInterfaces.forEach((interface) => {
+      const option = document.createElement("option");
+      option.value = interface.Name;
+      option.label = interface.Name;
+      option.textContent = interface.Name;
+      selectElement.appendChild(option);
+    });
   } catch (error) {
-      console.error("Error parsing WAN interface data from Local Storage:", error);
+    console.error(
+      "Error parsing WAN interface data from Local Storage:",
+      error
+    );
   }
 }

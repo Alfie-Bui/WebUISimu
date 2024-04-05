@@ -227,7 +227,10 @@ function loadPage(page, options) {
 
         // if Enable --> take IP of WAN interface
         if (enaCWMP.checked === true) {
-          connectionRequestURL.value =  `http://${Basic.WAN.Interfaces[parseInt(localWANInterfaceSelect.value)].IPAddress}:7547/`
+          connectionRequestURL.value = `http://${
+            Basic.WAN.Interfaces[parseInt(localWANInterfaceSelect.value)]
+              .IPAddress
+          }:7547/`;
         }
 
         acsUrl.value = Advanced.DeviceManagement.ACSURL;
@@ -1176,7 +1179,7 @@ function loadPage(page, options) {
 
       break;
     case "advanced-static_routing-add.html":
-      loadWanInterfaceToSelect(document.querySelector('#Interface'));
+      loadWanInterfaceToSelect(document.querySelector("#Interface"));
       console.log(`Load ${page}`, Advanced.StaticRouting);
 
       let destIPValid = false;
@@ -1259,11 +1262,11 @@ function loadPage(page, options) {
         };
       });
 
-      notifyErrorForSelectElement(document.getElementById('Interface'));
+      notifyErrorForSelectElement(document.getElementById("Interface"));
       document.querySelector("#Interface").onchange = function () {
         ifValid =
           document.querySelector("#Interface").value !== "?" ? true : false;
-          notifyErrorForSelectElement(document.getElementById('Interface'));
+        notifyErrorForSelectElement(document.getElementById("Interface"));
         applyBtnCheck();
       };
 
@@ -1335,7 +1338,7 @@ function loadPage(page, options) {
       break;
     case "advanced-static_routing-ipv6Config-add.html":
       console.log(`Load ${page}`, Advanced.StaticRouting);
-      loadWanInterfaceToSelect(document.querySelector('#Interface'));
+      loadWanInterfaceToSelect(document.querySelector("#Interface"));
 
       let destIPValidv6 = false;
       let destGWValidv6 = false;
@@ -1400,11 +1403,11 @@ function loadPage(page, options) {
         };
       });
 
-      notifyErrorForSelectElement(document.getElementById('Interface'));
+      notifyErrorForSelectElement(document.getElementById("Interface"));
       document.querySelector("#Interface").onchange = function () {
         ifValidv6 =
           document.querySelector("#Interface").value !== "?" ? true : false;
-        notifyErrorForSelectElement(document.getElementById('Interface'));
+        notifyErrorForSelectElement(document.getElementById("Interface"));
         applyBtnCheckv6();
       };
 
@@ -1561,7 +1564,7 @@ function loadPage(page, options) {
       break;
     case "advanced-vpn-add.html":
       console.log(`Load ${page}`, Advanced.vpn);
-      loadWanInterfaceToSelect(document.querySelector('#conn_ifname'));
+      loadWanInterfaceToSelect(document.querySelector("#conn_ifname"));
       let is_tunnel_name_valid = false;
       let is_openwrtipsecremotepre_shared_key_valid = false;
       let is_acceptable_kmp_valid = false;
@@ -1904,6 +1907,1390 @@ function loadPage(page, options) {
         applyThenStoreToLS(page, "Apply", Advanced);
         // back to ipv4 static routing table
         window.location.href = "advanced-vpn.html";
+      });
+      break;
+    case "advanced-qos.html":
+      console.log("Load data: ", Advanced.QoS);
+      var lanDropdown = document.getElementById("LANdropdown");
+      var wlanDropdown = document.getElementById("WLANdropdown");
+      var ethWlanDropdown = document.getElementById("ethWLANdropdown");
+
+      // button redirect
+      var addQBtn = document.getElementById("AddQ");
+      var addCLBtn = document.getElementById("AddCL");
+      var addShaperBtn = document.getElementById("AddShaper");
+
+      var fillData = function () {
+        // Configuration
+        Advanced.QoS.Ena
+          ? document.getElementById("EnaQoS").classList.add("gemtek-enabled")
+          : document.getElementById("EnaQoS").classList.add("gemtek-disabled");
+
+        document.getElementById("Traffic").textContent =
+          Advanced.QoS.TrafficClass;
+        document.getElementById("DSCPMark").textContent =
+          Advanced.QoS.DefaultDSCPMark;
+        document.getElementById("PriorityMark").textContent =
+          Advanced.QoS.EthPriorityMark;
+
+        // Shapers
+        var shaperTable = document.getElementById("shaperTable");
+        var rowTemplate = document.getElementById("shaperEntry");
+
+        for (const [index, entry] of Advanced.QoS.Shapers.entries()) {
+          const tr = rowTemplate.content.cloneNode(true);
+
+          // Set the value of the index attribute
+          tr.querySelector("tr").setAttribute("index", index);
+
+          const ena = tr.querySelector(".EnaShaper");
+          const shapingRate = tr.querySelector(".shapingRate");
+          const interface = tr.querySelector(".interface");
+          const editShaper = tr.querySelector(".editShaper");
+          const deleteShaper = tr.querySelector(".deleteShaper");
+
+          entry.Enable
+            ? ena.classList.add("gemtek-enabled")
+            : ena.classList.add("gemtek-disabled");
+
+          shapingRate.innerHTML = entry.PeakRate.toString() + "<i>kbps</i>";
+          interface.textContent = entry.Interface.toString();
+
+          editShaper.addEventListener("click", () => {
+            Advanced.QoS.onEditShaper = editShaper
+              .closest("tr")
+              .getAttribute("index");
+            applyThenStoreToLS(
+              "advanced-qos-addShaper.html",
+              "Apply",
+              Advanced
+            );
+          });
+
+          deleteShaper.addEventListener("click", () => {
+            const rowTr = deleteShaper.closest("tr");
+            deleteDialogHandle(
+              rowTr,
+              "Delete",
+              "Are you sure you want to Delete ?"
+            )
+              .then(() => {
+                Advanced.QoS.Shapers.splice(
+                  parseInt(rowTr.getAttribute("index")),
+                  1
+                );
+                applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+              })
+              .catch(() => {
+                console.log("Cancel delete");
+              });
+          });
+
+          shaperTable.appendChild(tr);
+        }
+
+        // Queue
+        const queueList = document.getElementById("queueList");
+        const queueRowTemplate = document.getElementById("queueRow");
+
+        const CLRowTemplate = document.getElementById("CLrow");
+        var moreOnPage = [];
+
+        for (const [index, queue] of Advanced.QoS.Queues.entries()) {
+          const div = queueRowTemplate.content.cloneNode(true);
+
+          div
+            .querySelector(".custom_heading")
+            .setAttribute("id", "row" + index.toString());
+
+          const enable = div.querySelector(".enableStatus");
+          const name = div.querySelector(".name");
+          const moreBtn = div.querySelector(".moreBtn");
+          const detail_panel = div.querySelector(".queueDetail");
+
+          queue.Enable
+            ? enable.setAttribute(
+                "src",
+                "images/icons/icon-1/gemtek-enabled.svg"
+              )
+            : enable.setAttribute(
+                "src",
+                "images/icons/icon-1/gemtek-disabled.svg"
+              );
+
+          name.textContent = queue.QueueName;
+          detail_panel.setAttribute("id", "detail" + index.toString());
+          moreBtn.setAttribute("id", "more" + index.toString());
+
+          moreBtn.addEventListener("click", () => {
+            var justRemove = null;
+            console.log(moreOnPage);
+            if (moreOnPage.length > 0) {
+              document
+                .getElementById(moreOnPage[0].toString())
+                .classList.add("ng-hide");
+              document
+                .getElementById(
+                  moreOnPage[0].toString().replace("detail", "more")
+                )
+                .classList.remove("gemtek-less-btn");
+              justRemove = moreOnPage.pop();
+            }
+            if (justRemove != detail_panel.getAttribute("id")) {
+              detail_panel.classList.remove("ng-hide");
+              moreBtn.classList.add("gemtek-less-btn");
+              moreBtn.classList.add("gemtek-more-btn");
+
+              moreOnPage.push(detail_panel.getAttribute("id"));
+            }
+          });
+
+          // detail
+          const interfaceQueue = div.querySelector(".interfaceQueue");
+          const precedence = div.querySelector(".precedence");
+          const scheduler = div.querySelector(".scheduler");
+
+          const editQ = div.querySelector(".editQ");
+          const deleteQ = div.querySelector(".deleteQ");
+
+          /* value */
+          interfaceQueue.textContent = queue.Interface;
+          precedence.textContent = queue.QueuePrecedence;
+          scheduler.textContent = queue.ScheduleAlgorithm;
+          editQ.setAttribute("index", index);
+          deleteQ.setAttribute("index", index);
+
+          // event on detail panel
+          editQ.addEventListener("click", () => {
+            Advanced.QoS.onEditQueue = editQ.getAttribute("index");
+            applyThenStoreToLS("advanced-qos-addQ.html", "Apply", Advanced);
+          });
+
+          deleteQ.addEventListener("click", () => {
+            Advanced.QoS.Queues.splice(
+              parseInt(editQ.getAttribute("index")),
+              1
+            );
+            deleteDialogHandle(
+              document.getElementById(
+                "row" + editQ.getAttribute("index").toString()
+              ),
+              "Delete",
+              "Are you sure you want to Delete ?"
+            ).then(() => {
+              applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+            });
+          });
+
+          // CL
+          const tbody = div.querySelector(".classifierList");
+
+          for (const [indexCL, classifier] of queue.Classifiers.entries()) {
+            const CLrow = CLRowTemplate.content.cloneNode(true);
+            CLrow.querySelector(".CLindex").setAttribute("index", indexCL);
+
+            const enaCL = CLrow.querySelector(".enaCL");
+            const CLname = CLrow.querySelector(".CLname");
+            const CLinterface = CLrow.querySelector(".CLinterface");
+            const CLorder = CLrow.querySelector(".CLorder");
+
+            const editCL = CLrow.querySelector(".editCL");
+            const deleteCL = CLrow.querySelector(".deleteCL");
+
+            classifier.Enable
+              ? enaCL.classList.add("gemtek-enabled")
+              : enaCL.classList.add("gemtek-disabled");
+
+            CLname.textContent = classifier.ClassifierName;
+            CLinterface.textContent = classifier.ClassifierInterface;
+            CLorder.textContent = classifier.Order;
+
+            editCL.addEventListener("click", () => {
+              Advanced.QoS.onEditQueue = moreOnPage[0].match(/\d/g).join("");
+              Advanced.QoS.onEditCL = editCL
+                .closest("tr")
+                .getAttribute("index");
+
+              console.log(Advanced.QoS);
+              applyThenStoreToLS("advanced-qos-addCL.html", "Apply", Advanced);
+            });
+
+            deleteCL.addEventListener("click", () => {
+              deleteDialogHandle(
+                deleteCL.closest("tr"),
+                "Delete",
+                "Are you sure you want to Delete ?"
+              ).then(() => {
+                Advanced.QoS.Queues[
+                  parseInt(moreOnPage[0].match(/\d/g).join(""))
+                ].Classifiers.splice(
+                  deleteCL.closest("tr").getAttribute("index"),
+                  1
+                );
+                applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+              });
+            });
+            tbody.appendChild(CLrow);
+          }
+
+          queueList.appendChild(div);
+        }
+      };
+
+      var initEvent = function () {
+        lanDropdown.addEventListener("click", () => {
+          lanDropdown.classList.toggle("open");
+          wlanDropdown.classList.remove("open");
+          ethWlanDropdown.classList.remove("open");
+        });
+        wlanDropdown.addEventListener("click", () => {
+          wlanDropdown.classList.toggle("open");
+          ethWlanDropdown.classList.remove("open");
+          lanDropdown.classList.remove("open");
+        });
+        ethWlanDropdown.addEventListener("click", () => {
+          ethWlanDropdown.classList.toggle("open");
+          wlanDropdown.classList.remove("open");
+          lanDropdown.classList.remove("open");
+        });
+
+        // redirect to other page
+        addQBtn.addEventListener("click", () => {
+          Advanced.QoS.onEditQueue = "";
+          applyThenStoreToLS("advanced-qos-addQ.html", "Apply", Advanced);
+        });
+        addCLBtn.addEventListener("click", () => {
+          Advanced.QoS.onEditQueue = "";
+          Advanced.QoS.onEditCL = "";
+          applyThenStoreToLS("advanced-qos-addCL.html", "Apply", Advanced);
+        });
+        addShaperBtn.addEventListener("click", () => {
+          Advanced.QoS.onEditShaper = "";
+          applyThenStoreToLS("advanced-qos-addShaper.html", "Apply", Advanced);
+        });
+
+        // QoS select
+        window.onclick = function (event) {
+          if (!event.target.closest(".qosDropdown")) {
+            lanDropdown.classList.remove("open");
+            wlanDropdown.classList.remove("open");
+            ethWlanDropdown.classList.remove("open");
+          }
+        };
+      };
+
+      fillData();
+      initEvent();
+
+      break;
+    case "advanced-qos-edit.html":
+      var QoSEna = document.getElementById("X_GTK_QoSEnable");
+      var trafficClass = document.getElementById("DefaultTrafficClass");
+      var defaultDSCPMark = document.getElementById("DefaultDSCPMark");
+      var ethPriorityMark = document.getElementById(
+        "DefaultEthernetPriorityMark"
+      );
+
+      var fillData = function () {
+        Advanced.QoS.Ena
+          ? QoSEna.classList.add("checked")
+          : QoSEna.classList.remove("checked");
+        trafficClass.value = Advanced.QoS.TrafficClass;
+        defaultDSCPMark.value = Advanced.QoS.DefaultDSCPMark;
+        ethPriorityMark.value = Advanced.QoS.EthPriorityMark;
+      };
+
+      var initEvent = function () {
+        QoSEna.addEventListener("click", () => {
+          QoSEna.classList.toggle("checked");
+        });
+
+        trafficClass.addEventListener("input", () => {
+          // if (
+          //   trafficClass.value.length >
+          //   trafficClass.getAttributeNames("maxlength")
+          // ) {
+          //   document
+          //     .getElementById("exceed_error_traffic")
+          //     .classList.remove("ng-hide");
+          // } else {
+          //   document
+          //     .getElementById("exceed_error_traffic")
+          //     .classList.add("ng-hide");
+          // }
+        });
+
+        ethPriorityMark.addEventListener("input", () => {
+          // console.log(ethPriorityMark.value.length);
+          // if (
+          //   ethPriorityMark.value.length >
+          //   ethPriorityMark.getAttributeNames("maxlength")
+          // ) {
+          //   document
+          //     .getElementById("exceed_error_eth")
+          //     .classList.remove("ng-hide");
+          // } else {
+          //   document
+          //     .getElementById("exceed_error_eth")
+          //     .classList.add("ng-hide");
+          // }
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.QoS.Ena = QoSEna.classList.contains("checked");
+          Advanced.QoS.TrafficClass = trafficClass.value || "0";
+          Advanced.QoS.DefaultDSCPMark = defaultDSCPMark.value;
+          Advanced.QoS.EthPriorityMark = ethPriorityMark.value || "-1";
+          applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-qos.html", "Cancel");
+      });
+      break;
+    case "advanced-qos-addShaper.html":
+      console.log("On Edit ", Advanced.QoS.onEditShaper);
+      console.log("Load data ", Advanced.QoS.Shapers);
+
+      var addFlag = Advanced.QoS.onEditShaper === "";
+      var shaperElem;
+      if (addFlag) {
+        shaperElem = {
+          Enable: false,
+          ShaperName: "",
+          PeakRate: "",
+          Interface: "?",
+          Location: "?",
+        };
+      } else {
+        shaperElem = Advanced.QoS.Shapers[parseInt(Advanced.QoS.onEditShaper)];
+      }
+      console.log(
+        "Load data edit ",
+        shaperElem,
+        parseInt(Advanced.QoS.onEditShaper)
+      );
+
+      var enaShaper = document.getElementById("Enable");
+      var shaperName = document.getElementById("Alias");
+      var peakRate = document.getElementById("ShapingRate");
+      var interfaceSelect = document.getElementById("X_GTK_LowerLayers");
+      var location = document.getElementById("X_GTK_Location");
+
+      var fillData = function () {
+        // create the WAN interface selection element
+        Basic.WAN.Interfaces.forEach((interface) => {
+          var optionElement = document.createElement("option");
+          optionElement.textContent = interface.Name;
+          optionElement.value = interface.Name;
+          interfaceSelect.appendChild(optionElement);
+        });
+
+        // fill data
+        shaperElem.Enable
+          ? enaShaper.classList.add("checked")
+          : enaShaper.classList.remove("checked");
+
+        shaperName.value = shaperElem.ShaperName;
+        peakRate.value = shaperElem.PeakRate;
+        interfaceSelect.value = shaperElem.Interface;
+        location.value = shaperElem.Location;
+
+        // check error at first
+        checkEmpty_inputField(
+          shaperName,
+          document.getElementById("empty_error_name")
+        );
+
+        checkEmpty_inputField(
+          peakRate,
+          document.getElementById("invalid_error_peak")
+        );
+
+        checkError_selectField(
+          interfaceSelect,
+          document.getElementById("select_error")
+        );
+      };
+
+      var initEvent = function () {
+        enaShaper.addEventListener("click", () => {
+          enaShaper.classList.toggle("checked");
+        });
+
+        shaperName.addEventListener("input", () => {
+          checkEmpty_inputField(
+            shaperName,
+            document.getElementById("empty_error_name")
+          );
+        });
+
+        peakRate.addEventListener("input", () => {
+          checkEmpty_inputField(
+            peakRate,
+            document.getElementById("invalid_error_peak")
+          );
+        });
+
+        interfaceSelect.addEventListener("change", () => {
+          checkError_selectField(
+            interfaceSelect,
+            document.getElementById("select_error")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          shaperElem.Enable = enaShaper.classList.contains("checked");
+          shaperElem.ShaperName = shaperName.value;
+          shaperElem.PeakRate = peakRate.value;
+          shaperElem.Interface = interfaceSelect.value;
+          shaperElem.Location = location.value;
+
+          if (addFlag === true) Advanced.QoS.Shapers.push(shaperElem);
+
+          applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-qos.html", "Cancel");
+      });
+      break;
+    case "advanced-qos-addQ.html":
+      console.log("On edit", Advanced.QoS.onEditQueue);
+      console.log("Load data:", Advanced.QoS.Queues);
+
+      var addFlag = Advanced.QoS.onEditQueue === "";
+      var specificQueue;
+      if (addFlag === true) {
+        specificQueue = {
+          Enable: false,
+          QueueName: "",
+          Interface: "?",
+          QueuePrecedence: "0",
+          TrafficClass: [],
+          DropAlgorithm: "?",
+          ScheduleAlgorithm: "?",
+          PeakRate: "",
+          Location: "?",
+          REDMin: "",
+          REDMax: "",
+          QueueWeight: "",
+          CommitedRate: "",
+          QueueLength: "",
+          Classifiers: [],
+        };
+      } else {
+        specificQueue = Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)];
+      }
+
+      var enableQ = document.getElementById("Enable");
+      var queueName = document.getElementById("Alias");
+      var interfaceSelect = document.getElementById("X_GTK_LowerLayers");
+      var queuePrecedence = document.getElementById("Precedence");
+      var trafficClasses = document.getElementById(
+        "DeviceQoSQueue_TrafficClasses"
+      );
+      var dropAlgorithmSelect = document.getElementById("DropAlgorithm");
+      var scheduleAlgorithmSelect =
+        document.getElementById("SchedulerAlgorithm");
+      var peakShapingRate = document.getElementById("ShapingRate");
+      var location = document.getElementById("X_GTK_Location");
+
+      // sub input at choosing algorithm
+      // Drop Algorithm -- RED
+      var REDthreshold = document.getElementById("REDThreshold");
+      var REDPercent = document.getElementById("REDPercentage");
+
+      // Drop Algorithm -- DT
+      var queueLength = document.getElementById("X_GTK_GreenThreshold");
+
+      // Schdule Algorithm -- WFQ
+      var queueWeight = document.getElementById("Weight");
+      var commitedrate = document.getElementById("X_GTK_CommittedRate");
+
+      function dropAlApdapter(drop_algorithm) {
+        switch (drop_algorithm) {
+          case "RED":
+            for (const REDconfig of document.querySelectorAll(".RED")) {
+              REDconfig.classList.remove("ng-hide");
+            }
+
+            for (const DTconfig of document.querySelectorAll(".DT")) {
+              DTconfig.classList.add("ng-hide");
+            }
+
+            checkEmpty_inputField(
+              REDthreshold,
+              document.getElementById("empty_error_redmin")
+            );
+            checkEmpty_inputField(
+              REDPercent,
+              document.getElementById("empty_error_redmax")
+            );
+            break;
+          case "DT":
+            for (const REDconfig of document.querySelectorAll(".RED")) {
+              REDconfig.classList.add("ng-hide");
+            }
+            for (const DTconfig of document.querySelectorAll(".DT")) {
+              DTconfig.classList.remove("ng-hide");
+            }
+            break;
+          default: // WRED scenario
+            for (const REDconfig of document.querySelectorAll(".RED")) {
+              REDconfig.classList.add("ng-hide");
+            }
+            for (const DTconfig of document.querySelectorAll(".DT")) {
+              DTconfig.classList.add("ng-hide");
+            }
+        }
+      }
+
+      function scheduleAlApdapter(sche_algorithm) {
+        if (sche_algorithm === "WFQ") {
+          for (const WFQconfig of document.querySelectorAll(".WFQ")) {
+            WFQconfig.classList.remove("ng-hide");
+          }
+        } else {
+          for (const WFQconfig of document.querySelectorAll(".WFQ")) {
+            WFQconfig.classList.add("ng-hide");
+          }
+        }
+      }
+
+      var fillData = function () {
+        specificQueue.Enable
+          ? enableQ.classList.add("checked")
+          : enableQ.classList.remove("checked");
+
+        queueName.value = specificQueue.QueueName;
+
+        // interface load
+        for (const elem of Basic.WAN.Interfaces) {
+          const option = document.createElement("option");
+          option.text = elem.Name;
+          option.value = elem.Name;
+          interfaceSelect.appendChild(option);
+        }
+        interfaceSelect.value = specificQueue.Interface;
+        queuePrecedence.value = specificQueue.QueuePrecedence;
+
+        for (const elem of specificQueue.TrafficClass) {
+          document.getElementById(elem).checked = true;
+        }
+
+        dropAlgorithmSelect.value = specificQueue.DropAlgorithm;
+        dropAlApdapter(dropAlgorithmSelect.value);
+
+        scheduleAlgorithmSelect.value = specificQueue.ScheduleAlgorithm;
+        scheduleAlApdapter(scheduleAlgorithmSelect.value);
+
+        peakShapingRate.value = specificQueue.PeakRate;
+        location.value = specificQueue.Location;
+
+        REDthreshold.value = specificQueue.REDMin;
+        REDPercent.value = specificQueue.REDMax;
+        queueLength.value = specificQueue.QueueLength;
+        queueWeight.value = specificQueue.QueueWeight;
+        commitedrate.value = specificQueue.CommitedRate;
+
+        // Check error
+        checkEmpty_inputField(
+          queueName,
+          document.getElementById("empty_error_name")
+        );
+
+        checkError_selectField(
+          interfaceSelect,
+          document.getElementById("select_interface_error")
+        );
+
+        checkError_selectField(
+          queuePrecedence,
+          document.getElementById("select_precedence_error")
+        );
+
+        checkError_selectField(
+          dropAlgorithmSelect,
+          document.getElementById("select_drop_error")
+        );
+
+        checkError_selectField(
+          scheduleAlgorithmSelect,
+          document.getElementById("select_schedule_error")
+        );
+
+        checkEmpty_inputField(
+          REDthreshold,
+          document.getElementById("empty_error_redmin")
+        );
+
+        checkEmpty_inputField(
+          REDPercent,
+          document.getElementById("empty_error_redmax")
+        );
+      };
+
+      var initEvent = function () {
+        enableQ.addEventListener("click", () => {
+          enableQ.classList.toggle("checked");
+        });
+        queueName.addEventListener("input", () => {
+          checkEmpty_inputField(
+            queueName,
+            document.getElementById("empty_error_name")
+          );
+        });
+
+        interfaceSelect.addEventListener("change", () => {
+          checkError_selectField(
+            interfaceSelect,
+            document.getElementById("select_interface_error")
+          );
+        });
+
+        queuePrecedence.addEventListener("change", () => {
+          checkError_selectField(
+            queuePrecedence,
+            document.getElementById("select_precedence_error")
+          );
+        });
+
+        dropAlgorithmSelect.addEventListener("change", () => {
+          dropAlApdapter(dropAlgorithmSelect.value);
+          checkError_selectField(
+            dropAlgorithmSelect,
+            document.getElementById("select_drop_error")
+          );
+        });
+
+        scheduleAlgorithmSelect.addEventListener("change", () => {
+          scheduleAlApdapter(scheduleAlgorithmSelect.value);
+          checkError_selectField(
+            scheduleAlgorithmSelect,
+            document.getElementById("select_schedule_error")
+          );
+        });
+
+        queueLength.addEventListener("input", () => {
+          checkMinMaxErrorNaN_inputField(
+            queueLength,
+            document.getElementById("min_error_queueLength"),
+            document.getElementById("max_error_queueLength"),
+            document.getElementById("invalid_error_queueLength")
+          );
+        });
+
+        REDthreshold.addEventListener("input", () => {
+          checkEmpty_inputField(
+            REDthreshold,
+            document.getElementById("empty_error_redmin")
+          );
+        });
+
+        REDPercent.addEventListener("input", () => {
+          checkEmpty_inputField(
+            REDPercent,
+            document.getElementById("empty_error_redmax")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".checkerror"))) {
+          // if RED Algorithm --> check error at RED
+          if (dropAlgorithmSelect.value == "RED") {
+            if (checkError_show(document.querySelectorAll(".REDerror"))) {
+              specificQueue.REDMin = REDthreshold.value;
+              specificQueue.REDMax = REDPercent.value;
+            } else {
+              console.log("Apply fail");
+            }
+          }
+          // if DT Algorithm --> check error at DT
+          else if (dropAlgorithmSelect.value == "DT") {
+            if (checkError_show(document.querySelectorAll(".DTerror"))) {
+              specificQueue.QueueLength = queueLength.value;
+            } else {
+              console.log("Apply fail");
+            }
+          }
+
+          specificQueue.Enable = enableQ.classList.contains("checked");
+          specificQueue.QueueName = queueName.value;
+          specificQueue.Interface = interfaceSelect.value;
+          specificQueue.QueuePrecedence = queuePrecedence.value;
+
+          for (const traffic of trafficClasses.getElementsByTagName("input")) {
+            if (traffic.checked) {
+              specificQueue.TrafficClass.push(traffic.getAttribute("id"));
+            }
+          }
+
+          specificQueue.DropAlgorithm = dropAlgorithmSelect.value;
+          specificQueue.ScheduleAlgorithm = scheduleAlgorithmSelect.value;
+          specificQueue.PeakRate = peakShapingRate.value;
+          specificQueue.Location = location.value;
+
+          if (scheduleAlgorithmSelect.value == "WFQ") {
+            specificQueue.QueueWeight = queueWeight.value;
+            specificQueue.CommitedRate = commitedrate.value;
+          }
+
+          if (addFlag) Advanced.QoS.Queues.push(specificQueue);
+
+          applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-qos.html", "Cancel");
+      });
+
+      break;
+    case "advanced-qos-addCL.html":
+      console.log("Load data: ", Advanced.QoS.Queues);
+      console.log("onEdit Queue: ", Advanced.QoS.onEditQueue);
+      console.log("onEdit Classifier: ", Advanced.QoS.onEditClassifier);
+
+      var specificClassifier;
+      if (Advanced.QoS.onEditCL && Advanced.QoS.onEditQueue) {
+        specificClassifier =
+          Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)].Classifiers[
+            parseInt(Advanced.QoS.onEditCL)
+          ];
+      } else {
+        specificClassifier = {
+          Enable: false,
+          ClassifierName: "",
+          Order: "",
+          ClassifierInterface: "",
+          QueuingInterface: "",
+          EnableMPTCP: false,
+          QueueID: "",
+          Layer2: {},
+          Layer3: {},
+          Layer4: {},
+          Actions: {},
+          onActiveLayer: "layer2",
+        };
+      }
+
+      var enableCL = document.getElementById("Enable");
+      var order = document.getElementById("DeviceQoSClassification_Order");
+      var className = document.getElementById("DeviceQoSClassification_Alias");
+      var classInterface = document.getElementById(
+        "DeviceQoSClassification_X_GTK_LowerLayers"
+      );
+      var queueID = document.getElementById(
+        "DeviceQoSClassification_TrafficClass"
+      );
+      var enableMPTCP = document.getElementById(
+        "DeviceQoSClassification.X_GTK_MPTCP"
+      );
+      var queuingInterface = document.getElementById(
+        "DeviceQoSClassification_X_GTK_OutInterface"
+      );
+      var onActiveLayerAtPage = specificClassifier.onActiveLayer;
+      // layer 2
+      var excludeSource = document.getElementById("SourceMACExclude");
+      var sourceMACaddr = document.getElementById(
+        "DeviceQoSClassification_SourceMACAddress"
+      );
+      var sourceMACmask = document.getElementById(
+        "DeviceQoSClassification_SourceMACMask"
+      );
+
+      var excludeDest = document.getElementById("DestMACExclude");
+      var destMACaddr = document.getElementById(
+        "DeviceQoSClassification_DestMACAddress"
+      );
+      var destMACmask = document.getElementById(
+        "DeviceQoSClassification_DestMACMask"
+      );
+
+      var excludeVLAN = document.getElementById("VLANIDExclude");
+      var vlanRange = document.getElementById(
+        "DeviceQoSClassification_VLANIDCheck"
+      );
+
+      var exclude = document.getElementById("EthernetPriorityExclude");
+      var incoming802Select = document.getElementById(
+        "DeviceQoSClassification_EthernetPriorityCheck"
+      );
+      // layer 3
+      var incomingDSCP = document.getElementById(
+        "DeviceQoSClassification_DSCPCheck"
+      );
+      var excludeDestIP = document.getElementById("DestIPExclude");
+      var destIP = document.getElementById("DeviceQoSClassification_DestIP");
+      var destMask = document.getElementById(
+        "DeviceQoSClassification_DestMask"
+      );
+
+      var excludeSourceIP = document.getElementById("SourceIPExclude");
+      var sourceIP = document.getElementById(
+        "DeviceQoSClassification_SourceIP"
+      );
+      var sourceMask = document.getElementById(
+        "DeviceQoSClassification_SourceMask"
+      );
+
+      // layer 4
+      var excludeProtocol = document.getElementById("ProtocolExclude");
+      var l4Protocol = document.getElementById(
+        "DeviceQoSClassification_Protocol"
+      );
+      var excludeDestPort = document.getElementById("DestPortExclude");
+      var destStart = document.getElementById(
+        "DeviceQoSClassification_DestPort"
+      );
+      var destEnd = document.getElementById(
+        "DeviceQoSClassification_DestPortRangeMax"
+      );
+
+      var excludeSourcePort = document.getElementById("SourcePortExclude");
+      var sourceStart = document.getElementById(
+        "DeviceQoSClassification_SourcePort"
+      );
+      var sourceEnd = document.getElementById(
+        "DeviceQoSClassification_SourcePortRangeMax"
+      );
+
+      var enaTCP = document.getElementById("TCPACK");
+
+      // actions
+      var outgoing = document.getElementById(
+        "DeviceQoSClassification_DSCPMark"
+      );
+      var outgoing802 = document.getElementById(
+        "DeviceQoSClassification_EthernetPriorityMark"
+      );
+      var disableAcceleration = document.getElementById(
+        "DeviceQoSClassification.X_GTK_DisableAcceleration"
+      );
+      var rateLimit = document.getElementById(
+        "DeviceQoSClassification_X_GTK_LimitRate"
+      );
+
+      var fillData = function () {
+        document.getElementById(onActiveLayerAtPage).classList.add("active");
+        document
+          .getElementById(onActiveLayerAtPage + "panel")
+          .classList.remove("ng-hide");
+
+        // fill Interface WAN
+        Basic.WAN.Interfaces.forEach((interface) => {
+          var optionElement = document.createElement("option");
+          optionElement.textContent = interface.Name;
+          optionElement.value = interface.Name;
+          queuingInterface.appendChild(optionElement);
+        });
+
+        Basic.WAN.Interfaces.forEach((interface) => {
+          var optionElement = document.createElement("option");
+          optionElement.textContent = interface.Name;
+          optionElement.value = interface.Name;
+          classInterface.appendChild(optionElement);
+        });
+
+        // Queue
+        Advanced.QoS.Queues.forEach((queue, index) => {
+          var optionElement = document.createElement("option");
+          optionElement.textContent = queue.QueueName;
+          optionElement.value = index;
+          queueID.appendChild(optionElement);
+        });
+
+        // data
+        if (Advanced.QoS.onEditCL && Advanced.QoS.onEditQueue) {
+          console.log("onEdit --> Fill data ", specificClassifier);
+          Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)].Classifiers[
+            parseInt(Advanced.QoS.onEditCL)
+          ].Enable
+            ? enableCL.classList.add("checked")
+            : enableCL.classList.remove("checked");
+          className.value = specificClassifier.ClassifierName;
+          order.value = specificClassifier.Order;
+          classInterface.value = specificClassifier.ClassifierInterface;
+          queuingInterface.value = specificClassifier.QueuingInterface;
+          enableMPTCP.checked = specificClassifier.EnableMPTCP;
+          queueID.value = specificClassifier.QueueID;
+          switch (specificClassifier.onActiveLayer) {
+            case "layer2":
+              specificClassifier.Layer2.ExcludeSourceMAC
+                ? excludeSource.classList.add("checked")
+                : excludeSource.classList.remove("checked");
+              sourceMACaddr.value = specificClassifier.Layer2.SourceMACAddr;
+              sourceMACmask.value = specificClassifier.Layer2.SourceMACMask;
+
+              specificClassifier.Layer2.ExcludeDestMAC
+                ? excludeDest.classList.add("checked")
+                : excludeDest.classList.remove("checked");
+              destMACaddr.value = specificClassifier.Layer2.DestMACAddr;
+              destMACmask.value = specificClassifier.Layer2.DestMACMask;
+
+              specificClassifier.Layer2.ExcludeVLAN
+                ? excludeVLAN.classList.add("checked")
+                : excludeVLAN.classList.remove("checked");
+              vlanRange.value = specificClassifier.Layer2.VLANIDRange;
+
+              specificClassifier.Layer2.Exclude
+                ? exclude.classList.add("checked")
+                : exclude.classList.remove("checked");
+              incoming802Select.value = specificClassifier.Layer2.Incoming802;
+              break;
+            case "layer3":
+              incomingDSCP.value = specificClassifier.Layer3.IncomingDSCP;
+              specificClassifier.Layer3.ExcludeDestIP
+                ? excludeDestIP.classList.add("checked")
+                : excludeDestIP.classList.remove("checked");
+              destIP.value = specificClassifier.Layer3.DestIP;
+              destMask.value = specificClassifier.Layer3.DestMask;
+
+              specificClassifier.Layer3.ExcludeSourceIP
+                ? excludeSourceIP.classList.add("checked")
+                : excludeSourceIP.classList.remove("checked");
+              sourceIP.value = specificClassifier.Layer3.SourceIP;
+              sourceMask.value = specificClassifier.Layer3.SourceMask;
+              break;
+            case "layer4":
+              specificClassifier.Layer4.ExcludeProtocol
+                ? excludeProtocol.classList.add("checked")
+                : excludeProtocol.classList.remove("checked");
+              l4Protocol.value = specificClassifier.Layer4.L4Protocol;
+
+              specificClassifier.Layer4.ExcludeDestPort
+                ? excludeDestPort.classList.add("checked")
+                : excludeDestPort.classList.remove("checked");
+              destStart.value = specificClassifier.Layer4.DestPortStart;
+              destEnd.value = specificClassifier.Layer4.DestPortEnd;
+
+              specificClassifier.Layer4.ExcludeSourcePort
+                ? excludeSourcePort.classList.add("checked")
+                : excludeSourcePort.classList.remove("checked");
+              sourceStart.value = specificClassifier.Layer4.SourcePortStart;
+              sourceEnd.value = specificClassifier.Layer4.SourcePortEnd;
+
+              specificClassifier.Layer4.EnableTCPAck
+                ? enaTCP.classList.add("checked")
+                : enaTCP.classList.remove("checked");
+              break;
+            case "actions":
+              outgoing.value = specificClassifier.Actions.OutgoingDSCP || "?";
+              outgoing802.value = specificClassifier.Actions.Outgoing802 || "?";
+              specificClassifier.Actions.DisableAcceleration
+                ? (disableAcceleration.checked = true)
+                : (disableAcceleration.checked = false);
+              rateLimit.value = specificClassifier.Actions.RateLimit;
+              break;
+            default:
+              console.log(
+                `Fill data error, ${specificClassifier.onActiveLayer} not available`
+              );
+          }
+        }
+
+        checkEmptyNaN_inputField(
+          order,
+          document.getElementById("empty_order_error"),
+          document.getElementById("invalid_order_error")
+        );
+        checkEmpty_inputField(
+          className,
+          document.getElementById("empty_CLname_error")
+        );
+        checkError_selectField(
+          classInterface,
+          document.getElementById("select_CLinterface_error")
+        );
+        checkError_selectField(
+          queueID,
+          document.getElementById("select_queueID_error")
+        );
+      };
+
+      var initEvent = function () {
+        enableCL.addEventListener("click", () => {
+          enableCL.classList.toggle("checked");
+        });
+
+        order.addEventListener("input", () => {
+          checkEmptyNaN_inputField(
+            order,
+            document.getElementById("empty_order_error"),
+            document.getElementById("invalid_order_error")
+          );
+        });
+        className.addEventListener("input", () => {
+          checkEmpty_inputField(
+            className,
+            document.getElementById("empty_CLname_error")
+          );
+        });
+        classInterface.addEventListener("change", () => {
+          checkError_selectField(
+            classInterface,
+            document.getElementById("select_CLinterface_error")
+          );
+        });
+        queueID.addEventListener("change", () => {
+          checkError_selectField(
+            queueID,
+            document.getElementById("select_queueID_error")
+          );
+        });
+
+        // layer switch
+        document.getElementById("layer2").addEventListener("click", () => {
+          document
+            .getElementById(onActiveLayerAtPage)
+            .classList.remove("active");
+          document.getElementById("layer2").classList.add("active");
+          document
+            .getElementById(onActiveLayerAtPage + "panel")
+            .classList.add("ng-hide");
+          document.getElementById("layer2panel").classList.remove("ng-hide");
+          onActiveLayerAtPage = "layer2";
+        });
+        document.getElementById("layer3").addEventListener("click", () => {
+          document
+            .getElementById(onActiveLayerAtPage)
+            .classList.remove("active");
+          document.getElementById("layer3").classList.add("active");
+          document
+            .getElementById(onActiveLayerAtPage + "panel")
+            .classList.add("ng-hide");
+          document.getElementById("layer3panel").classList.remove("ng-hide");
+          onActiveLayerAtPage = "layer3";
+        });
+        document.getElementById("layer4").addEventListener("click", () => {
+          document
+            .getElementById(onActiveLayerAtPage)
+            .classList.remove("active");
+          document.getElementById("layer4").classList.add("active");
+          document
+            .getElementById(onActiveLayerAtPage + "panel")
+            .classList.add("ng-hide");
+          document.getElementById("layer4panel").classList.remove("ng-hide");
+          onActiveLayerAtPage = "layer4";
+        });
+        document.getElementById("actions").addEventListener("click", () => {
+          document
+            .getElementById(onActiveLayerAtPage)
+            .classList.remove("active");
+          document.getElementById("actions").classList.add("active");
+          document
+            .getElementById(onActiveLayerAtPage + "panel")
+            .classList.add("ng-hide");
+          document.getElementById("actionspanel").classList.remove("ng-hide");
+          onActiveLayerAtPage = "actions";
+        });
+
+        //layer2
+        excludeSource.addEventListener("click", () => {
+          excludeSource.classList.toggle("checked");
+        });
+        sourceMACaddr.addEventListener("input", () => {
+          var pattern = new RegExp(
+            sourceMACaddr.getAttribute("pattern").toString()
+          );
+          if (pattern.test(sourceMACaddr.value) || sourceMACaddr.value == "") {
+            document
+              .getElementById("invalid_source_MAC")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_source_MAC")
+              .classList.remove("ng-hide");
+          }
+        });
+        sourceMACmask.addEventListener("input", () => {
+          var pattern = new RegExp(
+            sourceMACmask.getAttribute("pattern").toString()
+          );
+          if (pattern.test(sourceMACmask.value) || sourceMACmask.value == "") {
+            document
+              .getElementById("invalid_source_MACmask")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_source_MACmask")
+              .classList.remove("ng-hide");
+          }
+        });
+        excludeDest.addEventListener("click", () => {
+          excludeDest.classList.toggle("checked");
+        });
+        destMACaddr.addEventListener("input", () => {
+          var pattern = new RegExp(
+            destMACaddr.getAttribute("pattern").toString()
+          );
+          if (pattern.test(destMACaddr.value) || destMACaddr.value == "") {
+            document
+              .getElementById("invalid_dest_MAC")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_dest_MAC")
+              .classList.remove("ng-hide");
+          }
+        });
+        destMACmask.addEventListener("input", () => {
+          var pattern = new RegExp(
+            destMACmask.getAttribute("pattern").toString()
+          );
+          if (pattern.test(destMACmask.value) || destMACmask == "") {
+            document
+              .getElementById("invalid_dest_MACmask")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_dest_MACmask")
+              .classList.remove("ng-hide");
+          }
+        });
+        excludeVLAN.addEventListener("click", () => {
+          excludeVLAN.classList.toggle("checked");
+        });
+        vlanRange.addEventListener("input", () => {
+          checkRangeNaN_inputField(
+            vlanRange,
+            document.getElementById("rangeVLAN_error"),
+            document.getElementById("invalidVLAN_error")
+          );
+        });
+        exclude.addEventListener("click", () => {
+          exclude.classList.toggle("checked");
+        });
+
+        //layer 3
+        excludeDestIP.addEventListener("click", () => {
+          excludeDestIP.classList.toggle("checked");
+        });
+        destIP.addEventListener("input", () => {
+          var pattern = new RegExp(destIP.getAttribute("pattern").toString());
+          if (pattern.test(destIP.value) || destIP.value == "") {
+            document
+              .getElementById("invalid_dest_addr")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_dest_addr")
+              .classList.remove("ng-hide");
+          }
+        });
+        excludeSourceIP.addEventListener("click", () => {
+          excludeSourceIP.classList.toggle("checked");
+        });
+        sourceIP.addEventListener("input", () => {
+          var pattern = new RegExp(sourceIP.getAttribute("pattern").toString());
+          if (pattern.test(sourceIP.value) || sourceIP.value == "") {
+            document
+              .getElementById("invalid_source_addr")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_source_addr")
+              .classList.remove("ng-hide");
+          }
+        });
+
+        // layer4
+        excludeProtocol.addEventListener("click", () => {
+          excludeProtocol.classList.toggle("checked");
+        });
+        excludeDestPort.addEventListener("click", () => {
+          excludeDestPort.classList.toggle("checked");
+        });
+        destStart.addEventListener("input", () => {
+          checkMinMaxErrorNaN_inputField(
+            destStart,
+            document.getElementById("min_sdest_port_error"),
+            document.getElementById("max_sdest_port_error"),
+            document.getElementById("invalid_sdest_port_error")
+          );
+        });
+        destEnd.addEventListener("input", () => {
+          checkMinMaxErrorNaN_inputField(
+            destEnd,
+            document.getElementById("min_edest_port_error"),
+            document.getElementById("max_edest_port_error"),
+            document.getElementById("invalid_edest_port_error")
+          );
+        });
+        excludeSourcePort.addEventListener("click", () => {
+          excludeSourcePort.classList.toggle("checked");
+        });
+        sourceStart.addEventListener("input", () => {
+          checkMinMaxErrorNaN_inputField(
+            sourceStart,
+            document.getElementById("min_ssource_port_error"),
+            document.getElementById("max_ssource_port_error"),
+            document.getElementById("invalid_ssource_port_error")
+          );
+        });
+        sourceEnd.addEventListener("input", () => {
+          checkMinMaxErrorNaN_inputField(
+            sourceEnd,
+            document.getElementById("min_esource_port_error"),
+            document.getElementById("max_esource_port_error"),
+            document.getElementById("invalid_esource_port_error")
+          );
+        });
+        enaTCP.addEventListener("click", () => {
+          enaTCP.classList.toggle("checked");
+        });
+
+        // actions
+        rateLimit.addEventListener("input", () => {
+          if (isNaN(rateLimit.value)) {
+            document
+              .getElementById("invalid_rate_error")
+              .classList.remove("ng-hide");
+          } else {
+            document
+              .getElementById("invalid_rate_error")
+              .classList.add("ng-hide");
+          }
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Apply").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".clerror"))) {
+          var layerInfoValid;
+          switch (onActiveLayerAtPage) {
+            case "layer2":
+              layerInfoValid = checkError_show(
+                document.querySelectorAll(".l2error")
+              );
+              specificClassifier.Layer2.ExcludeSourceMAC =
+                excludeSource.classList.contains("checked");
+              specificClassifier.Layer2.SourceMACAddr = sourceMACaddr.value;
+              specificClassifier.Layer2.SourceMACMask = sourceMACmask.value;
+
+              specificClassifier.Layer2.ExcludeDestMAC =
+                excludeDest.classList.contains("checked");
+              specificClassifier.Layer2.DestMACAddr = destMACaddr.value;
+              specificClassifier.Layer2.DestMACMask = destMACmask.value;
+
+              specificClassifier.Layer2.ExcludeVLAN =
+                excludeVLAN.classList.contains("checked");
+              specificClassifier.Layer2.VLANIDRange = vlanRange.value;
+
+              specificClassifier.Layer2.Exclude =
+                exclude.classList.contains("checked");
+              specificClassifier.Layer2.Incoming802 = incoming802Select.value;
+              specificClassifier.onActiveLayer = "layer2";
+              break;
+            case "layer3":
+              layerInfoValid = checkError_show(
+                document.querySelectorAll(".l3error")
+              );
+
+              specificClassifier.Layer3.IncomingDSCP = incomingDSCP.value;
+              specificClassifier.Layer3.ExcludeDestIP =
+                excludeDestIP.classList.contains("checked");
+              specificClassifier.Layer3.DestIP = destIP.value;
+              specificClassifier.Layer3.DestMask = destMask.value;
+
+              specificClassifier.Layer3.ExcludeSourceIP =
+                excludeSourceIP.classList.contains("checked");
+              specificClassifier.Layer3.SourceIP = sourceIP.value;
+              specificClassifier.Layer3.SourceMask = sourceMask.value;
+              specificClassifier.onActiveLayer = "layer3";
+              break;
+            case "layer4":
+              layerInfoValid = checkError_show(
+                document.querySelectorAll(".l4error")
+              );
+
+              specificClassifier.Layer4.ExcludeProtocol =
+                excludeProtocol.classList.contains("checked");
+              specificClassifier.Layer4.L4Protocol = l4Protocol.value;
+
+              specificClassifier.Layer4.ExcludeDestPort =
+                excludeDestPort.classList.contains("checked");
+              specificClassifier.Layer4.DestPortStart = destStart.value;
+              specificClassifier.Layer4.DestPortEnd = destEnd.value;
+
+              specificClassifier.Layer4.ExcludeSourcePort =
+                excludeSourcePort.classList.contains("checked");
+              specificClassifier.Layer4.SourcePortStart = sourceStart.value;
+              specificClassifier.Layer4.SourcePortEnd = sourceEnd.value;
+
+              specificClassifier.Layer4.EnableTCPAck =
+                enaTCP.classList.contains("checked");
+              specificClassifier.onActiveLayer = "layer4";
+
+              break;
+            case "actions":
+              layerInfoValid = checkError_show(
+                document.querySelectorAll(".actionserror")
+              );
+
+              specificClassifier.Actions.OutgoingDSCP = outgoing.value;
+              specificClassifier.Actions.Outgoing802 = outgoing802.value;
+              specificClassifier.Actions.DisableAcceleration =
+                disableAcceleration.checked;
+              specificClassifier.Actions.RateLimit = rateLimit.value;
+              specificClassifier.onActiveLayer = "actions";
+              break;
+            default:
+              console.log("Cannot recognize the Active Layer");
+              return;
+          }
+
+          if (layerInfoValid === true) {
+            specificClassifier.Enable = enableCL.classList.contains("checked");
+            specificClassifier.ClassifierName = className.value;
+            specificClassifier.Order = order.value;
+            specificClassifier.ClassifierInterface = classInterface.value;
+            specificClassifier.QueuingInterface = queuingInterface.value;
+            specificClassifier.EnableMPTCP = enableMPTCP.checked;
+            specificClassifier.QueueID = queueID.value;
+
+            if (!(Advanced.QoS.onEditCL && Advanced.QoS.onEditQueue)) {
+              // add
+              Advanced.QoS.Queues[parseInt(queueID.value)].Classifiers.push(
+                specificClassifier
+              );
+            }
+            applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+          } else {
+            console.log("Layer Valid fail");
+          }
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-qos.html", "Cancel");
       });
       break;
     default:

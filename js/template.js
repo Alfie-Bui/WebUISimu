@@ -5,7 +5,7 @@
  */
 
 const SIMULATOR_VERSION =
-  "GemtekWeb_v01_15Mar24"; /* Release version and tag tracking */
+  "GemtekWeb_v03_05Apr24"; /* Release version and tag tracking */
 
 /**
  *
@@ -86,10 +86,7 @@ const template = {
         BeginAddress: "192.168.1.2",
         EndAddress: "192.168.1.254",
         LeaseTime: 1,
-        IPAddressReservation: [
-          { MAC: "12:12:12:12:12:12", IP: "192.168.1.2" },
-          { MAC: "13:13:13:13:13:13", IP: "192.168.1.3" },
-        ],
+        IPAddressReservation: [],
       },
       IPv6Configuration: {
         Enable: true,
@@ -256,7 +253,7 @@ const template = {
         NumberOfEntries: "1",
         0: {
           DestIPAddress: "8.8.8.8",
-          DestSubnetMask: "255.255.255.255",
+          DestSubnetMask: "255.255.255.0",
           GatewayIPAddress: "192.168.1.1",
         },
       },
@@ -290,6 +287,17 @@ const template = {
           status: "unchanged",
         },
       },
+    },
+    QoS: {
+      Ena: true,
+      TrafficClass: "0",
+      DefaultDSCPMark: "-1",
+      EthPriorityMark: "-1",
+      onEditQueue: "",
+      onEditCL: "",
+      Queues: [],
+      onEditShaper: "",
+      Shapers: [],
     },
   },
   Security: {
