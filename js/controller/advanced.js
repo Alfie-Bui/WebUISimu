@@ -2060,6 +2060,17 @@ function loadPage(page, options) {
           editQ.setAttribute("index", index);
           deleteQ.setAttribute("index", index);
 
+          // disable Delete Queue
+          if (queue.Classifiers.length > 0) {
+            deleteQ.disabled = true;
+          }
+
+          for (const shaper of Advanced.QoS.Shapers) {
+            if (shaper.Interface == queue.Interface) {
+              deleteQ.disabled = true;
+            }
+          }
+
           // event on detail panel
           editQ.addEventListener("click", () => {
             Advanced.QoS.onEditQueue = editQ.getAttribute("index");
@@ -2077,9 +2088,11 @@ function loadPage(page, options) {
               ),
               "Delete",
               "Are you sure you want to Delete ?"
-            ).then(() => {
-              applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
-            });
+            )
+              .then(() => {
+                applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+              })
+              .catch(() => {});
           });
 
           // CL
@@ -2120,15 +2133,19 @@ function loadPage(page, options) {
                 deleteCL.closest("tr"),
                 "Delete",
                 "Are you sure you want to Delete ?"
-              ).then(() => {
-                Advanced.QoS.Queues[
-                  parseInt(moreOnPage[0].match(/\d/g).join(""))
-                ].Classifiers.splice(
-                  deleteCL.closest("tr").getAttribute("index"),
-                  1
-                );
-                applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
-              });
+              )
+                .then(() => {
+                  const listCL =
+                    Advanced.QoS.Queues[
+                      parseInt(moreOnPage[0].match(/\d/g).join(""))
+                    ].Classifiers;
+                  listCL.splice(
+                    deleteCL.closest("tr").getAttribute("index"),
+                    1
+                  );
+                  applyThenStoreToLS("advanced-qos.html", "Apply", Advanced);
+                })
+                .catch(() => {});
             });
             tbody.appendChild(CLrow);
           }
@@ -2271,6 +2288,7 @@ function loadPage(page, options) {
           Location: "?",
         };
       } else {
+        document.getElementById("breadcrumb").textContent = "Edit";
         shaperElem = Advanced.QoS.Shapers[parseInt(Advanced.QoS.onEditShaper)];
       }
       console.log(
@@ -2396,6 +2414,7 @@ function loadPage(page, options) {
           Classifiers: [],
         };
       } else {
+        document.getElementById("breadcrumb").textContent = "Edit";
         specificQueue = Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)];
       }
 
@@ -2403,9 +2422,13 @@ function loadPage(page, options) {
       var queueName = document.getElementById("Alias");
       var interfaceSelect = document.getElementById("X_GTK_LowerLayers");
       var queuePrecedence = document.getElementById("Precedence");
+
       var trafficClasses = document.getElementById(
         "DeviceQoSQueue_TrafficClasses"
       );
+      const trafficList = document.querySelectorAll(".trafficList");
+      var beChecked = Array.from({ length: trafficList.length }, () => 0);
+
       var dropAlgorithmSelect = document.getElementById("DropAlgorithm");
       var scheduleAlgorithmSelect =
         document.getElementById("SchedulerAlgorithm");
@@ -2503,6 +2526,10 @@ function loadPage(page, options) {
 
         peakShapingRate.value = specificQueue.PeakRate;
         location.value = specificQueue.Location;
+        if (specificQueue.Location != "?" && addFlag === false) {
+          // edit --> disable Location
+          location.disabled = true;
+        }
 
         REDthreshold.value = specificQueue.REDMin;
         REDPercent.value = specificQueue.REDMax;
@@ -2610,6 +2637,31 @@ function loadPage(page, options) {
             document.getElementById("empty_error_redmax")
           );
         });
+
+        for (const checkBox of trafficList) {
+          checkBox.addEventListener("click", () => {
+            if (checkBox.checked) {
+              beChecked[parseInt(checkBox.getAttribute("number")) - 1] = 1;
+
+              // disable the others
+              for (var i = 0; i < beChecked.length; i++) {
+                if (beChecked[i] == 0)
+                  document.getElementById(
+                    `TrafficClasses${i + 1}`
+                  ).disabled = true;
+              }
+
+              beChecked[parseInt(checkBox.getAttribute("number")) - 1] = 0;
+            } else {
+              // if not checked --> enable check all
+              for (var i = 0; i < beChecked.length; i++) {
+                document.getElementById(
+                  `TrafficClasses${i + 1}`
+                ).disabled = false;
+              }
+            }
+          });
+        }
       };
 
       fillData();
@@ -2640,8 +2692,17 @@ function loadPage(page, options) {
           specificQueue.Interface = interfaceSelect.value;
           specificQueue.QueuePrecedence = queuePrecedence.value;
 
-          for (const traffic of trafficClasses.getElementsByTagName("input")) {
+          specificQueue.TrafficClass = []; // reset, else at Edit it alway push new elem
+          for (const traffic of trafficClasses.querySelectorAll(
+            ".trafficList"
+          )) {
             if (traffic.checked) {
+              if (traffic.getAttribute("number") != queuePrecedence.value) {
+                alertDialogHandle(
+                  "Queue Precedence and Traffic Class must equal"
+                );
+                return;
+              }
               specificQueue.TrafficClass.push(traffic.getAttribute("id"));
             }
           }
@@ -2676,6 +2737,7 @@ function loadPage(page, options) {
 
       var specificClassifier;
       if (Advanced.QoS.onEditCL && Advanced.QoS.onEditQueue) {
+        document.getElementById("breadcrumb").textContent = "Edit";
         specificClassifier =
           Advanced.QoS.Queues[parseInt(Advanced.QoS.onEditQueue)].Classifiers[
             parseInt(Advanced.QoS.onEditCL)

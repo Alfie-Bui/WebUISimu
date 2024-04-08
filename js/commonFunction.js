@@ -255,7 +255,7 @@ function checkRangeNaN_inputField(input, range_error, invalid_error) {
  *         false: if error be trapped
  */
 function checkError_selectField(select, error) {
-  if (select.value === "?") {
+  if (select.value === "?" || select.value === "") {
     error.classList.remove("ng-hide");
     return false;
   } else {
