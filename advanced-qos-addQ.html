@@ -1497,16 +1497,29 @@
                             class="input-field no-padding-hr-l col-xs-12 col-sm-12"
                           >
                             <input
-                              type="text"
+                              type="number"
                               id="ShapingRate"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-maxlength"
                               placeholder="Please input peak shaping rate"
                               maxlength="64"
+                              max="2500000"
+                              min="0"
                               name="DeviceQoSQueue_ShapingRate"
                             /><label for="ShapingRate" class="active ng-binding"
                               >Peak Shaping Rate (In kbps)</label
-                            ><span class="error ng-binding ng-hide"></span
                             ><span
+                              class="error ng-binding ng-hide"
+                              id="max_error_peakRate"
+                            >
+                              Peak Shaping Rate must be less than 2.5Gbps
+                            </span>
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="min_error_peakRate"
+                            >
+                              Peak Shaping Rate must be greater than 0kbps
+                            </span>
+                            <span
                               class="error ng-hide"
                               forname="DeviceQoSQueue_ShapingRate"
                               ><span class="ng-binding"
