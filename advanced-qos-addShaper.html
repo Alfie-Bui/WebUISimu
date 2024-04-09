@@ -1094,6 +1094,8 @@
                               id="ShapingRate"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required"
                               placeholder="Please input peak rate"
+                              min="0"
+                              max="2500000"
                               name="DeviceQoSShaper_ShapingRate"
                               required="required"
                             /><label
@@ -1105,6 +1107,18 @@
                               id="invalid_error_peak"
                             >
                               Please enter a valid number
+                            </span>
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="max_error_peak"
+                            >
+                              Peak Shaping Rate must be less than 2.5Gbps
+                            </span>
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="min_error_peak"
+                            >
+                              Peak Shaping Rate must be greater than 0kbps
                             </span>
                           </div>
                         </div>
@@ -1133,9 +1147,13 @@
                               >
                                 Select
                               </option>
-                              <option value="br-lan" label="br-lan">br-lan</option>
+                              <option value="br-lan" label="br-lan">
+                                br-lan
+                              </option>
                               <option value="VANI0" label="VANI0">VANI0</option>
-                              <option value="eth0_0" label="eth0_0">eth0_0</option>
+                              <option value="eth0_0" label="eth0_0">
+                                eth0_0
+                              </option>
                               <option value="eth0_1" label="eth0_1">
                                 eth0_1
                               </option></select
@@ -1144,6 +1162,11 @@
                               class="error ng-binding ng-hide"
                               id="select_error"
                               >* This Field is Required</span
+                            >
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="interface_error"
+                              >* Need to create this interface for queue first</span
                             >
                           </div>
                         </div>

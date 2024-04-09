@@ -2322,14 +2322,18 @@ function loadPage(page, options) {
         interfaceSelect.value = shaperElem.Interface;
         location.value = shaperElem.Location;
 
+        if (addFlag === false) location.disabled = true;
+
         // check error at first
         checkEmpty_inputField(
           shaperName,
           document.getElementById("empty_error_name")
         );
 
-        checkEmpty_inputField(
+        checkMinMaxError_inputField(
           peakRate,
+          document.getElementById("min_error_peak"),
+          document.getElementById("max_error_peak"),
           document.getElementById("invalid_error_peak")
         );
 
@@ -2352,13 +2356,32 @@ function loadPage(page, options) {
         });
 
         peakRate.addEventListener("input", () => {
-          checkEmpty_inputField(
+          checkMinMaxError_inputField(
             peakRate,
+            document.getElementById("min_error_peak"),
+            document.getElementById("max_error_peak"),
             document.getElementById("invalid_error_peak")
           );
         });
 
         interfaceSelect.addEventListener("change", () => {
+          var validInterface = false;
+          for (const elem of Advanced.QoS.Queues) {
+            if (elem.Interface == interfaceSelect.value) {
+              validInterface = true;
+              location.value = elem.Location;
+              location.disabled = true;
+              break;
+            }
+          }
+
+          if (validInterface == false && interfaceSelect.value != "?")
+            document
+              .getElementById("interface_error")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("interface_error").classList.add("ng-hide");
+
           checkError_selectField(
             interfaceSelect,
             document.getElementById("select_error")
@@ -2638,6 +2661,40 @@ function loadPage(page, options) {
           );
         });
 
+        peakShapingRate.addEventListener("input", () => {
+          if (peakShapingRate.value == "") {
+            document
+              .getElementById("min_error_peakRate")
+              .classList.add("ng-hide");
+            document
+              .getElementById("max_error_peakRate")
+              .classList.add("ng-hide");
+            return;
+          }
+          if (
+            parseInt(peakShapingRate.value) >
+            parseInt(peakShapingRate.getAttribute("max"))
+          ) {
+            document
+              .getElementById("max_error_peakRate")
+              .classList.remove("ng-hide");
+            document
+              .getElementById("min_error_peakRate")
+              .classList.add("ng-hide");
+          }
+          if (
+            parseInt(peakShapingRate.value) <
+            parseInt(peakShapingRate.getAttribute("min"))
+          ) {
+            document
+              .getElementById("min_error_peakRate")
+              .classList.remove("ng-hide");
+            document
+              .getElementById("max_error_peakRate")
+              .classList.add("ng-hide");
+          }
+        });
+
         for (const checkBox of trafficList) {
           checkBox.addEventListener("click", () => {
             if (checkBox.checked) {
@@ -2710,7 +2767,9 @@ function loadPage(page, options) {
           specificQueue.DropAlgorithm = dropAlgorithmSelect.value;
           specificQueue.ScheduleAlgorithm = scheduleAlgorithmSelect.value;
           specificQueue.PeakRate = peakShapingRate.value;
-          specificQueue.Location = location.value;
+
+          if (location.value == "?") specificQueue.Location = "Egress";
+          else specificQueue.Location = location.value;
 
           if (scheduleAlgorithmSelect.value == "WFQ") {
             specificQueue.QueueWeight = queueWeight.value;
@@ -3123,7 +3182,7 @@ function loadPage(page, options) {
           var pattern = new RegExp(
             destMACmask.getAttribute("pattern").toString()
           );
-          if (pattern.test(destMACmask.value) || destMACmask == "") {
+          if (pattern.test(destMACmask.value) || destMACmask.value == "") {
             document
               .getElementById("invalid_dest_MACmask")
               .classList.add("ng-hide");
@@ -3163,6 +3222,28 @@ function loadPage(page, options) {
               .classList.remove("ng-hide");
           }
         });
+        destMask.addEventListener("input", () => {
+          var patternv4 = new RegExp(
+            destMask.getAttribute("patternv4").toString()
+          );
+          var patternv6 = new RegExp(
+            destMask.getAttribute("patternv6").toString()
+          );
+          if (
+            patternv4.test(destMask.value) ||
+            patternv6.test(destMask.value) ||
+            destMask.value == ""
+          ) {
+            document
+              .getElementById("pattern_error_destMask")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("pattern_error_destMask")
+              .classList.remove("ng-hide");
+          }
+        });
+
         excludeSourceIP.addEventListener("click", () => {
           excludeSourceIP.classList.toggle("checked");
         });
@@ -3175,6 +3256,23 @@ function loadPage(page, options) {
           } else {
             document
               .getElementById("invalid_source_addr")
+              .classList.remove("ng-hide");
+          }
+        });
+        sourceMask.addEventListener("input", () => {
+          var patternv4 = new RegExp(sourceMask.getAttribute("patternv4"));
+          var patternv6 = new RegExp(sourceMask.getAttribute("patternv6"));
+          if (
+            patternv4.test(sourceMask.value) ||
+            patternv6.test(sourceMask.value) ||
+            sourceMask.value == ""
+          ) {
+            document
+              .getElementById("pattern_error_sourceMask")
+              .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("pattern_error_sourceMask")
               .classList.remove("ng-hide");
           }
         });
