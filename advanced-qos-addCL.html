@@ -2829,6 +2829,8 @@ and open the template in the editor.
                                         class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min"
                                         name="limitrange"
                                         value=""
+                                        min="-1"
+                                        max="2500000"
                                         placeholder="Please input rate limit value"
                                       />
                                       <label class="active ng-binding"
@@ -2838,6 +2840,18 @@ and open the template in the editor.
                                         class="error ng-binding ng-hide actionserror"
                                         id="invalid_rate_error"
                                         >* Not a valid Rate</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        id="max_error_peakRate"
+                                      >
+                                        Peak Shaping Rate must be less than or
+                                        equal to 2,500,000 kbps
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide actionserror"
+                                        id="min_error_peakRate"
+                                        >Please enter a valid number</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide"

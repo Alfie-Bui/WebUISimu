@@ -3411,10 +3411,38 @@ function loadPage(page, options) {
             document
               .getElementById("invalid_rate_error")
               .classList.remove("ng-hide");
+            document
+              .getElementById("max_error_peakRate")
+              .classList.add("ng-hide");
+            document
+              .getElementById("min_error_peakRate")
+              .classList.add("ng-hide");
           } else {
             document
               .getElementById("invalid_rate_error")
               .classList.add("ng-hide");
+            if (
+              parseInt(rateLimit.value) >
+              parseInt(rateLimit.getAttribute("max"))
+            ) {
+              document
+                .getElementById("max_error_peakRate")
+                .classList.remove("ng-hide");
+              document
+                .getElementById("min_error_peakRate")
+                .classList.add("ng-hide");
+            }
+            if (
+              parseInt(rateLimit.value) <
+              parseInt(rateLimit.getAttribute("min"))
+            ) {
+              document
+                .getElementById("min_error_peakRate")
+                .classList.remove("ng-hide");
+              document
+                .getElementById("max_error_peakRate")
+                .classList.add("ng-hide");
+            }
           }
         });
       };
@@ -3438,7 +3466,6 @@ function loadPage(page, options) {
               }
             }
           }
-          return;
           var layerInfoValid;
           switch (onActiveLayerAtPage) {
             case "layer2":
