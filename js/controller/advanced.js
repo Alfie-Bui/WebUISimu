@@ -3415,7 +3415,7 @@ function loadPage(page, options) {
             .classList.add("ng-hide");
           document
             .getElementById("invalid_rate_error")
-            .classList.remove("ng-hide");
+            .classList.add("ng-hide");
 
           if (isNaN(rateLimit.value)) {
             document
