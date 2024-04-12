@@ -3466,6 +3466,7 @@ function loadPage(page, options) {
               }
             }
           }
+          
           var layerInfoValid;
           switch (onActiveLayerAtPage) {
             case "layer2":
