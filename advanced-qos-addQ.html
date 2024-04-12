@@ -1084,10 +1084,14 @@
                             ><span
                               class="error ng-binding ng-hide"
                               id="max_error_name"
-                              >Queue name must be less than 19 characters</span
-                            ><span class="error ng-hide"
-                              ><span class="ng-binding"></span
-                            ></span>
+                              >Queue name must be less than or equal to 19
+                              characters</span
+                            >
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="dup_error_name"
+                              >Configuration already exists with this name</span
+                            >
                           </div>
                         </div>
                       </div>
@@ -1509,7 +1513,8 @@
                               class="error ng-binding ng-hide"
                               id="max_error_peakRate"
                             >
-                              Peak Shaping Rate must be less than 2,500,000 kbps
+                              Peak Shaping Rate must be less than or equal to
+                              2,500,000 kbps
                             </span>
                             <span
                               class="error ng-binding ng-hide"

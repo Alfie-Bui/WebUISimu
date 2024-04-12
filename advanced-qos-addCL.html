@@ -1085,7 +1085,14 @@ and open the template in the editor.
                               <span
                                 class="error ng-binding ng-hide"
                                 id="max_error_name"
-                                >Classifier name must be less than 19 characters</span
+                                >Classifier name must be less than or equal to
+                                19 characters</span
+                              >
+                              <span
+                                class="error ng-binding ng-hide"
+                                id="dup_error_name"
+                                >Configuration already exists with this
+                                name</span
                               >
                             </div>
                           </div>
@@ -1119,7 +1126,8 @@ and open the template in the editor.
                               <span
                                 class="error ng-binding ng-hide clerror"
                                 id="range_order_error"
-                                >* Range of order must be greater than 0 and less than 20</span
+                                >Invalid Classifier Order Range, should be
+                                1-20</span
                               >
                               <span class="error ng-binding ng-hide"></span>
                             </div>
@@ -2008,18 +2016,20 @@ and open the template in the editor.
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_sdest_port_error"
-                                        >* Dest Port Start Range Max value: 65535</span
+                                        >* Dest Port Start Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_sdest_port_error"
-                                        >* Dest Port Start Range Min value: 1</span
+                                        >* Dest Port Start Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="invalid_sdest_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2049,18 +2059,20 @@ and open the template in the editor.
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_edest_port_error"
-                                        >* Dest Port End Range Max value: 65535</span
+                                        >* Dest Port End Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_edest_port_error"
-                                        >* Dest Port End Range Min value: 1</span
+                                        >* Dest Port End Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="invalid_edest_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2119,24 +2131,25 @@ and open the template in the editor.
                                         placeholder="Please input port number"
                                       />
                                       <label class="active ng-binding"
-                                        >Source Port Start
-                                        Range(1-65535)</label
+                                        >Source Port Start Range(1-65535)</label
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_ssource_port_error"
-                                        >* Source Port Start Range Max value: 65535</span
+                                        >* Source Port Start Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_ssource_port_error"
-                                        >* Source Port Start Range Min value: 1</span
+                                        >* Source Port Start Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide"
                                         id="invalid_ssource_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2166,18 +2179,20 @@ and open the template in the editor.
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_esource_port_error"
-                                        >* Source Port End Range Max value: 65535</span
+                                        >* Source Port End Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_esource_port_error"
-                                        >* Source Port End Range Min value: 1</span
+                                        >* Source Port End Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="invalid_esource_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2814,6 +2829,8 @@ and open the template in the editor.
                                         class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min"
                                         name="limitrange"
                                         value=""
+                                        min="-1"
+                                        max="2500000"
                                         placeholder="Please input rate limit value"
                                       />
                                       <label class="active ng-binding"
@@ -2823,6 +2840,18 @@ and open the template in the editor.
                                         class="error ng-binding ng-hide actionserror"
                                         id="invalid_rate_error"
                                         >* Not a valid Rate</span
+                                      >
+                                      <span
+                                        class="error ng-binding ng-hide"
+                                        id="max_error_peakRate"
+                                      >
+                                        Peak Shaping Rate must be less than or
+                                        equal to 2,500,000 kbps
+                                      </span>
+                                      <span
+                                        class="error ng-binding ng-hide actionserror"
+                                        id="min_error_peakRate"
+                                        >Please enter a valid number</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide"
