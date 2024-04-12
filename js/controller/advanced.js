@@ -2353,6 +2353,15 @@ function loadPage(page, options) {
             shaperName,
             document.getElementById("empty_error_name")
           );
+
+          if (
+            shaperName.value.length > parseInt(shaperName.getAttribute("max"))
+          )
+            document
+              .getElementById("max_error_name")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("max_error_name").classList.add("ng-hide");
         });
 
         peakRate.addEventListener("input", () => {
@@ -2375,12 +2384,15 @@ function loadPage(page, options) {
             }
           }
 
-          if (validInterface == false && interfaceSelect.value != "?")
+          if (validInterface == false && interfaceSelect.value != "?") {
             document
               .getElementById("interface_error")
               .classList.remove("ng-hide");
-          else
+            location.disabled = false;
+            location.value = "?";
+          } else {
             document.getElementById("interface_error").classList.add("ng-hide");
+          }
 
           checkError_selectField(
             interfaceSelect,
@@ -2394,6 +2406,23 @@ function loadPage(page, options) {
 
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
+          for (const shaper of Advanced.QoS.Shapers) {
+            // check dup name
+            if (shaper.ShaperName == shaperName.value) {
+              alertDialogHandle(
+                "This shaper name has already existed ! Please enter the new one"
+              );
+              return;
+            }
+            // check dup interface
+            if (shaper.Interface == interfaceSelect.value) {
+              alertDialogHandle(
+                "This interface has already used in other shaper !"
+              );
+              return;
+            }
+          }
+
           shaperElem.Enable = enaShaper.classList.contains("checked");
           shaperElem.ShaperName = shaperName.value;
           shaperElem.PeakRate = peakRate.value;
@@ -2606,6 +2635,13 @@ function loadPage(page, options) {
             queueName,
             document.getElementById("empty_error_name")
           );
+
+          if (queueName.value.length > parseInt(queueName.getAttribute("max")))
+            document
+              .getElementById("max_error_name")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("max_error_name").classList.add("ng-hide");
         });
 
         interfaceSelect.addEventListener("change", () => {
@@ -2726,6 +2762,16 @@ function loadPage(page, options) {
 
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".checkerror"))) {
+          // check dup name
+          for (const queue of Advanced.QoS.Queues) {
+            if (queue.QueueName == queueName.value) {
+              alertDialogHandle(
+                "This queue name has already existed ! Please enter the new one"
+              );
+              return;
+            }
+          }
+
           // if RED Algorithm --> check error at RED
           if (dropAlgorithmSelect.value == "RED") {
             if (checkError_show(document.querySelectorAll(".REDerror"))) {
@@ -3058,17 +3104,42 @@ function loadPage(page, options) {
         });
 
         order.addEventListener("input", () => {
-          checkEmptyNaN_inputField(
-            order,
-            document.getElementById("empty_order_error"),
-            document.getElementById("invalid_order_error")
-          );
+          if (
+            checkEmptyNaN_inputField(
+              order,
+              document.getElementById("empty_order_error"),
+              document.getElementById("invalid_order_error")
+            ) == true
+          ) {
+            if (
+              parseInt(order.value) > parseInt(order.getAttribute("max")) ||
+              parseInt(order.value) < parseInt(order.getAttribute("min"))
+            )
+              document
+                .getElementById("range_order_error")
+                .classList.remove("ng-hide");
+            else
+              document
+                .getElementById("range_order_error")
+                .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("range_order_error")
+              .classList.add("ng-hide");
+          }
         });
         className.addEventListener("input", () => {
           checkEmpty_inputField(
             className,
             document.getElementById("empty_CLname_error")
           );
+
+          if (className.value.length > parseInt(className.getAttribute("max")))
+            document
+              .getElementById("max_error_name")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("max_error_name").classList.add("ng-hide");
         });
         classInterface.addEventListener("change", () => {
           checkError_selectField(
@@ -3342,6 +3413,18 @@ function loadPage(page, options) {
 
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".clerror"))) {
+          // check dup CL name
+          for (const queue of Advanced.QoS.Queues) {
+            for (const cl of queue.Classifiers) {
+              if (cl.ClassifierName == className.value) {
+                alertDialogHandle(
+                  "This classifier name has already existed ! Please enter the new one"
+                );
+                return;
+              }
+            }
+          }
+
           var layerInfoValid;
           switch (onActiveLayerAtPage) {
             case "layer2":
