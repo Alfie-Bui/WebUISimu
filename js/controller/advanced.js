@@ -3407,20 +3407,21 @@ function loadPage(page, options) {
 
         // actions
         rateLimit.addEventListener("input", () => {
+          document
+            .getElementById("max_error_peakRate")
+            .classList.add("ng-hide");
+          document
+            .getElementById("min_error_peakRate")
+            .classList.add("ng-hide");
+          document
+            .getElementById("invalid_rate_error")
+            .classList.remove("ng-hide");
+
           if (isNaN(rateLimit.value)) {
             document
               .getElementById("invalid_rate_error")
               .classList.remove("ng-hide");
-            document
-              .getElementById("max_error_peakRate")
-              .classList.add("ng-hide");
-            document
-              .getElementById("min_error_peakRate")
-              .classList.add("ng-hide");
           } else {
-            document
-              .getElementById("invalid_rate_error")
-              .classList.add("ng-hide");
             if (
               parseInt(rateLimit.value) >
               parseInt(rateLimit.getAttribute("max"))
@@ -3428,9 +3429,6 @@ function loadPage(page, options) {
               document
                 .getElementById("max_error_peakRate")
                 .classList.remove("ng-hide");
-              document
-                .getElementById("min_error_peakRate")
-                .classList.add("ng-hide");
             }
             if (
               parseInt(rateLimit.value) <
@@ -3439,9 +3437,6 @@ function loadPage(page, options) {
               document
                 .getElementById("min_error_peakRate")
                 .classList.remove("ng-hide");
-              document
-                .getElementById("max_error_peakRate")
-                .classList.add("ng-hide");
             }
           }
         });
