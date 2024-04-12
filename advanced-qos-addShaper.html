@@ -1079,7 +1079,13 @@
                             ><span
                               class="error ng-binding ng-hide"
                               id="max_error_name"
-                              >Shaper name must be less than 19 characters</span
+                              >Shaper name must be less than or equal to 19 characters</span
+                            >
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="dup_error_name"
+                              >Configuration already exists with this name</span
+
                             >
                           </div>
                         </div>
@@ -1112,7 +1118,8 @@
                               class="error ng-binding ng-hide"
                               id="max_error_peak"
                             >
-                              Peak Shaping Rate must be less than 2,500,000 kbps
+                              Peak Shaping Rate must be less than or equal to
+                              2,500,000 kbps
                             </span>
                             <span
                               class="error ng-binding ng-hide"
@@ -1166,9 +1173,13 @@
                             <span
                               class="error ng-binding ng-hide"
                               id="interface_error"
-                              >* Need to create queue for this interface
-                              first</span
-                            >
+                              >Queue for this interface should be added first
+                            </span>
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="dup_interface_error"
+                              >Shaper already present on interface
+                            </span>
                           </div>
                         </div>
                       </div>
