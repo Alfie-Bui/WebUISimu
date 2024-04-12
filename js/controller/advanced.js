@@ -2802,7 +2802,7 @@ function loadPage(page, options) {
             if (traffic.checked) {
               if (traffic.getAttribute("number") != queuePrecedence.value) {
                 alertDialogHandle(
-                  "Queue Precedence and Traffic Class must equal"
+                  "Queue Precedence and Traffic Class must be equal"
                 );
                 return;
               }
