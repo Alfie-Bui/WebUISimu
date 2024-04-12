@@ -2353,6 +2353,15 @@ function loadPage(page, options) {
             shaperName,
             document.getElementById("empty_error_name")
           );
+
+          if (
+            shaperName.value.length > parseInt(shaperName.getAttribute("max"))
+          )
+            document
+              .getElementById("max_error_name")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("max_error_name").classList.add("ng-hide");
         });
 
         peakRate.addEventListener("input", () => {
@@ -2375,12 +2384,15 @@ function loadPage(page, options) {
             }
           }
 
-          if (validInterface == false && interfaceSelect.value != "?")
+          if (validInterface == false && interfaceSelect.value != "?") {
             document
               .getElementById("interface_error")
               .classList.remove("ng-hide");
-          else
+            location.disabled = false;
+            location.value = "?";
+          } else {
             document.getElementById("interface_error").classList.add("ng-hide");
+          }
 
           checkError_selectField(
             interfaceSelect,
@@ -2394,6 +2406,31 @@ function loadPage(page, options) {
 
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
+          document.getElementById("dup_error_name").classList.add("ng-hide");
+          document
+            .getElementById("dup_interface_error")
+            .classList.add("ng-hide");
+          var dup_flag = false;
+          if (addFlag) {
+            for (const shaper of Advanced.QoS.Shapers) {
+              // check dup name
+              if (shaper.ShaperName == shaperName.value) {
+                document
+                  .getElementById("dup_error_name")
+                  .classList.remove("ng-hide");
+                dup_flag = true;
+              }
+              // check dup interface
+              if (shaper.Interface == interfaceSelect.value) {
+                document
+                  .getElementById("dup_interface_error")
+                  .classList.remove("ng-hide");
+                dup_flag = true;
+              }
+            }
+          }
+          if (dup_flag == true) return;
+
           shaperElem.Enable = enaShaper.classList.contains("checked");
           shaperElem.ShaperName = shaperName.value;
           shaperElem.PeakRate = peakRate.value;
@@ -2606,6 +2643,13 @@ function loadPage(page, options) {
             queueName,
             document.getElementById("empty_error_name")
           );
+
+          if (queueName.value.length > parseInt(queueName.getAttribute("max")))
+            document
+              .getElementById("max_error_name")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("max_error_name").classList.add("ng-hide");
         });
 
         interfaceSelect.addEventListener("change", () => {
@@ -2726,6 +2770,19 @@ function loadPage(page, options) {
 
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".checkerror"))) {
+          document.getElementById("dup_error_name").classList.add("ng-hide");
+          if (addFlag) {
+            // check dup name
+            for (const queue of Advanced.QoS.Queues) {
+              if (queue.QueueName == queueName.value) {
+                document
+                  .getElementById("dup_error_name")
+                  .classList.remove("ng-hide");
+                return;
+              }
+            }
+          }
+
           // if RED Algorithm --> check error at RED
           if (dropAlgorithmSelect.value == "RED") {
             if (checkError_show(document.querySelectorAll(".REDerror"))) {
@@ -2756,7 +2813,7 @@ function loadPage(page, options) {
             if (traffic.checked) {
               if (traffic.getAttribute("number") != queuePrecedence.value) {
                 alertDialogHandle(
-                  "Queue Precedence and Traffic Class must equal"
+                  "Queue Precedence and Traffic Class must be equal"
                 );
                 return;
               }
@@ -3058,17 +3115,42 @@ function loadPage(page, options) {
         });
 
         order.addEventListener("input", () => {
-          checkEmptyNaN_inputField(
-            order,
-            document.getElementById("empty_order_error"),
-            document.getElementById("invalid_order_error")
-          );
+          if (
+            checkEmptyNaN_inputField(
+              order,
+              document.getElementById("empty_order_error"),
+              document.getElementById("invalid_order_error")
+            ) == true
+          ) {
+            if (
+              parseInt(order.value) > parseInt(order.getAttribute("max")) ||
+              parseInt(order.value) < parseInt(order.getAttribute("min"))
+            )
+              document
+                .getElementById("range_order_error")
+                .classList.remove("ng-hide");
+            else
+              document
+                .getElementById("range_order_error")
+                .classList.add("ng-hide");
+          } else {
+            document
+              .getElementById("range_order_error")
+              .classList.add("ng-hide");
+          }
         });
         className.addEventListener("input", () => {
           checkEmpty_inputField(
             className,
             document.getElementById("empty_CLname_error")
           );
+
+          if (className.value.length > parseInt(className.getAttribute("max")))
+            document
+              .getElementById("max_error_name")
+              .classList.remove("ng-hide");
+          else
+            document.getElementById("max_error_name").classList.add("ng-hide");
         });
         classInterface.addEventListener("change", () => {
           checkError_selectField(
@@ -3342,6 +3424,21 @@ function loadPage(page, options) {
 
       document.getElementById("Apply").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".clerror"))) {
+          document.getElementById("dup_error_name").classList.add("ng-hide");
+          if (!(Advanced.QoS.onEditCL && Advanced.QoS.onEditQueue)) {
+            // check dup CL name
+            for (const queue of Advanced.QoS.Queues) {
+              for (const cl of queue.Classifiers) {
+                if (cl.ClassifierName == className.value) {
+                  document
+                    .getElementById("dup_error_name")
+                    .classList.remove("ng-hide");
+                  return;
+                }
+              }
+            }
+          }
+          return;
           var layerInfoValid;
           switch (onActiveLayerAtPage) {
             case "layer2":

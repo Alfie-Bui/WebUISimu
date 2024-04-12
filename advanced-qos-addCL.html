@@ -1070,6 +1070,7 @@ and open the template in the editor.
                                 type="text"
                                 class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required"
                                 name="classifiername"
+                                max="19"
                                 placeholder="Please input classifier name"
                                 required="required"
                               />
@@ -1081,7 +1082,18 @@ and open the template in the editor.
                                 id="empty_CLname_error"
                                 >* Classifier Name is required</span
                               >
-                              <span class="error ng-binding ng-hide"></span>
+                              <span
+                                class="error ng-binding ng-hide"
+                                id="max_error_name"
+                                >Classifier name must be less than or equal to
+                                19 characters</span
+                              >
+                              <span
+                                class="error ng-binding ng-hide"
+                                id="dup_error_name"
+                                >Configuration already exists with this
+                                name</span
+                              >
                             </div>
                           </div>
                           <div
@@ -1095,6 +1107,7 @@ and open the template in the editor.
                                 name="order"
                                 placeholder="Please input order value"
                                 min="0"
+                                max="20"
                                 required="required"
                               />
                               <label class="required active ng-binding"
@@ -1109,6 +1122,12 @@ and open the template in the editor.
                                 class="error ng-binding ng-hide clerror"
                                 id="invalid_order_error"
                                 >* Not a valid order</span
+                              >
+                              <span
+                                class="error ng-binding ng-hide clerror"
+                                id="range_order_error"
+                                >Invalid Classifier Order Range, should be
+                                1-20</span
                               >
                               <span class="error ng-binding ng-hide"></span>
                             </div>
@@ -1984,7 +2003,7 @@ and open the template in the editor.
                                       <input
                                         id="DeviceQoSClassification_DestPort"
                                         type="text"
-                                        min="-1"
+                                        min="1"
                                         max="65535"
                                         class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
                                         name="destportstartrange"
@@ -1992,25 +2011,25 @@ and open the template in the editor.
                                         placeholder="Please input valid port number"
                                       />
                                       <label class="active ng-binding"
-                                        >Dest Port Start Range(-1-65535)</label
+                                        >Dest Port Start Range(1-65535)</label
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_sdest_port_error"
-                                        >* Dest Port Start Range Max value
-                                        should be 65535</span
+                                        >* Dest Port Start Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_sdest_port_error"
-                                        >* Dest Port Start Range Min value
-                                        should be -1</span
+                                        >* Dest Port Start Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="invalid_sdest_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2027,7 +2046,7 @@ and open the template in the editor.
                                       <input
                                         id="DeviceQoSClassification_DestPortRangeMax"
                                         type="text"
-                                        min="-1"
+                                        min="1"
                                         max="65535"
                                         class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
                                         name="destportendrange"
@@ -2035,25 +2054,25 @@ and open the template in the editor.
                                         placeholder="Please input port number"
                                       />
                                       <label class="active ng-binding"
-                                        >Dest Port end Range(-1-65535)</label
+                                        >Dest Port end Range(1-65535)</label
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_edest_port_error"
-                                        >* Dest Port End Range Max value should
-                                        be 65535</span
+                                        >* Dest Port End Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_edest_port_error"
-                                        >* Dest Port End Range Min value should
-                                        be -1</span
+                                        >* Dest Port End Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="invalid_edest_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2104,7 +2123,7 @@ and open the template in the editor.
                                       <input
                                         id="DeviceQoSClassification_SourcePort"
                                         type="text"
-                                        min="-1"
+                                        min="1"
                                         max="65535"
                                         class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
                                         name="sourceportstartrange"
@@ -2112,26 +2131,25 @@ and open the template in the editor.
                                         placeholder="Please input port number"
                                       />
                                       <label class="active ng-binding"
-                                        >Source Port Start
-                                        Range(-1-65535)</label
+                                        >Source Port Start Range(1-65535)</label
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_ssource_port_error"
-                                        >* Source Port Start Range Max value
-                                        should be 65535</span
+                                        >* Source Port Start Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_ssource_port_error"
-                                        >* Source Port Start Range Min value
-                                        should be -1</span
+                                        >* Source Port Start Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide"
                                         id="invalid_ssource_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2148,7 +2166,7 @@ and open the template in the editor.
                                       <input
                                         id="DeviceQoSClassification_SourcePortRangeMax"
                                         type="text"
-                                        min="-1"
+                                        min="1"
                                         max="65535"
                                         class="form-control string-to-number custom-hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max"
                                         name="sourceportendrange"
@@ -2161,20 +2179,20 @@ and open the template in the editor.
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="max_esource_port_error"
-                                        >* Source Port End Range Max value
-                                        should be 65535</span
+                                        >* Source Port End Range Max value:
+                                        65535</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="min_esource_port_error"
-                                        >* Source Port End Range Min value
-                                        should be -1</span
+                                        >* Source Port End Range Min value:
+                                        1</span
                                       >
                                       <span
                                         class="error ng-binding ng-hide l4error"
                                         id="invalid_esource_port_error"
-                                        >* Not a valid number</span
-                                      >
+                                        >Invalid Port address
+                                      </span>
                                       <span
                                         class="error ng-binding ng-hide"
                                       ></span>
@@ -2893,33 +2911,12 @@ and open the template in the editor.
                 </div>
               </div>
             </div>
-            <!-- ngInclude: 'templates/alertdialog.html' -->
-            <div class="ng-scope">
-              <div class="ng-scope">
-                <div
-                  id="alertDialog"
-                  class="ngdialog ngdialog-theme-default dialogwidth800 hide"
-                >
-                  <div class="ngdialog-overlay"></div>
-                  <div class="ngdialog-content">
-                    <div class="ngdialog-message">
-                      <img src="images/icons/icon-1/ico-notice.svg" />
-                      <h3>Notice</h3>
-                      <p class="ng-binding"></p>
-                    </div>
-                    <div class="ngdialog-buttons">
-                      <button
-                        type="button"
-                        class="gemtek-btn-primary ng-binding"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="alertDialogMark"
+            class="row ng-scope"
+          ></div>
         </div>
 
         <!-- Footer section-->

@@ -1069,7 +1069,7 @@
                               id="Alias"
                               class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength"
                               placeholder="Please input queue name"
-                              maxlength="64"
+                              max="19"
                               name="DeviceQoSQueue_Alias"
                               required="required"
                             /><label
@@ -1082,14 +1082,16 @@
                               id="empty_error_name"
                               >* This Field is Required</span
                             ><span
-                              class="error ng-hide"
-                              forname="DeviceQoSQueue_Alias"
-                              ><span class="ng-binding"
-                                >String length Exceeded the limit: </span
-                              ><span>64</span></span
-                            ><span class="error ng-hide"
-                              ><span class="ng-binding"></span
-                            ></span>
+                              class="error ng-binding ng-hide"
+                              id="max_error_name"
+                              >Queue name must be less than or equal to 19
+                              characters</span
+                            >
+                            <span
+                              class="error ng-binding ng-hide"
+                              id="dup_error_name"
+                              >Configuration already exists with this name</span
+                            >
                           </div>
                         </div>
                       </div>
@@ -1503,7 +1505,7 @@
                               placeholder="Please input peak shaping rate"
                               maxlength="64"
                               max="2500000"
-                              min="0"
+                              min="-1"
                               name="DeviceQoSQueue_ShapingRate"
                             /><label for="ShapingRate" class="active ng-binding"
                               >Peak Shaping Rate (In kbps)</label
@@ -1511,13 +1513,14 @@
                               class="error ng-binding ng-hide"
                               id="max_error_peakRate"
                             >
-                              Peak Shaping Rate must be less than 2.5Gbps
+                              Peak Shaping Rate must be less than or equal to
+                              2,500,000 kbps
                             </span>
                             <span
                               class="error ng-binding ng-hide"
                               id="min_error_peakRate"
                             >
-                              Peak Shaping Rate must be greater than 0kbps
+                              Please enter a valid number
                             </span>
                             <span
                               class="error ng-hide"
