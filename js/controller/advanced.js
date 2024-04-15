@@ -1909,6 +1909,184 @@ function loadPage(page, options) {
         window.location.href = "advanced-vpn.html";
       });
       break;
+    case "advanced-vpn-l2tp.html":
+      console.log("Load data: ", Advanced.vpn.l2tp);
+      var server = document.getElementById("Server");
+      var username = document.getElementById("UserName");
+      var password = document.getElementById("DeviceX_GTK_PPTPPassword");
+      var enable = document.getElementById("Enabled");
+
+      var fillData = function () {
+        if (Advanced.vpn.l2tp.Enable === true) {
+          enable.classList.add("checked");
+          document.getElementById("content").classList.remove("ng-hide");
+        } else {
+          enable.classList.remove("checked");
+          document.getElementById("content").classList.add("ng-hide");
+        }
+
+        server.value = Advanced.vpn.l2tp.Server;
+        username.value = Advanced.vpn.l2tp.Username;
+        password.value = Advanced.vpn.l2tp.Password;
+
+        checkEmpty_inputField(
+          server,
+          document.getElementById("empty_server_error")
+        );
+        checkEmpty_inputField(
+          username,
+          document.getElementById("empty_username_error")
+        );
+        checkEmpty_inputField(
+          password,
+          document.getElementById("empty_pwd_error")
+        );
+      };
+
+      var initEvent = function () {
+        enable.addEventListener("click", () => {
+          console.log("click");
+          enable.classList.toggle("checked");
+          if (enable.classList.contains("checked")) {
+            document.getElementById("content").classList.remove("ng-hide");
+          } else {
+            document.getElementById("content").classList.add("ng-hide");
+          }
+        });
+        document
+          .getElementById("DeviceX_GTK_PPTPPasswordcheckbox")
+          .addEventListener("click", () => {
+            hide_show_pw(document.getElementById("icon_pw"), password);
+          });
+        server.addEventListener("input", () => {
+          checkEmpty_inputField(
+            server,
+            document.getElementById("empty_server_error")
+          );
+        });
+        username.addEventListener("input", () => {
+          checkEmpty_inputField(
+            username,
+            document.getElementById("empty_username_error")
+          );
+        });
+        password.addEventListener("input", () => {
+          checkEmpty_inputField(
+            password,
+            document.getElementById("empty_pwd_error")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.vpn.l2tp.Enable = enable.classList.contains("checked");
+          Advanced.vpn.l2tp.Server = server.value;
+          Advanced.vpn.l2tp.Username = username.value;
+          Advanced.vpn.l2tp.Password = password.value;
+
+          applyThenStoreToLS("advanced-vpn-l2tp.html", "Apply", Advanced);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-vpn-l2tp.html", "Cancel", Advanced);
+      });
+      break;
+    case "advanced-vpn-pptp.html":
+      console.log("Load data: ", Advanced.vpn.pptp);
+      var server = document.getElementById("Server");
+      var username = document.getElementById("UserName");
+      var password = document.getElementById("DeviceX_GTK_PPTPPassword");
+      var enable = document.getElementById("Enabled");
+
+      var fillData = function () {
+        if (Advanced.vpn.pptp.Enable === true) {
+          enable.classList.add("checked");
+          document.getElementById("content").classList.remove("ng-hide");
+        } else {
+          enable.classList.remove("checked");
+          document.getElementById("content").classList.add("ng-hide");
+        }
+
+        server.value = Advanced.vpn.pptp.Server;
+        username.value = Advanced.vpn.pptp.Username;
+        password.value = Advanced.vpn.pptp.Password;
+
+        checkEmpty_inputField(
+          server,
+          document.getElementById("empty_server_error")
+        );
+        checkEmpty_inputField(
+          username,
+          document.getElementById("empty_username_error")
+        );
+        checkEmpty_inputField(
+          password,
+          document.getElementById("empty_pwd_error")
+        );
+      };
+
+      var initEvent = function () {
+        enable.addEventListener("click", () => {
+          console.log("click");
+          enable.classList.toggle("checked");
+          if (enable.classList.contains("checked")) {
+            document.getElementById("content").classList.remove("ng-hide");
+          } else {
+            document.getElementById("content").classList.add("ng-hide");
+          }
+        });
+        document
+          .getElementById("DeviceX_GTK_PPTPPasswordcheckbox")
+          .addEventListener("click", () => {
+            hide_show_pw(document.getElementById("icon_pw"), password);
+          });
+        server.addEventListener("input", () => {
+          checkEmpty_inputField(
+            server,
+            document.getElementById("empty_server_error")
+          );
+        });
+        username.addEventListener("input", () => {
+          checkEmpty_inputField(
+            username,
+            document.getElementById("empty_username_error")
+          );
+        });
+        password.addEventListener("input", () => {
+          checkEmpty_inputField(
+            password,
+            document.getElementById("empty_pwd_error")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.vpn.pptp.Enable = enable.classList.contains("checked");
+          Advanced.vpn.pptp.Server = server.value;
+          Advanced.vpn.pptp.Username = username.value;
+          Advanced.vpn.pptp.Password = password.value;
+
+          applyThenStoreToLS("advanced-vpn-pptp.html", "Apply", Advanced);
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-vpn-pptp.html", "Cancel", Advanced);
+      });
+      break;
     case "advanced-qos.html":
       console.log("Load data: ", Advanced.QoS);
       var lanDropdown = document.getElementById("LANdropdown");
@@ -3461,7 +3639,6 @@ function loadPage(page, options) {
               }
             }
           }
-          
           var layerInfoValid;
           switch (onActiveLayerAtPage) {
             case "layer2":

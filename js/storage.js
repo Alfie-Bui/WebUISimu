@@ -108,6 +108,12 @@ function applyThenStoreToLS(page, option, change_entity) {
       case "advanced-vpn.html":
         Advanced = change_entity;
         break;
+      case "advanced-vpn-l2tp.html":
+        Advanced = change_entity;
+        break;
+      case "advanced-vpn-pptp.html":
+        Advanced = change_entity;
+        break;
       case "basic-lan-dev_connected.html":
         Basic = change_entity;
         break;
