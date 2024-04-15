@@ -5,7 +5,7 @@
  */
 
 const SIMULATOR_VERSION =
-  "GemtekWeb_v04_12Apr24"; /* Release version and tag tracking */
+  "GemtekWeb_v04_15Apr24"; /* Release version and tag tracking */
 
 /**
  *
@@ -286,6 +286,18 @@ const template = {
           ipsec_sa_lifetime_time: "120",
           status: "unchanged",
         },
+      },
+      l2tp: {
+        Enable: false,
+        Server: "",
+        Username: "",
+        Password: "",
+      },
+      pptp: {
+        Enable: false,
+        Server: "",
+        Username: "",
+        Password: "",
       },
     },
     QoS: {

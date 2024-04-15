@@ -889,12 +889,7 @@
 
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
-        <div
-          
-          id="dataView"
-          
-          class="ng-scope"
-        >
+        <div id="dataView" class="ng-scope">
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             class="row ltq_breadcrumbs ng-scope"
@@ -943,6 +938,20 @@
               >
             </div>
             <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
+                  >
+                    IPsec </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
           </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
@@ -971,17 +980,23 @@
           <div xmlns="http://www.w3.org/1999/xhtml" class="panel ng-scope">
             <div class="alert alert-danger ng-hide">
               <a class="close" aria-label="close">✖ </a>
-              <p
-                ng-bind-html="openwrtipsecremotepopupval | unsafe"
-                class="ng-binding"
-              ></p>
+              <p class="ng-binding"></p>
             </div>
-            <div class="panel-heading blu_bg gemtek-portMap-panel-title">
-              <span class="gemtek-port-title-style ng-binding"
-                >IPsec Tunnel Settings</span
-              ><a
+            <ul class="nav nav-tabs gemtek-tab">
+              <li class="active">
+                <a href="advanced-vpn.html">IPsec</a>
+              </li>
+              <li>
+                <a href="advanced-vpn-l2tp.html">L2TP</a>
+              </li>
+              <li>
+                <a href="advanced-vpn-pptp.html">PPTP</a>
+              </li>
+            </ul>
+            <div class="gemtek-plus-add">
+              <a
                 id="AddIpsec"
-                class="gemtek-btn-normal pull-right gemtek-btn-addplus"
+                class="waves-effect waves-light gemtek-btn-normal"
                 href="advanced-vpn-add.html"
                 ><i class="fa fa-plus icontxtgap"></i
                 ><span style="font-weight: normal" class="ng-binding"
@@ -1095,111 +1110,10 @@
         </div>
 
         <!-- Footer section-->
-        <footer class="footer">
-          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
-                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
-					</div> -->
-
-          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
-          <!-- <div class="social_icon_group">
-                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
-                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
-                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
-                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
-                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
-                    </div>                         -->
-        </footer>
+        <footer class="footer"></footer>
       </div>
       <div id="main-menu-bg"></div>
     </div>
-
-    <div
-      class="modal fade"
-      id="myModalHorizontal"
-      aria-labelledby="myModalLabel"
-      aria-hidden="true"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <form class="form-horizontal ng-pristine ng-valid" role="form">
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Progress:</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <div
-                    class="progress-striped active progress"
-                    value=""
-                    type=""
-                  >
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      aria-valuenow=""
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      aria-valuetext="%"
-                      style="width: 100%"
-                    >
-                      <span class="ng-binding ng-scope"> </span
-                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Status</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Status"
-                    placeholder="WPS Session Start"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
-              Abort WPS
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Modal End-->
-    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-    <!--[if !IE]> -->
-    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
 
     <div class="hiddendiv common"></div>
   </body>
