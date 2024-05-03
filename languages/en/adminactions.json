@@ -42,7 +42,7 @@
     "adminactions.You might loose current configuration . Do you want to proceed with restore?":"You might loose current configuration . Do you want to proceed with restore?",
     "adminactions.Device will go for factory reset.": "Alert !! All the previous configuration will be lost. Press OK to confirm",
     "adminactions.Device will go for reboot.": "Alert !! System will Reboot immediately",
-    "Device.X_LANTIQ_COM_Upgrade.Upgrade.4.SwUpdtTime.$error.required": "This Field is required",
+    "Device.X_LANTIQ_COM_Upgrade.Upgrade.4.SwUpdtTime.$error.required": "This field is required",
     "Device.X_LANTIQ_COM_Upgrade.Upgrade.4.URL.$error.required": "Where to check for Upgrade? URL Please..",
     "Device.X_LANTIQ_COM_Upgrade.Upgrade.4.SwUpdtRetryTimer.$error.number": "Invalid number",
     "Device.X_LANTIQ_COM_Upgrade.Upgrade.4.SwUpdtRetryTimer.$error.pattern": "Invalid number",

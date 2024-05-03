@@ -81,13 +81,11 @@ function loadPage(page, options) {
 
         switch (securityTypeSelect.value) {
           case "None":
-            document
-              .getElementById("panel_passphrase")
-              .classList.add("ng-hide");
+            document.getElementById("personal_panel").classList.add("ng-hide");
             break;
           case "4": // WEP-64
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type(
@@ -109,7 +107,7 @@ function loadPage(page, options) {
             break;
           case "5": // WEP-128
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type(
@@ -131,7 +129,7 @@ function loadPage(page, options) {
             break;
           case "6": // WPA3-Personal
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
@@ -147,7 +145,7 @@ function loadPage(page, options) {
             break;
           case "7": // WPA2-WPA3-Personal
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
@@ -163,7 +161,7 @@ function loadPage(page, options) {
             break;
           default:
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
@@ -603,7 +601,10 @@ function loadPage(page, options) {
         switch (currentRow.querySelector(".security_type_select").value) {
           case "None":
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
+              .classList.add("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
               .classList.add("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = true;
             if (alert_on)
@@ -612,8 +613,11 @@ function loadPage(page, options) {
             break;
           case "4": // WEP-64
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
+              .classList.add("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = true;
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
@@ -638,8 +642,12 @@ function loadPage(page, options) {
             break;
           case "5": // WEP-128
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
+              .classList.add("ng-hide");
+
             currentRow.querySelector(".wps_enable").disabled = true;
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
@@ -662,49 +670,20 @@ function loadPage(page, options) {
               current_parent.getElementById("upLimit_pass_error")
             );
             break;
-          case "6": // WPA3-Personal
-            current_parent
-              .getElementById("panel_passphrase")
-              .classList.remove("ng-hide");
-            currentRow.querySelector(".wps_enable").disabled = true;
-            if (alert_on)
-              window.alert("WPS function only supports WPA and WPA2 mode.");
-
-            rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
-
-            checkPasswordError_inputField(
-              password_field,
-              new RegExp(password_field.getAttribute("pattern")),
-              current_parent.getElementById("invalid_pass_error"),
-              current_parent.getElementById("empty_pass_error"),
-              current_parent.getElementById("lowLimit_pass_error"),
-              current_parent.getElementById("upLimit_pass_error")
-            );
-            break;
+          // Personal Passthrough
+          case "1": // WPA2-Personal --> Passthrough
+          case "2": // WPA-Personal --> Passthrough
+          case "3": // WPA-WPA2-Personal --> Passthrough
+          case "6": // WPA3-Personal --> Passthrough
           case "7": // WPA2-WPA3-Personal
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
-            currentRow.querySelector(".wps_enable").disabled = true;
-            if (alert_on)
-              window.alert("WPS function only supports WPA and WPA2 mode.");
-
-            rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
-
-            checkPasswordError_inputField(
-              password_field,
-              new RegExp(password_field.getAttribute("pattern")),
-              current_parent.getElementById("invalid_pass_error"),
-              current_parent.getElementById("empty_pass_error"),
-              current_parent.getElementById("lowLimit_pass_error"),
-              current_parent.getElementById("upLimit_pass_error")
-            );
-            break;
-          default:
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("enterprise_panel")
+              .classList.add("ng-hide");
+            current_parent
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = false;
 
@@ -718,6 +697,44 @@ function loadPage(page, options) {
               current_parent.getElementById("lowLimit_pass_error"),
               current_parent.getElementById("upLimit_pass_error")
             );
+            break;
+          // Enterprise passthrough
+          case "8": // WPA2-Enterprise
+          case "9": // WPA Enterprise
+          case "10": // WPA-WPA2-Enterprise
+            current_parent
+              .getElementById("personal_panel")
+              .classList.add("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
+              .classList.remove("ng-hide");
+
+            checkPattern_inputField(
+              current_parent.getElementById("RadiusServerIPAddr"),
+              new RegExp(
+                current_parent
+                  .getElementById("RadiusServerIPAddr")
+                  .getAttribute("pattern")
+                  .toString()
+              ),
+              current_parent.getElementById("invalid_server_error"),
+              current_parent.getElementById("empty_server_error")
+            );
+            checkMinMaxError_inputField(
+              current_parent.getElementById("RadiusServerPort"),
+              current_parent.getElementById("min_port_error"),
+              current_parent.getElementById("max_port_error"),
+              current_parent.getElementById("empty_port_error")
+            );
+            checkEmpty_inputField(
+              current_parent.getElementById(
+                "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+              ),
+              current_parent.getElementById("empty_secret_error")
+            );
+            break;
+          default:
+            console.log("No Security type available");
             break;
         }
       };
@@ -737,10 +754,30 @@ function loadPage(page, options) {
           //     wifiInfoBuffer[currentRowIndex]
           //   )}`
           // );
-          wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
-            document.getElementById("Password_field").value;
-          wifiInfoBuffer[currentRowIndex].RekeyInterval =
-            document.getElementById("RekeyingInterval").value;
+
+          // check at case Enterprise Wifi
+          if (
+            !document
+              .getElementById("enterprise_panel")
+              .classList.contains("ng-hide") &&
+            checkError_show(document.querySelectorAll(".enterprise_error"))
+          ) {
+            wifiInfoBuffer[currentRowIndex].Enterprise.ServerIP =
+              document.getElementById("RadiusServerIPAddr").value;
+            wifiInfoBuffer[currentRowIndex].Enterprise.Port =
+              document.getElementById("RadiusServerPort").value;
+            wifiInfoBuffer[currentRowIndex].Enterprise.Secret =
+              document.getElementById(
+                "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+              ).value;
+          } else {
+            // check at case Personal Wifi
+            wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
+              document.getElementById("Password_field").value;
+            wifiInfoBuffer[currentRowIndex].RekeyInterval =
+              document.getElementById("RekeyingInterval").value;
+          }
+
           wifiInfoBuffer[currentRowIndex].Configuration.WMM = document
             .getElementById("WMMCapability")
             .classList.contains("checked");
@@ -780,6 +817,7 @@ function loadPage(page, options) {
         var password_field = tr_detail.getElementById("Password_field");
         var pwd_Eye = tr_detail.getElementById("pwd_Eye");
         var rekeyInterval = tr_detail.getElementById("RekeyingInterval");
+
         var wmmBtn = tr_detail.getElementById("WMMCapability");
         var wmmpsBtn = tr_detail.getElementById("UAPSDEnable");
         var apIso = tr_detail.getElementById("IsolationEnable");
@@ -789,6 +827,13 @@ function loadPage(page, options) {
         var bridgeName = tr_detail.getElementById(
           "X_LANTIQ_COM_Vendor_BridgeName"
         );
+        var radius_server_ip = tr_detail.getElementById("RadiusServerIPAddr");
+        var radius_port = tr_detail.getElementById("RadiusServerPort");
+        var radius_secret = tr_detail.getElementById(
+          "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+        );
+        var radius_pwdEye = tr_detail.getElementById("radius_pwdEye");
+        var radius_pwdEye_icon = tr_detail.getElementById("radius_icon_pw");
 
         check_security_type(tr_detail, currentRow, false);
 
@@ -799,13 +844,18 @@ function loadPage(page, options) {
         var filledData = wifiInfoBuffer[currentRowIndex];
 
         console.log(
-          `Click on row (exclude detail): ${currentRowIndex}, data on row: ${JSON.stringify(
-            filledData
-          )}`
+          `Click on row (exclude detail): ${currentRowIndex}`,
+          filledData
         );
 
         password_field.value = filledData.Configuration.Passphrase;
         rekeyInterval.value = filledData.RekeyInterval;
+
+        // enterprise
+        radius_server_ip.value = filledData.Enterprise.ServerIP;
+        radius_port.value = filledData.Enterprise.Port;
+        radius_secret.value = filledData.Enterprise.Secret;
+
         filledData.Configuration.WMM
           ? wmmBtn.classList.add("checked")
           : wmmBtn.classList.remove("checked");
@@ -836,6 +886,15 @@ function loadPage(page, options) {
         var empty_sta_error = tr_detail.getElementById("empty_sta_error");
         var empty_bridge_error = tr_detail.getElementById("empty_bridge_error");
 
+        var invalid_server_error = tr_detail.getElementById(
+          "invalid_server_error"
+        );
+        var empty_server_error = tr_detail.getElementById("empty_server_error");
+        var min_port_error = tr_detail.getElementById("min_port_error");
+        var max_port_error = tr_detail.getElementById("max_port_error");
+        var empty_port_error = tr_detail.getElementById("empty_port_error");
+        var empty_secret_error = tr_detail.getElementById("empty_secret_error");
+
         var wmmpsShow = tr_detail.getElementById("wmm-ps-show");
 
         checkPasswordError_inputField(
@@ -851,6 +910,23 @@ function loadPage(page, options) {
           range_rekey_error,
           empty_rekey_error
         );
+
+        checkPattern_inputField(
+          radius_server_ip,
+          new RegExp(radius_server_ip.getAttribute("pattern").toString()),
+          invalid_server_error,
+          empty_server_error
+        );
+
+        checkMinMaxError_inputField(
+          radius_port,
+          min_port_error,
+          max_port_error,
+          empty_port_error
+        );
+
+        checkEmpty_inputField(radius_secret, empty_secret_error);
+
         checkMinMaxError_inputField(
           maxAssociatedDevices,
           min_sta_error,
@@ -912,6 +988,33 @@ function loadPage(page, options) {
 
         bridgeName.addEventListener("input", () => {
           checkEmpty_inputField(bridgeName, empty_bridge_error);
+        });
+
+        // Enterprise case
+        radius_server_ip.addEventListener("input", () => {
+          checkPattern_inputField(
+            radius_server_ip,
+            new RegExp(radius_server_ip.getAttribute("pattern").toString()),
+            invalid_server_error,
+            empty_server_error
+          );
+        });
+
+        radius_port.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            radius_port,
+            min_port_error,
+            max_port_error,
+            empty_port_error
+          );
+        });
+
+        radius_secret.addEventListener("input", () => {
+          checkEmpty_inputField(radius_secret, empty_secret_error);
+        });
+
+        radius_pwdEye.addEventListener("click", () => {
+          hide_show_pw(radius_pwdEye_icon, radius_secret);
         });
 
         return tr_detail;
@@ -1008,7 +1111,8 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length
+              `Remove Wifi --> Wifi now (length ${
+                wifiInfoBuffer.length
               }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
@@ -1017,7 +1121,7 @@ function loadPage(page, options) {
               currentRow.nextElementSibling !== null &&
               currentRow.nextElementSibling !== undefined &&
               currentRow.nextElementSibling ===
-              document.getElementById("detail_panel")
+                document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
@@ -1097,6 +1201,11 @@ function loadPage(page, options) {
           MACFiltering: {
             ACLMode: 1,
             MACAddressFilter: [],
+          },
+          Enterprise: {
+            ServerIP: "",
+            Port: "",
+            Secret: "",
           },
         };
 
@@ -1190,7 +1299,12 @@ function loadPage(page, options) {
 
       // event init on total Page
       addWifiBtn.addEventListener("click", () => {
-        if (tbody.getElementsByTagName("tr").length >= 4) {
+        if (
+          (tbody.getElementsByTagName("tr").length >= 4 &&
+            document.getElementById("detail_panel") == null) ||
+          (tbody.getElementsByTagName("tr").length >= 5 &&
+            document.getElementById("detail_panel") != null)
+        ) {
           alertDialogHandle("Maximum number of SSID");
           return;
         }
@@ -1222,10 +1336,32 @@ function loadPage(page, options) {
               detail_panel.parentElement.children
             ).indexOf(detail_panel.previousElementSibling);
 
-            wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
-              document.getElementById("Password_field").value;
-            wifiInfoBuffer[currentRowIndex].RekeyInterval =
-              document.getElementById("RekeyingInterval").value;
+            // Enterprise Wifi & check the enterprise error
+            if (
+              parseInt(listSecurityType[currentRowIndex].value) >= 8 &&
+              parseInt(listSecurityType[currentRowIndex].value) <= 10
+            ) {
+              if (
+                !checkError_show(document.querySelectorAll(".enterprise_error"))
+              )
+                return;
+              wifiInfoBuffer[currentRowIndex].Enterprise = {};
+              wifiInfoBuffer[currentRowIndex].Enterprise.ServerIP =
+                document.getElementById("RadiusServerIPAddr").value;
+              wifiInfoBuffer[currentRowIndex].Enterprise.Port =
+                document.getElementById("RadiusServerPort").value;
+              wifiInfoBuffer[currentRowIndex].Enterprise.Secret =
+                document.getElementById(
+                  "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+                ).value;
+            } else {
+              // Personal Wifi
+              wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
+                document.getElementById("Password_field").value;
+              wifiInfoBuffer[currentRowIndex].RekeyInterval =
+                document.getElementById("RekeyingInterval").value;
+            }
+
             wifiInfoBuffer[currentRowIndex].Configuration.WMM = document
               .getElementById("WMMCapability")
               .classList.contains("checked");
@@ -1241,11 +1377,6 @@ function loadPage(page, options) {
               document.getElementById("X_LANTIQ_COM_Vendor_BridgeName").value;
           }
 
-          console.log(
-            `Apply accept, data Wifi at last: ${JSON.stringify(
-              Wifi["2.4G"].SSIDs
-            )}`
-          );
           applyThenStoreToLS("wifi-2_4G-ssids.html", "Apply", Wifi);
         }
       });
@@ -1564,13 +1695,11 @@ function loadPage(page, options) {
 
         switch (securityTypeSelect.value) {
           case "None":
-            document
-              .getElementById("panel_passphrase")
-              .classList.add("ng-hide");
+            document.getElementById("personal_panel").classList.add("ng-hide");
             break;
           case "4": // WEP-64
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type(
@@ -1592,7 +1721,7 @@ function loadPage(page, options) {
             break;
           case "5": // WEP-128
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type(
@@ -1614,7 +1743,7 @@ function loadPage(page, options) {
             break;
           case "6": // WPA3-Personal
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
@@ -1630,7 +1759,7 @@ function loadPage(page, options) {
             break;
           case "7": // WPA2-WPA3-Personal
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
@@ -1646,7 +1775,7 @@ function loadPage(page, options) {
             break;
           default:
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
 
             adapt_type("Passphrase", "Enter Password", ".*", 8, 63); // pattern mean accpt all
@@ -1933,7 +2062,7 @@ function loadPage(page, options) {
         applyThenStoreToLS("wifi-5G-config.html", "Cancel");
       });
       break;
-    case "wifi-5G-mac_filter.html":
+    case "wifi-5G-mac_filtering.html":
       console.log(`Load ${page}`, Wifi["5G"]);
 
       var numberOfSSIDs = Wifi["5G"].SSIDs.length;
@@ -2066,14 +2195,14 @@ function loadPage(page, options) {
             ].MACFiltering.MACAddressFilter.push(elem.value);
           }
 
-          applyThenStoreToLS("wifi-5G-mac_filter.html", "Apply", Wifi);
+          applyThenStoreToLS("wifi-5G-mac_filtering.html", "Apply", Wifi);
         } else {
           console.log(`Apply fail`);
         }
       });
 
       document.getElementById("Cancel").addEventListener("click", () => {
-        applyThenStoreToLS("wifi-5G-mac_filter.html", "Cancel");
+        applyThenStoreToLS("wifi-5G-mac_filtering.html", "Cancel");
       });
       break;
     case "wifi-5G-ssids.html":
@@ -2124,7 +2253,10 @@ function loadPage(page, options) {
         switch (currentRow.querySelector(".security_type_select").value) {
           case "None":
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
+              .classList.add("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
               .classList.add("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = true;
             if (alert_on)
@@ -2133,8 +2265,11 @@ function loadPage(page, options) {
             break;
           case "4": // WEP-64
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
+              .classList.add("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = true;
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
@@ -2159,8 +2294,12 @@ function loadPage(page, options) {
             break;
           case "5": // WEP-128
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
+              .classList.add("ng-hide");
+
             currentRow.querySelector(".wps_enable").disabled = true;
             if (alert_on)
               window.alert("WPS function only supports WPA and WPA2 mode.");
@@ -2183,49 +2322,20 @@ function loadPage(page, options) {
               current_parent.getElementById("upLimit_pass_error")
             );
             break;
-          case "6": // WPA3-Personal
-            current_parent
-              .getElementById("panel_passphrase")
-              .classList.remove("ng-hide");
-            currentRow.querySelector(".wps_enable").disabled = true;
-            if (alert_on)
-              window.alert("WPS function only supports WPA and WPA2 mode.");
-
-            rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
-
-            checkPasswordError_inputField(
-              password_field,
-              new RegExp(password_field.getAttribute("pattern")),
-              current_parent.getElementById("invalid_pass_error"),
-              current_parent.getElementById("empty_pass_error"),
-              current_parent.getElementById("lowLimit_pass_error"),
-              current_parent.getElementById("upLimit_pass_error")
-            );
-            break;
+          // Personal Passthrough
+          case "1": // WPA2-Personal --> Passthrough
+          case "2": // WPA-Personal --> Passthrough
+          case "3": // WPA-WPA2-Personal --> Passthrough
+          case "6": // WPA3-Personal --> Passthrough
           case "7": // WPA2-WPA3-Personal
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
-            currentRow.querySelector(".wps_enable").disabled = true;
-            if (alert_on)
-              window.alert("WPS function only supports WPA and WPA2 mode.");
-
-            rekeyInterval.classList.add("ng-hide");
-            adapt_type("Passphrase", "Enter Password", ".*", 8, 63);
-
-            checkPasswordError_inputField(
-              password_field,
-              new RegExp(password_field.getAttribute("pattern")),
-              current_parent.getElementById("invalid_pass_error"),
-              current_parent.getElementById("empty_pass_error"),
-              current_parent.getElementById("lowLimit_pass_error"),
-              current_parent.getElementById("upLimit_pass_error")
-            );
-            break;
-          default:
             current_parent
-              .getElementById("panel_passphrase")
+              .getElementById("enterprise_panel")
+              .classList.add("ng-hide");
+            current_parent
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             currentRow.querySelector(".wps_enable").disabled = false;
 
@@ -2239,6 +2349,44 @@ function loadPage(page, options) {
               current_parent.getElementById("lowLimit_pass_error"),
               current_parent.getElementById("upLimit_pass_error")
             );
+            break;
+          // Enterprise passthrough
+          case "8": // WPA2-Enterprise
+          case "9": // WPA Enterprise
+          case "10": // WPA-WPA2-Enterprise
+            current_parent
+              .getElementById("personal_panel")
+              .classList.add("ng-hide");
+            current_parent
+              .getElementById("enterprise_panel")
+              .classList.remove("ng-hide");
+
+            checkPattern_inputField(
+              current_parent.getElementById("RadiusServerIPAddr"),
+              new RegExp(
+                current_parent
+                  .getElementById("RadiusServerIPAddr")
+                  .getAttribute("pattern")
+                  .toString()
+              ),
+              current_parent.getElementById("invalid_server_error"),
+              current_parent.getElementById("empty_server_error")
+            );
+            checkMinMaxError_inputField(
+              current_parent.getElementById("RadiusServerPort"),
+              current_parent.getElementById("min_port_error"),
+              current_parent.getElementById("max_port_error"),
+              current_parent.getElementById("empty_port_error")
+            );
+            checkEmpty_inputField(
+              current_parent.getElementById(
+                "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+              ),
+              current_parent.getElementById("empty_secret_error")
+            );
+            break;
+          default:
+            console.log("No Security type available");
             break;
         }
       };
@@ -2258,10 +2406,30 @@ function loadPage(page, options) {
           //     wifiInfoBuffer[currentRowIndex]
           //   )}`
           // );
-          wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
-            document.getElementById("Password_field").value;
-          wifiInfoBuffer[currentRowIndex].RekeyInterval =
-            document.getElementById("RekeyingInterval").value;
+
+          // check at case Enterprise Wifi
+          if (
+            !document
+              .getElementById("enterprise_panel")
+              .classList.contains("ng-hide") &&
+            checkError_show(document.querySelectorAll(".enterprise_error"))
+          ) {
+            wifiInfoBuffer[currentRowIndex].Enterprise.ServerIP =
+              document.getElementById("RadiusServerIPAddr").value;
+            wifiInfoBuffer[currentRowIndex].Enterprise.Port =
+              document.getElementById("RadiusServerPort").value;
+            wifiInfoBuffer[currentRowIndex].Enterprise.Secret =
+              document.getElementById(
+                "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+              ).value;
+          } else {
+            // check at case Personal Wifi
+            wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
+              document.getElementById("Password_field").value;
+            wifiInfoBuffer[currentRowIndex].RekeyInterval =
+              document.getElementById("RekeyingInterval").value;
+          }
+
           wifiInfoBuffer[currentRowIndex].Configuration.WMM = document
             .getElementById("WMMCapability")
             .classList.contains("checked");
@@ -2301,6 +2469,7 @@ function loadPage(page, options) {
         var password_field = tr_detail.getElementById("Password_field");
         var pwd_Eye = tr_detail.getElementById("pwd_Eye");
         var rekeyInterval = tr_detail.getElementById("RekeyingInterval");
+
         var wmmBtn = tr_detail.getElementById("WMMCapability");
         var wmmpsBtn = tr_detail.getElementById("UAPSDEnable");
         var apIso = tr_detail.getElementById("IsolationEnable");
@@ -2310,6 +2479,13 @@ function loadPage(page, options) {
         var bridgeName = tr_detail.getElementById(
           "X_LANTIQ_COM_Vendor_BridgeName"
         );
+        var radius_server_ip = tr_detail.getElementById("RadiusServerIPAddr");
+        var radius_port = tr_detail.getElementById("RadiusServerPort");
+        var radius_secret = tr_detail.getElementById(
+          "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+        );
+        var radius_pwdEye = tr_detail.getElementById("radius_pwdEye");
+        var radius_pwdEye_icon = tr_detail.getElementById("radius_icon_pw");
 
         check_security_type(tr_detail, currentRow, false);
 
@@ -2320,13 +2496,18 @@ function loadPage(page, options) {
         var filledData = wifiInfoBuffer[currentRowIndex];
 
         console.log(
-          `Click on row (exclude detail): ${currentRowIndex}, data on row: ${JSON.stringify(
-            filledData
-          )}`
+          `Click on row (exclude detail): ${currentRowIndex}`,
+          filledData
         );
 
         password_field.value = filledData.Configuration.Passphrase;
         rekeyInterval.value = filledData.RekeyInterval;
+
+        // enterprise
+        radius_server_ip.value = filledData.Enterprise.ServerIP;
+        radius_port.value = filledData.Enterprise.Port;
+        radius_secret.value = filledData.Enterprise.Secret;
+
         filledData.Configuration.WMM
           ? wmmBtn.classList.add("checked")
           : wmmBtn.classList.remove("checked");
@@ -2357,6 +2538,15 @@ function loadPage(page, options) {
         var empty_sta_error = tr_detail.getElementById("empty_sta_error");
         var empty_bridge_error = tr_detail.getElementById("empty_bridge_error");
 
+        var invalid_server_error = tr_detail.getElementById(
+          "invalid_server_error"
+        );
+        var empty_server_error = tr_detail.getElementById("empty_server_error");
+        var min_port_error = tr_detail.getElementById("min_port_error");
+        var max_port_error = tr_detail.getElementById("max_port_error");
+        var empty_port_error = tr_detail.getElementById("empty_port_error");
+        var empty_secret_error = tr_detail.getElementById("empty_secret_error");
+
         var wmmpsShow = tr_detail.getElementById("wmm-ps-show");
 
         checkPasswordError_inputField(
@@ -2372,6 +2562,23 @@ function loadPage(page, options) {
           range_rekey_error,
           empty_rekey_error
         );
+
+        checkPattern_inputField(
+          radius_server_ip,
+          new RegExp(radius_server_ip.getAttribute("pattern").toString()),
+          invalid_server_error,
+          empty_server_error
+        );
+
+        checkMinMaxError_inputField(
+          radius_port,
+          min_port_error,
+          max_port_error,
+          empty_port_error
+        );
+
+        checkEmpty_inputField(radius_secret, empty_secret_error);
+
         checkMinMaxError_inputField(
           maxAssociatedDevices,
           min_sta_error,
@@ -2433,6 +2640,33 @@ function loadPage(page, options) {
 
         bridgeName.addEventListener("input", () => {
           checkEmpty_inputField(bridgeName, empty_bridge_error);
+        });
+
+        // Enterprise case
+        radius_server_ip.addEventListener("input", () => {
+          checkPattern_inputField(
+            radius_server_ip,
+            new RegExp(radius_server_ip.getAttribute("pattern").toString()),
+            invalid_server_error,
+            empty_server_error
+          );
+        });
+
+        radius_port.addEventListener("input", () => {
+          checkMinMaxError_inputField(
+            radius_port,
+            min_port_error,
+            max_port_error,
+            empty_port_error
+          );
+        });
+
+        radius_secret.addEventListener("input", () => {
+          checkEmpty_inputField(radius_secret, empty_secret_error);
+        });
+
+        radius_pwdEye.addEventListener("click", () => {
+          hide_show_pw(radius_pwdEye_icon, radius_secret);
         });
 
         return tr_detail;
@@ -2529,7 +2763,8 @@ function loadPage(page, options) {
             ).indexOf(currentRow);
             wifiInfoBuffer.splice(currentRowIndex, 1);
             console.log(
-              `Remove Wifi --> Wifi now (length ${wifiInfoBuffer.length
+              `Remove Wifi --> Wifi now (length ${
+                wifiInfoBuffer.length
               }): ${JSON.stringify(wifiInfoBuffer)}`
             );
 
@@ -2538,11 +2773,12 @@ function loadPage(page, options) {
               currentRow.nextElementSibling !== null &&
               currentRow.nextElementSibling !== undefined &&
               currentRow.nextElementSibling ===
-              document.getElementById("detail_panel")
+                document.getElementById("detail_panel")
             ) {
               detail_on_show = false;
               document.getElementById("detail_panel").remove();
             }
+            //remove it from the "check duplicate arrray"
             console.log(
               "Remove SSID: ",
               currentRow.querySelector(".ssid").value
@@ -2558,6 +2794,7 @@ function loadPage(page, options) {
         });
 
         detailBtn.addEventListener("click", () => {
+          console.log(document.getElementById("detail_panel"));
           var currentRow = detailBtn.closest("tr");
 
           // if no detail is showing
@@ -2617,6 +2854,11 @@ function loadPage(page, options) {
           MACFiltering: {
             ACLMode: 1,
             MACAddressFilter: [],
+          },
+          Enterprise: {
+            ServerIP: "",
+            Port: "",
+            Secret: "",
           },
         };
 
@@ -2710,7 +2952,12 @@ function loadPage(page, options) {
 
       // event init on total Page
       addWifiBtn.addEventListener("click", () => {
-        if (tbody.getElementsByTagName("tr").length >= 4) {
+        if (
+          (tbody.getElementsByTagName("tr").length >= 4 &&
+            document.getElementById("detail_panel") == null) ||
+          (tbody.getElementsByTagName("tr").length >= 5 &&
+            document.getElementById("detail_panel") !== null)
+        ) {
           alertDialogHandle("Maximum number of SSID");
           return;
         }
@@ -2742,10 +2989,32 @@ function loadPage(page, options) {
               detail_panel.parentElement.children
             ).indexOf(detail_panel.previousElementSibling);
 
-            wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
-              document.getElementById("Password_field").value;
-            wifiInfoBuffer[currentRowIndex].RekeyInterval =
-              document.getElementById("RekeyingInterval").value;
+            // Enterprise Wifi & check the enterprise error
+            if (
+              parseInt(listSecurityType[currentRowIndex].value) >= 8 &&
+              parseInt(listSecurityType[currentRowIndex].value) <= 10
+            ) {
+              if (
+                !checkError_show(document.querySelectorAll(".enterprise_error"))
+              )
+                return;
+              wifiInfoBuffer[currentRowIndex].Enterprise = {};
+              wifiInfoBuffer[currentRowIndex].Enterprise.ServerIP =
+                document.getElementById("RadiusServerIPAddr").value;
+              wifiInfoBuffer[currentRowIndex].Enterprise.Port =
+                document.getElementById("RadiusServerPort").value;
+              wifiInfoBuffer[currentRowIndex].Enterprise.Secret =
+                document.getElementById(
+                  "DeviceWiFiAccessPoint2SecurityRadiusSecret"
+                ).value;
+            } else {
+              // Personal Wifi
+              wifiInfoBuffer[currentRowIndex].Configuration.Passphrase =
+                document.getElementById("Password_field").value;
+              wifiInfoBuffer[currentRowIndex].RekeyInterval =
+                document.getElementById("RekeyingInterval").value;
+            }
+
             wifiInfoBuffer[currentRowIndex].Configuration.WMM = document
               .getElementById("WMMCapability")
               .classList.contains("checked");
@@ -2761,11 +3030,6 @@ function loadPage(page, options) {
               document.getElementById("X_LANTIQ_COM_Vendor_BridgeName").value;
           }
 
-          console.log(
-            `Apply accept, data Wifi at last: ${JSON.stringify(
-              Wifi["5G"].SSIDs
-            )}`
-          );
           applyThenStoreToLS("wifi-5G-ssids.html", "Apply", Wifi);
         }
       });
@@ -2773,6 +3037,7 @@ function loadPage(page, options) {
       cancelBtn.addEventListener("click", () => {
         applyThenStoreToLS("wifi-5G-ssids.html", "Cancel");
       });
+
       break;
     case "wifi-5G-statistics.html":
       console.log(`Load ${page}`, Wifi["5G"]);
@@ -3089,9 +3354,7 @@ function loadPage(page, options) {
 
         switch (securityType.value) {
           case "0":
-            document
-              .getElementById("panel_passphrase")
-              .classList.add("ng-hide");
+            document.getElementById("personal_panel").classList.add("ng-hide");
             document
               .getElementById("panel_rekey_interval")
               .classList.add("ng-hide");
@@ -3113,7 +3376,7 @@ function loadPage(page, options) {
             break;
           case "4": // WEP-64
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             document
               .getElementById("panel_rekey_interval")
@@ -3137,7 +3400,7 @@ function loadPage(page, options) {
             break;
           case "5": // WEP-128
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             document
               .getElementById("panel_rekey_interval")
@@ -3161,7 +3424,7 @@ function loadPage(page, options) {
             break;
           case "6": // WPA3-Personal
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             document
               .getElementById("panel_rekey_interval")
@@ -3179,7 +3442,7 @@ function loadPage(page, options) {
             break;
           case "7": // WPA2-WPA3-Personal
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             document
               .getElementById("panel_rekey_interval")
@@ -3197,7 +3460,7 @@ function loadPage(page, options) {
             break;
           default:
             document
-              .getElementById("panel_passphrase")
+              .getElementById("personal_panel")
               .classList.remove("ng-hide");
             document
               .getElementById("panel_rekey_interval")

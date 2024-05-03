@@ -147,6 +147,11 @@ const template = {
             ACLMode: 0,
             MACAddressFilter: [],
           },
+          Enterprise: {
+            ServerIP: "",
+            Port: "",
+            Secret: "",
+          },
         },
       ],
     },
@@ -183,6 +188,11 @@ const template = {
           MACFiltering: {
             ACLMode: 0,
             MACAddressFilter: [],
+          },
+          Enterprise: {
+            ServerIP: "",
+            Port: "",
+            Secret: "",
           },
         },
       ],

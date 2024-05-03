@@ -221,7 +221,7 @@ function applyThenStoreToLS(page, option, change_entity) {
       case "wifi-5G-config.html":
         Wifi = change_entity;
         break;
-      case "wifi-5G-mac_filter.html":
+      case "wifi-5G-mac_filtering.html":
         Wifi = change_entity;
         break;
       case "wifi-5G-ssids.html":
