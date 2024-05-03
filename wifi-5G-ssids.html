@@ -889,12 +889,7 @@
 
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
-        <div
-          
-          id="dataView"
-          
-          class="ng-scope"
-        >
+        <div id="dataView" class="ng-scope">
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             class="row ltq_breadcrumbs ng-scope"
@@ -1061,7 +1056,7 @@
                             name="DeviceWiFiSSID.SSID"
                           /><span
                             class="error ng-binding ng-hide add_wifi_error empty_ssid_error"
-                            >* This Field is Required</span
+                            >* This field is required</span
                           >
                         </div>
                       </div>
@@ -1077,7 +1072,7 @@
                           <option value="0" label="Radio">Radio</option></select
                         ><span
                           class="error ng-binding ng-hide add_wifi_error empty_ap_type_error"
-                          >* This Field is Required</span
+                          >* This field is required</span
                         >
                       </div>
                     </td>
@@ -1111,10 +1106,19 @@
                           </option>
                           <option value="7" label="WPA2-WPA3-Personal">
                             WPA2-WPA3-Personal
+                          </option>
+                          <option value="8" label="WPA2-Enterprise">
+                            WPA2-Enterprise
+                          </option>
+                          <option value="9" label="WPA-Enterprise">
+                            WPA-Enterprise
+                          </option>
+                          <option value="10" label="WPA-WPA2-Enterprise">
+                            WPA-WPA2-Enterprise
                           </option></select
                         ><span
                           class="error ng-binding ng-hide add_wifi_error security_error"
-                          >* This Field is Required</span
+                          >* This field is required</span
                         >
                       </div>
                     </td>
@@ -1178,7 +1182,7 @@
                           />
                           <div class="editable-error ng-binding ng-hide"></div>
                           <span class="error ng-binding ng-hide wifi_error"
-                            >* This Field is Required</span
+                            >* This field is required</span
                           >
                         </span>
                       </span>
@@ -1232,6 +1236,15 @@
                             </option>
                             <option value="7" label="WPA2-WPA3-Personal">
                               WPA2-WPA3-Personal
+                            </option>
+                            <option value="8" label="WPA2-Enterprise">
+                              WPA2-Enterprise
+                            </option>
+                            <option value="9" label="WPA-Enterprise">
+                              WPA-Enterprise
+                            </option>
+                            <option value="10" label="WPA-WPA2-Enterprise">
+                              WPA-WPA2-Enterprise
                             </option>
                           </select>
                           <div
@@ -1299,110 +1312,233 @@
                               <div class="wrapperdiv">
                                 <div class="panel-body"></div>
                               </div>
-                              <div class="wrapperdiv">
-                                <div class="panel-body" id="panel_passphrase">
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-WPA3-Personal' -->
-                                  <div
-                                    class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
-                                  >
-                                    <div class="row">
+                              <div class="wrapperdiv" id="personal_panel">
+                                <div
+                                  class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                >
+                                  <div class="row">
+                                    <div
+                                      class="no-padding-hr pwdblock col-xs-10 col-sm-11"
+                                    >
                                       <div
-                                        class="no-padding-hr pwdblock col-xs-10 col-sm-11"
-                                      >
-                                        <div
-                                          class="input-field no-padding-hr-l col-sm-12"
-                                        >
-                                          <input
-                                            type="password"
-                                            id="Password_field"
-                                            placeholder="Enter Password"
-                                            min="8"
-                                            max="63"
-                                            pattern=""
-                                            required="required"
-                                          /><label
-                                            class="active required ng-binding"
-                                            id="title_pass"
-                                            >Passphrase</label
-                                          ><span
-                                            class="error ng-binding"
-                                          ></span>
-                                          <span
-                                            class="error ng-binding ng-hide wifi_error detail_error"
-                                            id="invalid_pass_error"
-                                            >Invalid WEP Key</span
-                                          ><span
-                                            class="error ng-binding ng-hide wifi_error detail_error"
-                                            id="empty_pass_error"
-                                            >* This Field is Required</span
-                                          ><span
-                                            class="error ng-binding ng-hide wifi_error detail_error"
-                                            id="lowLimit_pass_error"
-                                            >String length is below the limit: </span
-                                          ><span
-                                            class="error ng-binding ng-hide wifi_error detail_error"
-                                            id="upLimit_pass_error"
-                                            >String length Exceeded the limit:
-                                          </span>
-                                        </div>
-                                        <div class="pwdtoggle">
-                                          <input
-                                            type="checkbox"
-                                            class="ng-untouched ng-valid ng-dirty ng-valid-parse"
-                                          /><label
-                                            id="pwd_Eye"
-                                            for="pwd_Eye"
-                                            class="checkbox_right_align hidepw"
-                                          ></label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-WPA3-Personal' -->
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
-                                  <div
-                                    id="rekeyInterval"
-                                    class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
-                                  >
-                                    <div class="row">
-                                      <div
-                                        class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                                        class="input-field no-padding-hr-l col-sm-12"
                                       >
                                         <input
-                                          type="number"
-                                          class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min"
-                                          id="RekeyingInterval"
-                                          placeholder="Please Enter the value"
-                                          min="0"
+                                          type="password"
+                                          id="Password_field"
+                                          placeholder="Enter Password"
+                                          min="8"
+                                          max="63"
+                                          pattern=""
+                                          required="required"
                                         /><label
-                                          for="RekeyingInterval"
-                                          class="active ng-binding"
-                                          >Rekey Interval</label
-                                        ><span
-                                          class="error ng-binding ng-hide"
-                                        ></span
+                                          class="active required ng-binding"
+                                          id="title_pass"
+                                          >Passphrase</label
+                                        ><span class="error ng-binding"></span>
+                                        <span
+                                          class="error ng-binding ng-hide wifi_error detail_error"
+                                          id="invalid_pass_error"
+                                          >Invalid WEP Key</span
                                         ><span
                                           class="error ng-binding ng-hide wifi_error detail_error"
-                                          id="empty_rekey_error"
-                                        >
-                                          Please enter a valid number </span
+                                          id="empty_pass_error"
+                                          >* This field is required</span
                                         ><span
-                                          class="error ng-hide wifi_error detail_error"
-                                          id="range_rekey_error"
-                                          ><span class="ng-binding"
-                                            >Value must be greater than or equal
-                                            to </span
-                                          ><span>0</span></span
-                                        >
+                                          class="error ng-binding ng-hide wifi_error detail_error"
+                                          id="lowLimit_pass_error"
+                                          >String length is below the limit: </span
+                                        ><span
+                                          class="error ng-binding ng-hide wifi_error detail_error"
+                                          id="upLimit_pass_error"
+                                          >String length Exceeded the limit:
+                                        </span>
+                                      </div>
+                                      <div class="pwdtoggle">
+                                        <input
+                                          type="checkbox"
+                                          class="ng-untouched ng-valid ng-dirty ng-valid-parse"
+                                        /><label
+                                          id="pwd_Eye"
+                                          for="pwd_Eye"
+                                          class="checkbox_right_align hidepw"
+                                        ></label>
                                       </div>
                                     </div>
                                   </div>
-                                  <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WEP-64' -->
-                                  <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WEP-128' -->
+                                </div>
+                                <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA3-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-WPA3-Personal' -->
+                                <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
+                                <div
+                                  id="rekeyInterval"
+                                  class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                >
+                                  <div class="row">
+                                    <div
+                                      class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                                    >
+                                      <input
+                                        type="number"
+                                        class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-min"
+                                        id="RekeyingInterval"
+                                        placeholder="Please Enter the value"
+                                        min="0"
+                                      /><label
+                                        for="RekeyingInterval"
+                                        class="active ng-binding"
+                                        >Rekey Interval</label
+                                      ><span
+                                        class="error ng-binding ng-hide"
+                                      ></span
+                                      ><span
+                                        class="error ng-binding ng-hide wifi_error detail_error"
+                                        id="empty_rekey_error"
+                                      >
+                                        Please enter a valid number </span
+                                      ><span
+                                        class="error ng-hide wifi_error detail_error"
+                                        id="range_rekey_error"
+                                        ><span class="ng-binding"
+                                          >Value must be greater than or equal
+                                          to </span
+                                        ><span>0</span></span
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- end ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Personal' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Personal' -->
+                                <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
+                                <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
+                                <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA2-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-Enterprise' || DeviceWiFiAccessPoint2Security.ModeEnabled=='WPA-WPA2-Enterprise' -->
+                                <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WEP-64' -->
+                                <!-- ngIf: DeviceWiFiAccessPoint2Security.ModeEnabled=='WEP-128' -->
+                              </div>
+                              <!-- Enterprise -->
+                              <div class="wrapperdiv" id="enterprise_panel">
+                                <div
+                                  class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                >
+                                  <div class="row">
+                                    <div
+                                      class="input-field no-padding-hr-l col-sm-12"
+                                    >
+                                      <input
+                                        xmltype="ipv4ipv6"
+                                        type="text"
+                                        class="form-control hidden-dom-removal ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern"
+                                        id="RadiusServerIPAddr"
+                                        placeholder="Please Enter Valid IPV4/IPV6 Address"
+                                        pattern="^(?!0.0.0.0$)((\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*)|((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)))$"
+                                        name="DeviceWiFiAccessPoint2Security_RadiusServerIPAddr"
+                                        required="required"
+                                      /><label
+                                        for="RadiusServerIPAddr"
+                                        class="required row active ng-binding"
+                                        >RADIUS Server IP</label
+                                      ><span
+                                        class="error ng-binding ng-hide"
+                                      ></span
+                                      ><span
+                                        class="error ng-binding ng-hide enterprise_error"
+                                        id="invalid_server_error"
+                                        >Invalid pattern ,only IPv4/Ipv6 address
+                                        values allowed</span
+                                      ><span
+                                        class="error ng-binding ng-hide enterprise_error"
+                                        id="empty_server_error"
+                                        >* This field is required</span
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                                >
+                                  <div class="row">
+                                    <div
+                                      class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                                    >
+                                      <input
+                                        type="number"
+                                        class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid-max ng-invalid ng-invalid-required"
+                                        id="RadiusServerPort"
+                                        placeholder="Please Enter the value"
+                                        min="0"
+                                        max="65535"
+                                        name="DeviceWiFiAccessPoint2Security_RadiusServerPort"
+                                        required="required"
+                                      /><label
+                                        for="RadiusServerPort"
+                                        class="required row active ng-binding"
+                                        >RADIUS Server Port</label
+                                      ><span
+                                        class="error ng-binding ng-hide"
+                                      ></span
+                                      ><span class="error ng-binding ng-hide"
+                                        >* This field is required</span
+                                      ><span
+                                        class="error ng-binding ng-hide enterprise_error"
+                                        id="empty_port_error"
+                                      >
+                                        * Please enter a valid number </span
+                                      ><span
+                                        class="error ng-hide enterprise_error"
+                                        id="min_port_error"
+                                        ><span class="ng-binding"
+                                          >* Value must be greater than or equal
+                                          to </span
+                                        ><span>0</span></span
+                                      ><span
+                                        class="error ng-hide enterprise_error"
+                                        id="max_port_error"
+                                        ><span class="ng-binding"
+                                          >* Value must be less than or equal to </span
+                                        ><span>65535</span></span
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="form-group no-padding-hr col-xs-12 col-sm-12 ng-scope"
+                                >
+                                  <div class="row">
+                                    <div
+                                      class="no-padding-hr pwdblock col-xs-10 col-sm-5"
+                                    >
+                                      <div
+                                        class="input-field no-padding-hr-l col-sm-12"
+                                      >
+                                        <input
+                                          type="password"
+                                          class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                          id="DeviceWiFiAccessPoint2SecurityRadiusSecret"
+                                          placeholder="Enter Password"
+                                          name="DeviceWiFiAccessPoint2Security_RadiusSecret"
+                                        /><label
+                                          for="RadiusSecret"
+                                          class="active required ng-binding"
+                                          >RADIUS Secret</label
+                                        ><span class="error ng-binding"></span
+                                        ><span
+                                          class="error ng-binding ng-hide enterprise_error"
+                                          forname="DeviceWiFiAccessPoint2Security_RadiusSecret"
+                                          id="empty_secret_error"
+                                          >* This field is required</span
+                                        >
+                                      </div>
+                                      <div class="pwdtoggle">
+                                        <input
+                                          type="checkbox"
+                                          id="radius_pwdEye"
+                                          class="ng-pristine ng-untouched ng-valid"
+                                        /><label
+                                          id="radius_icon_pw"
+                                          for="radius_pwdEye"
+                                          class="checkbox_right_align hidepw"
+                                        ></label>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                               <div class="wrapperdiv">
@@ -1565,7 +1701,7 @@
                                         ><span
                                           class="error ng-binding ng-hide wifi_error detail_error"
                                           id="empty_bridge_error"
-                                          >* This Field is Required</span
+                                          >* This field is required</span
                                         >
                                       </div>
                                     </div>

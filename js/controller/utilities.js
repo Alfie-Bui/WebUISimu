@@ -139,23 +139,23 @@ function loadPage(page, options) {
             switch (input.id) {
               case "Name":
                 document.querySelector("#FileNameNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 is_Name_valid = false;
                 break;
               case "MaximumSize":
                 document.querySelector("#FileSizeNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 is_MaximumSize_valid = false;
                 break;
               default:
                 if (is_RemoteServer_enabled) {
                   if (input.id === "RemoteIP") {
                     document.querySelector("#RemoteIPNotify").innerHTML =
-                      "* This Field is Required";
+                      "* This field is required";
                     is_RemoteIP_valid = false;
                   } else if (input.id === "PortNo") {
                     document.querySelector("#PortNoNotify").innerHTML =
-                      "* This Field is Required";
+                      "* This field is required";
                     is_PortNo_valid = false;
                   }
                 }
@@ -341,13 +341,13 @@ function loadPage(page, options) {
               case "DeviceUsersUser2OldPassword":
                 document.querySelector(
                   "#DeviceUsersUser2OldPasswordNotify"
-                ).innerHTML = "* This Field is Required";
+                ).innerHTML = "* This field is required";
                 is_DeviceUsersUser2OldPassword_valid = false;
                 break;
               case "DeviceUsersUser2Password":
                 document.querySelector(
                   "#DeviceUsersUser2PasswordNotify"
-                ).innerHTML = "* This Field is Required";
+                ).innerHTML = "* This field is required";
                 is_DeviceUsersUser2Password_valid = false;
                 break;
               default:

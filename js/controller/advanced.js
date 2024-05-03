@@ -1243,17 +1243,17 @@ function loadPage(page, options) {
             switch (input.id) {
               case "DestIPAddress":
                 document.querySelector("#DestIPNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 destIPValid = false;
                 break;
               case "DestSubnetMask":
                 document.querySelector("#subMaskNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 destSubmaskValid = false;
                 break;
               default:
                 document.querySelector("#gatewayNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 destGWValid = false;
                 break;
             }
@@ -1389,12 +1389,12 @@ function loadPage(page, options) {
             switch (input.id) {
               case "DestIPPrefix":
                 document.querySelector("#DestIPPrefixNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 destIPValidv6 = false;
                 break;
               default:
                 document.querySelector("#nextHopNotify").innerHTML =
-                  "* This Field is Required";
+                  "* This field is required";
                 destGWValidv6 = false;
                 break;
             }
@@ -1659,18 +1659,18 @@ function loadPage(page, options) {
         is_edit_ipsec = true;
       } else {
         document.querySelector("#tunnel_name_notify").innerHTML =
-          "* This Field is Required";
+          "* This field is required";
         document.querySelector(
           "#openwrtipsecremotepre_shared_key_notify"
-        ).innerHTML = "* This Field is Required";
+        ).innerHTML = "* This field is required";
         document.querySelector("#remote_ip_notify").innerHTML =
-          "* This Field is Required";
+          "* This field is required";
         document.querySelector("#src_notify").innerHTML =
-          "* This Field is Required";
+          "* This field is required";
         document.querySelector("#dst_notify").innerHTML =
-          "* This Field is Required";
+          "* This field is required";
         document.querySelector("#ipsec_sa_lifetime_time_notify").innerHTML =
-          "* This Field is Required";
+          "* This field is required";
       }
 
       function ipsec_apply_btn_Check() {
@@ -1744,34 +1744,34 @@ function loadPage(page, options) {
           switch (input.id) {
             case "tunnel_name":
               document.querySelector("#tunnel_name_notify").innerHTML =
-                "* This Field is Required";
+                "* This field is required";
               is_tunnel_name_valid = false;
               break;
             case "openwrtipsecremotepre_shared_key":
               document.querySelector(
                 "#openwrtipsecremotepre_shared_key_notify"
-              ).innerHTML = "* This Field is Required";
+              ).innerHTML = "* This field is required";
               is_openwrtipsecremotepre_shared_key_valid = false;
               break;
             case "remote_ip":
               document.querySelector("#remote_ip_notify").innerHTML =
-                "* This Field is Required";
+                "* This field is required";
               is_remote_ip_valid = false;
               break;
             case "src":
               document.querySelector("#src_notify").innerHTML =
-                "* This Field is Required";
+                "* This field is required";
               is_src_valid = false;
               break;
             case "dst":
               document.querySelector("#dst_notify").innerHTML =
-                "* This Field is Required";
+                "* This field is required";
               is_dst_valid = false;
               break;
             case "ipsec_sa_lifetime_time":
               document.querySelector(
                 "#ipsec_sa_lifetime_time_notify"
-              ).innerHTML = "* This Field is Required";
+              ).innerHTML = "* This field is required";
               is_ipsec_sa_lifetime_time_valid = false;
               break;
             default:

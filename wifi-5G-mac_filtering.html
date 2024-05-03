@@ -138,7 +138,7 @@
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("wifi-5G-mac_filter.html");
+        loadPage("wifi-5G-mac_filtering.html");
       };
     </script>
   </head>
@@ -1021,7 +1021,7 @@
                     ng-class='{&#39;active&#39;: currentTab === "adv5_macFiltering"}'
                     class="active"
                   >
-                    <a href="wifi-5G-mac_filter.html">MAC Filtering</a>
+                    <a href="wifi-5G-mac_filtering.html">MAC Filtering</a>
                   </li>
                   <li
                     ng-class='{&#39;active&#39;: currentTab === "adv5_statistics"}'
@@ -1098,7 +1098,7 @@
                                 required=""
                               />
                               <span class="error ng-hide empty_error"
-                                >* This Field is Required</span
+                                >* This field is required</span
                               >
                               <span class="error ng-hide invalid_error"
                                 >* Invalid MAC address</span
