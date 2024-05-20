@@ -5,7 +5,7 @@
  */
 
 const SIMULATOR_VERSION =
-  "GemtekWeb_v06_10May24"; /* Release version and tag tracking */
+  "GemtekWeb_v07_20May24"; /* Release version and tag tracking */
 
 /**
  *
@@ -240,7 +240,7 @@ const template = {
       TR369: {
         EnableUSP: false,
         LocalWANInterface: 0,
-        AgentEndpointID: "os::000000-000000000000000",
+        AgentEndpointID: "os::02E092-BWT230512002202",
         STOMP: {
           Enable: false,
           ControllerEndpointID: "proto::Controller1",
