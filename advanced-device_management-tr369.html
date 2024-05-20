@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)#/tableform/managementserverview -->
+<!-- saved from url=(0050)#/tableform/managementuspview -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -138,7 +138,7 @@
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("advanced-device_management.html");
+        loadPage("advanced-device_management-tr369.html");
       };
     </script>
   </head>
@@ -818,9 +818,14 @@
         </div>
       </div>
 
-      <div id="content-wrapper" style="min-height: 606px">
+      <div id="content-wrapper" style="min-height: 932px">
         <!-- ngView: true -->
-        <div id="dataView" class="ng-scope">
+        <div
+          data-ng-view="true"
+          id="dataView"
+          translate-cloak=""
+          class="ng-scope"
+        >
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             class="row ltq_breadcrumbs ng-scope"
@@ -835,8 +840,16 @@
             <div class="ng-scope">
               <ng-switch on="$index === 1"
                 ><!-- ngSwitchWhen: true -->
-                <h4 class="ng-binding ng-scope">Device Management</h4>
+                <h4 ng-switch-when="true" class="ng-binding ng-scope">
+                  Device Management
+                </h4>
                 <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
               >
             </div>
             <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
@@ -877,34 +890,38 @@
                   <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
                     class="btn btn-default not-active ng-binding ng-scope"
                   >
-                    TR-069 Configuration </span
+                    TR-369 Configuration </span
                   ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
                 </div>
                 <!-- end ngSwitchWhen: --></ng-switch
               >
             </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
           </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="translation"
             class="ng-hide ng-scope"
-          >
-            managementserverpage
-          </div>
+          ></div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="headername"
             class="ng-hide ng-scope"
-          ></div>
+          >
+            TR-369/USP
+          </div>
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             id="headerdescription"
             class="ng-hide ng-scope"
-          ></div>
+          >
+            TR-369 allows to view and configure parameters relating to the
+            Agent's association with a Controller
+          </div>
           <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
             <p id="headerdescriptiondata" class="ng-binding">
-              Device Management allows to view and configure parameters relating
-              to the CPE's association with an ACS
+              TR-369 allows to view and configure parameters relating to the
+              Agent's association with a Controller
             </p>
           </div>
           <h4
@@ -916,12 +933,12 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <ul class="nav nav-tabs gemtek-tab">
-              <li class="active">
+              <li>
                 <a href="advanced-device_management.html"
                   >TR-069 Configuration</a
                 >
               </li>
-              <li>
+              <li class="active">
                 <a href="advanced-device_management-tr369.html"
                   >TR-369 Configuration</a
                 >
@@ -932,284 +949,713 @@
                 <a class="close" aria-label="close">✖ </a>
                 <p class="ng-binding"></p>
               </div>
-              <div>
-                <div class="wrapperdiv">
-                  <div class="panel-body">
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div>
-                          <div class="checkbox">
-                            <span class="ng-binding">Enable CWMP</span
-                            ><input
-                              type="checkbox"
-                              class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              id="DeviceManagementServer_EnableCWMP"
-                              name="DeviceManagementServer_EnableCWMP"
-                            /><label
-                              class="checkbox_left_align"
-                              for="DeviceManagementServer_EnableCWMP"
-                            ></label>
+              <form
+                class="form-horizontal formCount lantiq-form-text ng-dirty ng-valid-parse ng-valid ng-valid-required"
+              >
+                <div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr"></div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div>
+                            <div class="checkbox">
+                              <span class="ng-binding">Enable USP</span
+                              ><input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                                id="DeviceLocalAgent_X_GTK_Enable"
+                                name="DeviceLocalAgent_X_GTK_Enable"
+                              /><label
+                                class="checkbox_left_align"
+                                for="DeviceLocalAgent_X_GTK_Enable"
+                              ></label>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group no-padding-hr"></div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="required row">
-                        <label
-                          for="X_GTK_Interface"
-                          class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                          >Local Wan Interface</label
-                        >
-                        <div
-                          style="margin-top: 20px"
-                          class="no-padding-hr-l col-xs-12 col-sm-5"
-                        >
-                          <select
-                            class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
-                            id="X_GTK_Interface"
-                            name="DeviceManagementServer_X_GTK_Interface"
-                            required="required"
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="X_GTK_Interface"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >Local Wan Interface</label
                           >
-                            <option value="?" label="Select">
-                              Select
-                            </option></select
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="select_error"
-                            >* This field is required</span
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
                           >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr"></div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div
-                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                        >
-                          <input
-                            type="text"
-                            id="URL"
-                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                            placeholder="Please enter ACS URL"
-                          /><label for="URL" class="active ng-binding"
-                            >ACS URL</label
-                          ><span class="error ng-binding ng-hide"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div
-                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                        >
-                          <input
-                            type="text"
-                            id="Username"
-                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                            placeholder="Please enter ACS Username"
-                          /><label for="Username" class="active ng-binding"
-                            >ACS Username</label
-                          ><span class="error ng-binding ng-hide"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div class="no-padding-hr pwdblock col-xs-10 col-sm-11">
-                          <div class="input-field no-padding-hr-l col-sm-12">
-                            <input
-                              type="password"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              id="DeviceManagementServerPassword"
-                              placeholder="Enter Password"
-                            /><label class="active required ng-binding"
-                              >ACS Password</label
-                            ><span class="error ng-binding ng-hide"></span>
-                          </div>
-                          <div class="pwdtoggle">
-                            <input
-                              type="checkbox"
-                              id="DeviceManagementServerPasswordcheckbox"
-                              class="ng-pristine ng-untouched ng-valid"
-                            /><label
-                              id="icon_pw"
-                              for="DeviceManagementServerPasswordcheckbox"
-                              class="hidepw checkbox_right_align"
-                            ></label>
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched"
+                              id="X_GTK_Interface"
+                              required="required"
+                            >
+                              <option
+                                value="?"
+                                selected="selected"
+                                label="Select"
+                              >
+                                Select
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="X_GTK_Interface"
+                              >* This Field is Required</span
+                            >
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div
-                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                        >
-                          <input
-                            type="text"
-                            id="ConnectionRequestURL"
-                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                            placeholder="Please Enter the value"
-                            name="DeviceManagementServer_ConnectionRequestURL"
-                            disabled="disabled"
-                          /><label
-                            for="ConnectionRequestURL"
-                            class="active ng-binding"
-                            >Connection Request URL</label
-                          ><span class="error ng-binding ng-hide"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div
-                          class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                        >
-                          <input
-                            type="text"
-                            id="ConnectionRequestUsername"
-                            class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                            placeholder="Please enter Connection Request Username"
-                            name="DeviceManagementServer_ConnectionRequestUsername"
-                          /><label
-                            for="ConnectionRequestUsername"
-                            class="active ng-binding"
-                            >Connection Request Username</label
-                          ><span class="error ng-binding ng-hide"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div class="no-padding-hr pwdblock col-xs-10 col-sm-11">
-                          <div class="input-field no-padding-hr-l col-sm-12">
-                            <input
-                              type="password"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              id="DeviceManagementServerConnectionRequestPassword"
-                              placeholder="Enter Password"
-                              name="DeviceManagementServer_ConnectionRequestPassword"
-                            /><label
-                              for="ConnectionRequestPassword"
-                              class="active required ng-binding"
-                              >Connection Request Password</label
-                            ><span class="error ng-binding ng-hide"></span>
-                          </div>
-                          <div class="pwdtoggle">
-                            <input
-                              type="checkbox"
-                              id="DeviceManagementServerConnectionRequestPasswordcheckbox"
-                              class="ng-pristine ng-untouched ng-valid"
-                            /><label
-                              id="icon_pw_2"
-                              for="DeviceManagementServerConnectionRequestPasswordcheckbox"
-                              class="hidepw checkbox_right_align"
-                            ></label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                      <div class="row">
-                        <div>
-                          <div class="checkbox">
-                            <span class="ng-binding"
-                              >Enable Periodic Inform</span
-                            ><input
-                              type="checkbox"
-                              class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              id="DeviceManagementServer_PeriodicInformEnable"
-                              name="DeviceManagementServer_PeriodicInformEnable"
-                            /><label
-                              class="checkbox_left_align"
-                              for="DeviceManagementServer_PeriodicInformEnable"
-                            ></label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group no-padding-hr"></div>
-                    <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                      <div class="row">
-                        <div
-                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
-                        >
-                          <input
-                            type="number"
-                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid-min ng-valid-max ng-valid ng-valid-required"
-                            id="PeriodicInformInterval"
-                            placeholder="Please enter Periodic Inform Interval"
-                            min="10"
-                            max="86400"
-                            name="DeviceManagementServer_PeriodicInformInterval"
-                            required="required"
-                          /><label
-                            for="PeriodicInformInterval"
-                            class="required row active ng-binding"
-                            >Periodic Inform Interval</label
-                          ><span class="error ng-binding ng-hide"></span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="empty_error"
-                            >* This field is required</span
-                          ><span
-                            class="error ng-binding ng-hide"
-                            id="invalid_error"
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
                           >
-                            Please enter a valid number </span
-                          ><span class="error ng-hide" id="lowLimit_error"
-                            ><span class="ng-binding"
-                              >Value must be greater than or equal to </span
-                            ><span>10</span></span
-                          ><span class="error ng-hide" id="upLimit_error"
-                            ><span class="ng-binding"
-                              >Value must be less than or equal to </span
-                            ><span>86400</span></span
-                          >
+                            <input
+                              type="text"
+                              id="agentEndpointID"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                              disabled="disabled"
+                            /><label
+                              for="agentEndpointID"
+                              class="required row active ng-binding"
+                              >Agent EndpointID</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="agentEndpointID"
+                              >* This Field is Required</span
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group no-padding-hr"></div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="row">
+                        <div
+                          class="col-sm-12 col-md-12 col-lg-12 col-xs-12 wps_txt"
+                        >
+                          Controller (STOMP)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div>
+                            <div class="checkbox">
+                              <span class="ng-binding">Enable</span
+                              ><input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                                id="DeviceLocalAgentController1_Enable"
+                                name="DeviceLocalAgentController1_Enable"
+                              /><label
+                                class="checkbox_left_align"
+                                for="DeviceLocalAgentController1_Enable"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="STOMP_EndpointID"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="STOMP_EndpointID"
+                              class="required row active ng-binding"
+                              >Controller EndpointID</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="STOMP_EndpointID"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="STOMP_Destination"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="STOMP_Destination"
+                              class="required row active ng-binding"
+                              >Controller Destination</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="STOMP_Destination"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="STOMP_agentDestination"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="STOMP_agentDestination"
+                              class="required row active ng-binding"
+                              >Agent Destination</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="STOMP_agentDestination"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STOMP_Host"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="STOMP_Host"
+                              class="required row active ng-binding"
+                              >STOMP Server</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="STOMP_Host"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="number"
+                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="STOMP_Port"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="STOMP_Port"
+                              class="required row active ng-binding"
+                              >STOMP Port</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span class="error ng-binding ng-hide"
+                              >* This Field is Required</span
+                            ><span class="error ng-binding ng-hide">
+                              Please enter a valid number
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STOMP_Username"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="STOMP_Username"
+                              class="required row active ng-binding"
+                              >STOMP Username</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="STOMP_Username"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="no-padding-hr pwdblock col-xs-10 col-sm-12"
+                          >
+                            <div class="input-field no-padding-hr-l col-sm-12">
+                              <input
+                                type="password"
+                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                id="DeviceSTOMPConnection1Password"
+                                placeholder="Enter Password"    
+                                name="DeviceSTOMPConnection1_Password"
+                              /><label
+                                for="Password"
+                                class="active required ng-binding"
+                                >STOMP Password</label
+                              ><span class="error ng-binding ng-hide"></span
+                              ><span
+                                class="error ng-binding ng-hide"
+                                forid="DeviceSTOMPConnection1Password"
+                                >* This Field is Required</span
+                              >
+                            </div>
+                            <div class="pwdtoggle">
+                              <input
+                                type="checkbox"
+                                id="DeviceSTOMPConnection1Passwordcheckbox"
+                                class="ng-pristine ng-untouched ng-valid"
+                              /><label
+                                id="icon_eye1"
+                                for="DeviceSTOMPConnection1Passwordcheckbox"
+                                class="hidepw checkbox_right_align"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="VirtualHost"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="VirtualHost"
+                              class="required row active ng-binding"
+                              >STOMP Virtual Host</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="VirtualHost"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row checkbox-top-align">
+                          <div
+                            class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                          >
+                            <div class="checkbox1">
+                              <input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                id="DeviceSTOMPConnection1_EnableEncryption"
+                                name="DeviceSTOMPConnection1_EnableEncryption"
+                              /><label
+                                class="checkbox1_left_align"
+                                for="DeviceSTOMPConnection1_EnableEncryption"
+                                >STOMP Enable Encryption</label
+                              ><label
+                                for="DeviceSTOMPConnection1_EnableEncryption"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row checkbox-top-align">
+                          <div
+                            class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                          >
+                            <div class="checkbox1">
+                              <input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                id="DeviceSTOMPConnection1_EnableHeartbeats"
+                                name="DeviceSTOMPConnection1_EnableHeartbeats"
+                              /><label
+                                class="checkbox1_left_align"
+                                for="DeviceSTOMPConnection1_EnableHeartbeats"
+                                >STOMP Enable Heartbeats</label
+                              ><label
+                                for="DeviceSTOMPConnection1_EnableHeartbeats"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="row">
+                        <div
+                          class="col-sm-12 col-md-12 col-lg-12 col-xs-12 wps_txt"
+                        >
+                          Controller (MQTT)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div>
+                            <div class="checkbox">
+                              <span class="ng-binding">Enable</span
+                              ><input
+                                type="checkbox"
+                                class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                                id="DeviceLocalAgentController2_Enable"
+                                name="DeviceLocalAgentController2_Enable"
+                              /><label
+                                class="checkbox_left_align"
+                                for="DeviceLocalAgentController2_Enable"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="MQTT_EndpointID"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="MQTT_EndpointID"
+                              class="required row active ng-binding"
+                              >Controller EndpointID</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="MQTT_EndpointID"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="Topic"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="Topic"
+                              class="required row active ng-binding"
+                              >Controller Topic</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="Topic"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-5"
+                          >
+                            <input
+                              type="text"
+                              id="ResponseTopicConfigured"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="ResponseTopicConfigured"
+                              class="required row active ng-binding"
+                              >Agent Topic</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="ResponseTopicConfigured"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wrapperdiv">
+                    <div class="panel-body no-padding-vr">
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="BrokerAddress"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="BrokerAddress"
+                              class="required row active ng-binding"
+                              >MQTT Server</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="BrokerAddress"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="number"
+                              class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="BrokerPort"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="BrokerPort"
+                              class="required row active ng-binding"
+                              >MQTT Port</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span class="error ng-binding ng-hide"
+                              >* This Field is Required</span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forname="DeviceMQTTClient1_BrokerPort"
+                            >
+                              Please enter a valid number
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="MQTT_Username"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please Enter the value"
+                              required="required"
+                            /><label
+                              for="MQTT_Username"
+                              class="required row active ng-binding"
+                              >MQTT Username</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="MQTT_Username"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="row">
+                          <div
+                            class="no-padding-hr pwdblock col-xs-10 col-sm-12"
+                          >
+                            <div class="input-field no-padding-hr-l col-sm-12">
+                              <input
+                                type="password"
+                                class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid"
+                                id="DeviceMQTTClient1Password"
+                                placeholder="Enter Password"
+                              /><label
+                                for="Password"
+                                class="active required ng-binding"
+                                >MQTT Password</label
+                              ><span class="error ng-binding ng-hide"></span
+                              ><span
+                                class="error ng-binding ng-hide"
+                                forid="DeviceMQTTClient1Password"
+                                >* This Field is Required</span
+                              >
+                            </div>
+                            <div class="pwdtoggle">
+                              <input
+                                type="checkbox"
+                                id="DeviceMQTTClient1Passwordcheckbox"
+                                class="ng-pristine ng-untouched ng-valid"
+                              /><label
+                                id="icon_eye2"
+                                for="DeviceMQTTClient1Passwordcheckbox"
+                                class="hidepw checkbox_right_align"
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="ProtocolVersion"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >MQTT Protocol Version</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="ProtocolVersion"
+                              required="required"
+                            >
+                              <option value="?" class="form-control1">
+                                Select
+                              </option>
+                              <option class="form-control1" value="3.1">
+                                3.1
+                              </option>
+                              <option class="form-control1" value="3.1.1">
+                                3.1.1
+                              </option>
+                              <option class="form-control1" value="5.0">
+                                5.0
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="ProtocolVersion"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
+                        <div class="required row">
+                          <label
+                            for="TransportProtocol"
+                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
+                            >MQTT Transport Protocol</label
+                          >
+                          <div
+                            style="margin-top: 20px"
+                            class="no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <select
+                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              id="TransportProtocol"
+                              required="required"
+                            >
+                              <option value="?" class="form-control1">
+                                Select
+                              </option>
+                              <option class="form-control1" value="TCP/IP">
+                                TCP/IP
+                              </option>
+                              <option class="form-control1" value="TLS">
+                                TLS
+                              </option></select
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              forid="TransportProtocol"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-lg-12 col-md-12 col-xs-12 text-center"
+                    style="
+                      position: absolute;
+                      bottom: -60px;
+                      left: 50%;
+                      transform: translateX(-50%);
+                    "
+                  >
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Cancel"
+                        class="gemtek-btn-normal"
+                        value="Cancel"
+                      />
+                    </div>
+                    <div class="btn-align">
+                      <input
+                        type="button"
+                        id="Modify"
+                        class="gemtek-btn-primary"
+                        value="Apply"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div
-                  class="col-lg-12 col-md-12 col-xs-12 text-center"
-                  style="
-                    position: absolute;
-                    bottom: -60px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                  "
-                >
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Cancel"
-                      class="gemtek-btn-normal"
-                      value="Cancel"
-                    />
-                  </div>
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="Modify"
-                      class="gemtek-btn-primary"
-                      value="Apply"
-                    />
-                  </div>
-                  <div class="btn-align">
-                    <input
-                      type="button"
-                      id="SendInform"
-                      class="gemtek-btn-primary"
-                      value="Send Inform to ACS Server"
-                    />
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1233,93 +1679,7 @@
       <div id="main-menu-bg"></div>
     </div>
 
-    <div
-      class="modal fade"
-      id="myModalHorizontal"
-      aria-labelledby="myModalLabel"
-      aria-hidden="true"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <form class="form-horizontal ng-pristine ng-valid" role="form">
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Progress:</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <div
-                    class="progress-striped active progress"
-                    value=""
-                    type=""
-                  >
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      aria-valuenow=""
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      aria-valuetext="%"
-                      style="width: 100%"
-                    >
-                      <span class="ng-binding ng-scope"> </span
-                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Status</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Status"
-                    placeholder="WPS Session Start"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
-              Abort WPS
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Modal End-->
-    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-    <!--[if !IE]> -->
-    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
+    <link href="css/Custom/xeditable.css" rel="stylesheet" type="text/css" />
 
     <div class="hiddendiv common"></div>
   </body>
