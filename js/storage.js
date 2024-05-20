@@ -66,6 +66,9 @@ function applyThenStoreToLS(page, option, change_entity) {
       case "advanced-device_management.html":
         Advanced = change_entity;
         break;
+      case "advanced-device_management-tr369.html":
+        Advanced = change_entity;
+        break;
       case "advanced-dmz.html":
         Advanced = change_entity;
         break;
