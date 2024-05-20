@@ -156,7 +156,7 @@ function loadPage(page, options) {
 
       break;
     case "advanced-device_management.html":
-      console.log(`Load ${page}`, Advanced.DeviceManagement);
+      console.log(`Load ${page}`, Advanced.DeviceManagement.TR069);
       var enaCWMP = document.getElementById(
         "DeviceManagementServer_EnableCWMP"
       );
@@ -211,7 +211,7 @@ function loadPage(page, options) {
 
       // fill data
       var fillData = () => {
-        enaCWMP.checked = Advanced.DeviceManagement.EnaCWMP;
+        enaCWMP.checked = Advanced.DeviceManagement.TR069.EnaCWMP;
 
         let countValue = 0;
         for (const elem of Basic.WAN.Interfaces) {
@@ -223,7 +223,7 @@ function loadPage(page, options) {
           localWANInterfaceSelect.appendChild(optionElement);
         }
         localWANInterfaceSelect.value =
-          Advanced.DeviceManagement.LocalWANInterface;
+          Advanced.DeviceManagement.TR069.LocalWANInterface;
 
         // if Enable --> take IP of WAN interface
         if (enaCWMP.checked === true) {
@@ -233,14 +233,16 @@ function loadPage(page, options) {
           }:7547/`;
         }
 
-        acsUrl.value = Advanced.DeviceManagement.ACSURL;
-        acsUsername.value = Advanced.DeviceManagement.ACSUsername;
-        acsPassword.value = Advanced.DeviceManagement.ACSPassword;
+        acsUrl.value = Advanced.DeviceManagement.TR069.ACSURL;
+        acsUsername.value = Advanced.DeviceManagement.TR069.ACSUsername;
+        acsPassword.value = Advanced.DeviceManagement.TR069.ACSPassword;
         connectionReqUsername.value =
-          Advanced.DeviceManagement.ConnectionReqUsername;
-        connectionReqPwd.value = Advanced.DeviceManagement.ConnectionReqPasword;
-        enaPerodic.checked = Advanced.DeviceManagement.EnaPerodic;
-        perocdicInterval.value = Advanced.DeviceManagement.PerodicInterval;
+          Advanced.DeviceManagement.TR069.ConnectionReqUsername;
+        connectionReqPwd.value =
+          Advanced.DeviceManagement.TR069.ConnectionReqPasword;
+        enaPerodic.checked = Advanced.DeviceManagement.TR069.EnaPerodic;
+        perocdicInterval.value =
+          Advanced.DeviceManagement.TR069.PerodicInterval;
       };
 
       initEvent();
@@ -249,18 +251,19 @@ function loadPage(page, options) {
       // Apply and Cancel button
       document.getElementById("Modify").addEventListener("click", () => {
         if (checkError_show(document.querySelectorAll(".error"))) {
-          Advanced.DeviceManagement.EnaCWMP = enaCWMP.checked;
-          Advanced.DeviceManagement.LocalWANInterface =
+          Advanced.DeviceManagement.TR069.EnaCWMP = enaCWMP.checked;
+          Advanced.DeviceManagement.TR069.LocalWANInterface =
             localWANInterfaceSelect.value;
-          Advanced.DeviceManagement.ACSURL = acsUrl.value;
-          Advanced.DeviceManagement.ACSUsername = acsUsername.value;
-          Advanced.DeviceManagement.ACSPassword = acsPassword.value;
-          Advanced.DeviceManagement.ConnectionReqUsername =
+          Advanced.DeviceManagement.TR069.ACSURL = acsUrl.value;
+          Advanced.DeviceManagement.TR069.ACSUsername = acsUsername.value;
+          Advanced.DeviceManagement.TR069.ACSPassword = acsPassword.value;
+          Advanced.DeviceManagement.TR069.ConnectionReqUsername =
             connectionReqUsername.value;
-          Advanced.DeviceManagement.ConnectionReqPasword =
+          Advanced.DeviceManagement.TR069.ConnectionReqPasword =
             connectionReqPwd.value;
-          Advanced.DeviceManagement.EnaPerodic = enaPerodic.checked;
-          Advanced.DeviceManagement.PerodicInterval = perocdicInterval.value;
+          Advanced.DeviceManagement.TR069.EnaPerodic = enaPerodic.checked;
+          Advanced.DeviceManagement.TR069.PerodicInterval =
+            perocdicInterval.value;
 
           applyThenStoreToLS(
             "advanced-device_management.html",
@@ -274,6 +277,150 @@ function loadPage(page, options) {
 
       document.getElementById("Cancel", () => {
         applyThenStoreToLS("advanced-device_management.html", "Cancel");
+      });
+      break;
+    case "advanced-device_management-tr369.html":
+      console.log(`Load ${page}`, Advanced.DeviceManagement.TR369);
+      var agentEndpoint = document.getElementById("agentEndpointID");
+      var localWANInterfaceSelect = document.getElementById("X_GTK_Interface");
+      var enaUSP = document.getElementById("DeviceLocalAgent_X_GTK_Enable");
+      var enaSTOMP = document.getElementById(
+        "DeviceLocalAgentController1_Enable"
+      );
+      var enaMQTT = document.getElementById(
+        "DeviceLocalAgentController2_Enable"
+      );
+      var STOMPEnaEncryption = document.getElementById(
+        "DeviceSTOMPConnection1_EnableEncryption"
+      );
+      var STOMPEnaHeartBeats = document.getElementById(
+        "DeviceSTOMPConnection1_EnableHeartbeats"
+      );
+      var pwdEye1 = document.getElementById("icon_eye1");
+      var pwdEye2 = document.getElementById("icon_eye2");
+
+      var stompConfig = {
+        ControllerEndpointID: document.getElementById("STOMP_EndpointID"),
+        ControllerDest: document.getElementById("STOMP_Destination"),
+        AgentDest: document.getElementById("STOMP_agentDestination"),
+        STOMPServer: document.getElementById("STOMP_Host"),
+        STOMPPort: document.getElementById("STOMP_Port"),
+        STOMPUser: document.getElementById("STOMP_Username"),
+        STOMPPwd: document.getElementById("DeviceSTOMPConnection1Password"),
+        STOMPVirtual: document.getElementById("VirtualHost"),
+      };
+      var mqttConfig = {
+        ControllerEndpointID: document.getElementById("MQTT_EndpointID"),
+        ControllerTopic: document.getElementById("Topic"),
+        AgentTopic: document.getElementById("ResponseTopicConfigured"),
+        MQTTServer: document.getElementById("BrokerAddress"),
+        MQTTPort: document.getElementById("BrokerPort"),
+        MQTTUsername: document.getElementById("MQTT_Username"),
+        MQTTPassword: document.getElementById("DeviceMQTTClient1Password"),
+        MQTTProtocolVersion: document.getElementById("ProtocolVersion"),
+        MQTTTransportProtocol: document.getElementById("TransportProtocol"),
+      };
+
+      var fillData = function () {
+        enaUSP.checked = Advanced.DeviceManagement.TR369.EnableUSP;
+        enaSTOMP.checked = Advanced.DeviceManagement.TR369.STOMP.Enable;
+        enaMQTT.checked = Advanced.DeviceManagement.TR369.MQTT.Enable;
+        STOMPEnaEncryption.checked =
+          Advanced.DeviceManagement.TR369.STOMP.STOMPEnaEncryption;
+        STOMPEnaHeartBeats.checked =
+          Advanced.DeviceManagement.TR369.STOMP.STOMPEnaHeartBeats;
+        agentEndpoint.value = Advanced.DeviceManagement.TR369.AgentEndpointID;
+
+        var countValue = 0;
+        for (const elem of Basic.WAN.Interfaces) {
+          var optionElement = document.createElement("option");
+          optionElement.value = countValue; // as value, corresponds to index of itself in SSIDs array
+          countValue += 1;
+          optionElement.label = elem.Name;
+          optionElement.textContent = elem.Name;
+          localWANInterfaceSelect.appendChild(optionElement);
+        }
+        localWANInterfaceSelect.value =
+          Advanced.DeviceManagement.TR369.LocalWANInterface;
+        for (const [key, value] of Object.entries(stompConfig)) {
+          value.value = Advanced.DeviceManagement.TR369.STOMP[key];
+        }
+        for (const [key, value] of Object.entries(mqttConfig)) {
+          value.value = Advanced.DeviceManagement.TR369.MQTT[key];
+        }
+      };
+
+      var initEvent = function () {
+        pwdEye1.addEventListener("click", () => {
+          hide_show_pw(pwdEye1, stompConfig.STOMPPwd);
+        });
+        pwdEye2.addEventListener("click", () => {
+          hide_show_pw(pwdEye2, mqttConfig.MQTTPassword);
+        });
+        // event for all input field with type = text
+        document
+          .querySelectorAll('input[type="text"], input[type="password"]')
+          .forEach((inputField) => {
+            inputField.addEventListener("input", () => {
+              checkEmpty_inputField(
+                inputField,
+                document.querySelector(
+                  `[forid="${inputField.getAttribute("id")}"]`
+                )
+              );
+            });
+          });
+
+        // event for dropdown
+        document.querySelectorAll(".dropdown-toggle").forEach((inputField) => {
+          inputField.addEventListener("change", () => {
+            checkError_selectField(
+              inputField,
+              document.querySelector(
+                `[forid="${inputField.getAttribute("id")}"]`
+              )
+            );
+          });
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.DeviceManagement.TR369.EnableUSP = enaUSP.checked;
+          Advanced.DeviceManagement.TR369.STOMP.Enable = enaSTOMP.checked;
+          Advanced.DeviceManagement.TR369.MQTT.Enable = enaMQTT.checked;
+
+          Advanced.DeviceManagement.TR369.STOMP.STOMPEnaEncryption =
+            STOMPEnaEncryption.checked;
+
+          Advanced.DeviceManagement.TR369.STOMP.STOMPEnaHeartBeats =
+            STOMPEnaHeartBeats.checked;
+          Advanced.DeviceManagement.TR369.AgentEndpointID = agentEndpoint.value;
+
+          Advanced.DeviceManagement.TR369.LocalWANInterface =
+            localWANInterfaceSelect.value;
+          for (const [key, value] of Object.entries(stompConfig)) {
+            Advanced.DeviceManagement.TR369.STOMP[key] = value.value;
+          }
+          for (const [key, value] of Object.entries(mqttConfig)) {
+            Advanced.DeviceManagement.TR369.MQTT[key] = value.value;
+          }
+
+          applyThenStoreToLS(
+            "advanced-device_management-tr369.html",
+            "Apply",
+            Advanced
+          );
+        } else {
+          console.log("Apply fail");
+        }
+      });
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-device_management-tr369.html", "Cancel");
       });
       break;
     case "advanced-dmz.html":
