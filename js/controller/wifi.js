@@ -2035,6 +2035,7 @@ function loadPage(page, options) {
       var initEvent = () => {
         useDFSChannel.addEventListener("click", () => {
           useDFSChannel.classList.toggle("checked");
+          dfsEna.classList.toggle("checked");
         });
 
         enable5G.addEventListener("click", () => {
@@ -2177,6 +2178,7 @@ function loadPage(page, options) {
 
         dfsEna.addEventListener("click", () => {
           dfsEna.classList.toggle("checked");
+          useDFSChannel.classList.toggle("checked");
         });
       };
 
@@ -2189,9 +2191,13 @@ function loadPage(page, options) {
         filledData.Configuration.AutoChannel
           ? autoChannel.classList.add("checked")
           : autoChannel.classList.remove("checked");
-        filledData.Configuration.UseDFSChannels
-          ? useDFSChannel.classList.add("checked")
-          : useDFSChannel.classList.remove("checked");
+        if (filledData.Configuration.UseDFSChannels) {
+          dfsEna.classList.add("checked");
+          useDFSChannel.classList.add("checked");
+        } else {
+          dfsEna.classList.remove("checked");
+          useDFSChannel.classList.remove("checked");
+        }
 
         operationModeSelect.value = filledData.Configuration.OperationMode;
 
@@ -2231,9 +2237,6 @@ function loadPage(page, options) {
         dtim.value = filledData.Configuration.DTIM;
         beaconInterval.value = filledData.Configuration.BeaconInterval;
         powerScale.value = filledData.Configuration.PowerScale;
-        filledData.Configuration.DFS
-          ? dfsEna.classList.add("checked")
-          : dfsEna.classList.remove("checked");
 
         adaptOperationMode();
         check_security_type();
@@ -2311,7 +2314,6 @@ function loadPage(page, options) {
           filledData.Configuration.DTIM = dtim.value;
           filledData.Configuration.BeaconInterval = beaconInterval.value;
           filledData.Configuration.PowerScale = powerScale.value;
-          filledData.Configuration.DFS = dfsEna.classList.contains("checked");
 
           console.log(`Store data: ${Wifi["5G"].SSIDs[0]}`);
           applyThenStoreToLS("wifi-5G-config.html", "Apply", Wifi);
@@ -3118,22 +3120,22 @@ function loadPage(page, options) {
           Maxconnected: "255",
           BridgeName: "br-lan",
           Configuration: {
-            EnableRadio: false,
+            EnableRadio: true,
             AutoChannel: true,
-            OperationMode: 4,
-            Channel: 0,
+            UseDFSChannels: true,
+            OperationMode: 1,
+            Channel: 36,
             ChannelBandwidth: 2,
             AdvertiseSSID: true,
             WMM: true,
             WMMPS: true,
             APIsolation: false,
-            SSID: "",
-            SecurityType: 0,
-            Passphrase: "123456789a",
-            DTIM: "",
-            BeaconInterval: "",
-            PowerScale: "",
-            EnableCoExistence: false,
+            SSID: "GEMTEK5G",
+            SecurityType: 3,
+            Passphrase: "wifi_password2",
+            DTIM: 2,
+            BeaconInterval: 100,
+            PowerScale: 12,
           },
           WDS: {
             WDSMode: 0,

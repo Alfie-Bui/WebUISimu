@@ -75,6 +75,9 @@ function applyThenStoreToLS(page, option, change_entity) {
       case "advanced-multicast-ipv4Setting.html":
         Advanced = change_entity;
         break;
+      case "advanced-multicast-ipv6Setting.html":
+        Advanced = change_entity;
+        break;
       case "advanced-multicast.html":
         Advanced = change_entity;
         break;

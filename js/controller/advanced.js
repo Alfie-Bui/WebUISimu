@@ -565,14 +565,75 @@ function loadPage(page, options) {
       });
 
       break;
+    case "advanced-multicast-ipv6Setting.html":
+      console.log(`Load ${page}`, Advanced.Multicast);
+
+      var fastLeave = document.getElementById(
+        "DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+      );
+      var groupQInterval = document.getElementById("QueryRespInterval");
+      var groupLInterval = document.getElementById("LastMemQueryInterval");
+      var groupLCount = document.getElementById("LastMemQueryCount");
+
+      var fillData = () => {
+        fastLeave.checked = Advanced.Multicast.FastLeave6;
+        groupQInterval.value = Advanced.Multicast.GroupQInterval6;
+        groupLInterval.value = Advanced.Multicast.GroupLInterval6;
+        groupLCount.value = Advanced.Multicast.GroupLCount6;
+      };
+
+      var initEvent = () => {
+        groupQInterval.addEventListener("input", () => {
+          checkEmpty_inputField(
+            groupQInterval,
+            document.getElementById("invalid_groupQInterval_error")
+          );
+        });
+
+        groupLInterval.addEventListener("click", () => {
+          checkEmpty_inputField(
+            groupLInterval,
+            document.getElementById("invalid_groupLInterval_error")
+          );
+        });
+
+        groupLCount.addEventListener("input", () => {
+          checkEmpty_inputField(
+            groupLCount,
+            document.getElementById("invalid_groupLCount_error")
+          );
+        });
+      };
+
+      fillData();
+      initEvent();
+
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS("advanced-multicast-ipv4Setting.html", "Cancel");
+      });
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        if (checkError_show(document.querySelectorAll(".error"))) {
+          Advanced.Multicast.FastLeave6 = fastLeave.checked;
+          Advanced.Multicast.GroupQInterval6 = groupQInterval.value;
+          Advanced.Multicast.GroupLInterval6 = groupLInterval.value;
+          Advanced.Multicast.GroupLCount6 = groupLCount.value;
+
+          applyThenStoreToLS(
+            "advanced-multicast-ipv6Setting.html",
+            "Apply",
+            Advanced
+          );
+        }
+      });
+
+      break;
     case "advanced-multicast.html":
       console.log(`Load ${page}`, Advanced.Multicast);
-      var igmpProxy = document.getElementById(
-        "DeviceX_GTK_McastIGMPParameters_ProxyStatus"
-      );
-      var snooping = document.getElementById(
-        "DeviceX_GTK_McastIGMPParameters_SnoopingStatus"
-      );
+      var igmpProxy = document.getElementById("IGMP_Proxy");
+      var igmpSnooping = document.getElementById("IGMP_Snooping");
+      var mldProxy = document.getElementById("MLD_Proxy");
+      var mldSnooping = document.getElementById("MLD_Snooping");
       var upstreamList = document.getElementById(
         "DeviceX_GTK_Mcast_UpStreamIntrfName"
       );
@@ -586,7 +647,9 @@ function loadPage(page, options) {
 
       var fillData = () => {
         igmpProxy.checked = Advanced.Multicast.IGMPProxy;
-        snooping.checked = Advanced.Multicast.Snooping;
+        igmpSnooping.checked = Advanced.Multicast.IGMPSnooping;
+        mldProxy.checked = Advanced.Multicast.MLDProxy;
+        mldSnooping.checked = Advanced.Multicast.MLDSnooping;
 
         console.log(`Number of WAN interfaces: ${numberOfWAN}`);
         for (let i = 0; i < numberOfWAN; i++) {
@@ -618,7 +681,9 @@ function loadPage(page, options) {
       document.getElementById("Modify").addEventListener("click", () => {
         // get data
         Advanced.Multicast.IGMPProxy = igmpProxy.checked;
-        Advanced.Multicast.Snooping = snooping.checked;
+        Advanced.Multicast.IGMPSnooping = igmpSnooping.checked;
+        Advanced.Multicast.MLDProxy = mldProxy.checked;
+        Advanced.Multicast.MLDSnooping = mldSnooping.checked;
 
         Advanced.Multicast.UpstreamInterface.length = 0;
         for (var i = 0; i < numberOfWAN; i++) {

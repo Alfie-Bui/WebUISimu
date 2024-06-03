@@ -38,6 +38,12 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      id="themechange"
+      href="css/Custom/gemtek.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/Custom/animate.css" />
 
@@ -891,12 +897,7 @@
 
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
-        <div
-          
-          id="dataView"
-          
-          class="ng-scope"
-        >
+        <div id="dataView" class="ng-scope">
           <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -910,45 +911,7 @@ and open the template in the editor.
             content="width=device-width, initial-scale=1.0"
             class="ng-scope"
           />
-          <style type="text/css" class="ng-scope">
-            /*.no-margin-hr{margin-left:0px !important;margin-right:0px !important; }
-            .status_box{height:56px; }
-            .connection_status{width:96%;display: inline-block;padding:8px 12px; }
-            .connection_status div > i{color:#ffffff;}
-            .connection_status label{display:block;margin:5px 0px;  }
-            .home_bg{background:#847cc5 !important;}
-            .mrn_bg{background:#e66454 !important;color:#ffffff;}
-            .org_bg{background:#f0ad4e !important;color:#ffffff;}
-            .grn_bg{background:#00a489 !important;color:#ffffff;}
-            .blu_bg{background:#428bca !important;color:#ffffff;}
-            .ltgrn_bg{background:#79b260 !important;color:#ffffff;}
-            .pilot_bg{background:#7266ba !important;color:#ffffff;}
-            .yel_bg{background:#f49b00 !important;color:#ffffff;}
-            .black_bg{background:#2f2f2f !important;color:#ffffff;}
-            .port_status{min-height: 1px;min-width:100px;float: left;margin:0px 4px; }
-            .lanport{text-align: center;margin:0px 8px; }
-            .lanport>img{width:35px;}
-            .lanport p{font-family:arial;font-size:8px;color:#2e2e2e;  margin:5px auto; text-align: center;}
-            .grn_clr{color:#00a489}
-            .mrn_clr{color:#e66454}
-            .syslog_scroll_v{height:400px;overflow-y:scroll;}
-            .table_txt_align_v > tbody > tr > td{vertical-align: middle;}
-            .label_inline{padding:5px 0px; }
-            .thfixed table {width: 100%;display:block;}
-            .thfixed thead {display: inline-block;width: 100%;height:auto;}
-            .thfixed thead tr{width:100%;display:table }
-            .thfixed thead tr th + th{width:55%;}
-            .thfixed thead tr th + th + th{width:15%;}
-            .thfixed thead tr th + th + th + th {width:15%;}
-            .thfixed tbody {height: 400px;display: inline-block;width: 100%;overflow: auto;}
-            .thfixed tbody tr{width:100%;display: table;}
-            .thfixed tbody tr td + td{width:55%;}
-            .thfixed tbody tr td + td + td{width:15%;}
-            .thfixed tbody tr td + td + td + td {width:15%;}
-            [type="checkbox"] + label.checkbox_left_align{padding-left:0px;padding-right:35px; }
-            [type="checkbox"] + label.checkbox_left_align::before{right:0;left:auto;padding-left:0px; }
-            [type="checkbox"]:checked + label.checkbox_left_align::before{right:0px;left:auto;}*/
-          </style>
+          <style type="text/css" class="ng-scope"></style>
 
           <div id="translation" class="hide ng-scope">firewall</div>
           <div ng-controller="firewallController" class="ng-scope">
@@ -1014,55 +977,6 @@ and open the template in the editor.
                 this page.
               </p>
             </div>
-            <div class="row ng-hide" ng-show="formnamepopup">
-              <div class="alert alert-danger">
-                <a class="close" aria-label="close">×</a>
-                <strong class="ng-binding">Warning!</strong
-                ><span class="ng-binding"></span>
-              </div>
-            </div>
-            <div class="row ng-hide" ng-show="DeviceFirewallChain1Rulepopup">
-              <div class="alert alert-danger">
-                <a class="close" aria-label="close">×</a>
-                <strong class="ng-binding">Warning!</strong
-                ><span
-                  ng-bind="DeviceFirewallChain1Rulepopupval"
-                  class="ng-binding"
-                ></span>
-              </div>
-            </div>
-            <div class="row ng-hide" ng-show="DeviceFirewallChain2Rulepopup">
-              <div class="alert alert-danger">
-                <a class="close" aria-label="close">×</a>
-                <strong class="ng-binding">Warning!</strong
-                ><span class="ng-binding"></span>
-              </div>
-            </div>
-            <div class="row ng-hide" ng-show="DeviceFirewallChain3Rulepopup">
-              <div class="alert alert-danger">
-                <a class="close" aria-label="close">×</a>
-                <strong class="ng-binding">Warning!</strong
-                ><span
-                  ng-bind="DeviceFirewallChain3Rulepopupval"
-                  class="ng-binding"
-                ></span>
-              </div>
-            </div>
-            <div class="row ng-hide" ng-show="postnamepopup">
-              <div class="alert alert-danger">
-                <a class="close" aria-label="close">×</a>
-                <strong class="ng-binding">Warning!</strong
-                ><span class="ng-binding"></span>
-              </div>
-            </div>
-            <!-- <div class="help_toggle helpshow" ng-class="$root.scopevariable ? 'helpshow' : 'helphide'"
-      ng-init="$root.scopevariable=true">
-      <div class="help_txtcontent">
-        <a helpfile="languages/*/{{'firewall.helpkey' | translate}}" ng-click="helpTextDetails($event)" href="">
-          <i class="fa fa-info circle_bg"></i>
-        </a>
-        <div class="help_content"       </div>
-    </div> -->
             <div class="row">
               <div class="panel">
                 <div class="gemtek-panel-p20">
@@ -1116,10 +1030,7 @@ and open the template in the editor.
                         </thead>
                         <tbody>
                           <!-- ngRepeat: tableCellData in tableArray -->
-                          <tr
-                            class="gemtek-tr-bottom-line ng-scope"
-                            ng-repeat="tableCellData in tableArray"
-                          >
+                          <tr class="gemtek-tr-bottom-line ng-scope">
                             <td class="ng-binding">Telnet</td>
                             <td class="ng-binding">23</td>
                             <td>
