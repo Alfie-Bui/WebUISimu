@@ -7,7 +7,7 @@
 }
 
 .gemtek-font-family-medium {
-  font-family: "Roboto-Medium";
+  font-family: 'Roboto-Medium';
 }
 
 .gemtek-font-weight-normal {
@@ -50,7 +50,8 @@
 
 .theme-default .gemtek-btn-normal:disabled,
 .theme-default .gemtek-btn-normal:disabled:active,
-.theme-default .gemtek-btn-normal:disabled:focus {
+.theme-default .gemtek-btn-normal:disabled:focus
+ {
   border: solid 1px #0072bc !important;
   background-color: #fff !important;
   color: #0072bc !important;
@@ -65,16 +66,17 @@
   padding: 11px 34px 11px 5px !important;
   width: 130px;
   height: 36px;
+
 }
 .gemtek-btn-add:hover {
-  cursor: pointer;
+  cursor:pointer;
 }
 
-.gemtek-btn-add-txt {
+.gemtek-btn-add-txt{
   width: 22px;
   height: 24px;
   margin: 5px 0 5px 4px;
-  font-family: "Roboto-Medium";
+  font-family: 'Roboto-Medium';
   font-size: 14px;
   font-weight: normal;
   color: #0072bc;
@@ -102,8 +104,7 @@
   border-bottom: 1px solid #dee5ec;
 }
 
-.gemtek-tab > li.active,
-.gemtek-tab > li:hover {
+.gemtek-tab > li.active, .gemtek-tab > li:hover{
   border-bottom: 3px solid #0072bc !important;
 }
 
@@ -115,7 +116,7 @@
   color: #0072bc;
 }
 
-.gemtek-tab > li > a {
+.gemtek-tab > li > a{
   color: #4b5057;
   padding: 22px 26px;
   height: auto;
@@ -213,23 +214,23 @@
 .gemtek-input-p-left {
   padding-left: 0px;
 }
-.gemtek-input-lh {
+.gemtek-input-lh{
   height: 40px;
 }
 
-.gemtek-input-mt30 {
+.gemtek-input-mt30{
   margin-top: 30px;
 }
 
-.gemtek-input-mt20 {
+.gemtek-input-mt20{
   margin-top: 20px;
 }
 
-.gemtek-input-mt10 {
+.gemtek-input-mt10{
   margin-top: 10px;
 }
 
-.gemtek-input-mb30 {
+.gemtek-input-mb30{
   margin-bottom: 30px;
 }
 
@@ -244,17 +245,17 @@
 }
 .gemtek-table-style {
   border: 0;
-  border-top: 1px #dee5ec solid;
+  border-top:1px #dee5ec solid;
   /* border-bottom:1px #dee5ec solid; */
 }
 
-.gemtek-diagnostics-item-border {
-  border: solid 1px #dee5ec;
+.gemtek-diagnostics-item-border{
+  border:solid 1px #dee5ec;
   min-height: 385px;
 }
 
 .gemtek-table-txt {
-  font-family: "Roboto-Medium";
+  font-family: 'Roboto-Medium';
   font-size: 12px;
   font-weight: 500;
   color: #4b5057;
@@ -268,8 +269,8 @@
   font-weight: 100;
   color: #4b5057;
 }
-.gemtek-tr-bottom-line {
-  border-bottom: 1px #dee5ec solid;
+.gemtek-tr-bottom-line{
+  border-bottom:1px #dee5ec solid ;
 }
 
 .gemtek-switch-on {
@@ -286,33 +287,38 @@
   background-image: url(../../images/icons/icon-1/btn-toggle-off.svg);
 }
 
+.gemtek-switch-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .gemtek-switchblock-no-padding-left {
-  padding: 10px 0px !important;
+  padding:10px 0px!important;
 }
 .gemtek-number-no-padding-left {
-  padding-left: 0px !important;
-  min-width: none !important;
+ padding-left: 0px!important;
+ min-width: none!important;
 }
-.gemtek-toggle-label {
-  color: #292828;
+.gemtek-toggle-label{
+  color:#292828;
   /* min-width:0px!important;
   max-width:190px; */
 }
 
-.rowtable-mt-up {
+.rowtable-mt-up{
   margin-top: -20px;
   border: none;
 }
 
-.gemtek-no-border {
-  box-shadow: none !important;
-  border: none !important;
+.gemtek-no-border{
+  box-shadow:none!important;
+  border: none!important;
 }
-.gemtek-padding-border {
-  padding: 0px 20px !important;
+.gemtek-padding-border{
+  padding: 0px 20px!important;
 }
 
-.gemtek-assoc-title {
+.gemtek-assoc-title{
   padding: 20px 20px;
   width: 100%;
   color: #4b5057;
@@ -322,44 +328,42 @@
   display: inline-block;
 }
 
-.gemtek-no-padding-bottom {
-  padding-bottom: 0px !important;
-}
+.gemtek-no-padding-bottom{padding-bottom:0px!important; }
 
-.gemtek-statistics-chat-th {
-  height: 14px !important;
-  margin: 0 0 10px !important;
-  font-size: 12px !important;
-  font-weight: 300 !important;
-  line-height: normal !important;
-  letter-spacing: normal !important;
-  color: #4b5057 !important;
-  text-align: center !important;
-  padding: 0px !important;
+.gemtek-statistics-chat-th{
+  height: 14px!important;
+  margin: 0 0 10px!important;
+  font-size: 12px!important;
+  font-weight: 300!important;
+  line-height: normal!important;
+  letter-spacing: normal!important;
+  color: #4b5057!important;
+  text-align: center!important;
+  padding: 0px!important;
 }
-.gemtek-statistics-icon {
+.gemtek-statistics-icon{
   text-align: center;
   font-size: 18px;
 }
-.gemtek-statistics-chat-thead {
-  border-bottom: none !important;
+.gemtek-statistics-chat-thead{
+  border-bottom:none!important;
 }
-.gemtek-statistics-chat-thead > tr > th {
-  border-bottom: none !important ;
-  border-right: 1px solid #ddd !important;
+.gemtek-statistics-chat-thead > tr > th{
+  border-bottom:none!important ;
+  border-right: 1px solid #ddd!important;
 }
-.gemtek-statistics-chat-thead > td {
-  border-bottom: none !important ;
-  border-right: 1px solid #ddd !important;
+.gemtek-statistics-chat-thead > td{
+  border-bottom:none!important ;
+  border-right: 1px solid #ddd!important;
 }
 
-.gemtek-statistics-chat-thead > tr > th:last-child {
-  border-right: none !important;
+.gemtek-statistics-chat-thead > tr > th:last-child{
+  border-right: none!important;
 }
-.gemtek-statistics-chat-thead > td:last-child {
-  border-right: none !important;
+.gemtek-statistics-chat-thead > td:last-child{
+  border-right: none!important;
 }
-.gemtek-home-breadcrumbs {
+.gemtek-home-breadcrumbs{
   width: 96px;
   height: 14px;
   margin: 10px 560px 30px 0;
@@ -367,22 +371,18 @@
   font-weight: normal;
   color: #4b5057;
 }
-.gemtek-Device-Status {
+.gemtek-Device-Status{
   margin: 20px;
   font-size: 12px;
   color: #00a3bc;
-  text-transform: uppercase;
+  text-transform:uppercase;
 }
-.gemtek-border-right {
-  border-right: 1px solid #ddd !important;
+.gemtek-border-right{
+  border-right: 1px solid #ddd!important;
 }
 
-.gemtek-two-color-table tr:nth-child(even) {
-  background: #f8f8fa;
-}
-.gemtek-two-color-table tr:nth-child(odd) {
-  background: #fff;
-}
+.gemtek-two-color-table tr:nth-child(even) {background: #f8f8fa}
+.gemtek-two-color-table tr:nth-child(odd) {background: #fff}
 
 .gemtek-status-down {
   display: inline-block;
@@ -397,16 +397,15 @@
   background-image: url(../../images/icons/icon-1/ico-status-up.svg);
 }
 .gemtek-status-icons {
-  display: flex;
-  width: 36px;
-  margin: 0 0 0 20px;
+    display: flex;
+    width: 36px;
+    margin: 0 0 0 20px;
 }
-.gemtek-status-up-text,
-.gemtek-status-down-text {
+.gemtek-status-up-text, .gemtek-status-down-text {
   position: relative;
 }
 .gemtek-status-up-text::before {
-  content: "Up";
+  content: 'Up';
   width: 20px;
   height: 20px;
   font-size: 12px;
@@ -415,7 +414,7 @@
   top: 5px;
 }
 .gemtek-status-down-text::before {
-  content: "Down";
+  content: 'Down';
   width: 20px;
   height: 20px;
   font-size: 12px;
@@ -423,18 +422,14 @@
   left: 27px;
   top: 3px;
 }
-.gemtek-status-icons:first-child {
+.gemtek-status-icons:first-child{
   margin-left: 30px;
 }
-.gemtek-pr-0 {
-  padding-right: 0px !important;
+.gemtek-pr-0{
+  padding-right: 0px!important;
 }
-.adv_widget ul > li:nth-child(even) {
-  background: #f8f8fa;
-}
-.adv_widget ul > li:nth-child(odd) {
-  background: #fff;
-}
+.adv_widget ul > li:nth-child(even) {background: #f8f8fa}
+.adv_widget ul > li:nth-child(odd) {background: #fff}
 .gemtek-dns-add-btn {
   border: none;
   background-color: transparent;
@@ -444,34 +439,34 @@
   left: -54px;
 }
 
-.gemtek-table-plus-bc_white {
+.gemtek-table-plus-bc_white{
   background: #fff;
-  padding: 0px 20px !important;
-  box-shadow: 0 3px 8px 0 #d4dce6;
+  padding:0px 20px!important;
+  box-shadow:0 3px 8px 0 #d4dce6;
   border-radius: 4px;
 }
-.gemtek-display-flex-vc {
+.gemtek-display-flex-vc{
   display: flex;
-  align-items: center;
+  align-items:center;
 }
-.gemtek-add-portMapping-input {
-  text-align: left;
+.gemtek-add-portMapping-input{
+  text-align:left;
   margin-bottom: 5px;
 }
-.gemtek-add-portMapping-iconHeight {
+.gemtek-add-portMapping-iconHeight{
   height: 120px;
 }
-.gemtek-portMapping-chk::after {
+.gemtek-portMapping-chk::after{
   line-height: 2;
 }
 
-.gemtek-portMap-panel-title {
-  background-color: #fff !important;
+.gemtek-portMap-panel-title{
+  background-color: #FFF!important;
   max-width: 1000px;
 }
-.gemtek-port-title-style {
-  margin-top: 15px !important;
-  display: inline-block !important;
+.gemtek-port-title-style{
+  margin-top:15px!important;
+  display: inline-block!important;
 }
 
 .gemtek-portMap-enable {
@@ -481,7 +476,7 @@
   background-image: url(../../images/icons/ico-checked-2.png);
 }
 .gemtek-more-btn {
-  background: url("../../images/icons/icon-1/gemtek-more.svg");
+  background: url('../../images/icons/icon-1/gemtek-more.svg');
   width: 24px;
   height: 24px;
   border: none;
@@ -489,7 +484,7 @@
 }
 
 .gemtek-more-btn.gemtek-less-btn {
-  background: url("../../images/icons/icon-1/gemtek-less.svg") !important;
+  background: url('../../images/icons/icon-1/gemtek-less.svg') !important;
 }
 
 .gemtek-table-padding {
@@ -523,11 +518,11 @@
 }
 
 .gemtek-mb-20 {
-  margin-bottom: 20px !important;
+  margin-bottom: 20px!important;
 }
 
 .gemtek-mb-30 {
-  margin-bottom: 30px !important;
+  margin-bottom: 30px!important;
 }
 
 .gemtek-mr-20 {
@@ -538,76 +533,76 @@
   border-bottom: 1px solid #dee5ec;
 }
 
-.gemtek-diagnostics-panel {
-  padding: 0 20px !important;
+.gemtek-diagnostics-panel{
+  padding: 0 20px!important;
 }
-.gemtek-diagnostics-panel-heading {
-  height: 80px !important;
-  border-top: none !important;
+.gemtek-diagnostics-panel-heading{
+  height: 80px!important;
+  border-top: none!important;
   border-bottom: 1px solid #dee5ec;
-  background-color: #fff !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
+  background-color: #fff!important;
+  display: flex!important;
+  justify-content: space-between!important;
+  align-items: center!important;
 }
-.gemtek-diagnostics-restartBtn {
+.gemtek-diagnostics-restartBtn{
   border: none;
   background: none;
   font-weight: 900;
-  text-decoration: underline;
+  text-decoration:underline;
 }
-.gemtek-diagnose-content {
+.gemtek-diagnose-content{
   border-bottom: 1px solid #dee5ec;
   margin-bottom: 30px;
   padding: 0px;
 }
 
 .gemtek-btn-addplus:hover {
-  cursor: pointer;
+  cursor:pointer;
 }
 
-.gemtek-pt-20 {
+.gemtek-pt-20{
   padding-top: 20px;
 }
 
-.gemtek-pt-30 {
+.gemtek-pt-30{
   padding-top: 30px !important;
 }
 
-.gemtek-font-w900 {
+.gemtek-font-w900{
   font-weight: 900;
 }
 
-.gemtek-diagnostics-list-title {
-  padding: 10px;
-  background-color: #f8f8fa;
+.gemtek-diagnostics-list-title{
+  padding:10px;
+  background-color:#f8f8fa ;
   border-bottom: 1px solid #dee5ec;
 }
-.gemtek-p10-align-center {
-  padding: 10px;
+.gemtek-p10-align-center{
+  padding:10px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-start
 }
 
-.gemtek-align-center {
+.gemtek-align-center{
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-start
 }
 
-.gemtek-mb-0 {
-  margin-bottom: 0px !important;
+.gemtek-mb-0{
+  margin-bottom: 0px!important;
 }
-.gemtek-button-style {
+.gemtek-button-style{
   padding: 30px 0;
-  background-color: #fff;
+  background-color: #FFF;
   max-width: 1000px;
 }
 
-.gemtek-button-style-nobg {
+.gemtek-button-style-nobg{
   padding: 30px 0;
   max-width: 1000px;
 }
@@ -670,12 +665,12 @@
   position: relative;
 }
 
-.gemtek-card-head {
+.gemtek-card-head{
   background-color: #f8f8fa;
   padding: 10px;
 }
 
-.gemtek-card-body {
+.gemtek-card-body{
   padding: 10px 10px 0px;
   min-height: 75px;
 }
@@ -693,9 +688,9 @@
 }
 
 .gemtek-button-in-title {
-  padding: 23px 20px;
+  padding:23px 20px;
   border-bottom: 1px solid #d4dce6;
-  color: #4b5057;
+  color:#4b5057;
 }
 
 .gemtek-panel-body-form {
@@ -712,7 +707,7 @@
 }
 
 .gemtek-button-inside-panel {
-  padding: 30px 0;
+  padding:30px 0;
   border-top: 1px solid #dee5ec;
   width: calc(100% - 40px);
   margin: 0 auto;
@@ -726,7 +721,7 @@
 }
 
 .gemtek-button-inside-panel-html {
-  padding: 30px 0;
+  padding:30px 0;
   border-top: 1px solid #dee5ec;
   margin: 35px auto 0px;
 }
@@ -737,7 +732,7 @@
   right: 15px;
   transform: translateY(-140%);
   color: #4b5057;
-  opacity: 0.5;
+  opacity: .5;
 }
 
 .gemtek-bottom-line {
@@ -767,21 +762,21 @@
 }
 
 .gemtek-permit {
-  background-image: url("../../images/icons/icon-1/ico-allow.svg");
+  background-image: url('/images/icons/icon-1/ico-allow.svg');
   display: inline-block;
   width: 25px;
   height: 25px;
 }
 
 .gemtek-deny {
-  background-image: url("../../images/icons/icon-1/ico-forbidden.svg");
+  background-image: url('/images/icons/icon-1/ico-forbidden.svg');
   display: inline-block;
   width: 25px;
   height: 25px;
 }
 
 .gemtek-timepick {
-  background-image: url("../../images/icons/icon-1/ico-time.svg");
+  background-image: url('/images/icons/icon-1/ico-time.svg');
   background-repeat: no-repeat;
   background-position: right 8px center;
 }
@@ -812,15 +807,15 @@
   height: 25px;
 }
 
-.gemtek_speed_info_contain img {
+.gemtek_speed_info_contain img{
   width: 100%;
 }
 
-.gemtek_speed_info_contain span {
-  opacity: 0.5;
+.gemtek_speed_info_contain span{
+  opacity: .5;
 }
 
-.gemtek_speed_info_contain p {
+.gemtek_speed_info_contain p{
   font-weight: bold;
   font-size: 25px;
   margin: 0;
@@ -841,24 +836,24 @@
   top: 385px;
 }
 .gemtek_datatype span:nth-child(2) {
-  opacity: 0.5;
+  opacity: .5;
 }
 .gemtek_datatype_img {
   display: inline-block;
   width: 25px;
   height: 25px;
-  background-image: url("../../images/icons/icon-1/speed-download.svg");
+  background-image: url(/images/icons/icon-1/speed-download.svg);
   background-repeat: no-repeat;
   background-size: 100%;
   vertical-align: middle;
 }
 
 .gemtek_datatype_img.download {
-  background-image: url("../../images/icons/icon-1/speed-download-green.svg");
+  background-image: url(/images/icons/icon-1/speed-download-green.svg);
 }
 
 .gemtek_datatype_img.upload {
-  background-image: url("../../images/icons/icon-1/speed-upload-purple.svg");
+  background-image: url(/images/icons/icon-1/speed-upload-purple.svg);
 }
 
 .gemtek-btn-addplus > span {

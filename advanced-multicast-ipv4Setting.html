@@ -38,6 +38,12 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      id="themechange"
+      href="css/Custom/gemtek.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <link href="materialize/materialize.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/Custom/animate.css" />
 
@@ -889,12 +895,7 @@
 
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
-        <div
-          
-          id="dataView"
-          
-          class="ng-scope"
-        >
+        <div id="dataView" class="ng-scope">
           <div
             xmlns="http://www.w3.org/1999/xhtml"
             class="row ltq_breadcrumbs ng-scope"
@@ -1002,36 +1003,24 @@
             class="panel panel-default panel-bg1 ng-scope"
           >
             <ul class="nav nav-tabs gemtek-tab">
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcconfiguration"}'
-              >
+              <li>
                 <a href="advanced-multicast.html">Basic Settings</a>
               </li>
-              <li
-                ng-class='{&#39;active&#39;: currentTab === "multicast_mcsettings"}'
-                class="active"
-              >
+              <li class="active">
                 <a href="advanced-multicast-ipv4Setting.html"
                   >IPv4 Advanced Settings</a
                 >
               </li>
+              <li>
+                <a href="advanced-multicast-ipv6Setting.html"
+                  >IPv6 Advanced Settings</a
+                >
+              </li>
             </ul>
             <div class="panel-body no-padding">
-              <div
-                class="alert alert-danger ng-hide"
-                ng-show="DeviceX_GTK_McastIGMPParameterspopup"
-              >
-                <a
-                  class="close"
-                  aria-label="close"
-                  ng-click='popupclose("DeviceX_GTK_McastIGMPParameterspopup");
-                        '
-                  >✖
-                </a>
-                <p
-                  ng-bind-html="DeviceX_GTK_McastIGMPParameterspopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+              <div class="alert alert-danger ng-hide">
+                <a class="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
 
               <div>
@@ -1183,95 +1172,6 @@
       </div>
       <div id="main-menu-bg"></div>
     </div>
-
-    <div
-      class="modal fade"
-      id="myModalHorizontal"
-      aria-labelledby="myModalLabel"
-      aria-hidden="true"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <form class="form-horizontal ng-pristine ng-valid" role="form">
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Progress:</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <div
-                    class="progress-striped active progress"
-                    value=""
-                    type=""
-                  >
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      aria-valuenow=""
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      aria-valuetext="%"
-                      style="width: 100%"
-                    >
-                      <span class="ng-binding ng-scope"> </span
-                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Status</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Status"
-                    placeholder="WPS Session Start"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
-              Abort WPS
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Modal End-->
-    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-    <!--[if !IE]> -->
-    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
-
     <div class="hiddendiv common"></div>
   </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)#/custom/adv5_macFiltering -->
+<!-- saved from url=(0052)#/tableform/multicast_mcsettings -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -139,12 +139,12 @@
     <script src="./js/template.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
-    <script src="./js/controller/wifi.js"></script>
+    <script src="./js/controller/advanced.js"></script>
 
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("wifi-5G-mac_filtering.html");
+        loadPage("advanced-multicast-ipv6Setting.html");
       };
     </script>
   </head>
@@ -157,75 +157,6 @@
         Please enable Javascript in your browser.
       </div>
     </noscript>
-    <div
-      id="ajaxLoaderSection"
-      raw-ajax-busy-indicator=""
-      style="display: none"
-    >
-      <div id="ajaxLoaderIcon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 120 120"
-          width="120"
-          height="120"
-          preserveAspectRatio="xMidYMid meet"
-          style="
-            width: 100%;
-            height: 100%;
-            transform: translate3d(0px, 0px, 0px);
-          "
-        >
-          <defs>
-            <clippath id="__lottie_element_2">
-              <rect width="120" height="120" x="0" y="0"></rect>
-            </clippath>
-          </defs>
-          <g clip-path="url(#__lottie_element_2)">
-            <g
-              transform="matrix(1,0,0,1,55.59400177001953,68.78900146484375)"
-              opacity="1"
-              style="display: block"
-            >
-              <g
-                opacity="1"
-                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  fill-opacity="0"
-                  stroke="rgb(179,235,247)"
-                  stroke-opacity="0.5"
-                  stroke-width="12"
-                  d=" M0,-48 C26.491199493408203,-48 48,-26.491199493408203 48,0 C48,26.491199493408203 26.491199493408203,48 0,48 C-26.491199493408203,48 -48,26.491199493408203 -48,0 C-48,-26.491199493408203 -26.491199493408203,-48 0,-48z"
-                ></path>
-              </g>
-            </g>
-            <g
-              transform="matrix(0.5107007622718811,-0.8597584962844849,0.8597584962844849,0.5107007622718811,65.30626678466797,68.27664184570312)"
-              opacity="0.49407899999987176"
-              style="display: block"
-            >
-              <g
-                opacity="1"
-                transform="matrix(1,0,0,1,4.406000137329102,-8.788999557495117)"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  fill-opacity="0"
-                  stroke="rgb(179,235,247)"
-                  stroke-opacity="1"
-                  stroke-width="12"
-                  d=" M27.940000534057617,-39.02399826049805 C33.51499938964844,-35.02299880981445 38.20000076293945,-29.857999801635742 41.63600158691406,-23.885000228881836"
-                ></path>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <span>Please wait...</span>
-    </div>
     <div id="main-wrapper" class="ng-scope">
       <div
         id="main-navbar"
@@ -485,7 +416,7 @@
             </li>
             <li
               name="Wi-Fi"
-              class="sidebarItem ng-scope open"
+              class="sidebarItem ng-scope"
               onclick="toggleOpenClass(this)"
             >
               <button
@@ -515,7 +446,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  class="no-padding-hr no-margin-vr ng-scope"
                   id="adv5_ssid-1"
                 >
                   <a
@@ -550,7 +481,7 @@
             <li
               onclick="toggleOpenClass(this)"
               name="Advanced"
-              class="sidebarItem ng-scope"
+              class="sidebarItem ng-scope open"
             >
               <button
                 class="fa fa-angle-right dropdown-btn dropdown-btn-menu no-padding-hr dropdown-toggle"
@@ -666,7 +597,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens --><!-- ngIf: post.visible !== false -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope"
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
                   id="multicast_mcconfiguration-7"
                 >
                   <a
@@ -896,389 +827,272 @@
       <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
         <div id="dataView" class="ng-scope">
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-            class="ng-scope"
-          />
-          <title class="ng-scope">Mac Filtering</title>
-
-          <div id="translation" class="hide ng-scope">macFiltering</div>
-          <div ng-controller="macFilteringController" class="ng-scope">
-            <!-- ngInclude: 'templates/breadcrumbs.html' -->
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="row ltq_breadcrumbs ng-scope"
+          >
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
             <div class="ng-scope">
-              <div class="row ltq_breadcrumbs ng-scope">
-                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <div class="ng-scope">
-                  <ng-switch on="$index === 1">
-                    <!-- ngSwitchWhen: true -->
-                  </ng-switch>
-                </div>
-                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <div class="ng-scope">
-                  <ng-switch on="$index === 1">
-                    <!-- ngSwitchWhen: true -->
-                    <h4 class="ng-binding ng-scope">5G</h4>
-                    <!-- end ngSwitchWhen: -->
-                  </ng-switch>
-                </div>
-                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <div class="ng-scope">
-                  <ng-switch on="$index === 1">
-                    <!-- ngSwitchWhen: true -->
-                  </ng-switch>
-                </div>
-                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <div class="ng-scope">
-                  <ng-switch on="$first">
-                    <!-- ngSwitchWhen: true -->
-                    <div class="btn-group btn-breadcrumb1 ng-scope">
-                      <div class="ltq_brd_home">
-                        <a class="btn ng-binding" href="main.html"> Wi-Fi </a>
-                      </div>
-                    </div>
-                    <!-- end ngSwitchWhen: -->
-
-                    <!-- ngSwitchWhen: false -->
-                  </ng-switch>
-                </div>
-                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <div class="ng-scope">
-                  <ng-switch on="$first">
-                    <!-- ngSwitchWhen: true -->
-
-                    <!-- ngSwitchWhen: false -->
-                    <div class="btn-group btn-breadcrumb ng-scope">
-                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
-                        class="btn btn-default not-active ng-binding ng-scope"
-                      >
-                        5G </span
-                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
-                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
-                    </div>
-                    <!-- end ngSwitchWhen: -->
-                  </ng-switch>
-                </div>
-                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-                <div class="ng-scope">
-                  <ng-switch on="$first">
-                    <!-- ngSwitchWhen: true -->
-
-                    <!-- ngSwitchWhen: false -->
-                    <div class="btn-group btn-breadcrumb ng-scope">
-                      <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
-                        class="btn btn-default not-active ng-binding ng-scope"
-                      >
-                        MAC Filtering </span
-                      ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
-                      <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
-                    </div>
-                    <!-- end ngSwitchWhen: -->
-                  </ng-switch>
-                </div>
-                <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-              </div>
-            </div>
-
-            <div class="subheader">
-              <p
-                ng-bind="&#39;macFiltering5G.headerdescription&#39; | translate"
-                class="ng-binding"
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
               >
-                You can make wireless LAN settings that operate in the 5GHz
-                range. Wi-Fi 5G offers greater coverage and supports legacy
-                devices.
-              </p>
             </div>
-
-            <div class="panel">
-              <!-- ngInclude: 'templates/tabs.html' -->
-              <div
-                <!--
-                如有使用此
-                tabs,
-                請同步
-                menu
-                Controllers
-                第492行的switch--
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true -->
+                <h4 class="ng-binding ng-scope">Multicast</h4>
+                <!-- end ngSwitchWhen: --></ng-switch
               >
-                <ul class="nav nav-tabs gemtek-tab">
-                  <li ng-class='{&#39;active&#39;: currentTab === "adv5_ssid"}'>
-                    <a href="wifi-5G-ssids.html">SSIDs</a>
-                  </li>
-                  <li
-                    ng-class='{&#39;active&#39;: currentTab === "wifi5_advanced"}'
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$index === 1"
+                ><!-- ngSwitchWhen: true --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <div class="btn-group btn-breadcrumb1 ng-scope">
+                  <div class="ltq_brd_home">
+                    <a class="btn ng-binding" href="main.html"> Advanced </a>
+                  </div>
+                </div>
+                <!-- end ngSwitchWhen: -->
+                <!-- ngSwitchWhen: false --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
                   >
-                    <a href="wifi-5G-config.html">Configuration</a>
-                  </li>
-                  <li ng-class='{&#39;active&#39;: currentTab === "adv5_wps"}'>
-                    <a href="wifi-5G-wps.html">WPS</a>
-                  </li>
-                  <li ng-class='{&#39;active&#39;: currentTab === "wds5page"}'>
-                    <a href="wifi-5G-wds.html">WDS</a>
-                  </li>
-                  <li
-                    ng-class='{&#39;active&#39;: currentTab === "adv5_macFiltering"}'
-                    class="active"
+                    Multicast </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            <div class="ng-scope">
+              <ng-switch on="$first"
+                ><!-- ngSwitchWhen: true -->
+                <!-- ngSwitchWhen: false -->
+                <div class="btn-group btn-breadcrumb ng-scope">
+                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
+                    class="btn btn-default not-active ng-binding ng-scope"
                   >
-                    <a href="wifi-5G-mac_filtering.html">MAC Filtering</a>
-                  </li>
-                  <li
-                    ng-class='{&#39;active&#39;: currentTab === "adv5_statistics"}'
-                  >
-                    <a href="wifi-5G-statistics.html">Statistics</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="wrapperdiv"></div>
-              <div class="wrapperdiv">
-                <form
-                  name="macFilteringForm"
-                  class="ng-pristine ng-valid ng-valid-required ng-valid-valid"
+                    IPv6 Advanced Settings </span
+                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
+                </div>
+                <!-- end ngSwitchWhen: --></ng-switch
+              >
+            </div>
+            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="translation"
+            class="ng-hide ng-scope"
+          >
+            multicastsettings
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="headername"
+            class="ng-hide ng-scope"
+          >
+            Multicast Advanced Settings
+          </div>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            id="headerdescription"
+            class="ng-hide ng-scope"
+          >
+            It allows you to configure the CPE to provide multicast
+            functionality
+          </div>
+          <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
+            <p id="headerdescriptiondata" class="ng-binding">
+              It allows you to configure the CPE to provide multicast
+              functionality
+            </p>
+          </div>
+          <h4
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="panel_title hide ng-scope"
+          ></h4>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            class="panel panel-default panel-bg1 ng-scope"
+          >
+            <ul class="nav nav-tabs gemtek-tab">
+              <li>
+                <a href="advanced-multicast.html">Basic Settings</a>
+              </li>
+              <li>
+                <a href="advanced-multicast-ipv4Setting.html"
+                  >IPv4 Advanced Settings</a
                 >
-                  <div class="panel-body">
-                    <div>
-                      <div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-5 required"
-                        >
-                          <label for="SSID">SSID</label>
-                          <select
-                            id="SSID"
-                            name="SSID"
-                            required=""
-                            class="ng-pristine ng-valid ng-valid-required ng-touched"
-                          ></select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <div
-                          class="form-group no-padding-hr col-xs-12 col-sm-5 required"
-                        >
-                          <label for="MACAddressControlMode">ACL Mode</label>
-                          <select
-                            id="acl_mode_select"
-                            name="MACAddressControlMode"
-                            required=""
-                            class="ng-pristine ng-valid ng-valid-required ng-touched"
-                          >
-                            <option value="0">Disabled</option>
-                            <option value="1">Allow</option>
-                            <option value="2">Deny</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="panel-table-plus">
-                      <div class="ip-panel-heading gemtek-mb-0">
-                        <span>MAC Address Filter List</span>
-                        <a
-                          id="MACAddressControlList"
-                          class="gemtek-btn-normal gemtek-btn-addplus"
-                        >
-                          <i class="fa fa-plus icontxtgap"></i>
-                          <span>Add</span>
-                        </a>
-                      </div>
-
-                      <!-- Template for add button, input field to enter MAC address -->
-                      <template id="input_field_mac_template">
-                        <tr class="ng-scope">
-                          <td style="padding-right: 10px">
-                            <ng-form
-                              name="macListForm0"
-                              class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern"
-                            >
-                              <input
-                                type="text"
-                                name="MACAddressControlList"
-                                class="no-margin ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern macAddrValue"
-                                required=""
-                              />
-                              <span class="error ng-hide empty_error"
-                                >* This field is required</span
-                              >
-                              <span class="error ng-hide invalid_error"
-                                >* Invalid MAC address</span
-                              >
-                            </ng-form>
-                          </td>
-                          <td>
-                            <button
-                              type="button"
-                              class="btn btn-xs table-btn no-margin deleteBtn"
-                              name="delete"
-                            >
-                              <span class="gemtek-delete-icon"></span>
-                            </button>
-                          </td>
-                        </tr>
-                      </template>
-
-                      <div class="gemtek-panel-p20 no-padding-hr">
-                        <div class="table-responsive table-scroll-vr">
-                          <table
-                            class="table_txt_align_v theme_intel no-margin-vr"
-                          >
-                            <thead>
-                              <tr>
-                                <th class="ng-binding">MAC Address</th>
-                                <th class="ng-binding">Actions</th>
-                              </tr>
-                            </thead>
-                            <tbody id="bodyData">
-                              <!-- ngRepeat: mac in macFiltering.MACAddressControlList track by $index -->
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="text-center gemtek-button-style ng-scope">
-                    <div class="btn-align">
-                      <button
-                        type="button"
-                        class="gemtek-btn-normal ng-binding"
-                        id="Cancel"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                    <div class="btn-align">
-                      <button
-                        type="button"
-                        class="gemtek-btn-primary ng-binding"
-                        id="Apply"
-                      >
-                        Apply
-                      </button>
-                    </div>
-                  </div>
-                </form>
+              </li>
+              <li class="active">
+                <a href="advanced-multicast-ipv6Setting.html"
+                  >IPv6 Advanced Settings</a
+                >
+              </li>
+            </ul>
+            <div class="panel-body no-padding">
+              <div
+                class="alert alert-danger ng-hide"
+                ng-show="DeviceX_GTK_McastIGMPParameterspopup"
+              >
+                <a class="close">✖ </a>
+                <p class="ng-binding"></p>
               </div>
-            </div>
 
-            <!-- ngInclude: 'templates/deletedialog.html' -->
-            <div class="ng-scope">
-              <div class="ng-scope" id="deleteDialogMark"></div>
-            </div>
-            <!-- ngInclude: 'templates/alertdialog.html' -->
-            <div class="ng-scope">
-              <div class="ng-scope" id="alertDialogMark"></div>
+              <div>
+                <div class="wrapperdiv">
+                  <div class="panel-body">
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row checkbox-top-align">
+                        <div
+                          class="no-padding-hr col-sm-12 col-md-12 col-lg-12 col-xs-12 text-left"
+                        >
+                          <div class="checkbox1">
+                            <input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                              id="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+                              checked
+                            /><label
+                              class="checkbox1_left_align"
+                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+                              >Fast Leave</label
+                            ><label
+                              for="DeviceX_GTK_McastIGMPParameters_FastLeaveStatus"
+                            ></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="QueryRespInterval"
+                            placeholder="Please enter group query response interval"
+                            required="required"
+                          /><label
+                            for="QueryRespInterval"
+                            class="required row active ng-binding"
+                            >Group Query Response Interval</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This field is required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_groupQInterval_error"
+                          >
+                            Please enter a valid number
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="LastMemQueryInterval"
+                            placeholder="Please enter group last member query interval"
+                            required="required"
+                          /><label
+                            for="LastMemQueryInterval"
+                            class="required row active ng-binding"
+                            >Group Last Member Query Interval</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This field is required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_groupLInterval_error"
+                          >
+                            Please enter a valid number
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div
+                          class="input-field gemtek-number-no-padding-left col-xs-12 col-sm-5"
+                        >
+                          <input
+                            type="number"
+                            class="form-control string-to-number hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                            id="LastMemQueryCount"
+                            placeholder="Please enter group last member query count"
+                            required="required"
+                          /><label
+                            for="LastMemQueryCount"
+                            class="required row active ng-binding"
+                            >Group Last Member Query Count</label
+                          ><span class="error ng-binding ng-hide"></span
+                          ><span class="error ng-binding ng-hide"
+                            >* This field is required</span
+                          ><span
+                            class="error ng-binding ng-hide"
+                            id="invalid_groupLCount_error"
+                          >
+                            Please enter a valid number
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center gemtek-button-inside-panel">
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Cancel"
+                      class="gemtek-btn-normal"
+                      value="Cancel"
+                    />
+                  </div>
+                  <div class="btn-align">
+                    <input
+                      type="button"
+                      id="Modify"
+                      class="gemtek-btn-primary"
+                      value="Apply"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Footer section-->
-        <footer class="footer">
-          <!-- <div class="col-lg-6" ng-show="fetchSpeed>0 && fetchSpeed!==undefined && webcontrol.pagespeed==1">
-                        <span> Page  Load Time {{ fetchSpeed.toFixed(2) }} seconds </span>
-					</div> -->
-
-          <!-- <div class="col-lg-6 text-left"><img src="images/intel-logo-footer.png" alt="intel-logo" class="pull-left" height="20"/><p class="text-muted" ng-bind="'copyright' | translate"></p></div> -->
-          <!-- <div class="social_icon_group">
-                        <a target="_blank" href="https://www.facebook.com/Intel"><i class="fa fa-facebook"></i></a>
-                        <a target="_blank" href="https://twitter.com/intel"><i class="fa fa-twitter "></i></a>
-                        <a target="_blank" href="https://www.linkedin.com/company/intel-corporation"><i class="fa fa-linkedin"></i></a>
-                        <a href="https://www.lantiq.com/rss"><i class="fa fa-rss"></i></a>
-                        <a target="_blank" href="https://www.youtube.com/user/channelintel?sub_confirmation=1"><i class="fa fa-youtube"></i></a>
-                    </div>                         -->
-        </footer>
+        <footer class="footer"></footer>
       </div>
       <div id="main-menu-bg"></div>
     </div>
-
-    <div
-      class="modal fade"
-      id="myModalHorizontal"
-      aria-labelledby="myModalLabel"
-      aria-hidden="true"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-          </div>
-
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <form class="form-horizontal ng-pristine ng-valid" role="form">
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Progress:</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <div
-                    class="progress-striped active progress"
-                    value=""
-                    type=""
-                  >
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      aria-valuenow=""
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      aria-valuetext="%"
-                      style="width: 100%"
-                    >
-                      <span class="ng-binding ng-scope"> </span
-                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label
-                  class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label"
-                  for="Status"
-                  >Status</label
-                >
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Status"
-                    placeholder="WPS Session Start"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              data-ng-click="cancelInterval()"
-              data-dismiss="modal"
-              class="btn btn-info"
-            >
-              Abort WPS
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Modal End-->
-    <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
-    <!--[if !IE]> -->
-    <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
-
     <div class="hiddendiv common"></div>
   </body>
 </html>

@@ -179,7 +179,6 @@ const template = {
             DTIM: 2,
             BeaconInterval: 100,
             PowerScale: 12,
-            DFS: true,
           },
           WDS: {
             WDSMode: 0,
@@ -270,7 +269,9 @@ const template = {
     },
     Multicast: {
       IGMPProxy: true,
-      Snooping: true,
+      IGMPSnooping: true,
+      MLDProxy: true,
+      MLDSnooping: true,
       UpstreamInterface: [],
       DownStreamInterface: [true],
       // IPv4 Advanced
@@ -278,6 +279,11 @@ const template = {
       GroupQInterval: 10,
       GroupLInterval: 2,
       GroupLCount: 2,
+      // IPv6 Advanced
+      FastLeave6: true,
+      GroupQInterval6: 10,
+      GroupLInterval6: 2,
+      GroupLCount6: 2,
     },
     PortTriggering: {
       onEdit: "",
