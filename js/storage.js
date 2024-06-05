@@ -36,7 +36,6 @@ function checkVersion() {
   } else {
     console.log(`Version: ${SIMULATOR_VERSION}`);
     localStorage.setItem("VERSION", SIMULATOR_VERSION);
-    localStorage.setItem("Account", JSON.stringify(template.Account));
   }
 }
 
