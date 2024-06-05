@@ -1727,10 +1727,11 @@ function loadPage(page, options) {
               if (enableDefaultGW.checked === true) {
                 // if default gateway v4
                 elemAfterChange.DefaultGateway = "192.168.99.1";
-                if (enableVLAN.checked === true)
+                if (enableVLAN.checked === true) {
                   var currentIP = elemAfterChange.IPAddress.split(".");
-                currentIP[3] = "1"; // because we create IP of VLAN at C class
-                elemAfterChange.DefaultGateway = currentIP.join(".");
+                  currentIP[3] = "1"; // because we create IP of VLAN at C class
+                  elemAfterChange.DefaultGateway = currentIP.join(".");
+                }
 
                 // v6
                 elemAfterChange.IPv6.v6DefaultGateway =
