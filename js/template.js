@@ -5,7 +5,7 @@
  */
 
 const SIMULATOR_VERSION =
-  "GemtekWeb_v08_07Jun24"; /* Release version and tag tracking */
+  "GemtekWeb_v09_21Jun24"; /* Release version and tag tracking */
 
 /**
  *
@@ -235,6 +235,13 @@ const template = {
         ConnectionReqPasword: "admin",
         EnaPerodic: true,
         PerodicInterval: 86400,
+        EnableSTUN: false,
+        STUNAddr: "stun.gatespace.net",
+        STUNPort: "3478",
+        STUNUser: "admin",
+        STUNPwd: "admin",
+        STUNMax: "90",
+        STUNMin: "30",
       },
       TR369: {
         EnableUSP: false,

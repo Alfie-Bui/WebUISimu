@@ -1179,6 +1179,200 @@
                       </div>
                     </div>
                     <div class="form-group no-padding-hr"></div>
+                    <div class="form-group no-padding-hr col-xs-12 col-sm-12">
+                      <div class="row">
+                        <div>
+                          <div class="checkbox">
+                            <span class="ng-binding">Enable Stun</span
+                            ><input
+                              type="checkbox"
+                              class="hidden-dom-removal ng-untouched ng-valid ng-dirty ng-valid-parse"
+                              id="DeviceManagementServer_STUNEnable"
+                              name="DeviceManagementServer_STUNEnable"
+                            /><label
+                              class="checkbox_left_align"
+                              for="DeviceManagementServer_STUNEnable"
+                            ></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group no-padding-hr"></div>
+                    <div id="STUNsetting" class="">
+                      <!-- ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STUNServerAddress"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please enter Stun Server Address"
+                              name="DeviceManagementServer_STUNServerAddress"
+                              required="required"
+                            /><label
+                              for="STUNServerAddress"
+                              class="required row active ng-binding"
+                              >Stun Server Address</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_stunServerAddr"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <!-- ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STUNServerPort"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please enter Stun Server Port"
+                              name="DeviceManagementServer_STUNServerPort"
+                              required="required"
+                            /><label
+                              for="STUNServerPort"
+                              class="required row active ng-binding"
+                              >Stun Server Port</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_stunServerPort"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <!-- ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STUNUsername"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please enter Stun Username"
+                              name="DeviceManagementServer_STUNUsername"
+                              required="required"
+                            /><label
+                              for="STUNUsername"
+                              class="required row active ng-binding"
+                              >Stun Username</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_stunUsername"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <!-- ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STUNPassword"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please enter Stun Stun Password"
+                              name="DeviceManagementServer_STUNPassword"
+                              required="required"
+                            /><label
+                              for="STUNPassword"
+                              class="required row active ng-binding"
+                              >Stun Password</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_stunPwd"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <!-- ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STUNMaximumKeepAlivePeriod"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please enter Stun Max Keep Alive"
+                              name="DeviceManagementServer_STUNMaximumKeepAlivePeriod"
+                              required="required"
+                            /><label
+                              for="STUNMaximumKeepAlivePeriod"
+                              class="required row active ng-binding"
+                              >Stun Max Keep Alive</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_stunMax"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <!-- ngIf: DeviceManagementServer.STUNEnable=='1' -->
+                      <div
+                        class="form-group no-padding-hr col-xs-12 col-sm-5 ng-scope"
+                      >
+                        <div class="row">
+                          <div
+                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
+                          >
+                            <input
+                              type="text"
+                              id="STUNMinimumKeepAlivePeriod"
+                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-required"
+                              placeholder="Please enter Stun Min Keep Alive"
+                              name="DeviceManagementServer_STUNMinimumKeepAlivePeriod"
+                              required="required"
+                            /><label
+                              for="STUNMinimumKeepAlivePeriod"
+                              class="required row active ng-binding"
+                              >Stun Min Keep Alive</label
+                            ><span class="error ng-binding ng-hide"></span
+                            ><span
+                              class="error ng-binding ng-hide"
+                              id="empty_error_stunMin"
+                              >* This Field is Required</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div

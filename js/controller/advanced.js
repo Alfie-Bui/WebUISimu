@@ -183,7 +183,65 @@ function loadPage(page, options) {
       );
       var perocdicInterval = document.getElementById("PeriodicInformInterval");
 
+      var stunEnable = document.getElementById(
+        "DeviceManagementServer_STUNEnable"
+      );
+      var stunServerAddr = document.getElementById("STUNServerAddress");
+      var stunServerPort = document.getElementById("STUNServerPort");
+      var stunUsername = document.getElementById("STUNUsername");
+      var stunPassword = document.getElementById("STUNPassword");
+      var stunMax = document.getElementById("STUNMaximumKeepAlivePeriod");
+      var stunMin = document.getElementById("STUNMinimumKeepAlivePeriod");
+
       var initEvent = () => {
+        stunEnable.addEventListener("click", () => {
+          stunEnable.checked
+            ? document.getElementById("STUNsetting").classList.remove("ng-hide")
+            : document.getElementById("STUNsetting").classList.add("ng-hide");
+        });
+
+        stunServerAddr.addEventListener("input", () => {
+          checkEmpty_inputField(
+            stunServerAddr,
+            document.getElementById("empty_error_stunServerAddr")
+          );
+        });
+
+        stunServerPort.addEventListener("input", () => {
+          checkEmpty_inputField(
+            stunServerPort,
+            document.getElementById("empty_error_stunServerPort")
+          );
+        });
+
+        stunUsername.addEventListener("input", () => {
+          checkEmpty_inputField(
+            stunUsername,
+            document.getElementById("empty_error_stunUsername")
+          );
+        });
+
+        stunPassword.addEventListener("input", () => {
+          checkEmpty_inputField(
+            stunPassword,
+            document.getElementById("empty_error_stunPwd")
+          );
+        });
+
+        stunMax.addEventListener("input", () => {
+          checkEmpty_inputField(
+            stunMax,
+            document.getElementById("empty_error_stunMax")
+          );
+        });
+
+        stunMin.addEventListener("input", () => {
+          checkEmpty_inputField(
+            stunMin,
+            document.getElementById("empty_error_stunMin")
+          );
+        });
+
         pwd_Eye.addEventListener("click", () => {
           hide_show_pw(pwd_Eye, acsPassword);
         });
@@ -243,6 +301,17 @@ function loadPage(page, options) {
         enaPerodic.checked = Advanced.DeviceManagement.TR069.EnaPerodic;
         perocdicInterval.value =
           Advanced.DeviceManagement.TR069.PerodicInterval;
+
+        stunEnable.checked = Advanced.DeviceManagement.TR069.EnableSTUN;
+        stunEnable.checked
+          ? document.getElementById("STUNsetting").classList.remove("ng-hide")
+          : document.getElementById("STUNsetting").classList.add("ng-hide");
+        stunServerAddr.value = Advanced.DeviceManagement.TR069.STUNAddr;
+        stunServerPort.value = Advanced.DeviceManagement.TR069.STUNPort;
+        stunUsername.value = Advanced.DeviceManagement.TR069.STUNUser;
+        stunPassword.value = Advanced.DeviceManagement.TR069.STUNPwd;
+        stunMax.value = Advanced.DeviceManagement.TR069.STUNMax;
+        stunMin.value = Advanced.DeviceManagement.TR069.STUNMin;
       };
 
       initEvent();
@@ -265,6 +334,13 @@ function loadPage(page, options) {
           Advanced.DeviceManagement.TR069.PerodicInterval =
             perocdicInterval.value;
 
+          Advanced.DeviceManagement.TR069.EnableSTUN = stunEnable.checked;
+          Advanced.DeviceManagement.TR069.STUNAddr = stunServerAddr.value;
+          Advanced.DeviceManagement.TR069.STUNPort = stunServerPort.value;
+          Advanced.DeviceManagement.TR069.STUNUser = stunUsername.value;
+          Advanced.DeviceManagement.TR069.STUNPwd = stunPassword.value;
+          Advanced.DeviceManagement.TR069.STUNMax = stunMax.value;
+          Advanced.DeviceManagement.TR069.STUNMin = stunMin.value;
           applyThenStoreToLS(
             "advanced-device_management.html",
             "Apply",
