@@ -36,6 +36,30 @@ function loadPage(page, options) {
     return true;
   }
 
+  /**
+   * Gen wifi password as R-1.5.14 FASTWEB
+   */
+  function gen_wifi_password(length, security_type) {
+    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    if (security_type == 4 || security_type == 5) {
+      // WEP-64 & WEP-128
+      characters = "1234567890";
+    }
+    // Define the characters to choose from: uppercase letters and digits
+    let password = "";
+
+    // Loop to generate a password of the desired length
+    for (let i = 0; i < length; i++) {
+      // Get a random index to select a character from the characters string
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      // Append the selected character to the password
+      password += characters[randomIndex];
+    }
+
+    return password;
+  }
+
   switch (page) {
     case "wifi-2_4G-config.html":
       console.log(`Load ${page}`, Wifi["2.4G"]);
@@ -1301,7 +1325,7 @@ function loadPage(page, options) {
             APIsolation: false,
             SSID: "",
             SecurityType: 0,
-            Passphrase: "123456789a",
+            Passphrase: gen_wifi_password(10),
             DTIM: "",
             BeaconInterval: "",
             PowerScale: "",
@@ -1355,14 +1379,24 @@ function loadPage(page, options) {
           checkError_selectField(security_type, security_type_error);
           switch (security_type.value) {
             case "5": // set new password for WEP 64 case
-              newWifiInfo.Configuration.Passphrase =
-                "12345678901234567890123456";
+              newWifiInfo.Configuration.Passphrase = gen_wifi_password(
+                26,
+                security_type.value
+              );
               wps.disabled = true;
               wps.checked = false;
               window.alert("WPS function only supports WPA and WPA2 mode.");
               break;
-            case "4": // WPA Personal + Enterprise Passthrough the WPS function
-            case "6":
+            case "4":
+              newWifiInfo.Configuration.Passphrase = gen_wifi_password(
+                10,
+                security_type.value
+              );
+              wps.disabled = true;
+              wps.checked = false;
+              window.alert("WPS function only supports WPA and WPA2 mode.");
+              break;
+            case "6": // WPA Personal + Enterprise Passthrough the WPS function
             case "7":
             case "8":
             case "9":
@@ -3132,7 +3166,7 @@ function loadPage(page, options) {
             APIsolation: false,
             SSID: "GEMTEK5G",
             SecurityType: 3,
-            Passphrase: "wifi_password2",
+            Passphrase: gen_wifi_password(10),
             DTIM: 2,
             BeaconInterval: 100,
             PowerScale: 12,
@@ -3185,14 +3219,24 @@ function loadPage(page, options) {
           checkError_selectField(security_type, security_type_error);
           switch (security_type.value) {
             case "5": // set new password for WEP 64 case
-              newWifiInfo.Configuration.Passphrase =
-                "12345678901234567890123456";
+              newWifiInfo.Configuration.Passphrase = gen_wifi_password(
+                26,
+                security_type.value
+              );
               wps.disabled = true;
               wps.checked = false;
               window.alert("WPS function only supports WPA and WPA2 mode.");
               break;
-            case "4": // WPA Personal + Enterprise Passthrough the WPS function
-            case "6":
+            case "4":
+              newWifiInfo.Configuration.Passphrase = gen_wifi_password(
+                10,
+                security_type.value
+              );
+              wps.disabled = true;
+              wps.checked = false;
+              window.alert("WPS function only supports WPA and WPA2 mode.");
+              break;
+            case "6": // WPA Personal + Enterprise Passthrough the WPS function
             case "7":
             case "8":
             case "9":

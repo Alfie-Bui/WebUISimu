@@ -1749,6 +1749,33 @@ function loadPage(page, options) {
         applyThenStoreToLS(page, "Apply", Advanced);
       });
       break;
+    case "advanced-localDNS.html":
+      console.log(`Load ${page}`, Advanced.LocalDNS);
+
+      var enaLocalDNS = document.getElementById("DeviceUPnPDevice_Enable");
+
+      // fill data
+      Advanced.LocalDNS.EnaLocalDNS
+        ? enaLocalDNS.classList.add("checked")
+        : enaLocalDNS.classList.remove("checked");
+
+      // event
+      enaLocalDNS.addEventListener("click", () => {
+        enaLocalDNS.classList.toggle("checked");
+      });
+
+      // Apply and Cancel
+      document.getElementById("Cancel").addEventListener("click", () => {
+        applyThenStoreToLS(page, "Cancel");
+      });
+
+      document.getElementById("Modify").addEventListener("click", () => {
+        Advanced.LocalDNS.EnaLocalDNS =
+          enaLocalDNS.classList.contains("checked");
+
+        applyThenStoreToLS(page, "Apply", Advanced);
+      });
+      break;
     case "advanced-vpn.html":
       console.log(`Load ${page}`, Advanced.vpn);
       function createIpsecRow(data, index) {

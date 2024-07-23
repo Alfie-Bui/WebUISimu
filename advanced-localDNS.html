@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0040)#/tableform/qosform -->
+<!-- saved from url=(0033)#/custom/upnp -->
 <html data-ng-app="routerapp" class="ng-scope">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -57,6 +57,7 @@
       rel="stylesheet"
       type="text/css"
     />
+
     <style type="text/css">
       /* Chart.js */
       @-webkit-keyframes chartjs-render-animation {
@@ -80,10 +81,11 @@
         animation: chartjs-render-animation 0.001s;
       }
     </style>
-    <script src="js/Echart/echarts.min.js"></script>
+
     <link rel="stylesheet" href="dialogue/ngDialog.min.css" />
     <link rel="stylesheet" href="dialogue/ngDialog-theme-default.min.css" />
     <link rel="stylesheet" href="css/Custom/gemtek.css" />
+
     <script type="text/ng-template" id="firstDialogId">
       <div class="ngdialog-message">
       <form class="form-horizontal" role="form">
@@ -99,14 +101,14 @@
       <div class="form-group">
       <label class="col-sm-12 col-lg-3 col-md-3 col-xs-12 control-label" for="Status" ></label>
       <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12">
-      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></progressbar>
+      <progressbar class="progress-striped active wpsprogressbar" value="{{dynamic}}" type="{{type}}">{{type}} <i >!!! Watch out !!!</i></progressbar>
       </div>
       </div>
       <!-- Modify -->
       </form>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="btn btn-info pull-right" ng-click=closeThisDialog("Cancel")>Cancel</button>
+      <button type="button" class="btn btn-info pull-right" >Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="modalDialogId">
@@ -116,8 +118,8 @@
       <div>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(confirmValue)">Confirm</button>
-      <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Cancel</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" >Confirm</button>
+      <button type="button" class="ngdialog-button ngdialog-button-secondary" >Cancel</button>
       </div>
     </script>
     <script type="text/ng-template" id="sessionTimeout">
@@ -128,21 +130,21 @@
       <div>You will automatically be logged off in {{$root.time}} seconds.</div>
       </div>
       <div class="ngdialog-buttons">
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(true)">Yes</button>
-      <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(false)">No</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" >Yes</button>
+      <button type="button" class="ngdialog-button ngdialog-button-primary" >No</button>
       </div>
     </script>
 
     <!-- Add other stylesheets and scripts as needed -->
-    <script src="./js/storage.js"></script>
     <script src="./js/template.js"></script>
+    <script src="./js/storage.js"></script>
     <script src="./js/commonFunction.js"></script>
     <script src="./js/controller/advanced.js"></script>
 
     <script>
       window.onload = () => {
         checkVersion();
-        loadPage("advanced-qos-edit.html");
+        loadPage("advanced-localDNS.html");
       };
     </script>
   </head>
@@ -200,8 +202,8 @@
               </g>
             </g>
             <g
-              transform="matrix(-0.9958527088165283,0.09098020195960999,-0.09098020195960999,-0.9958527088165283,63.58810043334961,50.84659194946289)"
-              opacity="1"
+              transform="matrix(-0.18893639743328094,-0.981989324092865,0.981989324092865,-0.18893639743328094,69.4631576538086,62.66608428955078)"
+              opacity="0.8407560000001039"
               style="display: block"
             >
               <g
@@ -215,7 +217,7 @@
                   stroke="rgb(179,235,247)"
                   stroke-opacity="1"
                   stroke-width="12"
-                  d=" M27.496999740600586,-39.3380012512207 C39.88999938964844,-30.65399932861328 48,-16.266000747680664 48,0 C48,4.541999816894531 47.36800003051758,8.937999725341797 46.18600082397461,13.102999687194824"
+                  d=" M37.71799850463867,-29.674999237060547 C39.233001708984375,-27.753999710083008 40.604000091552734,-25.71299934387207 41.814998626708984,-23.570999145507812"
                 ></path>
               </g>
             </g>
@@ -313,13 +315,13 @@
                   <!-- ngIf: showMenu -->
                 </li>
                 <!-- <li><a class="" id="themeselect"><span>Theme</span><span class="fa fa-angle-down" style="margin-left: 3px;"></span></a>
-                                <div class="no-padding-vr">
-                                    <ul class="notificationdiv">
-                                        <li class="theme1">Theme-1</li>
-                                        <li class="theme2">Theme-2</li>
-                                    </ul>
-                                </div>
-                            </li> -->
+                                    <div class="no-padding-vr">
+                                        <ul class="notificationdiv">
+                                            <li class="theme1">Theme-1</li>
+                                            <li class="theme2">Theme-2</li>
+                                        </ul>
+                                    </div>
+                                </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/language.svg" /><span
@@ -331,10 +333,10 @@
                   </div>
                 </li>
                 <!-- <li>
-                                <a style="overflow: hidden;white-space: nowrap;">
-                                    <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
-                                </a>
-                            </li> -->
+                                    <a style="overflow: hidden;white-space: nowrap;">
+                                        <switch-widget id="Polling" label="Auto-Refresh" ng-model="$rootScope.enablePolling" cgiset="false" object="" param="" checkdisplay="false" checkvalue="" checkurl="" customfun="polling"/>
+                                    </a>
+                                </li> -->
                 <li>
                   <div class="no-padding-vr">
                     <img src="images/icons/icon-1/user.svg" />
@@ -709,7 +711,7 @@
                 </li>
                 <!-- end ngIf: post.visible !== false --><!-- end ngRepeat: post in post.childrens -->
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
+                  class="no-padding-hr no-margin-vr ng-scope"
                   id="ddnsform-10"
                 >
                   <a
@@ -723,7 +725,7 @@
                   <!-- <div class="hide animation" name="lantiq-submenu" id="{{dataTab}}-{{post.name}}-{{$index}}"></div> -->
                 </li>
                 <li
-                  class="no-padding-hr no-margin-vr ng-scope"
+                  class="no-padding-hr no-margin-vr ng-scope menuitem-highlight"
                   id="ddnsform-10"
                 >
                   <a
@@ -905,314 +907,313 @@
         </div>
       </div>
 
-      <div id="content-wrapper" style="min-height: 932px">
+      <div id="content-wrapper" style="min-height: 606px">
         <!-- ngView: true -->
-        <div
-          data-ng-view="true"
-          id="dataView"
-          translate-cloak=""
-          class="ng-scope"
-        >
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="row ltq_breadcrumbs ng-scope"
-          >
-            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true -->
-                <h4 ng-switch-when="true" class="ng-binding ng-scope">QoS</h4>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$index === 1"
-                ><!-- ngSwitchWhen: true --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <div
-                  class="btn-group btn-breadcrumb1 ng-scope"
-                  ng-switch-when="true"
-                >
-                  <div class="ltq_brd_home">
-                    <a class="btn ng-binding" onlick="home()"> Advanced </a>
-                  </div>
-                </div>
-                <!-- end ngSwitchWhen: -->
-                <!-- ngSwitchWhen: false --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <!-- ngSwitchWhen: false -->
-                <div
-                  class="btn-group btn-breadcrumb ng-scope"
-                  ng-switch-when="false"
-                >
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false --><span
-                    class="ng-scope"
-                    ><a class="btn ng-binding" href="advanced-qos.html"
-                      ><i></i>
-                      QoS
-                    </a></span
-                  ><!-- end ngIf: breadcrumb.path!='nothing' && $last==false -->
-                </div>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-            <div class="ng-scope">
-              <ng-switch on="$first"
-                ><!-- ngSwitchWhen: true -->
-                <!-- ngSwitchWhen: false -->
-                <div
-                  class="btn-group btn-breadcrumb ng-scope"
-                  ng-switch-when="false"
-                >
-                  <!-- ngIf: breadcrumb.path=='nothing' || $last==true --><span
-                    class="btn btn-default not-active ng-binding ng-scope"
-                  >
-                    Edit </span
-                  ><!-- end ngIf: breadcrumb.path=='nothing' || $last==true --><!-- ngIf: breadcrumb.path!='nothing' && $last==false -->
-                </div>
-                <!-- end ngSwitchWhen: --></ng-switch
-              >
-            </div>
-            <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="translation"
-            class="ng-hide ng-scope"
-          >
-            qos
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="headername"
-            class="ng-hide ng-scope"
-          >
-            QoS Configuration
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            id="headerdescription"
-            class="ng-hide ng-scope"
-          >
-            Configure general QoS settings such as overall enable, traffic
-            class/DSCP/Ethernet priority(802.1P) value for unclassified traffic.
-          </div>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="help_toggle helpshow ng-scope"
-          >
-            <div class="help_txtcontent">
-              <a href="" helpfile="languages/*/helpkey"
-                ><i class="fa fa-info circle_bg"></i></a
-              ><!-- ngInclude: helpfile -->
-            </div>
-          </div>
+        <div id="dataView" class="ng-scope">
+          <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 
-          <div xmlns="http://www.w3.org/1999/xhtml" class="subheader ng-scope">
-            <p id="headerdescriptiondata" class="ng-binding">
-              Configure general QoS settings such as overall enable, traffic
-              class/DSCP/Ethernet priority(802.1P) value for unclassified
-              traffic.
-            </p>
-          </div>
-          <h4
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="panel_title hide ng-scope"
-          ></h4>
-          <div
-            xmlns="http://www.w3.org/1999/xhtml"
-            class="panel panel-default panel-bg1 ng-scope"
-          >
-            <div class="panel-body no-padding">
-              <div class="alert alert-danger ng-hide" ng-show="DeviceQoSpopup">
-                <a class="close" aria-label="close">✖ </a>
-                <p
-                  ng-bind-html="DeviceQoSpopupval | unsafe"
-                  class="ng-binding"
-                ></p>
+          <title class="ng-scope">Intel</title>
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+            class="ng-scope"
+          />
+          <style type="text/css" class="ng-scope">
+            /*
+             * To configure other images as icons
+             * Write a css class with the value of icon parameter in json data
+             * EX:-
+             * .jstree-custom-folder{
+             *    background-image: url('images/folder.png') !important;
+             *    background-position: 0 !important;
+             *  }
+             * In json data icon parameter value is "jstree-custom-folder"
+             *
+             */
+
+            .Upnp-fan {
+              background-image: url("images/icons/Upnp-fan.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-IoT {
+              background-image: url("images/icons/Upnp-IoT.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-multiscreen {
+              background-image: url("images/icons/upnp-multiscreen.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-internet {
+              background-image: url("images/icons/upnp-internet.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-deviceprotection {
+              background-image: url("images/icons/Upnp-deviceprotection.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-remoteaccess {
+              background-image: url("images/icons/Upnp-remoteaccess.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-scanner {
+              background-image: url("images/icons/Upnp-scanner.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-qos {
+              background-image: url("images/icons/Upnp-qos.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-sync {
+              background-image: url("images/icons/Upnp-sync.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-energymanagement {
+              background-image: url("images/icons/Upnp-energymanagement.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-Lowpower {
+              background-image: url("images/icons/Upnp-Lowpower.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-solarblind {
+              background-image: url("images/icons/Upnp-solarblind.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-folder {
+              background-image: url("images/icons/Upnp-folder.png") !important;
+              background-position: 0 !important;
+            }
+
+            .Upnp-services {
+              background-image: url("images/icons/Upnp-services.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-devices {
+              background-image: url("images/icons/upnp-devices.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-top {
+              background-image: url("images/icons/upnp-top.png") !important;
+              background-position: 0 !important;
+            }
+
+            .upnp-mediaserver {
+              background-image: url("images/icons/upnp-mediaserver.png") !important;
+              background-position: 0 !important;
+            }
+
+            li {
+              padding: 3px 0 4px 0 !important;
+            }
+          </style>
+
+          <div id="translation" class="hide ng-scope">upnp</div>
+          <div ng-controller="upnpController" class="ng-scope">
+            <!--Breadscrumbs starts here -->
+            <div class="row ltq_breadcrumbs">
+              <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$index === 1">
+                  <!-- ngSwitchWhen: true -->
+                </ng-switch>
               </div>
-              <form
-                class="form-horizontal formCount lantiq-form-text ng-pristine ng-valid ng-valid-maxlength"
-                id="DeviceQoS"
-              >
-                <div>
-                  <div class="wrapperdiv">
-                    <div class="panel-body">
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-12">
-                        <div
-                          class="row switchblock gemtek-switchblock-no-padding-left gemtek-toggle-label"
-                        >
-                          <label
-                            for="X_GTK_QoSEnable"
-                            class="control-label ng-binding"
-                            >QoS Enable</label
-                          >
-                          <div class="text-left">
-                            <span
-                              class="switch hidden-dom-removal ng-valid checked"
-                              id="X_GTK_QoSEnable"
-                              name="DeviceQoS.X_GTK_QoSEnable"
-                              ><small></small
-                              ><input
-                                type="checkbox"
-                                id="X_GTK_QoSEnableBtn"
-                                name="DeviceQoS.X_GTK_QoSEnable"
-                                style="display: none"
-                                class="ng-pristine ng-untouched ng-valid"
-                              /><span class="switch-text"
-                                ><span class="off">OFF</span></span
-                              ></span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                          >
-                            <input
-                              type="text"
-                              id="DefaultTrafficClass"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-maxlength"
-                              placeholder="Please Enter the value"
-                              maxlength="64"
-                              name="DeviceQoS_DefaultTrafficClass"
-                            /><label
-                              for="DefaultTrafficClass"
-                              class="active ng-binding"
-                              >Traffic Class</label
-                            ><span class="error ng-binding ng-hide"></span
-                            ><span
-                              class="error ng-hide"
-                              id="exceed_error_traffic"
-                              ><span class="ng-binding"
-                                >String length Exceeded the limit: </span
-                              ><span>64</span></span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <label
-                            for="DefaultDSCPMark"
-                            class="col-xs-12 no-padding-hr-l control-label gemtek-dropdown-label ng-binding"
-                            >Default DSCP Mark</label
-                          >
-                          <div
-                            style="margin-top: 20px"
-                            class="no-padding-hr-l col-xs-12 col-sm-12"
-                          >
-                            <select
-                              class="dropdown-toggle form-control1 hidden-dom-removal ng-pristine ng-untouched ng-valid"
-                              id="DefaultDSCPMark"
-                              name="DeviceQoS_DefaultDSCPMark"
-                            >
-                              <option
-                                value="-1"
-                                selected="selected"
-                                label="No Change"
-                              >
-                                No Change
-                              </option>
-                              <option value="0" label="Best Effort (CS0)">
-                                Best Effort (CS0)
-                              </option>
-                              <option value="1" label="AF11">AF11</option>
-                              <option value="2" label="AF12">AF12</option>
-                              <option value="3" label="AF13">AF13</option>
-                              <option value="4" label="AF21">AF21</option>
-                              <option value="5" label="AF22">AF22</option>
-                              <option value="6" label="AF23">AF23</option>
-                              <option value="7" label="AF31">AF31</option>
-                              <option value="8" label="AF32">AF32</option>
-                              <option value="9" label="AF33">AF33</option>
-                              <option value="10" label="AF41">AF41</option>
-                              <option value="11" label="AF42">AF42</option>
-                              <option value="12" label="AF43">AF43</option>
-                              <option value="13" label="CS1">CS1</option>
-                              <option value="14" label="CS2">CS2</option>
-                              <option value="15" label="CS3">CS3</option>
-                              <option value="16" label="CS4">CS4</option>
-                              <option value="17" label="CS5">CS5</option>
-                              <option value="18" label="CS6">CS6</option>
-                              <option value="19" label="CS7">CS7</option>
-                              <option value="20" label="High Priority/EF">
-                                High Priority/EF
-                              </option></select
-                            ><span class="error ng-binding ng-hide"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr col-xs-12 col-sm-5">
-                        <div class="row">
-                          <div
-                            class="input-field no-padding-hr-l col-xs-12 col-sm-12"
-                          >
-                            <input
-                              type="text"
-                              id="DefaultEthernetPriorityMark"
-                              class="form-control hidden-dom-removal ng-pristine ng-untouched ng-valid ng-valid-maxlength"
-                              placeholder="Please Enter the value"
-                              maxlength="64"
-                              name="DeviceQoS_DefaultEthernetPriorityMark"
-                            /><label
-                              for="DefaultEthernetPriorityMark"
-                              class="active ng-binding"
-                              >Eth Priority Mark</label
-                            ><span class="error ng-binding ng-hide"></span
-                            ><span class="error ng-hide" id="exceed_error_eth"
-                              ><span class="ng-binding"
-                                >String length Exceeded the limit: </span
-                              ><span>64</span></span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group no-padding-hr"></div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$index === 1">
+                  <!-- ngSwitchWhen: true -->
+                  <h4 class="ng-binding ng-scope">Local DNS</h4>
+                  <!-- end ngSwitchWhen: -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <!-- ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$first">
+                  <!-- ngSwitchWhen: true -->
+                  <div class="btn-group btn-breadcrumb1 ng-scope">
+                    <div class="ltq_brd_home">
+                      <a class="btn ng-binding" href="main.html"> Advanced </a>
                     </div>
                   </div>
-                  <div class="text-center gemtek-button-outside-panel">
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Cancel"
-                        class="gemtek-btn-normal"
-                        value="Cancel"
-                      />
-                    </div>
-                    <div class="btn-align">
-                      <input
-                        type="button"
-                        id="Modify"
-                        class="gemtek-btn-primary"
-                        value="Apply"
-                      />
+                  <!-- end ngSwitchWhen: -->
+
+                  <!-- ngSwitchWhen: false -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+              <div class="ng-scope">
+                <ng-switch on="$first">
+                  <!-- ngSwitchWhen: true -->
+
+                  <!-- ngSwitchWhen: false -->
+                  <div class="btn-group btn-breadcrumb ng-scope">
+                    <!-- ngIf: breadcrumb.path == 'nothing' || $last == true --><span
+                      class="btn btn-default not-active ng-binding ng-scope"
+                    >
+                      Local DNS </span
+                    ><!-- end ngIf: breadcrumb.path == 'nothing' || $last == true -->
+                    <!-- ngIf: breadcrumb.path != 'nothing' && $last == false -->
+                  </div>
+                  <!-- end ngSwitchWhen: -->
+                </ng-switch>
+              </div>
+              <!-- end ngRepeat: breadcrumb in $root.breadcrumbs -->
+            </div>
+            <!--Breadscrumbs ends here -->
+
+            <div class="subheader">
+              <p class="ng-binding">
+                Local DNS allows to enable/disable the Unbound local DNS
+                Recursive
+              </p>
+            </div>
+            <div class="row ng-hide" ng-show="upnppopup">
+              <div class="alert alert-danger">
+                <a class="close" aria-label="close">×</a>
+                <strong class="ng-binding">Warning!</strong
+                ><span class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="row ng-hide" ng-show="upnppostpopup">
+              <div class="alert alert-danger">
+                <a class="close" aria-label="close">×</a>
+                <strong class="ng-binding">Warning!</strong
+                ><span ng-bind="upnppostpopupval" class="ng-binding"></span>
+              </div>
+            </div>
+            <div class="panel no-margin-vr">
+              <div class="panel-body" style="padding: 20px">
+                <div class="form-group no-padding-hr-l col-xs-12 col-sm-12">
+                  <div class="row">
+                    <div class="checkbox">
+                      <span class="gemtek-btn-mr ng-binding"
+                        >Enable Local DNS</span
+                      >
+                      <span
+                        class="switch hidden-dom-removal ng-valid"
+                        id="DeviceUPnPDevice_Enable"
+                        name="Enable"
+                        ><small></small
+                        ><input
+                          type="checkbox"
+                          name="Enable"
+                          style="display: none"
+                          class="ng-pristine ng-untouched ng-valid"
+                        /><span class="switch-text"
+                          ><span class="on">ON</span
+                          ><span class="off">OFF</span></span
+                        ></span
+                      >
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
+            <div class="row">
+              <div class="text-center gemtek-button-style-nobg">
+                <div class="btn-align">
+                  <input
+                    type="button"
+                    class="waves-effect waves-light gemtek-btn-normal"
+                    id="Cancel"
+                    value="Cancel"
+                  />
+                </div>
+                <div class="btn-align">
+                  <input
+                    type="button"
+                    id="Modify"
+                    class="waves-effect waves-light gemtek-btn-primary"
+                    value="Apply"
+                    formstatus=""
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- <div class="panel">
+    <div class="panel-heading blu_bg">
+        <span class="panel_heading_icon">
+            <img alt="panel-icon" src="images/icons/upnp.png">
+        </span>
+        <span class="ng-binding">UPnP Device Details</span>
+    </div> -->
+            <!-- <div class="panel-body">
+      <div class="row" >
+      <div class="col-md-6 no-padding">
+        <div class=" panel" style="min-height: 150px;max-height: 250px;overflow: auto">
+          <div class="panel-heading pilot_bg">
+            <span class="ng-binding">UPnP Devices</span>
+          </div>
+          <div class="panel-body">
+            <div class="tree-browser" style="overflow: auto;">
+              <js-tree tree-data="scope" tree-model="treeModel" tree-events="select_node:nodeSelected;">
+              </js-tree>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 no-padding">
+        <div class=" panel" style="min-height: 150px;" ng-show="!nodata">
+          <div class="panel-heading pilot_bg">
+            <span class="ng-binding">UPnP Devices/Service Details</span>
+            <span style="color:springgreen;"><span id="selectedname"></span></span>
+          </div>
+          <div class="panel-body">
+            <div class="file-viewer">
+              <div style="overflow: auto;">
+                <table class="table table-bordered custom_table theme_intel">
+                  <thead>
+                    <th style=" background-color: #f66555 !important;">Name</th>
+                    <th style=" background-color: #f66555 !important;">Value</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, value) in row">
+                      <td>{{key}}</td>
+                      <td>{{value}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <span class="error" ng-show="nodata">
+                <code>
+                  <i class="fa fa-exclamation" aria-hidden="true"></i>
+                  Please select a device/service to view its details
+                </code>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-right">
+        <div class="btn-align custom_btn_add">
+          <input id="Refresh" class="btn btn-info waves-effect waves-light" type="button" ng-click="Refresh($event)"
+            value="{{'Refresh'|translate}}">
+        </div>
+      </div>
+    </div> -->
+            <!--                </div>
+            </div>-->
           </div>
         </div>
 
@@ -1274,20 +1275,15 @@
                   >
                     <div
                       class="progress-bar"
-                      ng-class="type &amp;&amp; &#39;progress-bar-&#39; + type"
                       role="progressbar"
                       aria-valuenow=""
                       aria-valuemin="0"
                       aria-valuemax="100"
-                      ng-style="{width: (percent &lt; 100 ? percent : 100) + &#39;%&#39;}"
                       aria-valuetext="%"
-                      ng-transclude=""
                       style="width: 100%"
                     >
                       <span class="ng-binding ng-scope"> </span
-                      ><i ng-show="showWarning" class="ng-scope ng-hide"
-                        >!!! Watch out !!!</i
-                      >
+                      ><i class="ng-scope ng-hide">!!! Watch out !!!</i>
                     </div>
                   </div>
                 </div>
@@ -1327,18 +1323,6 @@
     <!--        <script src="js/Jquery/jquery1.9.1.min.js"></script>-->
     <!--[if !IE]> -->
     <!-- <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">' + "<" + "/script>");</script>-->
-
-    <!-- <![endif]-->
-    <!--[if lte IE 9]>
-      <script type="text/javascript">
-        window.jQuery ||
-          document.write(
-            '<script src="js/Jquery/jquery1.9.1.min.js">' + "<" + "/script>"
-          );
-      </script>
-    <![endif]-->
-
-    <link href="css/Custom/xeditable.css" rel="stylesheet" type="text/css" />
 
     <div class="hiddendiv common"></div>
   </body>
