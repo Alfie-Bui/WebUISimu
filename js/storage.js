@@ -107,6 +107,9 @@ function applyThenStoreToLS(page, option, change_entity) {
       case "advanced-upnp.html":
         Advanced = change_entity;
         break;
+      case "advanced-localDNS.html":
+        Advanced = change_entity;
+        break;
       case "advanced-vpn-add.html":
         Advanced = change_entity;
         break;

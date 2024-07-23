@@ -303,6 +303,9 @@ const template = {
     UPnP: {
       EnaUPnP: false,
     },
+    LocalDNS: {
+      EnaLocalDNS: false,
+    },
     StaticRouting: {
       StaticRoutingConfiguration: {
         NumberOfEntries: "1",
@@ -511,3 +514,5 @@ const WAN_INTERFACE_POOL = [
   "ANI0_wan13",
   "ANI0_wan14",
 ];
+
+const MAIN_MENU = "";
