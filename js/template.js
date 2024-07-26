@@ -5,7 +5,7 @@
  */
 
 const SIMULATOR_VERSION =
-  "GemtekWeb_v09_21Jun24"; /* Release version and tag tracking */
+  "GemtekWeb_v10_26Jul24"; /* Release version and tag tracking */
 
 /**
  *
